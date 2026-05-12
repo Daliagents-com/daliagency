@@ -21,7 +21,7 @@ export default function MuqtadPage() {
           className={`${monoText.className} uppercase flex flex-col gap-36 py-80`}
         >
           <h1 className={`text-body1 md:text-[72px] leading-none`}>
-            One place for the best discounts across Georgia's retailers.
+            One place for the best discounts across Georgia&apos;s retailers.
           </h1>
           <ul className={`flex text-body5 md:text-h2 gap-36 font-light`}>
             {projectData.tags.map((tag, idx) => (
@@ -55,7 +55,7 @@ export default function MuqtadPage() {
               placeholder="blur"
             />
             <p className="text-body4 md:text-body1">
-              Muqtad pulls discounts from Georgia's top retailers into one place. We came in to shape the brand identity and deliver the e-commerce platform — from logo and visual system to the way shoppers discover, compare, and act on offers.
+              Muqtad pulls discounts from Georgia&apos;s top retailers into one place. We came in to shape the brand identity and deliver the e-commerce platform — from logo and visual system to the way shoppers discover, compare, and act on offers.
             </p>
           </div>
         </section>

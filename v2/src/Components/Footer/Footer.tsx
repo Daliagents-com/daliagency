@@ -1,17 +1,24 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 import Container from "@/Components/Container/Container";
 import { condensedHeadings, serifText } from "@/assets/fonts";
-import PapersImage from "@/assets/images/footer-papers.png";
 import NoiseLayer from "@/Components/PageGrain/NoiseLayer";
 
-const sayHiVariants = ["Say Hi", "مرحباً", "Здраво", "Zdravo", "Hola"];
+const sayHiVariants = [
+  { text: "Привет", lang: "ru", className: "" },
+  { text: "Привіт", lang: "uk", className: "" },
+  { text: "გამარჯობა", lang: "ka", className: "say-hi-word--georgian" },
+  { text: "Բարև", lang: "hy", className: "say-hi-word--armenian" },
+  { text: "שלום", lang: "he", className: "say-hi-word--hebrew", dir: "rtl" },
+  { text: "Bonjour", lang: "fr", className: "" },
+  { text: "Hola", lang: "es", className: "" },
+];
 
 export default function Footer() {
   const [sayHiTextIndex, setSayHiTextIndex] = useState(0);
+  const sayHiCount = sayHiVariants.length;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,8 +27,13 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
-  const sayHiText = sayHiVariants[sayHiTextIndex % sayHiVariants.length];
-  const prevText = sayHiVariants[(sayHiTextIndex - 1) % sayHiVariants.length];
+  const normalizedSayHiIndex = Number.isFinite(sayHiTextIndex)
+    ? sayHiTextIndex % sayHiCount
+    : 0;
+  const sayHiText = sayHiVariants[normalizedSayHiIndex] ?? sayHiVariants[0];
+  const prevText =
+    sayHiVariants[(normalizedSayHiIndex - 1 + sayHiCount) % sayHiCount] ??
+    sayHiVariants[sayHiCount - 1];
 
   return (
     <footer className="relative isolate bg-[var(--footer-bg-color)] text-[var(--footer-text-color)]">
@@ -41,19 +53,21 @@ export default function Footer() {
               {sayHiVariants.map((text, idx) => (
                 <motion.p
                   key={idx}
+                  lang={text.lang}
+                  dir={text.dir}
                   style={{ perspective: 900 }}
                   transition={{ duration: 0.7 }}
-                  className="text-[4em] uppercase py-20 absolute top-0 left-0"
+                  className={`say-hi-word ${text.className} text-[4em] py-20 absolute top-0 left-0`}
                   initial={false}
                   animate={
-                    sayHiText === text
+                    sayHiText.text === text.text
                       ? { opacity: 1, y: 0, rotateX: 0 }
-                      : text === prevText
+                      : text.text === prevText.text
                       ? { opacity: 0, y: -50, rotateX: -90 }
                       : { opacity: 0, y: 50, rotateX: 90 }
                   }
                 >
-                  {text}
+                  {text.text}
                 </motion.p>
               ))}
             </div>
@@ -64,13 +78,13 @@ export default function Footer() {
               DAV.HAKOBYAN100@GMAIL.COM
             </a>
           </div>
-          <div className="grid grid-cols-2 py-42">
+          <div className="py-42">
             <div>
               <p className="text-body3">SOCIALS</p>
               <ul className="text-body3 mt-40 flex flex-col gap-12 uppercase">
                 <li>
                   <a
-                    href="https://t.me/peakshift"
+                    href="https://t.me/aisceptic0"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:underline"
@@ -81,55 +95,35 @@ export default function Footer() {
 
                 <li>
                   <a
-                    href="https://twitter.com/peakshift"
+                    href="https://www.linkedin.com/in/davidhakobyan/"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:underline"
                   >
-                    Twitter
+                    LinkedIn
                   </a>
                 </li>
 
                 <li>
                   <a
-                    href="https://facebook.com/peakshift"
+                    href="https://x.com/larseen66"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:underline"
                   >
-                    Facebook
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="https://dribbble.com/peakshift"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:underline"
-                  >
-                    Dribble
+                    X
                   </a>
                 </li>
               </ul>
             </div>
-            <div>
-              <p className="text-body3 mb-40">PGP</p>
-              <p className="text-body3">
-                A815 2601 F001 645B 5269 2258 6004 5CFE 793B 59AD
-              </p>
-            </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 mt-40">
-          <div className="">
-            <Image src={PapersImage} alt="" className="" />
-          </div>
+        <div className="mt-40">
           <p
-            className={`${serifText.className} hidden md:block italic text-body5 text-right self-center`}
+            className={`${serifText.className} italic text-body5 text-right`}
           >
-            All Rights Reserved. Copyright &copy; Peak Shift Ltd. 2012 - 2024
+            Dali Labs 2023-2026
           </p>
         </div>
       </Container>

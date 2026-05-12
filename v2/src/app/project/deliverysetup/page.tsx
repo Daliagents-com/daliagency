@@ -56,7 +56,7 @@ export default function DeliverySetupPage() {
               placeholder="blur"
             />
             <p className="text-body4 md:text-body1">
-              Behind every restaurant scaling its delivery is an operational backbone running couriers, packaging, and customer experience. That's Delivery Setup. Our work covered the brand identity, website, and the operational touchpoints food businesses use day to day — so they can grow without losing quality or control.
+              Behind every restaurant scaling its delivery is an operational backbone running couriers, packaging, and customer experience. That&apos;s Delivery Setup. Our work covered the brand identity, website, and the operational touchpoints food businesses use day to day — so they can grow without losing quality or control.
             </p>
           </div>
         </section>

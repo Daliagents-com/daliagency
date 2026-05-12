@@ -1,11 +1,16 @@
 import { StaticImageData } from "next/image";
 
 import StayAndWorkImage from "@/assets/images/projects/stayandwork.png";
+import StayAndWorkMobile from "@/assets/images/projects/stayandwork-mobile.png";
 import MuqtadImage from "@/assets/images/projects/muqtad.png";
+import MuqtadMobile from "@/assets/images/projects/muqtad-mobile.png";
 import DeliverySetupImage from "@/assets/images/projects/deliverysetup.png";
+import DeliverySetupMobile from "@/assets/images/projects/deliverysetup-mobile.png";
 import UIMixImage from "@/assets/images/projects/uimix.png";
 import MasuroImage from "@/assets/images/projects/masuro.png";
+import MasuroMobile from "@/assets/images/projects/masuro-mobile.png";
 import AgentsGeImage from "@/assets/images/projects/agentsge.png";
+import AgentsGeMobile from "@/assets/images/projects/agentsge-mobile.png";
 import TamariImage from "@/assets/images/projects/tamari.jpg";
 import MuqtaImage from "@/assets/images/projects/muqta.webp";
 
@@ -15,6 +20,7 @@ type Project = {
   tagline: string;
   tags: string[];
   image: StaticImageData;
+  mobileImage?: StaticImageData;
   backgroundColor: string;
   frameColor: string;
   orientation?: "landscape" | "portrait";
@@ -31,6 +37,7 @@ export const projects: Project[] = [
     backgroundColor: "#8AA4B8",
     frameColor: "#B89968",
     image: StayAndWorkImage,
+    mobileImage: StayAndWorkMobile,
   },
   {
     title: "Muqtad",
@@ -40,6 +47,7 @@ export const projects: Project[] = [
     backgroundColor: "#FDFBF7",
     frameColor: "#5E9FD1",
     image: MuqtadImage,
+    mobileImage: MuqtadMobile,
   },
   {
     title: "Delivery Setup",
@@ -49,6 +57,7 @@ export const projects: Project[] = [
     backgroundColor: "#F4FAE6",
     frameColor: "#94B062",
     image: DeliverySetupImage,
+    mobileImage: DeliverySetupMobile,
   },
   {
     title: "UIMix",
@@ -67,6 +76,7 @@ export const projects: Project[] = [
     backgroundColor: "#E8C9C9",
     frameColor: "#9B6B6B",
     image: MasuroImage,
+    mobileImage: MasuroMobile,
   },
   {
     title: "agents.ge",
@@ -76,6 +86,7 @@ export const projects: Project[] = [
     backgroundColor: "#FFE8D1",
     frameColor: "#C2925E",
     image: AgentsGeImage,
+    mobileImage: AgentsGeMobile,
   },
   {
     title: "Saint King Tamari",

@@ -9,6 +9,7 @@ import Portal from "../Portal/Portal";
 import { LayoutGroup, motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import PhoneFrame from "../PhoneFrame/PhoneFrame";
+import LaptopFrame from "../LaptopFrame/LaptopFrame";
 
 interface Props {
   excludeProjects?: string[];
@@ -323,30 +324,39 @@ export default function ProjectsSelect({ excludeProjects }: Props) {
                   </div>
                 </div>
                 {option.orientation === "portrait" ? (
-                  <div className="mt-auto mx-auto w-full max-w-[45%] my-42">
-                    <PhoneFrame
+                  <div className="mt-auto mx-auto w-full max-w-[92%] my-24 md:my-42 relative pr-[16%] pb-[10%]">
+                    <div
+                      className="relative w-full aspect-[3910/2236]"
+                      aria-hidden
+                    />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[29%]">
+                      <PhoneFrame
+                        src={option.image}
+                        alt={option.title}
+                        placeholder="blur"
+                        priority={isOnScreen}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-auto mx-auto w-full max-w-[92%] my-24 md:my-42 relative pr-[16%] pb-[10%]">
+                    <LaptopFrame
                       src={option.image}
                       alt={option.title}
                       placeholder="blur"
                       priority={isOnScreen}
                     />
-                  </div>
-                ) : (
-                  <div className="mt-auto mx-auto w-full max-w-[92%] my-42">
-                    <div
-                      className="relative w-full overflow-hidden rounded-md border shadow-2xl bg-black/5 aspect-[16/10]"
-                      style={{ borderColor: resolved.frameColor }}
-                    >
-                      <Image
-                        src={option.image}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 80vw, 500px"
-                        className="object-cover object-top"
-                        placeholder="blur"
-                        priority={isOnScreen}
-                      />
-                    </div>
+                    {option.mobileImage && (
+                      <div className="absolute bottom-[3%] right-[2%] w-[24%] drop-shadow-2xl">
+                        <PhoneFrame
+                          src={option.mobileImage}
+                          alt={`${option.title} mobile`}
+                          placeholder="blur"
+                          priority={isOnScreen}
+                          sizes="(max-width: 768px) 25vw, 150px"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </button>

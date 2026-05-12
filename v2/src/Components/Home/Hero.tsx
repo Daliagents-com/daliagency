@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 import Container from "@/Components/Container/Container";
 import DaliAnimation from "./DaliAnimation";
-import DottedLines from "./DottedLines";
 import ArrowDown from "@/assets/images/scroll--arrow-down.svg";
 import Image from "next/image";
 
@@ -27,28 +26,8 @@ export default function Hero() {
   const scrollPromptOpacity = useTransform(scrollY, [0, 100], [1, 0]);
 
   return (
-    <section className="min-h-[min(95vh,1440px)] flex flex-col justify-center relative py-16 isolate z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 flex-grow h-full w-full  items-end overflow-hidden relative">
-        <motion.div
-          initial={{
-            x: "-50%",
-            y: "-50%",
-            originX: "50%",
-            originY: "50%",
-          }}
-          transition={{
-            rotate: {
-              duration: 1,
-            },
-            clipPath: {
-              duration: 5,
-              ease: "easeInOut",
-            },
-          }}
-          className="hidden md:flex absolute w-full h-full top-1/2 left-1/2 z-0 flex-col justify-center items-center"
-        >
-          <DottedLines />
-        </motion.div>
+    <section className="min-h-[min(95vh,1440px)] flex flex-col justify-center relative py-16 isolate z-10 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 flex-grow h-full w-full items-end overflow-hidden relative z-10">
         <motion.h1
           initial="hide"
           animate="show"
@@ -106,14 +85,7 @@ export default function Hero() {
               <Image src={ArrowDown} alt="" />
             </span>
           </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 3.5, type: "spring" }}
-            className="flex-1 text-body6 font-normal md:ml-auto md:text-right uppercase break-words min-w-0 max-w-[50%]"
-          >
-            npub1shhm32q4zkunmwd0s20z7e6qlwkju7akku7ezte9feajmyhum3jsvy56zk
-          </motion.p>
+          <div className="flex-1" />
         </div>
       </Container>
     </section>

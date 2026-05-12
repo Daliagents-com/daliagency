@@ -27,11 +27,6 @@ const links = [
     href: "mailto:dav.hakobyan100@gmail.com",
     isExternal: true,
   },
-  {
-    text: "Book Consultation",
-    href: "https://calendly.com/johnsbeharry",
-    isExternal: true,
-  },
 ];
 
 const itemVariants = {
@@ -127,12 +122,6 @@ export default function Navbar() {
             >
               / <span className="text-body4"></span>
             </button>
-            <motion.p
-              variants={itemVariants}
-              className="text-[10px] md:text-body6 font-normal whitespace-break-spaces max-md:basis-1/2"
-            >
-              PGP A815 2601 F001 645B 5269 2258 6004 5CFE 793B 59AD
-            </motion.p>
           </div>
         </Container>
       </motion.nav>

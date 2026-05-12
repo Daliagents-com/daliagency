@@ -3,12 +3,16 @@ import "./globals.css";
 import { sansText } from "@/assets/fonts";
 import Footer from "@/Components/Footer/Footer";
 import Frame from "@/Components/Frame/Frame";
-import ColorPicker from "@/Components/ColorPicker/ColorPicker";
 import PageGrain from "@/Components/PageGrain/PageGrain";
 
 export const metadata = {
-  title: "PEAK SHIFT LTD.",
+  title: "Dali Agency",
   description: "WE CRAFT DIGITAL PRODUCTS BUILT ON WEB, MOBILE & BITCOIN.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +28,6 @@ export default function RootLayout({
         <Frame />
         {children}
         <Footer />
-        <ColorPicker />
       </body>
     </html>
   );
