@@ -1,0 +1,6 @@
+# raw LH dumps can be huge; keep summaries
+home.json
+blog.json
+blog_*.json
+solutions.json
+solutions_*.json

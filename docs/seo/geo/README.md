@@ -26,6 +26,7 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [vibe-code-rescue-ship-status.md](./vibe-code-rescue-ship-status.md) | Vibe-code Rescue pilot ship status, files, gaps |
 | [video-bhTo8fDmr5I-transcript.md](./video-bhTo8fDmr5I-transcript.md) | Full EN caption transcript of GEO/AI-search video |
 | [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Actionable takeaways from that video (robots/HTML) |
+| [lighthouse-audit-2026-07-31.md](./lighthouse-audit-2026-07-31.md) | Lighthouse + on-page crawl audit (tool-backed) |
 
 ## Related (workspace, may be local-only)
 

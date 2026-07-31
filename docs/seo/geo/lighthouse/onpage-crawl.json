@@ -1,0 +1,192 @@
+[
+  {
+    "url": "https://dali.agents.ge/",
+    "status": 200,
+    "title": "Dali - AI Agent Systems & Agent-First Products",
+    "title_len": 46,
+    "desc": "Dali designs custom AI agent systems, agent-first products, AI adoption programs, and visibility workflows around real b",
+    "desc_len": 139,
+    "keywords": false,
+    "canonical": "https://dali.agents.ge",
+    "hreflang_count": 4,
+    "h1": [
+      "Agent systems for your businessAgent systemsfor yourbusiness"
+    ],
+    "h1_count": 1,
+    "h2_count": 4,
+    "imgs": 27,
+    "imgs_no_alt": 16,
+    "links_int": 31,
+    "links_ext": 4,
+    "words_approx": 1187,
+    "jsonld_types": [
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite"
+    ],
+    "og_title": true,
+    "twitter_card": "summary_large_image"
+  },
+  {
+    "url": "https://dali.agents.ge/blog",
+    "status": 200,
+    "title": "Blog | Dali",
+    "title_len": 11,
+    "desc": "Articles on production AI agents, agent systems for business, and GEO/SEO visibility from the Dali studio.",
+    "desc_len": 106,
+    "keywords": false,
+    "canonical": "https://dali.agents.ge/blog",
+    "hreflang_count": 5,
+    "h1": [
+      "AI agents, production systems, visibility"
+    ],
+    "h1_count": 1,
+    "h2_count": 52,
+    "imgs": 54,
+    "imgs_no_alt": 0,
+    "links_int": 172,
+    "links_ext": 4,
+    "words_approx": 5828,
+    "jsonld_types": [
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite"
+    ],
+    "og_title": true,
+    "twitter_card": "summary_large_image"
+  },
+  {
+    "url": "https://dali.agents.ge/blog/human-approval-gates-for-ai-agents",
+    "status": 200,
+    "title": "Human approval gates for AI agents in production | Dali",
+    "title_len": 55,
+    "desc": "How to place human review where agents can cause irreversible damage - without freezing every workflow.",
+    "desc_len": 103,
+    "keywords": true,
+    "canonical": "https://dali.agents.ge/blog/human-approval-gates-for-ai-agents",
+    "hreflang_count": 5,
+    "h1": [
+      "Human approval gates for AI agents in production"
+    ],
+    "h1_count": 1,
+    "h2_count": 8,
+    "imgs": 9,
+    "imgs_no_alt": 0,
+    "links_int": 25,
+    "links_ext": 4,
+    "words_approx": 1389,
+    "jsonld_types": [
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "BlogPosting",
+      "Organization",
+      "Organization"
+    ],
+    "og_title": true,
+    "twitter_card": "summary_large_image"
+  },
+  {
+    "url": "https://dali.agents.ge/blog/geo-seo-for-ai-agencies",
+    "status": 200,
+    "title": "GEO and SEO for AI agencies: a practical visibility system | Dali",
+    "title_len": 65,
+    "desc": "How AI agencies should treat SEO and GEO as one system: indexable pages, citable answers, entities, and multi-language s",
+    "desc_len": 160,
+    "keywords": true,
+    "canonical": "https://dali.agents.ge/blog/geo-seo-for-ai-agencies",
+    "hreflang_count": 5,
+    "h1": [
+      "GEO and SEO for AI agencies: a practical visibility system"
+    ],
+    "h1_count": 1,
+    "h2_count": 8,
+    "imgs": 9,
+    "imgs_no_alt": 0,
+    "links_int": 25,
+    "links_ext": 4,
+    "words_approx": 1515,
+    "jsonld_types": [
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "BlogPosting",
+      "Organization",
+      "Organization"
+    ],
+    "og_title": true,
+    "twitter_card": "summary_large_image"
+  },
+  {
+    "url": "https://dali.agents.ge/solutions",
+    "status": 200,
+    "title": "Dali agent system | Multi-agent production map",
+    "title_len": 46,
+    "desc": "See how Dali runs Lead Response, Client Inbox, Operations, Knowledge, and Voice agents inside Gmail, HubSpot, Notion, Sl",
+    "desc_len": 168,
+    "keywords": false,
+    "canonical": "https://dali.agents.ge/solutions",
+    "hreflang_count": 4,
+    "h1": [
+      "One multi-agent system inside your stack."
+    ],
+    "h1_count": 1,
+    "h2_count": 2,
+    "imgs": 2,
+    "imgs_no_alt": 0,
+    "links_int": 21,
+    "links_ext": 4,
+    "words_approx": 5093,
+    "jsonld_types": [
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite",
+      "Organization",
+      "Person",
+      "Person",
+      "WebSite"
+    ],
+    "og_title": true,
+    "twitter_card": "summary_large_image"
+  },
+  {
+    "url": "https://dali.agents.ge/solutions/vibe-code-rescue",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://dali.agents.ge/robots.txt",
+    "status": 200,
+    "type": "robots",
+    "len": 97,
+    "has_gptbot": false,
+    "has_bingbot": false,
+    "preview": "User-Agent: *\nAllow: /\n\nHost: https://dali.agents.ge\nSitemap: https://dali.agents.ge/sitemap.xml\n"
+  },
+  {
+    "url": "https://dali.agents.ge/sitemap.xml",
+    "status": 200,
+    "type": "sitemap",
+    "loc_count": 276
+  }
+]
