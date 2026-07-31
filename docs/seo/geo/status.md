@@ -20,6 +20,23 @@
 
 ---
 
+## 8h sprint progress (2026-08-01 operator)
+
+| Item | Status |
+| --- | --- |
+| hello@ mailto prod | shipped `1d690f7` + Vercel prod alias |
+| GoodFirms free listing | registered, under review, slug `dali` |
+| Crunchbase | submitted uuid `1cb11ce4-e610-469f-91e0-17d70350e748` |
+| Clutch hello@ | sales email updated; profile unpublished/free |
+| LI gen posts x3 | live on company page (global copy) |
+| DNS dali.agents.ge | A 76.76.21.21 added (was NXDOMAIN) |
+| GSC/Bing | property exists; home inspected indexed |
+| X company | still SMS OTP human |
+| AI Agents Dir second free dir | overflow / not completed this pass |
+
+
+---
+
 ## % готовности (после sprint)
 
 | Зона | ~ |
