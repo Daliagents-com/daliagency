@@ -22,6 +22,7 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md) | How SEO/GEO/AEO work + what moves rankings for Dali |
 | [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Takeaways from GEO video (HTML text + robots + schema) |
 | [mention-sites-exact.md](./mention-sites-exact.md) | Exact URLs to list Dali + mention blog (Reddit, X, dirs, syndicate) |
+| [mention-sites-ge-am.md](./mention-sites-ge-am.md) | Georgia + Armenia exact list/mention URLs (BIA, yell, TechBehemoths, TG…) |
 
 ## Related (workspace, may be local-only)
 

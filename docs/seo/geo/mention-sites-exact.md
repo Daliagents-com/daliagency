@@ -153,17 +153,29 @@ Create account with history. Prefer **comments** and weekly threads over cold pr
 
 ---
 
-## GE / AM local (pick 1–2, not ten empty)
+## GE / AM local (full exact ledger)
 
-| # | Site | Exact URL | Type | When |
-| --- | --- | --- | --- | --- |
-| 63 | Google Business Profile | https://business.google.com/ | Local entity | Only if service-area / local intent |
-| 64 | thestartup.ge feature | https://thestartup.ge/georgia-startups | Startup list | Apply if fits “startup/studio” story |
-| 65 | Business Media Georgia | https://bm.ge/en/ | Press | Pitch process story, not pure ad |
-| 66 | Agenda.ge | https://agenda.ge/en | Press | Occasional tech/business |
-| 67 | Business Georgia | https://businessgeorgia.ge/ | Press | Case-by-case |
-| 68 | list.am | https://www.list.am/ | Classifieds AM | Weak B2B AI fit - optional |
-| 69 | Facebook Business | https://business.facebook.com/ | Local social | GE/AM SMB awareness |
+**Dedicated research (directories, press, TG, FB, 14-day plan):**  
+→ **[mention-sites-ge-am.md](./mention-sites-ge-am.md)**
+
+Shortlist if you only do 5 local clicks:
+
+| # | Site | Exact URL | Country |
+| --- | --- | --- | --- |
+| 63 | Google Business Profile | https://business.google.com/ | GE and/or AM (or skip) |
+| 64 | BIA.ge company registration | https://www.bia.ge/Home/CompanyRegistration | GE |
+| 65 | Yellow Pages Georgia | https://yp.com.ge/en/ | GE |
+| 66 | thestartup.ge feature | https://thestartup.ge/georgia-startups | GE |
+| 67 | Startup Grind Tbilisi | https://www.startupgrind.com/tbilisi/ | GE |
+| 68 | Business Media Georgia | https://bm.ge/en/ | GE press |
+| 69 | I-AM.AM free directory | https://i-am.am/ | AM |
+| 70 | TechBehemoths get listed | https://techbehemoths.com/companies/get-listed | AM IT |
+| 71 | TechBehemoths Armenia list | https://techbehemoths.com/companies/armenia | AM |
+| 72 | DigiTown | https://digitown.am/ | AM ecosystem |
+| 73 | list.am | https://www.list.am/ | AM classifieds (weak B2B) |
+| 74 | Facebook Business | https://business.facebook.com/ | GE/AM SMB |
+| 75 | GE blog hub (prefer in local posts) | https://dali.agents.ge/ge/blog | GE |
+| 76 | ARM blog hub | https://dali.agents.ge/arm/blog | AM |
 
 ---
 
