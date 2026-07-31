@@ -11,6 +11,8 @@ export type BlogCopy = {
   moreArticles: string;
   moreArticlesEmpty: string;
   allArticles: string;
+  authorBy: string;
+  authorBio: string;
   ctaTitle: string;
   ctaBody: string;
   ctaButton: string;
@@ -31,6 +33,9 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     moreArticles: "Related articles",
     moreArticlesEmpty: "More posts land here as the library grows.",
     allArticles: "All articles",
+    authorBy: "Written by Dali",
+    authorBio:
+      "Dali is an AI agent systems studio. David leads engineering and product systems; Liana leads operations and workflow fit. We ship production agents inside tools teams already use.",
     ctaTitle: "Map agents to your real workflows",
     ctaBody:
       "We audit how your team works, define where agents belong, and design implementation with human controls.",
@@ -51,6 +56,9 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     moreArticles: "Связанные статьи",
     moreArticlesEmpty: "Здесь появятся следующие материалы.",
     allArticles: "Все статьи",
+    authorBy: "Dali",
+    authorBio:
+      "Dali - студия AI agent systems. Давид ведёт engineering и продукт, Лиана - operations и fit процессов. Делаем production-агентов в tools, которыми команда уже пользуется.",
     ctaTitle: "Свяжем агентов с вашими процессами",
     ctaBody:
       "Аудит реальных workflow, точки для агентов и внедрение с human controls.",
@@ -71,6 +79,9 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     moreArticles: "დაკავშირებული სტატიები",
     moreArticlesEmpty: "შემდეგი მასალები აქ გამოჩნდება.",
     allArticles: "ყველა სტატია",
+    authorBy: "Dali",
+    authorBio:
+      "Dali არის AI agent systems სტუდია. დავითი - engineering/product, ლიანა - operations/workflow fit. Production აგენტები არსებულ tools-ში.",
     ctaTitle: "აგენტები რეალურ workflow-ებზე",
     ctaBody:
       "ვამოწმებთ, როგორ მუშაობს გუნდი, ვადგენთ სად სჭირდება აგენტები და ვქმნით იმპლემენტაციას human control-ებით.",
@@ -91,6 +102,9 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     moreArticles: "Առնչվող հոդվածներ",
     moreArticlesEmpty: "Հաջորդ նյութերը կհայտնվեն այստեղ։",
     allArticles: "Բոլոր հոդվածները",
+    authorBy: "Dali",
+    authorBio:
+      "Dali-ն AI agent systems ստուդիա է։ Դավիթը՝ engineering/product, Լիանան՝ operations/workflow fit։ Production գործակալներ առկա tools-ում։",
     ctaTitle: "Գործակալները՝ ձեր իրական workflow-ներում",
     ctaBody:
       "Ստուգում ենք, թե ինչպես է աշխատում թիմը, որոշում՝ որտեղ են պետք գործակալները, և նախագծում ներդրում human control-ներով։",

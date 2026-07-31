@@ -28,6 +28,8 @@ export type HomeCopy = {
     contact: string;
     founder: string;
     socials: string;
+    blog: string;
+    resources: string;
   };
   hero: {
     lines: string[][];
@@ -77,6 +79,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       contact: "Contact",
       founder: "Founder: David Hakobyan",
       socials: "Socials",
+      blog: "Blog",
+      resources: "Resources",
     },
     hero: {
       lines: [
@@ -179,6 +183,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       contact: "Контакты",
       founder: "Основатель: Давид Акопян",
       socials: "Соцсети",
+      blog: "Блог",
+      resources: "Ресурсы",
     },
     hero: {
       lines: [
@@ -281,6 +287,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       contact: "კონტაქტი",
       founder: "დამფუძნებელი: დავით ჰაკობიანი",
       socials: "სოციალური ქსელები",
+      blog: "ბლოგი",
+      resources: "რესურსები",
     },
     hero: {
       lines: [
@@ -383,6 +391,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       contact: "Կապ",
       founder: "Հիմնադիր՝ Դավիթ Հակոբյան",
       socials: "Սոցիալական ցանցեր",
+      blog: "Բլոգ",
+      resources: "Ռեսուրսներ",
     },
     hero: {
       lines: [

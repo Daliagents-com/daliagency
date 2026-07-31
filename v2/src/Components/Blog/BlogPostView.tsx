@@ -60,11 +60,32 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                 >
                   {post.description}
                 </p>
-                <p
-                  className={`${onestText.className} mt-12 text-body6 uppercase tracking-[0.08em] text-[var(--muted)]`}
-                >
-                  {post.author}
-                </p>
+                <div className="mt-16 border border-black/10 bg-white/40 px-16 py-14">
+                  <p
+                    className={`${syneText.className} text-body6 uppercase tracking-[0.08em] text-[var(--text)]`}
+                  >
+                    {copy.authorBy}
+                  </p>
+                  <p
+                    className={`${onestText.className} mt-8 text-body6 leading-relaxed text-[var(--muted)] md:text-body5`}
+                  >
+                    {copy.authorBio}
+                  </p>
+                  <p
+                    className={`${onestText.className} mt-10 text-body6 text-[var(--muted)]`}
+                  >
+                    <a
+                      href="https://www.linkedin.com/in/davidhakobyan/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline underline-offset-4"
+                    >
+                      David Hakobyan
+                    </a>
+                    {" · "}
+                    {post.author}
+                  </p>
+                </div>
               </header>
 
               {Boolean(post.heroImage) && (

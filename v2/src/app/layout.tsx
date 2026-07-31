@@ -66,6 +66,12 @@ const organizationJsonLd = {
         "production AI agents",
         "GEO and SEO for AI companies",
       ],
+      // Fill company page when created (blockers B-P1-01). Keep founder profiles now.
+      sameAs: [
+        "https://www.linkedin.com/in/davidhakobyan/",
+        "https://x.com/larseen66",
+        "https://t.me/aisceptic0",
+      ],
     },
     {
       "@type": "WebSite",

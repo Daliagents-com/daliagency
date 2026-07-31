@@ -8,9 +8,11 @@ import { condensedHeadings, serifText, syneText } from "@/assets/fonts";
 import { getGeneralAuditHref } from "@/lib/contact";
 import {
   localeFromPathname,
+  localizePath,
   stripLocalePrefix,
 } from "@/i18n/config";
 import { homeCopy } from "@/i18n/home";
+import Link from "next/link";
 
 const sayHiVariants = [
   { text: "Привет", lang: "ru", className: "" },
@@ -27,6 +29,7 @@ export default function Footer() {
   const locale = localeFromPathname(pathname);
   const auditHref = getGeneralAuditHref(locale);
   const copy = homeCopy[locale].footer;
+  const solutionsLabel = homeCopy[locale].navigation.solutions[0] ?? "Solutions";
   const normalizedPathname = stripLocalePrefix(pathname);
   const [sayHiTextIndex, setSayHiTextIndex] = useState(0);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
@@ -167,8 +170,27 @@ export default function Footer() {
               </a>
             ) : null}
             <div>
-              <p className="text-body3 uppercase">{copy.socials}</p>
-              <ul className="text-body3 mt-40 flex flex-col gap-12 uppercase">
+              <p className="text-body3 uppercase">{copy.resources}</p>
+              <ul className="text-body3 mt-16 flex flex-col gap-12 uppercase">
+                <li>
+                  <Link
+                    href={localizePath("/blog", locale)}
+                    className="hover:underline"
+                  >
+                    {copy.blog}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={localizePath("/solutions", locale)}
+                    className="hover:underline"
+                  >
+                    {solutionsLabel}
+                  </Link>
+                </li>
+              </ul>
+              <p className="text-body3 uppercase mt-32">{copy.socials}</p>
+              <ul className="text-body3 mt-16 flex flex-col gap-12 uppercase">
                 <li>
                   <a
                     href="https://t.me/aisceptic0"
