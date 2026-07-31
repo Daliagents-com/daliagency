@@ -1,0 +1,47 @@
+---
+slug: "top-questions-to-ask-ai-agent-vendors"
+title: "Գլխավոր հարցեր AI agent vendor-ներին՝ նախքան ստորագրելը"
+description: "Գործնական vendor questionnaire AI agent գործակալությունների և freelancers-ի համար. gates, data, failure modes, ownership և pilot design։"
+date: "2026-07-31"
+locale: "arm"
+hreflangGroup: "top-questions-to-ask-ai-agent-vendors"
+keywords: ["հարցեր AI agent vendor-ին", "AI agency interview questions", "AI automation vendor checklist"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Նախքան ստորագրելը, հարցրեք vendor-ներին, թե ինչպես են agent-ները ձախողվում, ինչը պահանջում է human approval, ինչպես է data-ն հասանելի, և ինչպես է ownership-ը փոխանցվում։ Բաց թողեք vendor-ներին, որոնք միայն happy path են demo անում։
+
+## Process և scope հարցեր
+
+Որ workflow-ն է առաջին pilot-ում։ Ինչն է explicit out of scope։ Ինչպես եք վարում non-standard case-երը։
+
+## Safety և control
+
+Որտե՞ղ են human gates։ Ի՞նչ է stop-switch-ը։ Ինչպե՞ս են secrets պահվում։ Կարո՞ղ է agent-ը ուղարկել money, email կամ փոխել permissions։
+
+## Evidence և ops
+
+Ինչպե՞ս եք evaluate անում quality։ Ի՞նչ է log արվում։ Ով է on-call launch-ից հետո։ Ինչ է ներառում handoff package-ը։
+
+## Commercial
+
+Fixed price թե open-ended։ Ինչն է փոխում price-ը։ Ով է տիրապետում code-ին և prompts-ին։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն հրապարակում է process notes gates-ի և pilot-ների մասին։ Սկսեք [audit](/arm/solutions)-ից։
+
+## FAQ
+
+### Պե՞տք է vendor-ները day one-ից production data ունենան։
+Նախընտրեք staged access least privilege-ով և գրավոր data policy։
+
+### Live demo-ն բավա՞ր diligence է։
+Ոչ։ Խնդրեք failure case-եր և exception handling։
+
+### Ի՞նչ, եթե պատասխանները մշուշոտ են։
+Մշուշոտությունը դիտեք որպես risk signal և shrink արեք scope-ը կամ հեռացեք։

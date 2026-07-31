@@ -1,0 +1,47 @@
+---
+slug: "top-questions-to-ask-ai-agent-vendors"
+title: "Главные вопросы AI agent vendors до подписания"
+description: "Практический vendor questionnaire для AI agent agencies и freelancers: gates, data, failure modes, ownership и дизайн pilot."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "top-questions-to-ask-ai-agent-vendors"
+keywords: ["вопросы AI agent vendor", "вопросы для интервью AI agency", "чеклист AI automation vendor"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+До подписания спросите vendors, как agents ошибаются, что требует human approval, как устроен доступ к data и как передаётся ownership. Пропускайте vendors, которые показывают только happy paths.
+
+## Вопросы process и scope
+
+Какой workflow в первом pilot? Что явно out of scope? Как обрабатываются non-standard cases?
+
+## Safety и control
+
+Где human gates? Какой stop-switch? Как хранятся secrets? Может ли agent отправлять деньги, email или менять permissions?
+
+## Evidence и ops
+
+Как вы оцениваете quality? Что логируется? Кто on-call после launch? Что входит в handoff package?
+
+## Commercial
+
+Fixed price или open-ended? Что меняет цену? Кто владеет code и prompts?
+
+## Как помогает Dali
+
+Dali публикует process notes про gates и pilots. Начните с [audit](/ru/solutions).
+
+## FAQ
+
+### Нужен ли vendors доступ к production data в первый день?
+Предпочитайте staged access с least privilege и письменной data policy.
+
+### Live demo - достаточная diligence?
+Нет. Просите failure cases и exception handling.
+
+### Что если ответы vague?
+Считайте vagueness risk signal: сужайте scope или уходите.

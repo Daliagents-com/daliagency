@@ -1,0 +1,47 @@
+---
+slug: "human-in-the-loop-ai-agents-explained"
+title: "Human-in-the-loop AI agent-ներ. բացատրություն"
+description: "Ինչ է նշանակում human-in-the-loop AI agent-ների համար. approval gates, ինչ gate անել, ինչ չանել, և ինչպես աշխատեցնել HITL ops։"
+date: "2026-07-31"
+locale: "arm"
+hreflangGroup: "human-in-the-loop-ai-agents-explained"
+keywords: ["human in the loop AI agents", "AI agent approval gates", "HITL automation"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Ուղիղ պատասխան
+
+Human-in-the-loop նշանակում է մարդիկ approve են անում irreversible կամ high-risk agent գործողությունները, մինչդեռ routine safe քայլերը աշխատում են ավտոմատ։ Gate արեք blast radius-ը, ոչ յուրաքանչյուր internal draft։
+
+## Ինչու է HITL-ը գոյություն ունի
+
+Models-ը probabilistic են։ Բիզնեսներին պետք է accountability external և financial գործողությունների համար։
+
+## Ինչ gate անել
+
+Sends, money, access changes, public content, destructive updates։
+
+## Ինչ չgate անել
+
+Internal retrieval, draft generation, որը չի կարող դուրս գալ sandbox-ից, pure ranking human-ի համար, ով արդեն տիրապետում է հաջորդ քայլին։
+
+## Operating model
+
+Role-based approvers, evidence packs, SLA-ներ stale approvals-ի համար, logs։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն նախագծում է gate placement discovery-ի ժամանակ. [solutions](/arm/solutions)։
+
+## FAQ
+
+### HITL-ը ժամանակավո՞ր է։
+Երբեմն թուլացնում եք gates metrics-ից հետո, որոնք ապացուցում են safety։ Երբեմն gates-ը մնում են ընդմիշտ։
+
+### HITL-ը սպանո՞ւմ է ROI-ն։
+Վատ նախագծված HITL-ը՝ այո։ Targeted gates-ը սովորաբար պահպանում են speed-ը, որտեղ safe է։
+
+### Ավելի խոր ընթերցում
+[Human approval gates for AI agents](/arm/blog/human-approval-gates-for-ai-agents)։

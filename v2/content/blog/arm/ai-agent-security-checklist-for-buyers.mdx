@@ -1,0 +1,51 @@
+---
+slug: "ai-agent-security-checklist-for-buyers"
+title: "AI agent security checklist գնորդների համար"
+description: "Buyer-side security checklist AI agent-ների համար. secrets, permissions, outbound actions, logging, vendors և vibe-coded risk։"
+date: "2026-07-31"
+locale: "arm"
+hreflangGroup: "ai-agent-security-checklist-for-buyers"
+keywords: ["AI agent security checklist", "secure AI agents", "AI automation security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Նախքան agent-ները production-ում գործեն, lock արեք secrets, least privilege, outbound gates, audit logs և stop-switch։ Security-ն pilot design-ի մաս է, ոչ polish phase։
+
+## Secrets և keys
+
+Ոչ tokens client JS-ում կամ public repos-ում։ Rotate արեք ամեն ինչ, որ երբևէ commit է արվել։
+
+## Permissions
+
+Least privilege per tool։ Առանձնացրեք prod և test։ Ոչ shared god-mode service accounts առանց review-ի։
+
+## Actions
+
+Gate արեք payments, emails, deletes, permission changes, public posts։
+
+## Observability
+
+Log արեք inputs, tool calls, outputs, approvals։ Պահեք բավական՝ incidents debug անելու համար։
+
+## Vendor access
+
+Time-boxed, minimal, revocable։ Գրավոր data handling rules։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Security-minded triage-ը Dali pilot-ների մաս է. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Model choice-ը հիմնական security issue է՞։
+Սովորաբար access-ը և actions-ը ավելի կարևոր են, քան LLM brand-ը։
+
+### Ի՞նչ prompt injection-ի մասին։
+Untrusted content-ը դիտեք որպես hostile input. սահմանափակեք tools և պահանջեք gates։
+
+### Vibe-coded MVP risk
+Տես [vibe-code rescue](/arm/solutions/vibe-code-rescue) և hardening posts։

@@ -1,0 +1,47 @@
+---
+slug: "ai-agent-pilot-scope-template"
+title: "AI agent pilot scope template (copy and fill)"
+description: "Գործնական template AI agent pilot scope անելու համար. workflow, tools, gates, acceptance test, exclusions և owners։"
+date: "2026-07-31"
+locale: "arm"
+hreflangGroup: "ai-agent-pilot-scope-template"
+keywords: ["AI agent pilot scope", "AI pilot template", "agent implementation scope"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Յուրաքանչյուր AI agent pilot scope արեք որպես մեկ workflow, մեկ primary tool path, explicit gates, pass/fail acceptance test և անվանված owners։ Մնացած ամեն ինչ phase two է։
+
+## Template fields
+
+Workflow name։ Trigger։ Tools։ Inputs։ Allowed actions։ Forbidden actions։ Human gate points։ Success metrics։ Data access։ Timeline։ Exclusions։
+
+## Acceptance test shape օրինակ
+
+20 իրական historical case-երի վրա. զրո silent duplicates, required fields complete threshold-ից վեր, յուրաքանչյուր low-confidence case ստեղծում է exception։
+
+## Ինչպես օգտագործել vendor-ների հետ
+
+Ուղարկեք լրացված template-ը pricing-ից առաջ։ Մերժեք quote-եր, որոնք ignore են անում exclusions։
+
+## Տարածված սխալներ
+
+Երեք workflow մեկ pilot-ում։ Owner approvals-ի համար չկա։ Success = «ավելի խելացի է թվում» առանց measure-ի։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali pilot-ները օգտագործում են fixed boundaries։ Տես patterns [solutions](/arm/solutions)-ում։
+
+## FAQ
+
+### Որքա՞ն երկար պետք է լինի pilot-ը։
+Բավական երկար՝ իրական case-եր replay անելու և gates fix անելու համար - հաճախ շաբաթներ, ոչ weekend։
+
+### Կարո՞ղ են marketing և ops կիսել մեկ pilot։
+Նախընտրեք առանձին pilot-եր առանձին acceptance test-երով։
+
+### Ով է լրացնում template-ը։
+Workflow-ի business owner-ը գումարած նա, ով վերահսկում է tools-ը։

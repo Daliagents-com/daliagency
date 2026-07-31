@@ -1,0 +1,51 @@
+---
+slug: "ai-agent-security-checklist-for-buyers"
+title: "AI agent security checklist მყიდველებისთვის"
+description: "მყიდველის security checklist AI აგენტებისთვის: secrets, permissions, outbound მოქმედებები, logging, vendors და vibe-coded რისკი."
+date: "2026-07-31"
+locale: "ge"
+hreflangGroup: "ai-agent-security-checklist-for-buyers"
+keywords: ["AI agent security checklist", "უსაფრთხო AI აგენტები", "AI automation security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+სანამ აგენტები production-ში იმოქმედებენ, ჩაკეტეთ secrets, least privilege, outbound gates, audit logs და stop-switch. Security არის pilot დიზაინის ნაწილი, არა polish ფაზა.
+
+## Secrets და keys
+
+არანაირი tokens client JS-ში ან public repos-ში. გადაატრიალეთ ყველაფერი, რაც ოდესმე commit-ში მოხვდა.
+
+## Permissions
+
+Least privilege tool-ზე. გაყავით prod და test. არანაირი shared god-mode service accounts review-ის გარეშე.
+
+## მოქმედებები
+
+გეითეთ payments, emails, deletes, permission ცვლილებები, საჯარო პოსტები.
+
+## Observability
+
+Log-ეთ inputs, tool calls, outputs, approvals. შეინახეთ საკმარისი incidents-ის debug-ისთვის.
+
+## Vendor access
+
+Time-boxed, minimal, revocable. წერილობითი data handling წესები.
+
+## როგორ ჯდება Dali
+
+Security-minded triage Dali pilot-ების ნაწილია: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### Model არჩევანი მთავარი security საკითხია?
+ჩვეულებრივ access და მოქმედებები უფრო მნიშვნელოვანია, ვიდრე რომელი LLM brand აირჩიეთ.
+
+### რაც შეეხება prompt injection-ს?
+Untrusted content ჩათვალეთ hostile input-ად; შეზღუდეთ tools და მოითხოვეთ gates.
+
+### Vibe-coded MVP რისკი
+იხილეთ [vibe-code rescue](/ge/solutions/vibe-code-rescue) და hardening პოსტები.

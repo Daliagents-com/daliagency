@@ -1,0 +1,47 @@
+---
+slug: "human-in-the-loop-ai-agents-explained"
+title: "Human-in-the-loop AI აგენტები ახსნილია"
+description: "რას ნიშნავს human-in-the-loop production AI აგენტებისთვის, სად დავაყენოთ gates და როგორ არ გავაყინოთ ყოველი ნაბიჯი."
+date: "2026-07-31"
+locale: "ge"
+hreflangGroup: "human-in-the-loop-ai-agents-explained"
+keywords: ["human in the loop AI აგენტები", "AI agent approval gates", "HITL automation"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## პირდაპირი პასუხი
+
+Human-in-the-loop ნიშნავს, რომ ადამიანები ამტკიცებენ irreversible ან მაღალი რისკის agent მოქმედებებს, სანამ რუტინული უსაფრთხო ნაბიჯები ავტომატურად მიდის. გეითეთ blast radius, არა ყოველი შიდა draft.
+
+## რატომ არსებობს HITL
+
+მოდელები probabilistic-ია. ბიზნესებს სჭირდებათ accountability გარე და ფინანსურ მოქმედებებზე.
+
+## რა უნდა გეითდეს
+
+გაგზავნები, ფული, access ცვლილებები, საჯარო კონტენტი, destructive updates.
+
+## რა არ უნდა გეითდეს
+
+შიდა retrieval, draft generation, რომელსაც sandbox-იდან გასვლა არ შეუძლია, pure ranking ადამიანისთვის, რომელიც უკვე ფლობს შემდეგ ნაბიჯს.
+
+## Operating model
+
+Role-based approvers, evidence packs, SLAs stale approvals-ისთვის, logs.
+
+## როგორ ჯდება Dali
+
+Dali აპროექტებს gate placement-ს discovery-ში: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### HITL დროებითია?
+ზოგჯერ gates-ს არბილებთ metrics-ის შემდეგ. ზოგჯერ gates სამუდამოდ რჩება.
+
+### HITL კლავს ROI-ს?
+ცუდად დაპროექტებული HITL - დიახ. Targeted gates ჩვეულებრივ ინარჩუნებს სიჩქარეს იქ, სადაც უსაფრთხოა.
+
+### უფრო ღრმად
+[Human approval gates AI აგენტებისთვის](/ge/blog/human-approval-gates-for-ai-agents).

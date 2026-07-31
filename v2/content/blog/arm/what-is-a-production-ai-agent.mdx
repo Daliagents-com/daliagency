@@ -1,0 +1,47 @@
+---
+slug: "what-is-a-production-ai-agent"
+title: "Ի՞նչ է production AI agent-ը։"
+description: "Production AI agent-ի սահմանում versus demo-ներ. tools, permissions, gates, evaluation, monitoring և ownership։"
+date: "2026-07-31"
+locale: "arm"
+hreflangGroup: "what-is-a-production-ai-agent"
+keywords: ["ինչ է production AI agent", "production AI agents սահմանում", "AI agent vs chatbot"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## Ուղիղ պատասխան
+
+Production AI agent-ը համակարգ է, որը կատարում է multi-step աշխատանք tools-ով՝ permissions-ի, human gates-ի, logging-ի և ownership-ի ներքո - ոչ chat window, որը միայն խոսում է։
+
+## Demo agent traits
+
+Միայն happy path։ Real credentials model չկա։ Exception queue չկա։ Stop-switch չկա։
+
+## Production agent traits
+
+Defined inputs/outputs։ Tool contracts։ Approvals։ Eval set։ Monitoring։ On-call story։ Handoff docs։
+
+## Surfaces
+
+Chat, email, tickets, voice, background jobs - surface-ը համակարգը չէ։
+
+## Org implication
+
+Ինչ-որ մեկը տիրապետում է quality-ին vendor-ի հեռանալուց հետո։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն նախ կառուցում է production path-եր. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Copilot-ները production agent-նե՞ր են։
+Կարող են լինել, եթե վերցնում են controlled actions gates-ով։
+
+### Պե՞տք են production agent-ներին multi-agent graphs։
+Ոչ։ Մեկ well-designed agent path-ը բավական է սկսելու համար։
+
+### Related
+[Production AI agents for business](/arm/blog/production-ai-agents-for-business)։

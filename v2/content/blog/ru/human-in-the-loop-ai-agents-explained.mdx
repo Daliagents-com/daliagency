@@ -1,0 +1,47 @@
+---
+slug: "human-in-the-loop-ai-agents-explained"
+title: "Human-in-the-loop AI agents: объяснение"
+description: "Что значит human-in-the-loop для production AI-агентов, куда ставить gates и как не заморозить каждый step."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "human-in-the-loop-ai-agents-explained"
+keywords: ["human in the loop AI agents", "approval gates AI agent", "HITL automation"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Прямой ответ
+
+Human-in-the-loop значит: люди утверждают необратимые или high-risk agent actions, пока routine safe steps идут автоматически. Gate'ьте blast radius, не каждый internal draft.
+
+## Почему HITL существует
+
+Models probabilistic. Бизнесу нужна accountability за external и financial actions.
+
+## Что gate'ить
+
+Sends, money, access changes, public content, destructive updates.
+
+## Что не gate'ить
+
+Internal retrieval, draft generation, который не может покинуть sandbox, pure ranking для human, который уже owns next step.
+
+## Operating model
+
+Role-based approvers, evidence packs, SLAs для stale approvals, logs.
+
+## Как помогает Dali
+
+Dali проектирует gate placement во время discovery: [solutions](/ru/solutions).
+
+## FAQ
+
+### HITL временный?
+Иногда вы ослабляете gates после metrics, которые доказывают safety. Иногда gates остаются навсегда.
+
+### Убивает ли HITL ROI?
+Плохо спроектированный HITL - да. Targeted gates обычно сохраняют speed там, где safe.
+
+### Deeper read
+[Human approval gates for AI agents](/ru/blog/human-approval-gates-for-ai-agents).

@@ -1,10 +1,10 @@
 # Blog batch: 30 buyer FAQ / search-intent posts (EN)
 
 **Date:** 2026-07-31  
-**Status:** EN published in `v2/content/blog/en/`  
-**Before:** 52 EN posts  
-**After:** **82 EN posts** (+30)  
-**Locales RU/GE/ARM:** not yet for this batch (hreflang will be EN-only until translated)
+**Status:** EN + RU + GE + ARM published for this batch  
+**Before:** 52 posts × 4 locales  
+**After:** **82 posts × 4 locales** (+30 × 4 = +120 files)  
+**Locales:** full parity for the 30 buyer-intent slugs (`locale` + `hreflangGroup` aligned)
 
 These target people searching for agencies, how-tos, pricing, red flags, use cases, and local GE/AM - not thin keyword spam. Honest Dali voice; no fake metrics.
 
@@ -75,16 +75,26 @@ Live pattern: `https://dali.agents.ge/blog/{slug}` after deploy.
 
 ---
 
+## Locale verification (2026-07-31)
+
+| Locale | Total published | Batch 30 present | Notes |
+| --- | --- | --- | --- |
+| en | 82 | 30/30 | Source |
+| ru | 82 | 30/30 | Full translation; avg ~0.95 word ratio vs EN |
+| ge | 82 | 30/30 | Full KA; avg ~0.89 word ratio vs EN |
+| arm | 82 | 30/30 | Full HY; avg ~0.98 word ratio vs EN |
+
+Internal links localized (`/ru|ge|arm/blog/...`, `/ru|ge|arm/solutions...`).
+
 ## Gaps / next
 
 | Item | Owner |
 | --- | --- |
-| Deploy so sitemap + routes pick up +30 | Vercel / `main` |
-| RU/GE/ARM translations for this batch | Agent later |
+| Deploy so sitemap + routes pick up +120 files | Vercel / `main` |
 | Optional heroes for social OG | Design / generate |
 | Internal links from old 52 → new hubs | Agent pass |
 | GSC request index on top 10 money URLs | David after GSC |
-| Blog review subagents | Can run on new set |
+| Native polish pass on GE/ARM idioms (optional) | Human editor |
 
 ---
 

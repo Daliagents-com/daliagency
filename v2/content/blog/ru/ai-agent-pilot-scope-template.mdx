@@ -1,0 +1,47 @@
+---
+slug: "ai-agent-pilot-scope-template"
+title: "Шаблон scope AI agent pilot (скопируйте и заполните)"
+description: "Практический шаблон для scope AI agent pilot: workflow, tools, gates, acceptance test, exclusions и owners."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "ai-agent-pilot-scope-template"
+keywords: ["scope AI agent pilot", "шаблон AI pilot", "scope внедрения agent"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Оформляйте каждый AI agent pilot как один workflow, один primary tool path, explicit gates, pass/fail acceptance test и named owners. Всё остальное - phase two.
+
+## Поля template
+
+Имя workflow. Trigger. Tools. Inputs. Allowed actions. Forbidden actions. Human gate points. Success metrics. Data access. Timeline. Exclusions.
+
+## Пример формы acceptance test
+
+На 20 real historical cases: zero silent duplicates, required fields complete выше threshold, каждый low-confidence case создаёт exception.
+
+## Как использовать с vendors
+
+Отправьте заполненный template до pricing. Отклоняйте quotes, которые игнорируют exclusions.
+
+## Типичные ошибки
+
+Три workflows в одном pilot. Нет owner для approvals. Success = «feels smarter» без measure.
+
+## Как помогает Dali
+
+Pilots Dali используют fixed boundaries. Смотрите паттерны на [solutions](/ru/solutions).
+
+## FAQ
+
+### Какой длины должен быть pilot?
+Достаточно, чтобы прогнать real cases и поправить gates - часто weeks, не weekend.
+
+### Могут marketing и ops делить один pilot?
+Предпочитайте separate pilots с separate acceptance tests.
+
+### Кто заполняет template?
+Business owner workflow плюс тот, кто контролирует tools.

@@ -1,0 +1,51 @@
+---
+slug: "ai-agent-security-checklist-for-buyers"
+title: "Security checklist AI-агента для покупателей"
+description: "Buyer-side security checklist для AI-агентов: secrets, permissions, outbound actions, logging, vendors и vibe-coded risk."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "ai-agent-security-checklist-for-buyers"
+keywords: ["security checklist AI agent", "secure AI agents", "security AI automation"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+До того как agents действуют в production, зафиксируйте secrets, least privilege, outbound gates, audit logs и stop-switch. Security - часть pilot design, не polish phase.
+
+## Secrets и keys
+
+Нет tokens в client JS или public repos. Rotate всё, что когда-либо было committed.
+
+## Permissions
+
+Least privilege на каждый tool. Разделите prod и test. Нет shared god-mode service accounts без review.
+
+## Actions
+
+Gate на payments, emails, deletes, permission changes, public posts.
+
+## Observability
+
+Логируйте inputs, tool calls, outputs, approvals. Храните достаточно, чтобы debug incidents.
+
+## Vendor access
+
+Time-boxed, minimal, revocable. Written data handling rules.
+
+## Как помогает Dali
+
+Security-minded triage - часть pilots Dali: [solutions](/ru/solutions).
+
+## FAQ
+
+### Model choice - главная security issue?
+Обычно access и actions важнее, чем какой LLM brand вы выбираете.
+
+### А prompt injection?
+Считайте untrusted content hostile input; ограничивайте tools и требуйте gates.
+
+### Vibe-coded MVP risk
+См. [vibe-code rescue](/ru/solutions/vibe-code-rescue) и hardening posts.

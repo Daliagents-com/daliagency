@@ -1,0 +1,47 @@
+---
+slug: "top-questions-to-ask-ai-agent-vendors"
+title: "მთავარი კითხვები AI agent vendor-ებისთვის ხელმოწერამდე"
+description: "პრაქტიკული vendor questionnaire AI agent სააგენტოებისა და ფრილანსერებისთვის: gates, data, failure modes, ownership და pilot დიზაინი."
+date: "2026-07-31"
+locale: "ge"
+hreflangGroup: "top-questions-to-ask-ai-agent-vendors"
+keywords: ["კითხვები AI agent vendor-ს", "AI სააგენტოს interview კითხვები", "AI automation vendor checklist"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+ხელმოწერამდე იკითხეთ vendor-ებს, როგორ ვერ ხერხდება აგენტები, რა მოითხოვს human approval-ს, როგორ ხდება data-ზე წვდომა და როგორ გადადის ownership. გამოტოვეთ vendor-ები, რომლებიც მხოლოდ happy path-ებს demo-ავენ.
+
+## პროცესისა და scope-ის კითხვები
+
+რომელი workflow შედის პირველ pilot-ში? რა არის ცალსახად out of scope? როგორ ამუშავებთ non-standard case-ებს?
+
+## უსაფრთხოება და კონტროლი
+
+სად არის human gates? რა არის stop-switch? როგორ ინახება secrets? შეუძლია აგენტს ფულის გაგზავნა, email ან permissions-ის შეცვლა?
+
+## Evidence და ops
+
+როგორ აფასებთ quality-ს? რა log-დება? ვინ არის on-call launch-ის შემდეგ? რას მოიცავს handoff პაკეტი?
+
+## Commercial
+
+Fixed price თუ open-ended? რა ცვლის ფასს? ვინ ფლობს code-სა და prompts-ს?
+
+## როგორ ჯდება Dali
+
+Dali აქვეყნებს process notes-ს gates-სა და pilot-ებზე. დაიწყეთ [audit-ით](/ge/solutions).
+
+## FAQ
+
+### Vendor-ებს უნდა ჰქონდეთ production data-ზე წვდომა პირველივე დღეს?
+უპირატესობა მიეცით staged access-ს least privilege-ითა და წერილობითი data policy-ით.
+
+### Live demo საკმარისი diligence-ია?
+არა. მოითხოვეთ failure case-ები და exception handling.
+
+### რა მოხდება, თუ პასუხები ბუნდოვანია?
+ბუნდოვანება ჩათვალეთ რისკის სიგნალად და შეამცირეთ scope ან წადით.

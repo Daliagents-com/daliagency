@@ -1,0 +1,47 @@
+---
+slug: "ai-agent-pilot-scope-template"
+title: "AI agent pilot scope template (დააკოპირეთ და შეავსეთ)"
+description: "პრაქტიკული template AI agent pilot-ის scope-ისთვის: workflow, tools, gates, acceptance test, exclusions და owners."
+date: "2026-07-31"
+locale: "ge"
+hreflangGroup: "ai-agent-pilot-scope-template"
+keywords: ["AI agent pilot scope", "AI pilot template", "agent implementation scope"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+ყველა AI agent pilot-ის scope: ერთი workflow, ერთი primary tool path, ცალსახა gates, pass/fail acceptance test და დასახელებული owners. ყველაფერი სხვა - phase two.
+
+## Template ველები
+
+Workflow სახელი. Trigger. Tools. Inputs. Allowed მოქმედებები. Forbidden მოქმედებები. Human gate წერტილები. Success metrics. Data access. Timeline. Exclusions.
+
+## მაგალითი acceptance test ფორმა
+
+20 რეალურ historical case-ზე: ნული silent duplicates, required fields threshold-ის ზემოთ, ყოველი low-confidence case ქმნის exception-ს.
+
+## როგორ გამოიყენოთ vendor-ებთან
+
+გააგზავნეთ შევსებული template pricing-მდე. უარყავით quote-ები, რომლებიც exclusions-ს იგნორირებენ.
+
+## გავრცელებული შეცდომები
+
+სამი workflows ერთ pilot-ში. Owner approvals-ისთვის არ არის. Success = 'უფრო ჭკვიანად გრძნობა' measure-ის გარეშე.
+
+## როგორ ჯდება Dali
+
+Dali pilot-ები იყენებენ ფიქსირებულ საზღვრებს. იხილეთ pattern-ები [გადაწყვეტებზე](/ge/solutions).
+
+## FAQ
+
+### რამდენ ხანს უნდა გაგრძელდეს pilot?
+საკმარისად, რომ რეალური case-ები replay-დეს და gates გასწორდეს - ხშირად კვირები, არა weekend.
+
+### Marketing და ops შეიძლება ერთ pilot-ს იზიარებდნენ?
+უპირატესობა მიეცით ცალკე pilot-ებს ცალკე acceptance test-ებით.
+
+### ვინ ავსებს template-ს?
+Workflow-ის business owner პლუს ის, ვინც tools-ს აკონტროლებს.

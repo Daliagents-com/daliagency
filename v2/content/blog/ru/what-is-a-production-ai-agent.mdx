@@ -1,0 +1,47 @@
+---
+slug: "what-is-a-production-ai-agent"
+title: "Что такое production AI agent?"
+description: "Определение production AI-агента versus demos: tools, permissions, gates, evaluation, monitoring и ownership."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "what-is-a-production-ai-agent"
+keywords: ["что такое production AI agent", "определение production AI agents", "AI agent vs chatbot"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## Прямой ответ
+
+**Production AI agent** - это система, которая выполняет multi-step work с tools под permissions, human gates, logging и ownership. Это не chat-окно, которое только разговаривает.
+
+## Черты demo agent
+
+Только happy path. Нет модели реальных credentials. Нет exception queue. Нет stop-switch.
+
+## Черты production agent
+
+Определённые inputs/outputs. Tool contracts. Approvals. Eval set. Monitoring. On-call story. Handoff docs.
+
+## Surfaces
+
+Chat, email, tickets, voice, background jobs - surface не является system.
+
+## Org implication
+
+Кто-то владеет quality после того, как vendor ушёл.
+
+## Как помогает Dali
+
+Dali строит production paths в первую очередь: [solutions](/ru/solutions).
+
+## FAQ
+
+### Copilots - это production agents?
+Могут быть, если выполняют controlled actions с gates.
+
+### Нужны ли multi-agent graphs?
+Нет. Один well-designed agent path достаточно, чтобы начать.
+
+### Related
+[Production AI agents for business](/ru/blog/production-ai-agents-for-business).
