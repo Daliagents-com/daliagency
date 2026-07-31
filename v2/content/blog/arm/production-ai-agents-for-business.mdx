@@ -1,28 +1,52 @@
 ---
 slug: "production-ai-agents-for-business"
-title: "Production AI գործակալներ բիզնեսի համար"
-description: "Ինչ է նշանակում production AI գործակալ բիզնեսում։"
+title: "Production AI գործակալներ բիզնեսի համար. ինչ է իրականում նշանակում «production»"
+description: "Պարզ սահմանում production AI գործակալների համար բիզնես թիմերին. tools, gates, ownership, measurement - ոչ թե demo-ներ։"
 date: "2026-07-31"
 locale: "arm"
 hreflangGroup: "production-ai-agents-for-business"
-keywords: ["production AI agents"]
+keywords: ["production AI գործակալներ բիզնեսի համար", "AI գործակալներ production-ում", "բիզնես AI գործակալներ"]
 status: "published"
 author: "Dali"
 type: "pillar"
 heroImage: "/blog/production-ai-agents-for-business/hero.jpg"
-heroAlt: "Production AI գործակալներ բիզնեսի համար"
+heroAlt: "Production AI գործակալներ բիզնեսի համար. ինչ է իրականում նշանակում «production»"
 ogImage: "/blog/production-ai-agents-for-business/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Production գործակալը իրական աշխատանք է անում ընկերության tools-ում՝ rules և gates-երով։ Demo chat-ը production չէ։
+**Production AI գործակալը** բիզնեսի համար համակարգ է, որը կրկնվող կերպով ավարտում է իրական աշխատանքը ընկերության tools-ում՝ rules-երով և human gate-երով, և ունի պատասխանատու մարդ, երբ ձախողվում է։ Demo-ն, որ chat պատուհանում պատասխանում է հարցերին, production չէ։
 
-## Dali
+## Production checklist
 
-Workflow + gates։ [Լուծումներ](/arm/solutions)։
+- Աշխատում է իրական case-երի վրա, ոչ թե scripted screenshot-ների
+- Օգտագործում է tools, որոնցում թիմն արդեն ապրում է (inbox, CRM, docs, chat)
+- Ունի հստակ թույլատրված և արգելված գործողություններ
+- Log է անում outcomes review-ի համար
+- Ունի owner on-call exceptions-ի համար
+- Կարող է pause արվել առանց ամբողջական outage թատրոնի
+
+## Երեք maturity փուլ
+
+1. **Draft assist** - գործակալը պատրաստում է, human-ը կատարում
+2. **Gated execute** - գործակալը առաջարկում է գործողություններ, human-ը approve է անում irreversible-ները
+3. **Supervised autonomy** - սահմանափակ auto-actions՝ monitoring-ով և rollback-ով
+
+Մեծ մասի ընկերությունները պետք է ավելի երկար մնան 1-2 փուլերում, քան vendor-ները խորհուրդ են տալիս։
+
+## Բիզնես fit
+
+Production գործակալները արդյունք են տալիս բարձր ծավալի, rule-heavy աշխատանքի վրա՝ պարզ «done» չափորոշիչներով. lead response, inbox triage, ops documentation, knowledge retrieval citations-ով։ Դժվարանում են մաքուր strategy-ի, անորոշ բանակցության և բոլորովին նոր պրոցեսների վրա, որոնք դեռ ոչ ոք չի հասկանում։
+
+## Ինչպես է Dali-ն սահմանում production
+
+Մենք նախագծում ենք agent համակարգեր workflow-ների և approval սահմանների շուրջ, հետո implement ենք անում։ Առնչվող. [map workflows](/arm/blog/map-workflows-for-ai-agents), [approval gate-եր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Chatbot = agent՞։
-Միայն multi-step actions-ի դեպքում։
+### Chatbot-ը գործակա՞լ է։
+Միայն եթե վերցնում է multi-step գործողություններ tools-երով։ Միայն chat-ը interface է։
+
+### Պե՞տք է multi-agent orchestration day one-ից։
+Ոչ։ Մեկ հուսալի path-ը հաղթում է կիսով չափ միացված specialist-ների swarm-ին։

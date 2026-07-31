@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
+import HomeSeoSummary from "@/Components/Home/HomeSeoSummary";
 import {
   isLocale,
   localizedLocales,
@@ -30,22 +31,45 @@ type LocalizedHomeProps = {
 
 const localizedMetadata: Record<
   Exclude<Locale, "en">,
-  { title: string; description: string }
+  { title: string; description: string; keywords: string[] }
 > = {
   ru: {
     title: "Dali - агентские ИИ-системы и agent-first продукты",
     description:
-      "Dali проектирует кастомные агентские ИИ-системы, agent-first продукты, программы внедрения ИИ и системы AI-видимости вокруг реальных бизнес-процессов.",
+      "Dali проектирует production AI-агенты, workflow automation, agent-first продукты, vibe-code rescue и GEO/SEO-видимость вокруг реальных бизнес-процессов.",
+    keywords: [
+      "AI агентские системы",
+      "production AI агенты",
+      "автоматизация workflow",
+      "agent-first продукты",
+      "GEO SEO AI агентство",
+      "vibe code rescue",
+      "human approval gates",
+    ],
   },
   ge: {
-    title: "Dali Agency - ციფრული პროდუქტები და AI ავტომატიზაცია",
+    title: "Dali - AI agent systems და production ავტომატიზაცია",
     description:
-      "ვქმნით ვებსაიტებს, აპებს, AI აგენტებს და ბიზნესის ავტომატიზაციას.",
+      "Dali ქმნის production AI აგენტებს, workflow ავტომატიზაციას, agent-first პროდუქტებს, vibe-code rescue-ს და GEO/SEO ხილვადობას.",
+    keywords: [
+      "AI agent systems",
+      "production AI agents",
+      "workflow automation",
+      "GEO SEO",
+      "vibe code rescue",
+    ],
   },
   arm: {
-    title: "Dali Agency - թվային արտադրանք և AI ավտոմատացում",
+    title: "Dali - AI agent systems և production ավտոմատացում",
     description:
-      "Ստեղծում ենք կայքեր, հավելվածներ, AI գործակալներ և բիզնեսի ավտոմատացում։",
+      "Dali-ն կառուցում է production AI գործակալներ, workflow ավտոմատացում, agent-first արտադրանք, vibe-code rescue և GEO/SEO տեսանելիություն։",
+    keywords: [
+      "AI agent systems",
+      "production AI agents",
+      "workflow automation",
+      "GEO SEO",
+      "vibe code rescue",
+    ],
   },
 };
 
@@ -65,7 +89,9 @@ export async function generateMetadata({
   const metadata = localizedMetadata[locale];
 
   return {
-    ...metadata,
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -91,6 +117,7 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
       <Projects locale={locale} />
       <AgentSolutions locale={locale} />
       <DesignSprints locale={locale} />
+      <HomeSeoSummary locale={locale} />
       <About locale={locale} />
     </main>
   );

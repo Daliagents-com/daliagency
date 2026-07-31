@@ -1,28 +1,52 @@
 ---
 slug: "production-ai-agents-for-business"
-title: "Production AI აგენტები ბიზნესისთვის"
-description: "რას ნიშნავს production AI აგენტი ბიზნესში."
+title: "Production AI აგენტები ბიზნესისთვის: რას ნიშნავს 'production' სინამდვილეში"
+description: "მარტივი განმარტება production AI აგენტებისა ბიზნეს გუნდებისთვის: tools, gates, ownership, measurement - არა demo-ები."
 date: "2026-07-31"
 locale: "ge"
 hreflangGroup: "production-ai-agents-for-business"
-keywords: ["production AI agents"]
+keywords: ["production AI აგენტები ბიზნესისთვის", "AI აგენტები production-ში", "ბიზნეს AI აგენტები"]
 status: "published"
 author: "Dali"
 type: "pillar"
 heroImage: "/blog/production-ai-agents-for-business/hero.jpg"
-heroAlt: "Production AI აგენტები ბიზნესისთვის"
+heroAlt: "Production AI აგენტები ბიზნესისთვის: რას ნიშნავს 'production' სინამდვილეში"
 ogImage: "/blog/production-ai-agents-for-business/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Production აგენტი რეალურ სამუშაოს აკეთებს კომპანიის tools-ში, rules და gates-ით. Demo chat production არ არის.
+**Production AI აგენტი** ბიზნესისთვის არის სისტემა, რომელიც განმეორებით ასრულებს რეალურ სამუშაოს კომპანიის tools-ში, წესებისა და human gate-ების ქვეშ, და ვიღაც პასუხისმგებელია, როცა ის ვერ მუშაობს. Demo, რომელიც chat ფანჯარაში კითხვებს პასუხობს, production არ არის.
 
-## Dali
+## Production checklist
 
-Workflow + gates. [გადაწყვეტები](/ge/solutions).
+- მუშაობს რეალურ case-ებზე, არა scripted screenshot-ებზე
+- იყენებს tools-ს, რომლებშიც გუნდი უკვე ცხოვრობს (inbox, CRM, docs, chat)
+- აქვს მკაფიო allowed და forbidden მოქმედებები
+- ალოგებს შედეგებს review-ისთვის
+- აქვს owner on-call exceptions-ისთვის
+- შეიძლება შეჩერდეს სრული outage თეატრის გარეშე
+
+## სამი სიმწიფის ეტაპი
+
+1. **Draft assist** - აგენტი ამზადებს, ადამიანი ასრულებს
+2. **Gated execute** - აგენტი გვთავაზობს მოქმედებებს, ადამიანი ამტკიცებს irreversible-ს
+3. **Supervised autonomy** - შეზღუდული auto-actions monitoring-ით და rollback-ით
+
+უმეტესმა კომპანიამ ეტაპებზე 1-2 უფრო დიდხანს უნდა დარჩეს, ვიდრე vendor-ები გვირჩევენ.
+
+## ბიზნეს fit
+
+Production აგენტები იხდიან თავს მაღალი მოცულობის, წესებზე დაფუძნებულ სამუშაოზე ნათელი "done" კრიტერიუმებით: lead response, inbox triage, ops documentation, knowledge retrieval citations-ით. უჭირთ სუფთა სტრატეგიაზე, ბუნდოვან მოლაპარაკებაზე და სრულიად ახალ პროცესებზე, რომლებსაც ჯერ არავინ ესმის.
+
+## როგორ განსაზღვრავს Dali production-ს
+
+აგენტ სისტემებს ვაპროექტებთ workflow-ებისა და approval საზღვრების გარშემო, შემდეგ ვაიმპლემენტირებთ. დაკავშირებული: [workflow mapping](/ge/blog/map-workflows-for-ai-agents), [approval gate-ები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Chatbot = agent?
-მხოლოდ multi-step actions-ით.
+### Chatbot არის agent?
+მხოლოდ თუ multi-step მოქმედებებს იღებს tools-ით. მხოლოდ chat - ეს interface-ია.
+
+### გვჭირდება multi-agent orchestration პირველივე დღეს?
+არა. ერთი საიმედო path სჯობს ნახევრად დაკავშირებული სპეციალისტების swarm-ს.

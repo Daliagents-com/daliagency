@@ -1,28 +1,53 @@
 ---
 slug: "ai-agents-in-existing-business-tools"
-title: "AI აგენტები არსებულ business tools-ში"
-description: "როგორ ჩავაგოთ აგენტები Gmail, CRM, docs, chat-ში."
+title: "როგორ ჩავაგოთ AI აგენტები tools-ში, რომლებსაც გუნდი უკვე იყენებს"
+description: "პრაქტიკული მიდგომა აგენტების ჩასაგებად Gmail-ში, CRM-ში, docs-სა და chat-ში - ახალი პლატფორმის day one იძულების გარეშე."
 date: "2026-07-31"
 locale: "ge"
 hreflangGroup: "ai-agents-in-existing-business-tools"
-keywords: ["AI agents existing tools"]
+keywords: ["AI აგენტები არსებულ tools-ში", "AI აგენტები Gmail CRM", "AI აგენტების ჩაშენება business software-ში"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ai-agents-in-existing-business-tools/hero.jpg"
-heroAlt: "AI აგენტები არსებულ business tools-ში"
+heroAlt: "როგორ ჩავაგოთ AI აგენტები tools-ში, რომლებსაც გუნდი უკვე იყენებს"
 ogImage: "/blog/ai-agents-in-existing-business-tools/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-აგენტები იქ, სადაც სამუშაო უკვე მიმდინარეობს.
+აგენტები დადეთ **იქ, სადაც სამუშაო უკვე მიმდინარეობს**. თუ intake email-სა და CRM-შია, აგენტმა იქ უნდა წაიკითხოს და ჩაწეროს - არ უნდა აიძულოს ყველა მომხმარებელი ახალ portal-ში. ახალი პლატფორმები მოგვიანებით შეიძლება; პირველი მოგება hop-ების მოხსნაა.
 
-## Dali
+## ნაგულისხმევი ზედაპირები
 
-[გადაწყვეტები](/ge/solutions).
+- Inbox და calendar საკომუნიკაციო სამუშაოსთვის
+- CRM pipeline state-ისთვის
+- Docs / wiki ცოდნისთვის
+- Chat შიდა ops სიგნალებისთვის
+- Sheets მსუბუქი queue-ებისთვის, როცა ეს რეალური system of record-ია
+
+## ინტეგრაციის პატერნი
+
+1. Observe: რომელი tool არის source of truth თითოეული field-ისთვის?
+2. Act: რომელი ჩაწერებია draft და რომელი live?
+3. Gate: რომელ ჩაწერებს სჭირდება human approval?
+4. Notify: სად ხედავს ადამიანი queue-ს?
+5. Log: სად ვინახავთ agent გადაწყვეტილებებს?
+
+## Anti-pattern-ები
+
+- პარალელური "AI workspace"-ის აშენება, რომელსაც არავინ ხსნის
+- ყოველი field-ის ორმხრივი sync day one-ზე
+- აგენტისთვის CRM stage-ების გამოგონება, რომლებიც თქვენს პროცესში არ არის
+
+## Dali-ს bias
+
+Production აგენტებს ვაიმპლემენტირებთ tools-ში, რომლებსაც გუნდები უკვე მართავენ. იხილეთ [solutions map](/ge/solutions) multi-agent production პატერნებისთვის.
 
 ## FAQ
 
-### ახალი პლატფორმა day one?
-ჩვეულებრივ არა.
+### გვჭირდება custom agent პლატფორმა პირველად?
+ჩვეულებრივ არა. დაიწყეთ tools of record-ით და თხელი orchestration ფენით.
+
+### რა თუ ჩვენს tools-ს API არ აქვს?
+დაიწყეთ human-in-the-loop draft-ებით და export/import-ით, შემდეგ ავტომატიზაცია გაუკეთეთ უმაღლესი ROI connector-ს.

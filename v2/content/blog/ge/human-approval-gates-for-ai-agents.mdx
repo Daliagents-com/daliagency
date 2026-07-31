@@ -1,43 +1,64 @@
 ---
 slug: "human-approval-gates-for-ai-agents"
-title: "Human approval gates AI აგენტებისთვის"
-description: "სად დავაყენოთ human review, როცა აგენტს შეუძლია შეუქცევადი შეცდომა."
+title: "Human approval gate-ები AI აგენტებისთვის production-ში"
+description: "სად დავაყენოთ human review, როცა აგენტს შეუძლია შეუქცევადი ზიანი - ყველა workflow-ის გაყინვის გარეშე."
 date: "2026-07-31"
 locale: "ge"
 hreflangGroup: "human-approval-gates-for-ai-agents"
-keywords: ['human approval gates', 'human in the loop', 'AI agent controls']
+keywords: ["human approval gates AI აგენტები", "AI agent human in the loop", "production agent კონტროლი"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/human-approval-gates-for-ai-agents/hero.jpg"
-heroAlt: "Human gate დიაგრამა agent სისტემაში"
+heroAlt: "აბსტრაქტული control-gate დიაგრამა human approval-ისთვის agent სისტემებში"
 ogImage: "/blog/human-approval-gates-for-ai-agents/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-**Human approval gate** დადეთ შეუქცევად, ძვირადღირებულ ან გარე მოქმედებამდე. შიდა draft-ები არ უნდა დაიბლოკოს ყოველთვის.
+**Human approval gate** დადეთ ნებისმიერ agent მოქმედებამდე, რომელიც ძნელად შესაქცევია, მაღალი ფასი აქვს შეცდომაზე, ან გარედან ჩანს review-ის გარეშე. არ გეითოთ სუფთა research ნაბიჯები, რომლებიც მხოლოდ შიდა ჩანაწერებს ამზადებს.
+
+Gate-ები ბიუროკრატია არ არის. ისინი საზღვარია სასარგებლო ავტომატიზაციასა და ოპერაციულ რისკს შორის.
 
 ## რა უნდა გეითდეს
 
-- გაგზავნები, გადახდები, უფლებები, CRM stage, საჯარო პასუხები
+- გაგზავნები: email, შეტყობინებები, ინვოისები, კონტრაქტის ცვლილებები
+- ჩაწერები: CRM stage გადატანები, refund-ები, permission ცვლილებები
+- ფული და წვდომა: გადახდები, admin როლები, production deploy-ები
+- საჯარო კონტენტი: პოსტები, კლიენტისადმი პასუხები მგრძნობიარე თემებზე
 
-## მინიმალური დიზაინი
+## რა არ უნდა გეითდეს
 
-1. მოქმედება და blast radius
-2. Approver role
-3. Evidence pack
-4. ლოგი
-5. Timeout
+- შიდა შეჯამებები ადამიანისთვის, რომელიც შემდეგ ნაბიჯს უკვე ფლობს
+- Retrieval და ranking, რომელიც მხოლოდ მოგვიანებით დამტკიცებულ მოქმედებას აცნობს
+- Draft generation, რომელსაც sandbox-იდან გასვლა approval-ის გარეშე არ შეუძლია
 
-## Dali
+## მინიმალური gate დიზაინი
 
-ჯერ workflow რუკა, შემდეგ gates. [გადაწყვეტები](/ge/solutions).
+1. დაასახელეთ მოქმედება და მისი blast radius.
+2. განსაზღვრეთ ვინ ამტკიცებს (role, და არა "ვინც ონლაინაა").
+3. აჩვენეთ agent-ის evidence pack: inputs, განზრახული მოქმედება, confidence, წყაროები.
+4. დაალოგეთ approve / reject / edit მიზეზით.
+5. დროებით შეზღუდეთ stale approval-ები, რომ სამუშაო ჩუმად არ გაფუჭდეს.
+
+## წარუმატებლობის რეჟიმები
+
+- ყველაფრის გეითვა → აგენტები ნელ chat stub-ებად იქცევიან
+- არაფრის გეითვა → ერთი ცუდი tool call კლიენტის ინციდენტს ქმნის
+- ბუნდოვანი approver-ები → გადაწყვეტილებას არავინ ფლობს
+- audit trail-ის გარეშე → policy-ის გაუმჯობესება შეუძლებელია
+
+## როგორ იყენებს Dali gate-ებს
+
+Production agent სისტემებში ჯერ workflow-ებს ვმაპავთ, შემდეგ gate-ებს შეუქცევად ნაბიჯებზე ვდებთ, შემდეგ დანარჩენს არსებულ tools-ში ვაავტომატიზებთ. დაიწყეთ [აუდიტით](/ge/solutions).
 
 ## FAQ
 
-### ყველა draft?
-არა. მხოლოდ outbound და irreversible.
+### ყველა agent შეტყობინებას approval სჭირდება?
+არა. დაამტკიცეთ outbound და irreversible მოქმედებები, არა ყოველი შიდა draft.
 
-### ვინ ამტკიცებს?
-იგივე role, რაც პროცესში აგენტის გარეშე.
+### ვინ უნდა იყოს approver?
+იგივე role, რომელიც უკვე ფლობს ამ გადაწყვეტილებას non-agent პროცესში.
+
+### მოგვიანებით შეგვიძლია low risk auto-approve?
+დიახ - მას შემდეგ, რაც გექნებათ logs, error rates და ნათელი risk score.

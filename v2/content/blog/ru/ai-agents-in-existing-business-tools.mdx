@@ -1,32 +1,53 @@
 ---
 slug: "ai-agents-in-existing-business-tools"
-title: "Как встроить AI-агентов в существующие tools"
-description: "Практический подход: агенты в Gmail, CRM, docs, chat - без нового портала в день один."
+title: "Как встроить AI-агентов в tools, которыми команда уже пользуется"
+description: "Практический подход к embedding агентов в Gmail, CRM, docs и chat - вместо нового портала в день один."
 date: "2026-07-31"
 locale: "ru"
 hreflangGroup: "ai-agents-in-existing-business-tools"
-keywords: ["AI агенты в CRM", "AI агенты в существующих tools"]
+keywords: ["AI агенты в существующих tools", "AI агенты Gmail CRM", "встроить AI-агентов в бизнес-софт"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ai-agents-in-existing-business-tools/hero.jpg"
-heroAlt: "Как встроить AI-агентов в существующие tools"
+heroAlt: "Как встроить AI-агентов в tools, которыми команда уже пользуется"
 ogImage: "/blog/ai-agents-in-existing-business-tools/og.jpg"
 ---
 
 ## Прямой ответ
 
-Агенты туда, где уже идёт работа. Не новый portal first.
+Ставьте агентов **туда, где работа уже происходит**. Если intake живёт в email и CRM, агент должен читать и писать там - а не загонять каждого пользователя в новый portal. Новые платформы могут прийти позже; первая победа - убрать лишние hops.
 
-## Паттерн
+## Default surfaces
 
-Observe → Act → Gate → Notify → Log.
+- Inbox и calendar для communication work
+- CRM для состояния pipeline
+- Docs / wiki для knowledge
+- Chat для внутренних ops-сигналов
+- Sheets для lightweight queues, когда это и есть реальный system of record
 
-## Dali
+## Integration pattern
 
-Production agents в текущих tools. [Решения](/ru/solutions).
+1. Observe: какой tool - source of truth для каждого поля?
+2. Act: какие writes - drafts, а какие live?
+3. Gate: какие writes требуют human approval?
+4. Notify: где человек видит очередь?
+5. Log: где храним решения агента?
+
+## Anti-patterns
+
+- Строить параллельный «AI workspace», который никто не открывает
+- Синхронизировать каждое поле в обе стороны в день один
+- Позволять агенту изобретать CRM-стадии, которых нет в вашем процессе
+
+## Bias Dali
+
+Мы внедряем production-агентов внутри tools, которые команды уже запускают. Смотрите [карту solutions](/ru/solutions) по multi-agent production patterns.
 
 ## FAQ
 
-### Нужна своя платформа сразу?
-Обычно нет.
+### Нужна ли custom agent platform сразу?
+Обычно нет. Начните с tools of record и тонкого orchestration layer.
+
+### Что, если у tools нет API?
+Начните с human-in-the-loop drafts и export/import, затем автоматизируйте connector с наивысшим ROI.

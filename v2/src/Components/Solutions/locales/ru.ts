@@ -103,6 +103,16 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
             "Передавать сложные случаи человеку без потери контекста",
           ],
         },
+        "vibe-code-rescue": {
+          title: "Пилот Vibe-code Rescue",
+          summary:
+            "Триаж секретов, платежей и admin-путей в AI-MVP, затем hardening с gates и handoff-пакетом.",
+          tasks: [
+            "Карта высокорисковых secrets, payments, admin и outbound-путей",
+            "Решение patch vs rewrite по каждому критическому пути в scope",
+            "Gates, stop-switch и пакет передачи ownership команде",
+          ],
+        },
       },
     },
     process: {
@@ -989,6 +999,167 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
         upworkLabel: "Посмотреть, что прислать в Upwork",
         upworkBody:
           "Ответьте в Upwork с типом звонка, инструментом маршрутизации и правилами передачи. Dali вернет границу design-partner, матрицу тестов и предположения о согласовании.",
+      },
+    },
+    "vibe-code-rescue": {
+      slug: "vibe-code-rescue",
+      name: "Пилот Vibe-code Rescue",
+      summary:
+        "Фиксированный пилот: триаж секретов, платежей и admin-путей в AI-MVP, решение patch vs rewrite по критическим путям, gates, stop-switch и handoff-пакет для команды.",
+      accent: "#0B3A4A",
+      accentSoft: "#E4F0F3",
+      tint: "#f4f9fa",
+      metadata: {
+        title: "Пилот Vibe-code Rescue | Dali",
+        description:
+          "Фиксированный пилот production-hardening для vibe-coded MVP: триаж secrets, payments и admin, patch vs rewrite, gates и stop-switch, затем handoff-пакет, которым команда может владеть.",
+      },
+      hero: {
+        eyebrow: "Пакетный пилот",
+        title: "Укрепите AI-MVP до того, как он будет стоить доверия или денег.",
+        lead:
+          "Dali проводит фиксированный rescue на одной продуктовой поверхности: находит bleeding-пути (secrets, payments, admin, outbound-действия), останавливает худшие риски, решает patch vs rewrite по каждому критическому пути и ставит gates, мониторинг и stop-switch вместе с handoff, который команда может вести сама.",
+        supportLine:
+          "Лучше всего подходит фаундерам и операторам, которые запустились через Lovable, Cursor, v0 или похожие builders и теперь нужна production-честность без стыда и без полного rewrite всего продукта.",
+      },
+      workflow: {
+        label: "Схема работы",
+        intake: ["Репозиторий или preview", "Payment и admin-пути", "Поверхности секретов"],
+        agentLabel: "Пилот rescue и hardening",
+        review: ["Критическая severity", "Patch vs rewrite", "Подпись владельца"],
+        outcomes: ["Карта рисков", "Укрепленные пути", "Handoff-пакет"],
+      },
+      contrast: {
+        painTitle: "Что заменяет",
+        painPoints: [
+          "Демо, которое работает в preview, пока токены, webhooks или admin-маршруты открыты в production.",
+          "Бесконечные chat-driven патчи без порядка severity, без stop-switch и без ясного ownership после спринта.",
+          "Ложный выбор между «шипнуть как есть» и «выбросить всё», когда глубина инженерии нужна только на нескольких путях.",
+        ],
+        outcomeTitle: "Что создает",
+        outcomePoints: [
+          "Триаж по severity для secrets, payments, admin и outbound-действий.",
+          "Письменное решение patch vs rewrite по каждому критическому пути, а не размытый rewrite-мандат.",
+          "Gates, мониторинг и stop-switch плюс handoff-пакет, которым команда управляет без постоянного присутствия Dali.",
+        ],
+      },
+      pilot: {
+        label: "Точная фиксированная граница пилота",
+        fixedOutcome:
+          "Одна продуктовая поверхность, триаж высокорисковых путей, решения patch или rewrite, production-gates и stop-switch, handoff-пакет с владельцами и residual risks.",
+        includes: [
+          "1 продуктовая поверхность или deployable-приложение (сайт, MVP или admin-backed flow)",
+          "Триаж secrets, payments, admin-доступа и high-impact outbound-действий",
+          "Заметки patch vs rewrite по каждому критическому пути в scope",
+          "Production-gates, ожидания по логам и явный stop-switch",
+          "Handoff-пакет: residual risks, owners и следующие engineering-шаги",
+        ],
+        excludes: [
+          "Полный rewrite каждой фичи или экрана",
+          "Открытый product redesign или rebrand",
+          "Rescue целого портфеля продуктов внутри одного пилота",
+          "Стыд команды за использование AI builders",
+        ],
+      },
+      integrations: {
+        label: "Интеграции и примеры",
+        intro:
+          "Пилот работает на стеке, который вы уже запустили. Мы встречаем продукт там, где он есть: builder-output, custom code, payments и host - и hardening только там, где реально можно получить удар.",
+        items: [
+          "Lovable, v0, Cursor, Bolt или смешанные AI-assisted кодовые базы",
+          "Vercel, Netlify, Cloudflare или похожие preview-to-prod hosts",
+          "Stripe, payment webhooks, promo-коды и checkout callbacks",
+          "Supabase, Firebase, custom admin или shared service-role keys",
+          "Связанные материалы в блоге Dali: how-we-rescue-vibe-coded-mvps, vibe-coded-site-hardening-checklist, security-audit-for-vibe-coded-websites, rewrite-vs-patch-vibe-code",
+        ],
+      },
+      guardrails: {
+        label: "Ограничения и согласование",
+        intro:
+          "Rescue - это не тихий rewrite. Severity, решения и residual risk остаются видимыми владельцу до того, как что-либо считается завершенным.",
+        items: [
+          "Secrets и payment-пути идут как stop-the-bleeding раньше косметической чистки.",
+          "Каждый критический путь получает явный вызов patch или rewrite с причиной, а не «по вайбу».",
+          "Stop-switch и human gate остаются на high-impact действиях после пилота.",
+          "Residual risks вне scope фиксируются с owners, а не хоронятся в чате.",
+        ],
+      },
+      validation: {
+        acceptanceTest:
+          "Пилот проходит только если high-severity findings по secrets и payments закрыты или явно приняты владельцем письменно, у каждого критического пути в scope есть решение patch-or-rewrite, есть stop-switch для high-impact действий, а handoff-пакет называет residual risks и owners.",
+        measures: [
+          "High-severity findings закрыты или приняты владельцем",
+          "Критические пути с письменным patch vs rewrite",
+          "Покрытие stop-switch и gates на high-impact действиях",
+          "Полнота handoff: residual risks, owners, next steps",
+        ],
+        commercialModel:
+          "Аудит фиксирует продуктовую поверхность, приоритеты рисков и acceptance bar. Затем Dali котирует один fixed-scope, fixed-price rescue-пилот. Более широкий rewrite или multi-surface работа - отдельное решение после handoff.",
+      },
+      delivery: [
+        {
+          title: "Триаж bleeding-путей",
+          body:
+            "Мы картируем secrets, payments, admin и outbound-поверхности, ранжируем severity и фиксируем границу пилота, чтобы работа началась там, где ущерб реален.",
+        },
+        {
+          title: "Patch, rewrite и gates",
+          body:
+            "Мы hardening или rewrite каждого критического пути в scope, добавляем production-gates и stop-switch и оставляем косметический долг вне первого пакета, если он не блокирует безопасность.",
+        },
+        {
+          title: "Передача ownership",
+          body:
+            "Вы получаете пакет с решениями, residual risks, owners и следующими engineering-шагами, чтобы команда вела продукт без постоянного on-call от Dali.",
+        },
+      ],
+      fit: {
+        fit: [
+          "Вы запустили MVP через AI builders или heavy AI-assisted coding, а реальные пользователи или payments уже близко.",
+          "Вы можете назвать одну продуктовую поверхность и пути, которые касаются денег, доступа или outbound side effects.",
+          "Вам нужна честная карта patch vs rewrite больше, чем слоган про полный rebuild.",
+        ],
+        notFit: [
+          "Нужен полный product rewrite каждого экрана в одном engagement.",
+          "Нет владельца, который может принять residual risk или приоритизировать severity.",
+          "Продукт все еще чистый прототип без production host, пользователей или payment-пути.",
+        ],
+      },
+      faqs: [
+        {
+          question: "Нужно ли выбрасывать vibe-coded приложение?",
+          answer:
+            "Обычно нет. Большинство rescue сохраняют рабочую поверхность и rewrite только небезопасные или неподдерживаемые пути. Patch vs rewrite решается по каждому критическому пути. Рамку решения см. в rewrite-vs-patch-vibe-code в блоге Dali.",
+        },
+        {
+          question: "Это полный security-аудит?",
+          answer:
+            "Это production-hardening пилот с security-minded триажем, а не enterprise pen-test theater. Сначала secrets, payments, admin и high-impact действия. Более глубокие заметки - в security-audit-for-vibe-coded-websites и vibe-coded-site-hardening-checklist.",
+        },
+        {
+          question: "Будете ли стыдить за AI tools?",
+          answer:
+            "Нет. Скорость была рациональной. Пилот исходит из того, что builders помогли учиться; сейчас нужна production-честность. Процесс описан публично в how-we-rescue-vibe-coded-mvps.",
+        },
+        {
+          question: "Что мы получаем в конце?",
+          answer:
+            "Триаж по severity, hardened или rewritten критические пути в scope, gates и stop-switch, плюс handoff-пакет с residual risks, owners и next steps. Не размытое «мы улучшили код».",
+        },
+      ],
+      cta: {
+        publicLabel: "Начать аудит vibe-code rescue",
+        publicBody:
+          "Если MVP уже live или вот-вот начнет принимать деньги, пришлите URL продукта или контекст репозитория и пути, которые беспокоят больше всего. Dali вернет фиксированную границу rescue и acceptance bar.",
+        intakeFields: [
+          "URL продукта, preview или контекст репозитория для одной поверхности",
+          "Payment, admin, auth или outbound-пути, которые уже существуют",
+          "Где сейчас живут secrets, webhooks или service keys",
+          "Владелец, который может принять residual risk и приоритизировать severity",
+        ],
+        upworkLabel: "Посмотреть, что прислать в Upwork",
+        upworkBody:
+          "Ответьте в Upwork с продуктовой поверхностью, payment или admin-путями и владельцем risk-решений. Dali вернет фиксированную границу rescue-пилота и порядок триажа.",
       },
     },
   },

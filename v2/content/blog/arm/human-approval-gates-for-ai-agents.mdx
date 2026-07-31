@@ -1,43 +1,64 @@
 ---
 slug: "human-approval-gates-for-ai-agents"
-title: "Human approval gates AI գործակալների համար"
-description: "Որտեղ դնել human review, երբ գործակալը կարող է անդառնալի սխալ անել։"
+title: "Human approval gate-եր AI գործակալների համար production-ում"
+description: "Ինչպես տեղադրել human review այնտեղ, որտեղ գործակալը կարող է անդառնալի վնաս պատճառել՝ առանց ամբողջ workflow-ն սառեցնելու։"
 date: "2026-07-31"
 locale: "arm"
 hreflangGroup: "human-approval-gates-for-ai-agents"
-keywords: ['human approval gates', 'human in the loop', 'AI agent controls']
+keywords: ["human approval gates AI գործակալներ", "AI agent human in the loop", "production agent controls"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/human-approval-gates-for-ai-agents/hero.jpg"
-heroAlt: "Human gate դիագրամ agent համակարգում"
+heroAlt: "Աբստրակտ control-gate դիագրամ human approval-ի համար agent համակարգերում"
 ogImage: "/blog/human-approval-gates-for-ai-agents/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-**Human approval gate** դրեք անդառնալի, թանկ կամ արտաքին գործողությունից առաջ։ Ներքին draft-երը միշտ չէ, որ պետք է արգելափակվեն։
+Դրեք **human approval gate** ցանկացած agent գործողությունից առաջ, որը դժվար է հետ շրջել, թանկ է սխալվելու դեպքում, կամ արտաքինից տեսանելի է առանց review-ի։ Մի gate արեք մաքուր research քայլերը, որոնք միայն ներքին նշումներ են draft անում։
+
+Gate-երը bureaucracy չեն։ Դրանք սահմանն են օգտակար automation-ի և operational risk-ի միջև։
 
 ## Ինչը gate անել
 
-- Ուղարկումներ, վճարումներ, իրավունքներ, CRM stage, հրապարակային պատասխաններ
+- Ուղարկումներ. email, հաղորդագրություններ, հաշիվներ, պայմանագրի փոփոխություններ
+- Գրումներ. CRM stage տեղափոխումներ, refund-ներ, permission փոփոխություններ
+- Փող և մուտք. վճարումներ, admin role-եր, production deploy-ներ
+- Հրապարակային բովանդակություն. գրառումներ, customer-facing պատասխաններ զգայուն թեմաներով
 
-## Նվազագույն դիզայն
+## Ինչը չgate անել
 
-1. Գործողություն և blast radius
-2. Approver role
-3. Evidence pack
-4. Log
-5. Timeout
+- Ներքին ամփոփումներ այն human-ի համար, ով արդեն տիրապետում է հաջորդ քայլին
+- Retrieval և ranking, որոնք միայն տեղեկացնում են ավելի ուշ approve արվող գործողությանը
+- Draft generation, որը չի կարող դուրս գալ sandbox-ից առանց approval-ի
 
-## Dali
+## Նվազագույն gate դիզայն
 
-Նախ workflow քարտեզ, հետո gates։ [Լուծումներ](/arm/solutions)։
+1. Անվանեք գործողությունը և նրա blast radius-ը։
+2. Սահմանեք, թե ով կարող է approve անել (role, ոչ թե «ցանկացած online»)։
+3. Ցույց տվեք agent evidence pack-ը. inputs, նախատեսված գործողություն, confidence, sources։
+4. Log արեք approve / reject / edit՝ պատճառով։
+5. Time-box արեք stale approval-ները, որպեսզի աշխատանքը լուռ չփչանա։
+
+## Ձախողման ռեժիմներ
+
+- Ամեն ինչ gate անել → գործակալները դառնում են դանդաղ chat stub-եր
+- Ոչինչ gate չանել → մեկ վատ tool call-ը ստեղծում է customer incident
+- Անորոշ approver-ներ → ոչ ոք չի տիրապետում որոշմանը
+- Առանց audit trail → չեք կարող բարելավել policy-ն
+
+## Ինչպես է Dali-ն օգտագործում gate-երը
+
+Production agent համակարգերում նախ map ենք անում workflow-ները, հետո gate-եր ենք դնում irreversible քայլերի վրա, հետո automate ենք անում մնացածը առկա tools-ում։ Սկսեք [audit-ից](/arm/solutions)։
 
 ## FAQ
 
-### Բոլոր draft-ե՞րը։
-Ոչ։ Միայն outbound և irreversible։
+### Արդյո՞ք յուրաքանչյուր agent հաղորդագրություն պետք է approval պահանջի։
+Ոչ։ Approve արեք outbound և irreversible գործողությունները, ոչ թե յուրաքանչյուր ներքին draft։
 
-### Ո՞վ է approve անում։
-Նույն role-ը, ինչ առանց գործակալի։
+### Ո՞վ պետք է լինի approver-ը։
+Այն role-ը, որն արդեն տիրապետում է այդ որոշմանը non-agent պրոցեսում։
+
+### Կարո՞ղ ենք ավելի ուշ auto-approve անել low risk-ը։
+Այո - այն բանից հետո, երբ ունեք logs, error rates և պարզ risk score։

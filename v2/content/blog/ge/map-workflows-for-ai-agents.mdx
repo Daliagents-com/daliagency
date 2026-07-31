@@ -1,32 +1,71 @@
 ---
 slug: "map-workflows-for-ai-agents"
-title: "როგორ დავმაპოთ workflow AI აგენტებამდე"
-description: "პრაქტიკული workflow mapping production აგენტებისთვის."
+title: "როგორ დავმაპოთ workflow-ები AI აგენტების აშენებამდე"
+description: "პრაქტიკული workflow-mapping მეთოდი production აგენტებისთვის: ნაბიჯები, tools, failure cost და სად რჩება ადამიანი კონტროლში."
 date: "2026-07-31"
 locale: "ge"
 hreflangGroup: "map-workflows-for-ai-agents"
-keywords: ["workflow mapping AI agents"]
+keywords: ["workflow mapping AI აგენტები", "AI agent პროცესის mapping", "workflow discovery აგენტები"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/map-workflows-for-ai-agents/hero.jpg"
-heroAlt: "როგორ დავმაპოთ workflow AI აგენტებამდე"
+heroAlt: "როგორ დავმაპოთ workflow-ები AI აგენტების აშენებამდე"
 ogImage: "/blog/map-workflows-for-ai-agents/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-ჯერ რეალური workflow-ის რუკა, შემდეგ prompts და tools. რუკა ასახელებს ნაბიჯს, ხელსაწყოს, owner-ს, "done"-ს და შეცდომის ფასს.
+დამაპეთ რეალური workflow prompts-ის დაწერამდე ან tools-ის დაკავშირებამდე. სასარგებლო რუკა ასახელებს ყოველ ნაბიჯს, tool-ს სადაც ის ცხოვრობს, ვინ ფლობს მას დღეს, რას ნიშნავს "done", და რა ღირს თუ ეს ნაბიჯი ჩავარდება. რუკის გარეშე აგენტები მითებს აავტომატიზებენ.
 
-## მინიმალური სესია
+## რატომ მოდის mapping პირველი
 
-ერთი high-volume workflow, რეალური case, tools, irreversible actions, failure cost, agent role.
+გუნდები ხშირად იწყებენ model-ით ან chatbot UI-თი. Production აგენტები იწყებენ სამუშაოთი: intake, triage, draft, approve, send, log. თუ ეს ნაბიჯები ბუნდოვანია, აგენტიც ბუნდოვანი იქნება.
 
-## Dali
+## მინიმალური mapping სესია (ნახევარი დღე)
 
-Discovery არსებულ tools-ში. [გადაწყვეტები](/ge/solutions).
+1. აირჩიეთ ერთი high-volume workflow (არა ათი).
+2. გაიარეთ რეალური ბოლოდროინდელი case end-to-end - არა happy path slide.
+3. თითოეულ ნაბიჯზე დააფიქსირეთ: actor, tool, inputs, outputs, exceptions.
+4. მონიშნეთ irreversible მოქმედებები (send, pay, permission ცვლილება, საჯარო პოსტი).
+5. შეაფასეთ failure cost: low / medium / high კლიენტისთვის, ფულისთვის, ნდობისთვის.
+6. გადაწყვიტეთ რომელი ნაბიჯები შეიძლება agent-მა დრაფტად, შეასრულოს, ან საერთოდ არ შეეხოს.
+
+## Template ველები (დააკოპირეთ)
+
+| ველი | მაგალითი |
+| --- | --- |
+| ნაბიჯის სახელი | Qualify inbound lead |
+| Tool | Gmail + CRM |
+| Owner დღეს | AE |
+| Inputs | email body, form fields |
+| Output | stage update + draft reply |
+| Irreversible? | send reply = yes |
+| Failure cost | medium (ცუდი პირველი შთაბეჭდილება) |
+| Agent role | მხოლოდ draft |
+
+## ხშირი mapping შეცდომები
+
+- Org chart-ის mapping სამუშაოს ნაცვლად
+- Exceptions-ის გამოტოვება ("VIP კლიენტები", "legal holds")
+- ერთი tool-ის ვარაუდი, როცა სამუშაო ხუთს გადის
+- იმ ადამიანის დავიწყება, რომელიც დღეს judgment-ს ფლობს
+
+## რუკის შემდეგ
+
+მხოლოდ მაშინ აირჩიეთ agent scope: ერთი production path, ნათელი gates და 2-4 კვირიანი measurement window (cycle time, error rate, rework). იხილეთ აგრეთვე [human approval gate-ები](/ge/blog/human-approval-gates-for-ai-agents).
+
+## როგორ ატარებს Dali discovery-ს
+
+Dali იწყებს process discovery-თი tools-ში, რომლებსაც გუნდი უკვე იყენებს, შემდეგ აპროექტებს agent path-ებს approval საზღვრებით. დაიწყეთ [გადაწყვეტებიდან](/ge/solutions).
 
 ## FAQ
 
-### გრძელი workshop?
-არა. ერთი ღრმა რუკა საკმარისია დასაწყებად.
+### გვჭირდება ექვსკვირიანი process workshop?
+არა. ერთი high-volume workflow ღრმად დამაპული სჯობს ბუნდოვანი process დიაგრამების პორტფოლიოს.
+
+### ვინ უნდა დაესწროს mapping სესიას?
+ვიღაც, ვინც სამუშაოს ყოველკვირეულად აკეთებს, პლუს ის, ვინც irreversible მოქმედებების რისკს ფლობს.
+
+### შეგვიძლია mapping AI-ის დახმარებით?
+დიახ capture-ისა და cleanup-ისთვის. ადამიანები მაინც ამოწმებენ exceptions-სა და risk-ს.

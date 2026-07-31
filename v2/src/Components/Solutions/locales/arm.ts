@@ -1,4 +1,5 @@
 import type { LocalizedSolutionsBundle } from "./types";
+import { solutionsBySlug } from "../solutionContent";
 
 export const armenianSolutionsBundle = {
   overview: {
@@ -101,6 +102,16 @@ export const armenianSolutionsBundle = {
             "Որակավորել մեկ սովորական մուտքային զանգի տեսակ",
             "Ամրագրել հաջորդ քայլը և գրել կառուցվածքային CRM ամփոփում",
             "Փոխանցել բարդ դեպքերը մարդուն առանց կոնտեքստը կորցնելու",
+          ],
+        },
+        "vibe-code-rescue": {
+          title: "Vibe-code Rescue պիլոտ",
+          summary:
+            "AI-ով կառուցված MVP-ի secrets, payments և admin ուղիների տրիաժ, ապա hardening՝ gates-ով և handoff-ով։",
+          tasks: [
+            "Բարձր ռիսկի secrets, payments, admin և outbound ուղիների քարտեզ",
+            "patch vs rewrite որոշում յուրաքանչյուր critical path-ի համար scope-ում",
+            "gates, stop-switch և ownership handoff փաթեթ թիմի համար",
           ],
         },
       },
@@ -991,6 +1002,7 @@ export const armenianSolutionsBundle = {
           "Պատասխանեք Upwork-ում զանգի տեսակով, routing գործիքով և handoff կանոններով։ Dali-ը կպատասխանի դիզայն-գործընկեր սահմանով, թեստային մատրիցով և հաստատման ենթադրություններով։",
       },
     },
+    "vibe-code-rescue": solutionsBySlug["vibe-code-rescue"],
   },
   labels: {
     browseAllPilots: "Տեսնել բոլոր պիլոտները",

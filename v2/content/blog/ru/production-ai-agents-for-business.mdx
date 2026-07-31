@@ -1,36 +1,52 @@
 ---
 slug: "production-ai-agents-for-business"
-title: "Production AI-агенты для бизнеса: что значит production"
-description: "Простое определение production AI-агентов: tools, gates, ownership, измерение - не демо."
+title: "Production AI-агенты для бизнеса: что на самом деле значит «production»"
+description: "Простое определение production AI-агентов для бизнес-команд: tools, gates, ownership, измерение - не демо."
 date: "2026-07-31"
 locale: "ru"
 hreflangGroup: "production-ai-agents-for-business"
-keywords: ["production AI agents", "AI агенты в бизнесе"]
+keywords: ["production AI agents for business", "AI-агенты в production", "бизнес AI-агенты"]
 status: "published"
 author: "Dali"
 type: "pillar"
 heroImage: "/blog/production-ai-agents-for-business/hero.jpg"
-heroAlt: "Production AI-агенты для бизнеса: что значит production"
+heroAlt: "Production AI-агенты для бизнеса: что на самом деле значит «production»"
 ogImage: "/blog/production-ai-agents-for-business/og.jpg"
 ---
 
 ## Прямой ответ
 
-Production-агент регулярно делает реальную работу в tools компании, с правилами, gates и владельцем при сбоях. Демо-чат - не production.
+**Production AI-агент** для бизнеса - это система, которая регулярно выполняет реальную работу внутри tools компании, по правилам и с human gates, с человеком, который отвечает, когда что-то ломается. Демо, которое отвечает на вопросы в chat-окне, - это не production.
 
-## Чеклист
+## Production checklist
 
-Реальные кейсы, существующие tools, allow/deny, логи, owner, возможность паузы.
+- Работает на реальных кейсах, а не на scripted screenshots
+- Использует tools, в которых команда уже живёт (inbox, CRM, docs, chat)
+- Имеет явные allowed и forbidden actions
+- Логирует outcomes для review
+- Имеет owner on-call на exceptions
+- Может быть поставлен на паузу без театра полного outage
 
-## Стадии
+## Три стадии зрелости
 
-Draft assist → gated execute → supervised autonomy.
+1. **Draft assist** - агент готовит, человек исполняет
+2. **Gated execute** - агент предлагает действия, человек approve'ит необратимые
+3. **Supervised autonomy** - ограниченные auto-actions с мониторингом и rollback
 
-## Dali
+Большинству компаний стоит дольше оставаться на стадиях 1-2, чем подсказывают vendors.
 
-Workflow + gates + implementation. [Решения](/ru/solutions).
+## Business fit
+
+Production-агенты окупаются на high-volume, rule-heavy работе с ясным критерием «готово»: lead response, triage inbox, ops-документация, knowledge retrieval с цитатами. Они плохо работают на чистой strategy, неоднозначных переговорах и brand-new процессах, которые ещё никто не понимает.
+
+## Как Dali определяет production
+
+Мы проектируем agent systems вокруг workflows и approval boundaries, затем внедряем. Связанное: [карта workflows](/ru/blog/map-workflows-for-ai-agents), [approval gates](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Чатбот = агент?
-Только если multi-step actions с tools.
+### Чатбот - это агент?
+Только если он делает multi-step actions с tools. Chat сам по себе - это interface.
+
+### Нужна ли multi-agent orchestration в день один?
+Нет. Один надёжный path лучше роя полупроводных specialists.

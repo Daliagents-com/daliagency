@@ -5,7 +5,7 @@
 import AgentUxPreview, {
   type AgentUxKind,
 } from "@/Components/Home/AgentUxPreview";
-import type { SolutionContent } from "../solutionContent";
+import type { SolutionContent, SolutionSlug } from "../solutionContent";
 import type { SolutionPageLocale } from "../solutionLabels";
 import styles from "./PilotProductPreview.module.css";
 
@@ -13,6 +13,14 @@ type Props = {
   solution: SolutionContent;
   locale?: SolutionPageLocale;
 };
+
+/** Map solution pages onto existing product-mock shells. */
+function previewKind(slug: SolutionSlug): AgentUxKind {
+  if (slug === "vibe-code-rescue") {
+    return "operations-docs";
+  }
+  return slug;
+}
 
 function tasksFor(solution: SolutionContent): readonly string[] {
   // Hero copy stays short - motion carries the story.
@@ -27,6 +35,8 @@ function tasksFor(solution: SolutionContent): readonly string[] {
       return ["Invoice_8841.pdf", "Fields validated", "ERP row"];
     case "voice-agents":
       return ["Book this week", "Two slots offered", "Handoff"];
+    case "vibe-code-rescue":
+      return ["Secret in client JS", "Patch payments path", "Stop-switch on"];
     default:
       return solution.workflow.outcomes.map((item) =>
         item.length > 28 ? `${item.slice(0, 26)}…` : item,
@@ -38,7 +48,7 @@ export default function PilotProductPreview({
   solution,
   locale = "en",
 }: Props) {
-  const kind = solution.slug as AgentUxKind;
+  const kind = previewKind(solution.slug);
 
   return (
     <div className={styles.frame} data-slug={solution.slug}>

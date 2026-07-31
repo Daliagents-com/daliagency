@@ -121,7 +121,7 @@ export default function DesignSprint({
   useSectionMotion(shellRef);
   useServicesIntroKick(sectionRef);
   const { clipPath, reduce } = useServicesCurtain(sectionRef);
-  const [c0, c1, c2, c3] = copy.cards;
+  const [c0, c1, c2, c3, c4] = copy.cards;
 
   return (
     <section
@@ -162,11 +162,7 @@ export default function DesignSprint({
               <Card slot="d" title={c2.title} description={c2.description}>
                 <MockRoadmap delay={0.46} />
               </Card>
-              <Card
-                slot="e"
-                title="Production controls"
-                description="Tools, approvals, and human checkpoints before agents act."
-              >
+              <Card slot="e" title={c4.title} description={c4.description}>
                 <MockGate delay={0.58} />
               </Card>
             </div>

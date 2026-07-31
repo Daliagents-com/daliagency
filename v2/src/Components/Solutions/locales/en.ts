@@ -108,6 +108,16 @@ export const englishSolutionsBundle = {
             "Transfer hard cases to a person without losing context",
           ],
         },
+        "vibe-code-rescue": {
+          title: "Vibe-code Rescue Pilot",
+          summary:
+            "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
+          tasks: [
+            "Map high-risk secrets, payments, admin, and outbound paths",
+            "Decide patch vs rewrite for each critical path in scope",
+            "Ship gates, a stop-switch, and an ownership handoff package",
+          ],
+        },
       },
     },
     process: {

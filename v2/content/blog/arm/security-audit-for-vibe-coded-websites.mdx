@@ -1,32 +1,52 @@
 ---
 slug: "security-audit-for-vibe-coded-websites"
-title: "Security audit for vibe-coded websites: what we check first"
-description: "A studio checklist for auditing AI-generated sites: public endpoints, payments, admin, headers, and secrets."
+title: "Security audit vibe-coded կայքերի համար. ինչ ենք նախ ստուգում"
+description: "Ստուդիայի checklist AI-ով գեներացված կայքերի audit-ի համար. public endpoints, payments, admin, headers և secrets։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "security-audit-for-vibe-coded-websites"
-keywords: ["security audit vibe coded website", "AI generated website security audit"]
+keywords: ["security audit vibe coded կայք", "AI generated website security audit"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/security-audit-for-vibe-coded-websites/hero.jpg"
-heroAlt: "Security audit for vibe-coded websites: what we check first"
+heroAlt: "Security audit vibe-coded կայքերի համար. ինչ ենք նախ ստուգում"
 ogImage: "/blog/security-audit-for-vibe-coded-websites/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-First pass on a vibe-coded site: list public network calls, admin surfaces, payment creation paths, CORS policy, security headers, and any tokens visible to JavaScript. Confirm what is proven vs only suspected.
+Առաջին pass vibe-coded կայքի վրա. ցուցակագրեք public network call-երը, admin մակերեսները, payment creation path-երը, CORS policy-ն, security headers-ը և ցանկացած token, որ տեսանելի է JavaScript-ին։ Հաստատեք, թե ինչն է ապացուցված vs միայն կասկածվող։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական business workflow-ից, ոչ թե model brand-ից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք ամեն ուղի, որ դիպչում է փողին, մուտքին կամ outbound հաղորդագրություններին։
+- Պահեք human path ոչ ստանդարտ դեպքերի համար։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Պարզ standard vs non-standard routing
+- Knowledge base, որն assistant-ը իրականում կարող է օգտագործել
+- Session memory միայն այնտեղ, որտեղ նախատեսված է
+- Secrets-ը երբեք client JavaScript-ում չեն
+- Logs և stop switch
+
+## Ինչպես է վատը
+
+- «Preview-ում աշխատում է»՝ առանց production ստուգումների
+- Tokens և webhooks թողնված են public
+- Չկա human handoff exceptions-ի համար
+- Բարակ machine-translated էջեր՝ որպես localization վաճառված
+
+## Ինչպես է Dali-ն վերաբերվում սրան
+
+Dali-ն AI agent systems ստուդիա է. մենք լուրջ ենք վերաբերվում vibe prototype-ներին, հետո դրանք harden ենք անում production համակարգերի՝ gates-երով, tools-երով և ownership-ով։ Առնչվող. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [approval gate-եր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
 ### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+Ոչ։ Դա արագ ճանապարհ է աշխատող surface ստանալու համար։ Վտանգավոր է դառնում միայն այն ժամանակ, երբ այն ընդունում են որպես ավարտված production։
+
+### Ամեն ինչ rewrite անո՞ւմ եք։
+Ոչ միշտ։ Երբեմն harden ենք անում։ Երբեմն isolate ենք անում և վերակառուցում critical path-ը։

@@ -79,6 +79,8 @@ function getUpworkWorkflowIntake(solution: SolutionContent) {
       return ["Docs", "Past answers", "Policy notes"] as const;
     case "voice-agents":
       return ["Call queue", "Scheduling rules", "FAQ docs"] as const;
+    case "vibe-code-rescue":
+      return ["Repo or preview", "Payment & admin paths", "Secret surfaces"] as const;
   }
 }
 
@@ -117,6 +119,13 @@ function getUpworkIntegrations(solution: SolutionContent) {
         "Existing booking software or a structured intake sheet",
         "CRM updates and owner alerts after every call outcome",
         "Team notifications for transfer and callback events",
+      ] as const;
+    case "vibe-code-rescue":
+      return [
+        "Lovable, v0, Cursor, Bolt, or mixed AI-assisted codebases",
+        "Vercel, Netlify, Cloudflare, or similar preview-to-prod hosts",
+        "Stripe, payment webhooks, promo codes, and checkout callbacks",
+        "Supabase, Firebase, custom admin, or shared service-role keys",
       ] as const;
   }
 }

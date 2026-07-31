@@ -1,32 +1,52 @@
 ---
 slug: "security-audit-for-vibe-coded-websites"
-title: "Security audit for vibe-coded websites: what we check first"
-description: "A studio checklist for auditing AI-generated sites: public endpoints, payments, admin, headers, and secrets."
+title: "Security audit vibe-coded საიტებისთვის: რას ვამოწმებთ პირველად"
+description: "სტუდიის checklist AI-ით გენერირებული საიტების აუდიტისთვის: public endpoints, payments, admin, headers და secrets."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "security-audit-for-vibe-coded-websites"
-keywords: ["security audit vibe coded website", "AI generated website security audit"]
+keywords: ["security audit vibe coded საიტი", "AI გენერირებული საიტის security audit"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/security-audit-for-vibe-coded-websites/hero.jpg"
-heroAlt: "Security audit for vibe-coded websites: what we check first"
+heroAlt: "Security audit vibe-coded საიტებისთვის: რას ვამოწმებთ პირველად"
 ogImage: "/blog/security-audit-for-vibe-coded-websites/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-First pass on a vibe-coded site: list public network calls, admin surfaces, payment creation paths, CORS policy, security headers, and any tokens visible to JavaScript. Confirm what is proven vs only suspected.
+პირველი გავლა vibe-coded საიტზე: ჩამოთვალეთ public network calls, admin ზედაპირები, payment creation path-ები, CORS policy, security headers და ნებისმიერი token, რომელიც JavaScript-სთვის ჩანს. დაადასტურეთ რა არის დამტკიცებული და რა მხოლოდ საეჭვო.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური business workflow-ით, და არა model brand-ით.
+- ქცევა აღწერეთ მარტივ ენაზე, შემდეგ გადაამოწმეთ ყოველი path, რომელიც ფულს, წვდომას ან გარე შეტყობინებებს ეხება.
+- არასტანდარტული შემთხვევებისთვის შეინარჩუნეთ human path.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- ნათელი standard vs non-standard routing
+- Knowledge base, რომელსაც ასისტენტი რეალურად იყენებს
+- Session memory მხოლოდ იქ, სადაც ეს განზრახულია
+- Secrets არასდროს client JavaScript-ში
+- Logs და stop switch
+
+## როგორ გამოიყურება ცუდი
+
+- "Preview-ში მუშაობს" production შემოწმებების გარეშე
+- Tokens და webhooks საჯაროდ დატოვებული
+- Human handoff exceptions-ისთვის არ არის
+- თხელი machine-translated გვერდები localization-ად გაყიდული
+
+## როგორ ამუშავებს ამას Dali
+
+Dali არის AI agent systems სტუდია: vibe prototype-ებს სერიოზულად ვიღებთ, შემდეგ ვამყარებთ production სისტემებად gates-ით, tools-ით და ownership-ით. დაკავშირებული: [production AI აგენტები](/ge/blog/production-ai-agents-for-business), [approval gate-ები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
 ### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+არა. ეს არის სწრაფი გზა working surface-ის მისაღებად. საშიში ხდება მხოლოდ მაშინ, როცა მას დასრულებულ production-ად მიიჩნევენ.
+
+### ყველაფერს rewrite-ს უკეთებთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ (harden). ზოგჯერ კრიტიკულ path-ს ვაცალკევებთ და თავიდან ვაშენებთ.

@@ -1,40 +1,52 @@
 ---
 slug: "vibe-coded-site-hardening-checklist"
-title: "Vibe-coded site hardening checklist (studio version)"
-description: "A practical hardening list: secrets, webhooks, payments, admin, headers, backups, and ownership."
+title: "Чеклист hardening для vibe-coded сайта (studio version)"
+description: "Практический hardening list: secrets, webhooks, payments, admin, headers, backups и ownership."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "vibe-coded-site-hardening-checklist"
-keywords: ["website hardening checklist", "AI website hardening", "production harden vibe code"]
+keywords: ["website hardening checklist", "hardening AI-сайта", "production harden vibe code"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/vibe-coded-site-hardening-checklist/hero.jpg"
-heroAlt: "Vibe-coded site hardening checklist (studio version)"
+heroAlt: "Чеклист hardening для vibe-coded сайта (studio version)"
 ogImage: "/blog/vibe-coded-site-hardening-checklist/og.jpg"
 ---
 
 ## Прямой ответ
 
-Hardening list: rotate secrets, remove client-side privileged config, authenticate webhooks, server-side prices, rate limits, security headers, backups, staging, and a named owner for incidents.
+Hardening list: rotate secrets, уберите privileged config из client-side, authenticate webhooks, server-side prices, rate limits, security headers, backups, staging и named owner на incidents.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального business workflow, а не с «бренда» модели.
+- Описывайте поведение простым языком, затем проверяйте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставляйте human path для нестандартных кейсов.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясный routing: standard vs non-standard
+- Knowledge base, которой ассистент реально может пользоваться
+- Session memory только там, где это задумано
+- Secrets никогда не в client JavaScript
+- Логи и stop switch
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В preview работает» без production-проверок
+- Tokens и webhooks оставлены публичными
+- Нет human handoff для exceptions
+- Тонкие machine-translated страницы, проданные как локализация
+
+## Как Dali это ведёт
+
+Dali - студия AI agent systems: мы серьёзно относимся к vibe-прототипам, затем hardening'им их в production-системы с gates, tools и ownership. Связанное: [production AI-агенты](/ru/blog/production-ai-agents-for-business), [approval gates](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
 ### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+Нет. Это быстрый способ получить рабочую поверхность. Он становится опасным только когда его принимают за готовый production.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда всё переписываете?
+Не всегда. Иногда мы harden'им. Иногда изолируем и пересобираем critical path.

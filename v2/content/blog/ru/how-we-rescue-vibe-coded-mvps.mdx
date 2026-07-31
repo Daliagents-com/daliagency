@@ -1,40 +1,52 @@
 ---
 slug: "how-we-rescue-vibe-coded-mvps"
-title: "How we rescue vibe-coded MVPs without shaming the founder"
-description: "Our process for taking a fast AI-built MVP into a safer production path: triage, harden, rewrite critical paths."
+title: "Как мы спасаем vibe-coded MVP без стыда для фаундера"
+description: "Наш процесс перевода быстрого AI-собранного MVP на более безопасный production path: triage, harden, rewrite критических путей."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "how-we-rescue-vibe-coded-mvps"
-keywords: ["rescue vibe coded MVP", "fix AI generated website", "harden vibe coded product"]
+keywords: ["спасти vibe coded MVP", "починить AI-сгенерированный сайт", "harden vibe coded product"]
 status: "published"
 author: "Dali"
 type: "pillar"
 heroImage: "/blog/how-we-rescue-vibe-coded-mvps/hero.jpg"
-heroAlt: "How we rescue vibe-coded MVPs without shaming the founder"
+heroAlt: "Как мы спасаем vibe-coded MVP без стыда для фаундера"
 ogImage: "/blog/how-we-rescue-vibe-coded-mvps/og.jpg"
 ---
 
 ## Прямой ответ
 
-We do not shame founders for shipping with AI builders. We triage severity, stop bleeding (secrets, payments, admin), then decide patch vs rewrite for each critical path.
+Мы не стыдим фаундеров за то, что они зашипили через AI-билдеры. Мы оцениваем severity, останавливаем bleeding (secrets, payments, admin), затем для каждого critical path решаем: patch или rewrite.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального business workflow, а не с «бренда» модели.
+- Описывайте поведение простым языком, затем проверяйте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставляйте human path для нестандартных кейсов.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясный routing: standard vs non-standard
+- Knowledge base, которой ассистент реально может пользоваться
+- Session memory только там, где это задумано
+- Secrets никогда не в client JavaScript
+- Логи и stop switch
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В preview работает» без production-проверок
+- Tokens и webhooks оставлены публичными
+- Нет human handoff для exceptions
+- Тонкие machine-translated страницы, проданные как локализация
+
+## Как Dali это ведёт
+
+Dali - студия AI agent systems: мы серьёзно относимся к vibe-прототипам, затем hardening'им их в production-системы с gates, tools и ownership. Связанное: [production AI-агенты](/ru/blog/production-ai-agents-for-business), [approval gates](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
 ### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+Нет. Это быстрый способ получить рабочую поверхность. Он становится опасным только когда его принимают за готовый production.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда всё переписываете?
+Не всегда. Иногда мы harden'им. Иногда изолируем и пересобираем critical path.

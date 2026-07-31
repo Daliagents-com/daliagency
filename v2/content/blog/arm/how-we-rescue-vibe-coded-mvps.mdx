@@ -1,32 +1,52 @@
 ---
 slug: "how-we-rescue-vibe-coded-mvps"
-title: "How we rescue vibe-coded MVPs without shaming the founder"
-description: "Our process for taking a fast AI-built MVP into a safer production path: triage, harden, rewrite critical paths."
+title: "Ինչպես ենք փրկում vibe-coded MVP-ները՝ առանց հիմնադրին ամաչեցնելու"
+description: "Մեր գործընթացը՝ արագ AI-ով կառուցված MVP-ն ավելի անվտանգ production ուղի բերելու համար. triage, harden, critical path-երի rewrite։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "how-we-rescue-vibe-coded-mvps"
-keywords: ["rescue vibe coded MVP", "fix AI generated website", "harden vibe coded product"]
+keywords: ["փրկել vibe coded MVP", "շտկել AI generated կայք", "harden vibe coded product"]
 status: "published"
 author: "Dali"
 type: "pillar"
 heroImage: "/blog/how-we-rescue-vibe-coded-mvps/hero.jpg"
-heroAlt: "How we rescue vibe-coded MVPs without shaming the founder"
+heroAlt: "Ինչպես ենք փրկում vibe-coded MVP-ները՝ առանց հիմնադրին ամաչեցնելու"
 ogImage: "/blog/how-we-rescue-vibe-coded-mvps/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-We do not shame founders for shipping with AI builders. We triage severity, stop bleeding (secrets, payments, admin), then decide patch vs rewrite for each critical path.
+Մենք չենք ամաչեցնում հիմնադիրներին AI builder-ներով ship անելու համար։ Մենք triage ենք անում severity-ն, կանգնեցնում ենք արյունահոսությունը (secrets, payments, admin), հետո որոշում ենք patch vs rewrite յուրաքանչյուր critical path-ի համար։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական business workflow-ից, ոչ թե model brand-ից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք ամեն ուղի, որ դիպչում է փողին, մուտքին կամ outbound հաղորդագրություններին։
+- Պահեք human path ոչ ստանդարտ դեպքերի համար։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Պարզ standard vs non-standard routing
+- Knowledge base, որն assistant-ը իրականում կարող է օգտագործել
+- Session memory միայն այնտեղ, որտեղ նախատեսված է
+- Secrets-ը երբեք client JavaScript-ում չեն
+- Logs և stop switch
+
+## Ինչպես է վատը
+
+- «Preview-ում աշխատում է»՝ առանց production ստուգումների
+- Tokens և webhooks թողնված են public
+- Չկա human handoff exceptions-ի համար
+- Բարակ machine-translated էջեր՝ որպես localization վաճառված
+
+## Ինչպես է Dali-ն վերաբերվում սրան
+
+Dali-ն AI agent systems ստուդիա է. մենք լուրջ ենք վերաբերվում vibe prototype-ներին, հետո դրանք harden ենք անում production համակարգերի՝ gates-երով, tools-երով և ownership-ով։ Առնչվող. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [approval gate-եր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
 ### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+Ոչ։ Դա արագ ճանապարհ է աշխատող surface ստանալու համար։ Վտանգավոր է դառնում միայն այն ժամանակ, երբ այն ընդունում են որպես ավարտված production։
+
+### Ամեն ինչ rewrite անո՞ւմ եք։
+Ոչ միշտ։ Երբեմն harden ենք անում։ Երբեմն isolate ենք անում և վերակառուցում critical path-ը։

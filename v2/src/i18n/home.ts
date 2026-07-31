@@ -126,6 +126,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
           title: "AI visibility systems",
           description: "GEO, SEO, and content systems for search and AI answers.",
         },
+        {
+          title: "Vibe-code rescue",
+          description:
+            "Triage secrets, payments, and admin on AI-built MVPs, then harden with gates and a handoff.",
+        },
       ],
     },
     projectCards: {
@@ -229,6 +234,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           title: "Системы AI-видимости",
           description: "GEO, SEO и контент для поиска и AI-ответов.",
+        },
+        {
+          title: "Vibe-code rescue",
+          description:
+            "Триаж секретов, платежей и admin-путей в AI-MVP, затем hardening с gates и handoff.",
         },
       ],
     },
@@ -334,6 +344,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
           title: "ავტომატიზაცია",
           description: "CRM, ცხრილები, ფორმები და AI ერთიან პროცესებში.",
         },
+        {
+          title: "Vibe-code rescue",
+          description:
+            "AI-ით აწყობილი MVP-ის secrets, payments და admin ბილიკების ტრიაჟი, შემდეგ hardening gates-ით და handoff-ით.",
+        },
       ],
     },
     projectCards: {
@@ -437,6 +452,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           title: "Ավտոմատացում",
           description: "CRM, աղյուսակներ, ձևեր և AI մեկ գործընթացում։",
+        },
+        {
+          title: "Vibe-code rescue",
+          description:
+            "AI-ով կառուցված MVP-ի secrets, payments և admin ուղիների տրիաժ, ապա hardening՝ gates-ով և handoff-ով։",
         },
       ],
     },

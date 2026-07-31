@@ -1,28 +1,53 @@
 ---
 slug: "ai-agents-in-existing-business-tools"
-title: "AI գործակալներ առկա business tools-ում"
-description: "Ինչպես մտցնել գործակալներին Gmail, CRM, docs, chat։"
+title: "Ինչպես մտցնել AI գործակալներին թիմի արդեն օգտագործվող գործիքներում"
+description: "Գործնական մոտեցում գործակալներին Gmail, CRM, docs և chat-ում ներդնելու համար - առանց day one-ից նոր platform պարտադրելու։"
 date: "2026-07-31"
 locale: "arm"
 hreflangGroup: "ai-agents-in-existing-business-tools"
-keywords: ["AI agents existing tools"]
+keywords: ["AI գործակալներ առկա tools-ում", "AI գործակալներ Gmail CRM", "embed AI agents business software"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ai-agents-in-existing-business-tools/hero.jpg"
-heroAlt: "AI գործակալներ առկա business tools-ում"
+heroAlt: "Ինչպես մտցնել AI գործակալներին թիմի արդեն օգտագործվող գործիքներում"
 ogImage: "/blog/ai-agents-in-existing-business-tools/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Գործակալները այնտեղ, որտեղ արդեն աշխատում են։
+Դրեք գործակալներին **այնտեղ, որտեղ աշխատանքն արդեն տեղի է ունենում**։ Եթե intake-ը ապրում է email-ում և CRM-ում, գործակալը պետք է կարդա և գրի այնտեղ - ոչ թե ստիպի յուրաքանչյուր օգտատիրոջ մտնել նոր portal։ Նոր platform-ները կարող են գալ ավելի ուշ. առաջին հաղթանակը hop-երը հանելն է։
 
-## Dali
+## Default մակերեսներ
 
-[Լուծումներ](/arm/solutions)։
+- Inbox և calendar՝ communication աշխատանքի համար
+- CRM՝ pipeline state-ի համար
+- Docs / wiki՝ knowledge-ի համար
+- Chat՝ ներքին ops signal-ների համար
+- Sheets՝ lightweight queue-երի համար, երբ դա իրական system of record-ն է
+
+## Integration pattern
+
+1. Observe. որ tool-ն է source of truth յուրաքանչյուր field-ի համար։
+2. Act. որ write-երն են draft, որոնք՝ live։
+3. Gate. որ write-երն են human approval պահանջում։
+4. Notify. որտե՞ղ է human-ը տեսնում queue-ն։
+5. Log. որտե՞ղ ենք պահում agent որոշումները։
+
+## Anti-pattern-ներ
+
+- Կառուցել զուգահեռ «AI workspace», որ ոչ ոք չի բացում
+- Day one-ից ամեն field-ը երկու ուղղությամբ sync անել
+- Թույլ տալ, որ գործակալը հորինի CRM stage-եր, որոնք ձեր պրոցեսում չկան
+
+## Dali-ի bias
+
+Մենք implement ենք անում production գործակալներ այն tools-ում, որոնք թիմերն արդեն վարում են։ Տես [լուծումների քարտեզը](/arm/solutions) multi-agent production pattern-ների համար։
 
 ## FAQ
 
-### Նոր platform day one՞։
-Սովորաբար ոչ։
+### Պե՞տք է նախ custom agent platform։
+Սովորաբար ոչ։ Սկսեք tools of record-ից և բարակ orchestration շերտից։
+
+### Ի՞նչ, եթե մեր tools-ը API չունեն։
+Սկսեք human-in-the-loop draft-երով և export/import-ով, հետո automate արեք ամենաբարձր ROI connector-ը։

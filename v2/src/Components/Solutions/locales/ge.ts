@@ -1,4 +1,5 @@
 import type { LocalizedSolutionsBundle } from "./types";
+import { solutionsBySlug } from "../solutionContent";
 
 export const georgianSolutionsBundle = {
   overview: {
@@ -101,6 +102,16 @@ export const georgianSolutionsBundle = {
             "დააკვალიფიცირეთ ერთი ტიპის რუტინული შემომავალი ზარი",
             "დაჯავშნეთ შემდეგი ნაბიჯი და დაწერეთ სტრუქტურირებული CRM შეჯამება",
             "გადააბარეთ რთული შემთხვევები ადამიანს კონტექსტის დაკარგვის გარეშე",
+          ],
+        },
+        "vibe-code-rescue": {
+          title: "Vibe-code Rescue პილოტი",
+          summary:
+            "AI-ით აწყობილი MVP-ის secrets, payments და admin ბილიკების ტრიაჟი, შემდეგ hardening gates-ით და handoff-ით.",
+          tasks: [
+            "მაღალი რისკის secrets, payments, admin და outbound ბილიკების რუკა",
+            "patch vs rewrite გადაწყვეტილება თითოეულ critical path-ზე scope-ში",
+            "gates, stop-switch და ownership handoff პაკეტი გუნდისთვის",
           ],
         },
       },
@@ -995,6 +1006,7 @@ export const georgianSolutionsBundle = {
           "უპასუხეთ Upwork-ში ზარის ტიპით, routing ინსტრუმენტით და handoff წესებით. Dali გიპასუხებთ design-partner საზღვრით, სატესტო მატრიცით და დამტკიცების წინაპირობებით.",
       },
     },
+    "vibe-code-rescue": solutionsBySlug["vibe-code-rescue"],
   },
   labels: {
     browseAllPilots: "ყველა პილოტის ნახვა",

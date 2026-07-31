@@ -24,6 +24,7 @@ export const solutionSlugs = [
   "operations-docs",
   "knowledge-assistant",
   "voice-agents",
+  "vibe-code-rescue",
 ] as const;
 
 export type SolutionSlug = (typeof solutionSlugs)[number];
@@ -892,6 +893,167 @@ export const solutionsBySlug: Record<SolutionSlug, SolutionContent> = {
       upworkLabel: "See what to send in Upwork",
       upworkBody:
         "Reply in Upwork with the call type, routing tool, and handoff rules. Dali will answer with the design-partner boundary, test matrix, and approval assumptions.",
+    },
+  },
+  "vibe-code-rescue": {
+    slug: "vibe-code-rescue",
+    name: "Vibe-code Rescue Pilot",
+    summary:
+      "A fixed-scope pilot that triages secrets, payments, and admin paths on an AI-built MVP, decides patch vs rewrite per critical path, and leaves gates, a stop-switch, and a clean handoff package.",
+    accent: "#0B3A4A",
+    accentSoft: "#E4F0F3",
+    tint: "#f4f9fa",
+    metadata: {
+      title: "Vibe-code Rescue Pilot | Dali",
+      description:
+        "Fixed-scope production hardening pilot for vibe-coded MVPs: triage secrets, payments, and admin, decide patch vs rewrite, add gates and a stop-switch, then hand off a package the team can own.",
+    },
+    hero: {
+      eyebrow: "Packaged pilot",
+      title: "Harden the AI-built MVP before it costs you trust or money.",
+      lead:
+        "Dali runs a fixed-scope rescue on one product surface: find the bleeding paths (secrets, payments, admin, outbound actions), stop the worst risks, decide patch vs rewrite for each critical path, and ship gates, monitoring, and a stop-switch with a handoff the team can run.",
+      supportLine:
+        "Best fit for founders and operators who shipped with Lovable, Cursor, v0, or similar builders and now need production honesty without a shame lecture or a full rewrite of everything.",
+    },
+    workflow: {
+      label: "Workflow diagram",
+      intake: ["Repo or preview", "Payment & admin paths", "Secret surfaces"],
+      agentLabel: "Rescue and harden pilot",
+      review: ["Critical severity", "Patch vs rewrite", "Owner sign-off"],
+      outcomes: ["Risk triage map", "Hardened paths", "Handoff package"],
+    },
+    contrast: {
+      painTitle: "What it replaces",
+      painPoints: [
+        "A demo that works in preview while tokens, webhooks, or admin routes sit exposed in production.",
+        "Endless chat-driven patches with no severity order, no stop-switch, and no clear ownership after the sprint.",
+        "A binary choice between 'ship as-is' and 'throw everything away' when only a few paths actually need engineering depth.",
+      ],
+      outcomeTitle: "What it creates",
+      outcomePoints: [
+        "A severity-ordered triage of secrets, payments, admin, and outbound action paths.",
+        "A written patch vs rewrite decision for each critical path, not a vague rewrite mandate.",
+        "Gates, monitoring, and a stop-switch plus a handoff package the team can operate without Dali in the room.",
+      ],
+    },
+    pilot: {
+      label: "Exact fixed pilot boundary",
+      fixedOutcome:
+        "One product surface, triage of high-risk paths, patch or rewrite decisions for those paths, production gates and a stop-switch, and a handoff package with owners and residual risks.",
+      includes: [
+        "1 product surface or deployable app (site, MVP, or admin-backed flow)",
+        "Triage of secrets, payments, admin access, and high-impact outbound actions",
+        "Patch vs rewrite decision notes for each critical path in scope",
+        "Production gates, logging expectations, and an explicit stop-switch",
+        "Handoff package: residual risk list, owners, and next engineering steps",
+      ],
+      excludes: [
+        "Full rewrite of every feature or screen",
+        "Open-ended product redesign or rebrand",
+        "Multi-product portfolio rescue inside one pilot",
+        "Shaming the team for using AI builders",
+      ],
+    },
+    integrations: {
+      label: "Integrations and examples",
+      intro:
+        "The pilot works on the stack you already shipped. We meet the product where it is: builder output, custom code, payments, and host - then harden the paths that can actually hurt you.",
+      items: [
+        "Lovable, v0, Cursor, Bolt, or mixed AI-assisted codebases",
+        "Vercel, Netlify, Cloudflare, or similar preview-to-prod hosts",
+        "Stripe, payment webhooks, promo codes, and checkout callbacks",
+        "Supabase, Firebase, custom admin, or shared service-role keys",
+        "Related reading on the Dali blog: how-we-rescue-vibe-coded-mvps, vibe-coded-site-hardening-checklist, security-audit-for-vibe-coded-websites, rewrite-vs-patch-vibe-code",
+      ],
+    },
+    guardrails: {
+      label: "Guardrails and approval",
+      intro:
+        "Rescue is not a silent rewrite. Severity, decisions, and residual risk stay visible to the owner before anything is treated as done.",
+      items: [
+        "Secrets and payment paths are treated as stop-the-bleeding work before cosmetic cleanup.",
+        "Every critical path gets an explicit patch or rewrite call with a reason, not a vibe.",
+        "A stop-switch and human gate stay in place for high-impact actions after the pilot.",
+        "Residual risks that remain out of scope are written down with owners, not buried in chat.",
+      ],
+    },
+    validation: {
+      acceptanceTest:
+        "Pass only if high-severity secret and payment findings are closed or explicitly accepted in writing, every in-scope critical path has a patch-or-rewrite decision, a stop-switch exists for high-impact actions, and the handoff package names residual risks plus owners.",
+      measures: [
+        "High-severity findings closed or owner-accepted",
+        "Critical paths with written patch vs rewrite decisions",
+        "Stop-switch and gate coverage on high-impact actions",
+        "Handoff completeness: residual risks, owners, next steps",
+      ],
+      commercialModel:
+        "The audit fixes the product surface, risk priorities, and acceptance bar. Dali then quotes one fixed-scope, fixed-price rescue pilot. Broader rewrite or multi-surface work is a separate decision after handoff.",
+    },
+    delivery: [
+      {
+        title: "Triage the bleeding paths",
+        body:
+          "We map secrets, payments, admin, and outbound action surfaces, rank severity, and freeze the pilot boundary so work starts where damage is real.",
+      },
+      {
+        title: "Patch, rewrite, and gate",
+        body:
+          "We harden or rewrite each critical path in scope, add production gates and a stop-switch, and keep cosmetic debt out of the first package unless it blocks safety.",
+      },
+      {
+        title: "Hand off ownership",
+        body:
+          "You get a package with decisions, residual risks, owners, and next engineering steps so the team can run the product without treating Dali as permanent on-call.",
+      },
+    ],
+    fit: {
+      fit: [
+        "You shipped an MVP with AI builders or heavy AI-assisted coding and real users or payments are close.",
+        "You can name one product surface and the paths that touch money, access, or outbound side effects.",
+        "You want an honest patch vs rewrite map more than a full rebuild slogan.",
+      ],
+      notFit: [
+        "You need a complete product rewrite of every screen in one engagement.",
+        "There is no owner who can accept residual risk or prioritize severity.",
+        "The product is still a pure prototype with no production host, users, or payment path.",
+      ],
+    },
+    faqs: [
+      {
+        question: "Do we have to throw away the vibe-coded app?",
+        answer:
+          "Usually no. Most rescues keep the working surface and only rewrite paths that are unsafe or unmaintainable. Patch vs rewrite is decided per critical path. See rewrite-vs-patch-vibe-code on the Dali blog for the decision frame.",
+      },
+      {
+        question: "Is this a full security audit?",
+        answer:
+          "It is a production-hardening pilot with a security-minded triage, not an enterprise pen-test theater. We focus on secrets, payments, admin, and high-impact actions first. Deeper audit notes live in security-audit-for-vibe-coded-websites and the vibe-coded-site-hardening-checklist on the blog.",
+      },
+      {
+        question: "Will you shame us for shipping with AI tools?",
+        answer:
+          "No. Speed was rational. The pilot assumes builders helped you learn; the job now is production honesty. Our process notes are public in how-we-rescue-vibe-coded-mvps.",
+      },
+      {
+        question: "What do we get at the end?",
+        answer:
+          "A severity-ordered triage, hardened or rewritten critical paths in scope, gates and a stop-switch, plus a handoff package with residual risks, owners, and next steps. Not a vague 'we improved the code' summary.",
+      },
+    ],
+    cta: {
+      publicLabel: "Start the vibe-code rescue audit",
+      publicBody:
+        "If the MVP is live or about to take money, send the product URL or repo context and the paths that worry you most. Dali will reply with the fixed rescue boundary and acceptance bar.",
+      intakeFields: [
+        "Product URL, preview, or repo context for one surface",
+        "Payment, admin, auth, or outbound paths that already exist",
+        "Where secrets, webhooks, or service keys currently live",
+        "Owner who can accept residual risk and prioritize severity",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the product surface, payment or admin paths, and the owner for risk decisions. Dali will answer with the fixed rescue pilot boundary and triage order.",
     },
   },
 };

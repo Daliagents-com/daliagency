@@ -233,10 +233,51 @@ const voiceAgents: PilotWorkflowMotion = {
   },
 };
 
+const vibeCodeRescue: PilotWorkflowMotion = {
+  sourceCards: [
+    {
+      kind: "docs",
+      lines: ["Repo: preview MVP", "Host: Vercel prod", "Stack: AI-assisted"],
+      highlightIndex: 0,
+    },
+    {
+      kind: "fields",
+      lines: ["Stripe webhook public", "Service key in client", "Admin: no gate"],
+      badge: "Risk",
+      highlightIndex: 1,
+    },
+    {
+      kind: "rules",
+      lines: ["Stop bleeding first", "Patch vs rewrite", "Owner accepts residual"],
+      highlightIndex: 0,
+    },
+  ],
+  processStatuses: {
+    reading: "Triaging risk surfaces",
+    comparing: "Ranking severity",
+    preparing: "Choosing patch or rewrite",
+  },
+  reviewScene: {
+    alert: "Secret exposed in client bundle",
+    status: "Needs owner",
+    highlight: "Critical severity",
+    assignment: "Assigned to product owner",
+  },
+  outcomeScene: {
+    rows: [
+      { text: "Critical paths hardened", mark: "check" },
+      { text: "Patch vs rewrite logged", mark: "cite" },
+      { text: "Handoff package ready", mark: "file" },
+    ],
+    ready: "Owned",
+  },
+};
+
 export const pilotWorkflowMotion: Record<SolutionSlug, PilotWorkflowMotion> = {
   "knowledge-assistant": knowledge,
   "lead-response": leadResponse,
   "client-inbox": clientInbox,
   "operations-docs": operationsDocs,
   "voice-agents": voiceAgents,
+  "vibe-code-rescue": vibeCodeRescue,
 };

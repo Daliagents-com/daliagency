@@ -1,32 +1,71 @@
 ---
 slug: "map-workflows-for-ai-agents"
-title: "Ինչպես map անել workflow-ները AI գործակալներից առաջ"
-description: "Գործնական workflow mapping production գործակալների համար։"
+title: "Ինչպես map անել workflow-ները՝ նախքան AI գործակալներ կառուցելը"
+description: "Գործնական workflow-mapping մեթոդ production գործակալների համար. քայլեր, tools, failure cost և որտեղ human-ները մնում են վերահսկողության տակ։"
 date: "2026-07-31"
 locale: "arm"
 hreflangGroup: "map-workflows-for-ai-agents"
-keywords: ["workflow mapping AI agents"]
+keywords: ["map workflows AI գործակալների համար", "AI agent process mapping", "workflow discovery agents"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/map-workflows-for-ai-agents/hero.jpg"
-heroAlt: "Ինչպես map անել workflow-ները AI գործակալներից առաջ"
+heroAlt: "Ինչպես map անել workflow-ները՝ նախքան AI գործակալներ կառուցելը"
 ogImage: "/blog/map-workflows-for-ai-agents/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Նախ իրական workflow-ի քարտեզ, հետո prompts և tools։
+Map արեք իրական workflow-ն՝ նախքան prompts գրելը կամ tools միացնելը։ Օգտակար map-ը անվանում է յուրաքանչյուր քայլ, այն tool-ը, որտեղ ապրում է, ով է տիրապետում այսօր, ինչ է նշանակում «done», և ինչ արժե այդ քայլի ձախողումը։ Առանց այդ map-ի գործակալները automate են անում առասպելներ։
 
-## Նվազագույն սեսիա
+## Ինչու mapping-ը գալիս է առաջինը
 
-Մեկ high-volume workflow, իրական case, tools, irreversible actions, failure cost, agent role։
+Թիմերը հաճախ սկսում են model-ից կամ chatbot UI-ից։ Production գործակալները սկսում են աշխատանքից. intake, triage, draft, approve, send, log։ Եթե այդ քայլերը մշուշոտ են, գործակալը նույնպես մշուշոտ կլինի։
 
-## Dali
+## Նվազագույն mapping սեսիա (կես օր)
 
-Discovery առկա tools-ում։ [Լուծումներ](/arm/solutions)։
+1. Ընտրեք մեկ բարձր ծավալի workflow (ոչ թե տասը)։
+2. Անցեք իրական վերջին case-ը end to end - ոչ թե happy path slide-ը։
+3. Յուրաքանչյուր քայլի համար գրանցեք. actor, tool, inputs, outputs, exceptions։
+4. Նշեք irreversible գործողությունները (send, pay, permissions փոխել, public post)։
+5. Գնահատեք failure cost-ը. low / medium / high՝ customer, money, trust-ի համար։
+6. Որոշեք, թե որ քայլերը գործակալը կարող է draft անել, execute անել, կամ երբեք չդիպչել։
+
+## Template field-եր (պատճենեք)
+
+| Field | Օրինակ |
+| --- | --- |
+| Step name | Qualify inbound lead |
+| Tool | Gmail + CRM |
+| Owner today | AE |
+| Inputs | email body, form fields |
+| Output | stage update + draft reply |
+| Irreversible? | send reply = yes |
+| Failure cost | medium (վատ առաջին տպավորություն) |
+| Agent role | draft only |
+
+## Հաճախակի mapping ձախողումներ
+
+- Map անել org chart-ը՝ աշխատանքի փոխարեն
+- Բաց թողնել exceptions-ը («VIP clients», «legal holds»)
+- Ենթադրել մեկ tool, երբ աշխատանքը թռչում է հինգի միջով
+- Մոռանալ human-ին, ով այժմ պահում է judgment-ը
+
+## Map-ից հետո
+
+Միայն այն ժամանակ ընտրեք agent scope. մեկ production path, պարզ gate-եր և երկու-ից-չորս շաբաթ measurement window (cycle time, error rate, rework)։ Տես նաև [human approval gate-եր](/arm/blog/human-approval-gates-for-ai-agents)։
+
+## Ինչպես է Dali-ն վարում discovery
+
+Dali-ն սկսում է process discovery-ից այն tools-ում, որոնք թիմն արդեն օգտագործում է, հետո նախագծում է agent path-եր approval սահմաններով։ Սկսեք [լուծումներից](/arm/solutions)։
 
 ## FAQ
 
-### Երկա՞ր workshop։
-Ոչ։ Մեկ խորքային քարտեզը բավարար է։
+### Պե՞տք է վեց շաբաթվա process workshop։
+Ոչ։ Մեկ բարձր ծավալի workflow՝ խորությամբ map արված, հաղթում է անորոշ process diagram-ների portfolio-ին։
+
+### Ո՞վ պետք է մասնակցի mapping սեսիային։
+Ինչ-որ մեկը, ով շաբաթական անում է աշխատանքը, գումարած այն մարդը, ով տիրապետում է irreversible գործողությունների ռիսկին։
+
+### Կարո՞ղ ենք map անել AI օգնությամբ։
+Այո՝ capture-ի և cleanup-ի համար։ Human-ները դեռ validate են անում exceptions-ը և risk-ը։
