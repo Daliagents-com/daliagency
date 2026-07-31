@@ -1,0 +1,50 @@
+---
+slug: "document-and-invoice-agents-limits"
+title: "Document and invoice AI agents: capabilities and hard limits"
+description: "What document and invoice AI agents do well, where accuracy fails, and how to gate finance side effects."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "document-and-invoice-agents-limits"
+keywords: ["invoice AI agent", "PDF extraction AI agent", "document processing AI agents"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Direct answer
+
+Document agents excel at extraction and triage. They fail on ambiguous totals, fraud edge cases, and policy exceptions. **Never auto-pay** from an unchecked extraction.
+
+## Good fit
+
+Pull fields from recurring invoice layouts, route to the right queue, flag missing data.
+
+## Weak fit
+
+Adversarial or highly variable documents without human review.
+
+## Finance AP pattern
+
+Extract → validate rules → human approve payment tool.
+
+## Accuracy
+
+Define field-level tolerances; “looks right” is not a metric.
+
+## How Dali fits
+
+Document-to-action pilots: [operations-docs](/solutions/operations-docs).
+
+## FAQ
+
+### OCR errors?
+Expect them; design validation and human review.
+
+### Related
+[Operations docs pilot](/solutions/operations-docs)
+
+### Can agents code accounting entries?
+Only into staging/review workflows with controls.
+
+
+<!-- covers GPT questions: 63,69 -->

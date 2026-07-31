@@ -27,7 +27,9 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [video-bhTo8fDmr5I-transcript.md](./video-bhTo8fDmr5I-transcript.md) | Full EN caption transcript of GEO/AI-search video |
 | [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Actionable takeaways from that video (robots/HTML) |
 | [lighthouse-audit-2026-07-31.md](./lighthouse-audit-2026-07-31.md) | Lighthouse + on-page crawl audit (tool-backed) |
-| [blog-batch-buyer-faq-30.md](./blog-batch-buyer-faq-30.md) | +30 EN buyer FAQ / search-intent posts inventory |
+| [blog-batch-buyer-faq-30.md](./blog-batch-buyer-faq-30.md) | +30 buyer FAQ / search-intent posts inventory |
+| [gpt-questions-100-gap-map.md](./gpt-questions-100-gap-map.md) | 100 GPT-style gap questions mapped to posts |
+| [blog-batch-gpt-gaps-25.md](./blog-batch-gpt-gaps-25.md) | +25 posts answering those gap questions |
 | [video-iT7kq-R3Gjc-transcript.md](./video-iT7kq-R3Gjc-transcript.md) | Ethan Smith / Lenny AEO podcast transcript + takeaways |
 
 ## Related (workspace, may be local-only)

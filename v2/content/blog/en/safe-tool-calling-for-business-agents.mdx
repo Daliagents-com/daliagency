@@ -1,0 +1,54 @@
+---
+slug: "safe-tool-calling-for-business-agents"
+title: "Safe tool calling for business AI agents"
+description: "How tool calling should work in production: scopes, allowlists, confirmation gates, loop limits, and least privilege."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "safe-tool-calling-for-business-agents"
+keywords: ["AI agent tool calling", "safe tool use AI agents", "LLM function calling security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Give agents **small tool allowlists**, least-privilege credentials, explicit schemas, loop limits, and human gates on irreversible tools. Tool calling without scopes is how demos become incidents.
+
+## Tool calling vs prompting
+
+Prompting produces text. Tool calling lets the model choose structured actions (CRM update, search, send). The action layer is where business risk lives.
+
+## Allowlists and schemas
+
+Every tool needs a name, JSON schema, max frequency, and owner. Reject free-form “run any code” in production ops.
+
+## Permissions
+
+Separate read tools from write tools. Separate staging credentials. No god-mode service accounts in the agent runtime.
+
+## Loop and spend limits
+
+Max steps, max tokens, max tool calls, wall-clock timeout. Infinite replanning is a bug, not intelligence.
+
+## Assistants platforms
+
+Hosted assistant APIs can help bootstrap. You still own scopes, logging, and gates for business actions.
+
+## How Dali fits
+
+Dali designs tool boundaries in discovery: [solutions](/solutions).
+
+## FAQ
+
+### Should the agent execute SQL on production?
+Almost never directly. Prefer constrained APIs and audited mutations.
+
+### How do we confirm high-risk tools?
+Human approval gate with an evidence pack: inputs, intended action, confidence, source.
+
+### Related
+[Human approval gates](/blog/human-approval-gates-for-ai-agents)
+
+
+<!-- covers GPT questions: 5,6,7,12,43 -->

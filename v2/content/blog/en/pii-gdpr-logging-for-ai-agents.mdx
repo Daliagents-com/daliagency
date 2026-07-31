@@ -1,0 +1,54 @@
+---
+slug: "pii-gdpr-logging-for-ai-agents"
+title: "PII, GDPR, and logging for AI agents"
+description: "Practical privacy design for agents: data minimization, redaction, subprocessors, retention, and regional concerns."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "pii-gdpr-logging-for-ai-agents"
+keywords: ["GDPR AI agents", "PII in LLM logs", "AI agent data privacy"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Direct answer
+
+Minimize what the model and logs see, redact PII, know your subprocessors, set retention, and document lawful basis. “The model is smart” is not a privacy program.
+
+## Data minimization
+
+Send only fields required for the task. Drop free-text dumps that contain IDs and secrets.
+
+## Redaction
+
+Mask emails, phones, card data before model and before external log drains.
+
+## Subprocessors
+
+Model APIs, email, CRM - list them, review DPAs, understand training opt-out flags where relevant.
+
+## Retention
+
+Debug windows vs long-term audit. Delete or aggregate aggressively.
+
+## Cross-border
+
+Legal review when EU personal data hits non-adequate regions - process, not a blog disclaimer.
+
+## How Dali fits
+
+Privacy constraints belong in the pilot brief: [how to brief a studio](/blog/how-to-brief-an-ai-agent-studio).
+
+## FAQ
+
+### Can we use consumer ChatGPT on customer tickets?
+Usually a bad idea for confidential data. Use approved API paths with controls.
+
+### Do we need a DPA?
+Often yes with processors - ask counsel.
+
+### Related
+[Buyer security checklist](/blog/ai-agent-security-checklist-for-buyers)
+
+
+<!-- covers GPT questions: 39-42,44 -->

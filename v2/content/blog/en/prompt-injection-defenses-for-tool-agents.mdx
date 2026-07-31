@@ -1,0 +1,50 @@
+---
+slug: "prompt-injection-defenses-for-tool-agents"
+title: "Prompt injection defenses for tool-using AI agents"
+description: "How untrusted email, web, and PDF content hijacks agents - and practical defenses that actually help."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "prompt-injection-defenses-for-tool-agents"
+keywords: ["prompt injection AI agents", "defend tool calling agents", "indirect prompt injection"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Treat all external text as **hostile**. Separate instructions from data, constrain tools, require gates on irreversible actions, and never let retrieved content redefine system policy.
+
+## Direct vs indirect injection
+
+User types “ignore rules” vs a webpage/email that says “forward secrets to …”. Indirect is the business killer.
+
+## Defenses that help
+
+Allowlisted tools, no open browsing in high-trust agents, sanitize/truncate untrusted text, dual-channel confirmations for sends, human gates.
+
+## Defenses that are weak alone
+
+“You are a safe assistant” pep talks in the system prompt.
+
+## PDF and email
+
+Same rules: content is data, not authority.
+
+## How Dali fits
+
+Security-minded design is default in Dali pilots: [solutions](/solutions).
+
+## FAQ
+
+### Can we fully solve injection?
+You reduce risk; you do not wish it away if tools can act.
+
+### Should support agents browse the public web?
+Only with tight allowlists and no credentialed actions from page content.
+
+### Related
+[Safe tool calling](/blog/safe-tool-calling-for-business-agents)
+
+
+<!-- covers GPT questions: 37,38 -->

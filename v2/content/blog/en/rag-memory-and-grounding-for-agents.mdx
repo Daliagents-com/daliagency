@@ -1,0 +1,62 @@
+---
+slug: "rag-memory-and-grounding-for-agents"
+title: "RAG, memory, and grounding for production AI agents"
+description: "When agents need RAG, how to chunk and cite sources, what to store in memory, and how to keep policies fresh."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "rag-memory-and-grounding-for-agents"
+keywords: ["RAG for AI agents", "agent memory vs RAG", "grounded AI agents knowledge base"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## Direct answer
+
+Use **RAG** when answers must follow approved documents. Use **memory** sparingly for session or user preferences - not as a junk drawer of secrets. Grounding means citations, freshness, and evals - not a bigger prompt.
+
+## Long prompt vs RAG
+
+Prompts rot and hit limits. RAG retrieves relevant chunks per question with updateable sources.
+
+## Chunking basics
+
+Chunk by coherent policy sections, keep metadata (title, date, product), avoid huge blobs that dilute retrieval.
+
+## Citations
+
+Require source IDs in answers for knowledge tasks. “I think” is not an ops answer.
+
+## Memory types
+
+Ephemeral session context, durable preferences, and never: raw credentials or other clients’ data.
+
+## Freshness
+
+Version documents, expire superseded policies, re-index on publish. Stale SOP retrieval is a silent failure mode.
+
+## Per-client indexes
+
+Agencies and multi-tenant products need isolation by tenant - shared global indexes leak.
+
+## Eval retrieval
+
+Measure hit rate on golden questions, not only chat style scores.
+
+## How Dali fits
+
+Dali designs grounded knowledge paths in pilots: [knowledge assistant](/solutions/knowledge-assistant).
+
+## FAQ
+
+### Do all agents need a vector database?
+No. Some paths are pure tool workflows. Use search when language Q&A over docs is the job.
+
+### Can agents read all of Drive/Notion?
+Only with least privilege, clear corpus ownership, and redaction rules.
+
+### Related
+[Knowledge bases for site assistants](/blog/knowledge-base-for-site-ai-assistant)
+
+
+<!-- covers GPT questions: 13-22 -->

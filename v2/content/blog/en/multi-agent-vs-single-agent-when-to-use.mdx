@@ -1,0 +1,54 @@
+---
+slug: "multi-agent-vs-single-agent-when-to-use"
+title: "Multi-agent vs single agent: when orchestration helps (and when it hurts)"
+description: "A practical rule for multi-agent systems vs one tool-using agent: complexity, failure modes, and production ownership."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
+keywords: ["multi-agent vs single agent", "multi-agent orchestration", "when to use multi-agent systems"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Direct answer
+
+Start with **one agent and clear tools** for a single workflow. Add multi-agent orchestration only when roles, permissions, or handoffs are truly separate - and you can own the failure modes of the whole graph.
+
+## What people mean by multi-agent
+
+Usually: a planner plus workers, or specialized agents for research, coding, and review. In business ops it often means more moving parts, more latency, and more places to lose state - not automatically more quality.
+
+## When a single agent is enough
+
+One primary system of record, one approval owner, a short tool list, and a clear standard path. Lead response, inbox triage, and document-to-tracker often ship better as one gated agent.
+
+## When multi-agent can help
+
+Hard separation of privileges (read-only research vs write actions), long multi-hour jobs with checkpoints, or different models for different stages with explicit contracts between them.
+
+## Costs of multi-agent theater
+
+Harder evals, harder incident response, unclear ownership, and demos that impress more than they run on Monday morning tickets.
+
+## Practical rule
+
+If you cannot draw the workflow on one page with one acceptance test, multi-agent design will not save you. Map first, then choose topology.
+
+## How Dali fits
+
+Dali starts with one production path and gates. See [solutions](/solutions) and [when not to use AI agents](/blog/when-not-to-use-ai-agents).
+
+## FAQ
+
+### Do LangChain or CrewAI force multi-agent?
+No. Use them as libraries when they reduce glue code - not as a requirement for every pilot.
+
+### Is a planner agent required?
+Only if planning is a real stage with its own eval. Many ops agents are deterministic routers plus an LLM for language.
+
+### Can sales and support share one agent?
+Prefer separate pilots and policies. Shared agents blur permissions and knowledge.
+
+
+<!-- covers GPT questions: 1,3,4,8,9,10 -->

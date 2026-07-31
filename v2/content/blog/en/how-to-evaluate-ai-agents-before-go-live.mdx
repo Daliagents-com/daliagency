@@ -1,0 +1,54 @@
+---
+slug: "how-to-evaluate-ai-agents-before-go-live"
+title: "How to evaluate AI agents before go-live"
+description: "A practical eval harness for business agents: golden cases, failure tests, tool-call checks, and pass bars."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "how-to-evaluate-ai-agents-before-go-live"
+keywords: ["evaluate AI agents before production", "AI agent eval set", "test AI agents go-live"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Do not go live on vibes. Build a **golden set** of real cases, score tool correctness and policy compliance, and set a pass bar. If you cannot fail the agent in staging, you cannot trust it in production.
+
+## Golden cases
+
+20–100 historical tickets/leads/docs. Include messy, hostile, and incomplete inputs.
+
+## What to score
+
+Correct tool choice, argument validity, gate triggers, grounded answers, no forbidden actions.
+
+## Adversarial tests
+
+Prompt injection strings, conflicting policies, missing fields, duplicate sends.
+
+## Human review sample
+
+Sample traces weekly even after launch.
+
+## Dashboards
+
+Exception rate, override rate, cost per successful case, incident count - baselines first.
+
+## How Dali fits
+
+Dali pilots include acceptance tests: [solutions](/solutions).
+
+## FAQ
+
+### Is user satisfaction enough?
+No. Users can like fluent wrong answers.
+
+### How often re-run evals?
+On every prompt/tool change and on a fixed schedule.
+
+### Related
+[Measuring AI agent ops](/blog/measuring-ai-agent-ops)
+
+
+<!-- covers GPT questions: 23-25,31 -->

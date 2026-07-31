@@ -1,0 +1,54 @@
+---
+slug: "channel-agents-whatsapp-slack-email"
+title: "WhatsApp, Slack, and email AI agents: channel-specific rules"
+description: "How agent design changes by channel: WhatsApp business, Slack internal ops, and email classification vs reply."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "channel-agents-whatsapp-slack-email"
+keywords: ["WhatsApp AI agent", "Slack AI agent ops", "email AI agent vs classification"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Direct answer
+
+Channel changes risk and UX. **WhatsApp** is customer-visible and regulated by platform rules. **Slack** is internal but can still leak data. **Email** often needs classify-first, not auto-send-all.
+
+## WhatsApp / messaging apps
+
+Template rules, opt-in, tone, escalation to humans, no unsupervised commitments.
+
+## Slack
+
+Internal knowledge with ACL awareness; prevent cross-channel private data leaks.
+
+## Email
+
+Classification and draft replies first; sending gates for external mail.
+
+## Calendar booking
+
+Confirm timezone, double-booking rules, and human override for VIP.
+
+## Shared rule
+
+Identity of the counterparty and audit trail on every outbound.
+
+## How Dali fits
+
+Channel pilots: [lead response](/solutions/lead-response) and [client inbox](/solutions/client-inbox).
+
+## FAQ
+
+### Should one agent cover all channels day one?
+No. One channel pilot first.
+
+### Related
+[Client inbox operations](/blog/client-inbox-agent-operations), [Telegram handoff](/blog/human-handoff-telegram-from-site-chat)
+
+### Is email auto-send ever OK?
+Only with strong policy, low risk classes, and metrics.
+
+
+<!-- covers GPT questions: 59-62 -->

@@ -1,0 +1,50 @@
+---
+slug: "multi-tenant-isolation-for-agency-agents"
+title: "Multi-tenant isolation for agency AI agents"
+description: "How agencies isolate client data, prompts, and knowledge indexes when running AI agents across accounts."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "multi-tenant-isolation-for-agency-agents"
+keywords: ["multi-tenant AI agents", "agency client data isolation AI", "shared AI agent multiple clients"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Never share raw client knowledge indexes, credentials, or conversation memory across tenants. Isolate by client at storage, retrieval, and tool-credential layers - “one big prompt with all clients” is a breach waiting to happen.
+
+## Why agencies fail this
+
+Copy-paste ops, shared inboxes, shared vector stores, shared admin tokens.
+
+## Isolation layers
+
+Auth tenant id, separate secrets, separate indexes, separate logging streams where required.
+
+## Prompts
+
+Shared skill templates OK; client facts and credentials never baked into shared system prompts.
+
+## Multi-store routing
+
+Explicit brand/store id on every tool call - no “guess the store from vibe”.
+
+## How Dali fits
+
+Dali designs tenant boundaries into agency ops agents: [solutions](/solutions).
+
+## FAQ
+
+### Can embeddings from all clients share one DB?
+Only with strict tenant partitioning and access controls - default to separate namespaces.
+
+### Related
+[Ops agents multi-store pattern](/blog/ops-agent-multi-store-pattern)
+
+### What about subcontractors?
+Same isolation rules; time-boxed access.
+
+
+<!-- covers GPT questions: 21,47,48,71 -->

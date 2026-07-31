@@ -1,0 +1,54 @@
+---
+slug: "shadow-mode-and-canary-for-ai-agents"
+title: "Shadow mode and canary rollouts for AI agents"
+description: "How to roll out agents safely: shadow predictions, canary percentages, prompt versioning, and rollback."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "shadow-mode-and-canary-for-ai-agents"
+keywords: ["shadow mode AI agents", "canary rollout AI agent", "prompt versioning agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Ship agents like risky software: **shadow mode** (predict without acting), then **canary** (small % or one segment), with versioned prompts and instant rollback. Big-bang “all tickets tomorrow” is how trust dies.
+
+## Shadow mode
+
+Agent proposes actions; humans or current process still act. Compare offline.
+
+## Canary
+
+One queue, one locale, one VIP-excluded segment. Watch exception and override rates.
+
+## Prompt/version control
+
+Treat prompts and tool schemas like code: review, tag, release notes.
+
+## Feature flags
+
+Flip behavior without redeploying the whole stack when possible.
+
+## Rollback
+
+Known-good prompt + tool config one click away. Practice it.
+
+## How Dali fits
+
+Dali plans staged pilots: [solutions](/solutions).
+
+## FAQ
+
+### How long shadow?
+Until metrics beat baseline on the golden set and a live sample - not a fixed marketing number.
+
+### Is canary only for enterprises?
+SMBs can canary by customer segment or channel.
+
+### Related
+[Evaluate before go-live](/blog/how-to-evaluate-ai-agents-before-go-live)
+
+
+<!-- covers GPT questions: 36,57,58 -->

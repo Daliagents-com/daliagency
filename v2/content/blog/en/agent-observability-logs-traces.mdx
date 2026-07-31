@@ -1,0 +1,50 @@
+---
+slug: "agent-observability-logs-traces"
+title: "Agent observability: logs, traces, and what to store"
+description: "What to log for production AI agents without drowning in tokens or leaking secrets."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "agent-observability-logs-traces"
+keywords: ["AI agent observability", "AI agent tracing", "logging AI agent tool calls"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Log **structured events**: request id, tool name, args (redacted), results status, approvals, model ids, latency, cost. Keep raw prompts only under retention rules. If you cannot reconstruct an incident, you are not production.
+
+## Minimum viable trace
+
+Correlation id across steps, who/what triggered the run, tools attempted, gate decisions, final side effects.
+
+## Redaction
+
+Strip secrets, tokens, full card numbers, unnecessary PII from logs shipped to third parties.
+
+## Metrics
+
+Success, exceptions, human overrides, p95 latency, $ per successful completion.
+
+## Privacy tradeoff
+
+More logging helps debug and can increase compliance burden - define retention explicitly.
+
+## How Dali fits
+
+Dali includes logging expectations in pilots: [solutions](/solutions).
+
+## FAQ
+
+### Should we store every token?
+Usually no. Store hashes or truncated spans unless investigating.
+
+### OpenTelemetry for agents?
+Useful if it fits your stack; structure matters more than brand of tracer.
+
+### Related
+[Agent incident response](/blog/agent-incident-response-and-liability)
+
+
+<!-- covers GPT questions: 29,30,31 -->

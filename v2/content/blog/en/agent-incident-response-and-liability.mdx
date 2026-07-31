@@ -1,0 +1,58 @@
+---
+slug: "agent-incident-response-and-liability"
+title: "AI agent incident response and liability basics"
+description: "What to do when an agent acts wrong: contain, revoke, notify, fix, and how contracts should assign responsibility."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "agent-incident-response-and-liability"
+keywords: ["AI agent incident response", "AI agent liability", "agent sent wrong email"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+When an agent fails: **stop the agent**, revoke credentials if needed, preserve traces, fix customer impact, then patch prompts/tools. Contracts should say who is responsible for business decisions vs software defects.
+
+## Contain
+
+Kill switch, disable write tools, pause queues.
+
+## Investigate
+
+Pull correlation ids, tool args, approvals - this is why observability matters.
+
+## Customer fix
+
+Human outreach, refunds, corrections - with a real owner.
+
+## Prevent
+
+Eval case from the incident, tighter gates, better idempotency.
+
+## Liability
+
+Policies and human approval do not disappear because a model suggested text. Align vendor SOW with who owns outcomes.
+
+## SLA
+
+Define response times for agent-impacted queues just like other production systems.
+
+## How Dali fits
+
+Dali pilots define stop-switches and handoff owners: [solutions](/solutions).
+
+## FAQ
+
+### Should we tell customers a message was AI-assisted?
+Follow law and brand policy; honesty often reduces damage when errors happen.
+
+### Who owns quality after the vendor leaves?
+Name a role before launch - see change management post.
+
+### Related
+[Observability](/blog/agent-observability-logs-traces)
+
+
+<!-- covers GPT questions: 45,46,76,78 -->

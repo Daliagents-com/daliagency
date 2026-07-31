@@ -1,0 +1,54 @@
+---
+slug: "idempotency-retries-queues-for-agents"
+title: "Idempotency, retries, and queues for AI agent actions"
+description: "How to retry agent tool calls without double emails, double charges, or duplicate CRM records."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "idempotency-retries-queues-for-agents"
+keywords: ["idempotency AI agents", "retry AI agent tool calls", "queue for AI agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Every side-effecting tool needs an **idempotency key** and safe retry policy. Put agent work on queues when volume or flaky networks matter. Blind retries create silent financial and CRM disasters.
+
+## Why agents double-write
+
+Timeouts, user double-clicks, webhook redelivery, model retries mid-plan.
+
+## Idempotency keys
+
+Derive from business identity (order id + action) or server-issued keys stored before the side effect.
+
+## Queues
+
+Buffer spikes, control concurrency, isolate poison messages.
+
+## Webhook + agent
+
+Verify signatures, dedupe delivery ids, process exactly-once at the business layer.
+
+## Event-driven vs cron
+
+Events for immediacy; cron for reconciliation sweeps - not as the only correctness mechanism.
+
+## How Dali fits
+
+Production action design is core to Dali pilots: [solutions](/solutions).
+
+## FAQ
+
+### Can the LLM generate idempotency keys?
+Prefer server-side keys. Models are not a source of uniqueness.
+
+### What about non-idempotent partner APIs?
+Compensate with reconciliation jobs and human exception queues.
+
+### Related
+[Public webhooks and payment risks](/blog/public-webhooks-and-payment-risks)
+
+
+<!-- covers GPT questions: 32-34,53,55 -->
