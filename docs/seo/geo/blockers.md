@@ -203,7 +203,7 @@ Agent work continues without waiting.
 | --- | --- |
 | B-P0-01 GSC | open |
 | B-P0-02 .com buy | open |
-| B-P0-03 Vercel Git | open (confirm) |
+| B-P0-03 Vercel Git | CLI prod deploy 2026-08-01 + alias dali.agents.ge → latest; still confirm Git auto-deploy on push |
 | B-P1-01 LinkedIn Co | open |
 | B-P1-02 LinkedIn Pro | open |
 | B-P1-03 Clutch | open |

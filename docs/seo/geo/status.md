@@ -1,13 +1,13 @@
 # SEO/GEO status
 
-**Updated:** 2026-07-31 (4h sprint complete)
+**Updated:** 2026-08-01 (production deploy + alias)
 
 ## Сейчас актуально (live + git)
 
 | Слой | Статус |
 | --- | --- |
 | Код + 52 статьи (en/ru/ge/arm) | **Да** - GitHub `main` |
-| Prod `dali.agents.ge` | **Да** - blog, FAQ, related, heroes, sitemap |
+| Prod `dali.agents.ge` | **Да** - 2026-08-01 deploy; 107×4 blog, vibe-rescue, expanded robots, sitemap ~500 |
 | Schema Organization/WebSite + BlogPosting | **Да** (+ sameAs founder profiles) |
 | Nav Blog, hreflang на постах | **Да** |
 | Footer → Blog / Solutions | **Да** (sprint) |
