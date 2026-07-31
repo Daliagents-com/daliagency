@@ -21,21 +21,37 @@ export function buildBlogPostJsonLd(input: {
   const pageUrl = `${siteUrl}${pagePath}`;
   const { faq } = parseBlogBody(post.content);
 
+  const blogIndexPath = pagePath.includes("/blog/")
+    ? pagePath.slice(0, pagePath.lastIndexOf("/"))
+    : "/blog";
+  const blogIndexUrl = `${siteUrl}${blogIndexPath || "/blog"}`;
+
+  const personAuthor = {
+    "@type": "Person",
+    "@id": `${siteUrl}/#david-hakobyan`,
+    name: "David Hakobyan",
+    jobTitle: "Founder",
+    url: "https://www.linkedin.com/in/davidhakobyan/",
+    sameAs: ["https://www.linkedin.com/in/davidhakobyan/"],
+    worksFor: {
+      "@type": "Organization",
+      name: "Dali",
+      url: siteUrl,
+    },
+  };
+
   const blogPosting: Record<string, unknown> = {
     "@type": "BlogPosting",
     "@id": `${pageUrl}#article`,
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: {
-      "@type": "Organization",
-      name: post.author,
-      url: siteUrl,
-    },
+    author: personAuthor,
     publisher: {
       "@type": "Organization",
       name: "Dali",
       url: siteUrl,
+      logo: `${siteUrl}/dali-logo.svg`,
     },
     mainEntityOfPage: pageUrl,
     inLanguage,
@@ -47,7 +63,32 @@ export function buildBlogPostJsonLd(input: {
       : {}),
   };
 
-  const graph: Record<string, unknown>[] = [blogPosting];
+  const breadcrumb: Record<string, unknown> = {
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: blogIndexUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: pageUrl,
+      },
+    ],
+  };
+
+  const graph: Record<string, unknown>[] = [blogPosting, breadcrumb];
 
   if (faq.length > 0) {
     graph.push({

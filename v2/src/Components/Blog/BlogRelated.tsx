@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { onestText, syneText } from "@/assets/fonts";
 import type { Locale } from "@/i18n/config";
-import { blogPath, getPublishedPosts } from "@/lib/blog/loadPosts";
+import { blogPath } from "@/lib/blog/loadPosts";
+import { getRelatedPosts } from "@/lib/blog/relatedPosts";
 import { blogCopy } from "@/i18n/blog";
 
 type BlogRelatedProps = {
@@ -12,9 +13,9 @@ type BlogRelatedProps = {
 
 export default function BlogRelated({ locale, currentSlug }: BlogRelatedProps) {
   const copy = blogCopy[locale];
-  const others = getPublishedPosts(locale)
-    .filter((p) => p.slug !== currentSlug)
-    .slice(0, 6);
+  const others = currentSlug
+    ? getRelatedPosts(locale, currentSlug, 6)
+    : getRelatedPosts(locale, "", 6);
 
   if (others.length === 0) {
     return null;

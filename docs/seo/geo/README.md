@@ -19,6 +19,7 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [ai-citation-baseline.md](./ai-citation-baseline.md) | Manual ChatGPT/Perplexity prompt log (no GSC required) |
 | [youtube-scripts-batch1.md](./youtube-scripts-batch1.md) | 3 film-ready process video scripts from pillars |
 | [agent-parallel-work.md](./agent-parallel-work.md) | What agents ship while human blockers stay open |
+| [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md) | How SEO/GEO/AEO work + what moves rankings for Dali |
 
 ## Related (workspace, may be local-only)
 
