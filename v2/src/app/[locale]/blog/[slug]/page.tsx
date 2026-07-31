@@ -7,6 +7,7 @@ import {
   getPost,
   getPostSlugs,
 } from "@/lib/blog/loadPosts";
+import { buildBlogPostJsonLd } from "@/lib/blog/jsonLd";
 import {
   htmlLanguages,
   isLocale,
@@ -93,32 +94,11 @@ export default async function LocalizedBlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const imageUrl = post.ogImage || post.heroImage;
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    author: {
-      "@type": "Organization",
-      name: post.author,
-      url: "https://dali.agents.ge",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Dali",
-      url: "https://dali.agents.ge",
-    },
-    mainEntityOfPage: `https://dali.agents.ge${blogPath(locale, slug)}`,
+  const jsonLd = buildBlogPostJsonLd({
+    post,
+    pagePath: blogPath(locale, slug),
     inLanguage: htmlLanguages[locale],
-    keywords: post.keywords.join(", "),
-    ...(imageUrl
-      ? {
-          image: [`https://dali.agents.ge${imageUrl}`],
-        }
-      : {}),
-  };
+  });
 
   return (
     <>

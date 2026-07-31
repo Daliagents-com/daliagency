@@ -66,6 +66,9 @@
 - [social-linkedin-plan.md](./social-linkedin-plan.md)
 - [find-10-clients.md](./find-10-clients.md)
 - [opportunities-next.md](./opportunities-next.md) - next levers beyond pack
+- [ai-citation-baseline.md](./ai-citation-baseline.md) - manual AI prompt log
+- [youtube-scripts-batch1.md](./youtube-scripts-batch1.md) - film scripts
+- [agent-parallel-work.md](./agent-parallel-work.md) - agent vs human split
 
 ---
 

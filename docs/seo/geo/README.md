@@ -16,6 +16,9 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [social-linkedin-plan.md](./social-linkedin-plan.md) | Social + LinkedIn Pro 30 days |
 | [find-10-clients.md](./find-10-clients.md) | 10 client acquisition ideas |
 | [opportunities-next.md](./opportunities-next.md) | Next SEO/GEO moves beyond this pack (YouTube, mentions, research, AI measurement) |
+| [ai-citation-baseline.md](./ai-citation-baseline.md) | Manual ChatGPT/Perplexity prompt log (no GSC required) |
+| [youtube-scripts-batch1.md](./youtube-scripts-batch1.md) | 3 film-ready process video scripts from pillars |
+| [agent-parallel-work.md](./agent-parallel-work.md) | What agents ship while human blockers stay open |
 
 ## Related (workspace, may be local-only)
 
