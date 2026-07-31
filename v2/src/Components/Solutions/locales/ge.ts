@@ -1,5 +1,4 @@
 import type { LocalizedSolutionsBundle } from "./types";
-import { solutionsBySlug } from "../solutionContent";
 
 export const georgianSolutionsBundle = {
   overview: {
@@ -1006,7 +1005,167 @@ export const georgianSolutionsBundle = {
           "უპასუხეთ Upwork-ში ზარის ტიპით, routing ინსტრუმენტით და handoff წესებით. Dali გიპასუხებთ design-partner საზღვრით, სატესტო მატრიცით და დამტკიცების წინაპირობებით.",
       },
     },
-    "vibe-code-rescue": solutionsBySlug["vibe-code-rescue"],
+    "vibe-code-rescue": {
+      slug: "vibe-code-rescue",
+      name: "Vibe-code Rescue პილოტი",
+      summary:
+        "ფიქსირებული პილოტი: AI-ით აწყობილი MVP-ის secrets, payments და admin ბილიკების ტრიაჟი, patch vs rewrite გადაწყვეტილებები, gates, stop-switch და handoff პაკეტი გუნდისთვის.",
+      accent: "#0B3A4A",
+      accentSoft: "#E4F0F3",
+      tint: "#f4f9fa",
+      metadata: {
+        title: "Vibe-code Rescue პილოტი | Dali",
+        description:
+          "ფიქსირებული production-hardening პილოტი vibe-coded MVP-ებისთვის: secrets, payments და admin-ის ტრიაჟი, patch vs rewrite, gates და stop-switch, შემდეგ handoff პაკეტი, რომელსაც გუნდი ფლობს.",
+      },
+      hero: {
+        eyebrow: "პაკეტური პილოტი",
+        title: "გაამყარეთ AI-ით აწყობილი MVP სანამ ის ნდობას ან ფულს დაგიჯდებათ.",
+        lead:
+          "Dali ატარებს ფიქსირებულ rescue-ს ერთ პროდუქტულ ზედაპირზე: პოულობს bleeding ბილიკებს (secrets, payments, admin, outbound ქმედებები), აჩერებს ყველაზე მძიმე რისკებს, წყვეტს patch vs rewrite-ს თითოეულ critical path-ზე და აყენებს gates-ს, მონიტორინგს და stop-switch-ს handoff-ით, რომელსაც გუნდი თავად უძღვება.",
+        supportLine:
+          "საუკეთესოდ ერგება დამფუძნებლებსა და ოპერატორებს, რომლებმაც Lovable, Cursor, v0 ან მსგავსი builder-ებით გაუშვეს პროდუქტი და ახლა სჭირდებათ production-სიმართლე სირცხვილის ლექციისა და სრული rewrite-ის გარეშე.",
+      },
+      workflow: {
+        label: "პროცესის დიაგრამა",
+        intake: ["Repo ან preview", "Payment და admin ბილიკები", "Secret ზედაპირები"],
+        agentLabel: "Rescue და harden პილოტი",
+        review: ["კრიტიკული severity", "Patch vs rewrite", "Owner-ის დადასტურება"],
+        outcomes: ["რისკის ტრიაჟის რუკა", "გამყარებული ბილიკები", "Handoff პაკეტი"],
+      },
+      contrast: {
+        painTitle: "რას ანაცვლებს",
+        painPoints: [
+          "დემო, რომელიც preview-ში მუშაობს, სანამ tokens, webhooks ან admin routes production-ში ღიაა.",
+          "გაუთავებელი chat-driven პაჩები severity-ის რიგის, stop-switch-ისა და sprint-ის შემდეგ ownership-ის გარეშე.",
+          "ცრუ არჩევანი «გაუშვი როგორც არის» და «გააგდე ყველაფერი» შორის, როცა ინჟინერიის სიღრმე მხოლოდ რამდენიმე ბილიკს სჭირდება.",
+        ],
+        outcomeTitle: "რას ქმნის",
+        outcomePoints: [
+          "severity-ით დალაგებული ტრიაჟი secrets, payments, admin და outbound ქმედებებისთვის.",
+          "წერილობითი patch vs rewrite გადაწყვეტილება თითოეულ critical path-ზე, არა ბუნდოვანი rewrite მანდატი.",
+          "Gates, მონიტორინგი და stop-switch პლუს handoff პაკეტი, რომელსაც გუნდი Dali-ს მუდმივი ყოფნის გარეშე მართავს.",
+        ],
+      },
+      pilot: {
+        label: "პილოტის ზუსტი ფიქსირებული საზღვარი",
+        fixedOutcome:
+          "ერთი პროდუქტული ზედაპირი, მაღალი რისკის ბილიკების ტრიაჟი, patch ან rewrite გადაწყვეტილებები, production gates და stop-switch, handoff პაკეტი owners-ით და residual risks-ით.",
+        includes: [
+          "1 პროდუქტული ზედაპირი ან deployable აპი (საიტი, MVP ან admin-backed flow)",
+          "secrets, payments, admin access და high-impact outbound ქმედებების ტრიაჟი",
+          "patch vs rewrite შენიშვნები თითოეულ critical path-ზე scope-ში",
+          "production gates, logging მოლოდინები და აშკარა stop-switch",
+          "handoff პაკეტი: residual risks, owners და შემდეგი engineering ნაბიჯები",
+        ],
+        excludes: [
+          "ყველა ფიჩის ან ეკრანის სრული rewrite",
+          "ღია product redesign ან rebrand",
+          "მრავალპროდუქტიანი rescue ერთ პილოტში",
+          "გუნდის დარცხვენა AI builders-ის გამოყენებისთვის",
+        ],
+      },
+      integrations: {
+        label: "ინტეგრაციები და მაგალითები",
+        intro:
+          "პილოტი მუშაობს იმ სტეკზე, რომელიც უკვე გაუშვით. პროდუქტს იქ ვხვდებით, სადაც არის: builder output, custom code, payments და host - და ვამყარებთ მხოლოდ იმ ბილიკებს, რომლებსაც რეალურად შეუძლიათ ზიანის მიყენება.",
+        items: [
+          "Lovable, v0, Cursor, Bolt ან შერეული AI-assisted კოდბაზები",
+          "Vercel, Netlify, Cloudflare ან მსგავსი preview-to-prod hosts",
+          "Stripe, payment webhooks, promo კოდები და checkout callbacks",
+          "Supabase, Firebase, custom admin ან shared service-role keys",
+          "დაკავშირებული მასალები Dali ბლოგზე: how-we-rescue-vibe-coded-mvps, vibe-coded-site-hardening-checklist, security-audit-for-vibe-coded-websites, rewrite-vs-patch-vibe-code",
+        ],
+      },
+      guardrails: {
+        label: "დაცვები და დამტკიცება",
+        intro:
+          "Rescue არ არის ჩუმი rewrite. Severity, გადაწყვეტილებები და residual risk owner-ისთვის ხილული რჩება, სანამ რამე დასრულებულად ჩაითვლება.",
+        items: [
+          "Secrets და payment ბილიკები stop-the-bleeding სამუშაოა კოსმეტიკურ გაწმენდამდე.",
+          "თითოეული critical path იღებს აშკარა patch ან rewrite გადაწყვეტილებას მიზეზით, არა «ვაიბით».",
+          "stop-switch და human gate რჩება high-impact ქმედებებზე პილოტის შემდეგაც.",
+          "scope-ს გარეთ residual risks იწერება owners-ით, არა იკარგება ჩატში.",
+        ],
+      },
+      validation: {
+        acceptanceTest:
+          "პილოტი გადის მხოლოდ თუ high-severity secrets და payments findings დახურულია ან წერილობით მიღებულია owner-ის მიერ, scope-ის თითოეულ critical path-ს აქვს patch-or-rewrite გადაწყვეტილება, high-impact ქმედებებზე არსებობს stop-switch, და handoff პაკეტი ასახელებს residual risks-სა და owners-ს.",
+        measures: [
+          "high-severity findings დახურული ან owner-ის მიერ მიღებული",
+          "critical paths წერილობითი patch vs rewrite გადაწყვეტილებით",
+          "stop-switch და gate coverage high-impact ქმედებებზე",
+          "handoff სისრულე: residual risks, owners, next steps",
+        ],
+        commercialModel:
+          "აუდიტი აფიქსირებს პროდუქტულ ზედაპირს, რისკის პრიორიტეტებს და acceptance bar-ს. შემდეგ Dali აფასებს ერთ fixed-scope, fixed-price rescue პილოტს. უფრო ფართო rewrite ან multi-surface სამუშაო handoff-ის შემდეგ ცალკე გადაწყვეტილებაა.",
+      },
+      delivery: [
+        {
+          title: "bleeding ბილიკების ტრიაჟი",
+          body:
+            "ვრუკავთ secrets, payments, admin და outbound ზედაპირებს, ვალაგებთ severity-ს და ვაფიქსირებთ პილოტის საზღვარს, რომ სამუშაო იქ დაიწყოს, სადაც ზიანი რეალურია.",
+        },
+        {
+          title: "Patch, rewrite და gates",
+          body:
+            "ვამყარებთ ან ვწერთ თავიდან თითოეულ critical path-ს scope-ში, ვამატებთ production gates-სა და stop-switch-ს და კოსმეტიკურ ვალს პირველ პაკეტში არ ვტოვებთ, თუ ის უსაფრთხოებას არ ბლოკავს.",
+        },
+        {
+          title: "ownership-ის გადაცემა",
+          body:
+            "იღებთ პაკეტს გადაწყვეტილებებით, residual risks-ით, owners-ით და შემდეგი engineering ნაბიჯებით, რომ გუნდმა პროდუქტი Dali-ს მუდმივი on-call-ის გარეშე წარმართოს.",
+        },
+      ],
+      fit: {
+        fit: [
+          "AI builders-ით ან heavy AI-assisted coding-ით გაუშვით MVP და რეალური მომხმარებლები ან payments ახლოსაა.",
+          "შეგიძლიათ დაასახელოთ ერთი პროდუქტული ზედაპირი და ბილიკები, რომლებიც ფულს, წვდომას ან outbound side effects-ს ეხება.",
+          "გჭირდებათ პატიოსანი patch vs rewrite რუკა უფრო, ვიდრე სრული rebuild-ის სლოგანი.",
+        ],
+        notFit: [
+          "გჭირდებათ ყველა ეკრანის სრული product rewrite ერთ engagement-ში.",
+          "არ არის owner, რომელიც residual risk-ს მიიღებს ან severity-ს პრიორიტეტს განსაზღვრავს.",
+          "პროდუქტი ჯერ კიდევ სუფთა პროტოტიპია production host-ის, მომხმარებლების ან payment ბილიკის გარეშე.",
+        ],
+      },
+      faqs: [
+        {
+          question: "უნდა გადავაგდოთ vibe-coded აპი?",
+          answer:
+            "ჩვეულებრივ არა. უმეტეს rescue ინარჩუნებს მომუშავე ზედაპირს და rewrite-ს მხოლოდ არაუსაფრთხო ან შეუნარჩუნებად ბილიკებს აკეთებს. patch vs rewrite წყდება თითოეულ critical path-ზე. გადაწყვეტილების ჩარჩო იხილეთ rewrite-vs-patch-vibe-code Dali ბლოგზე.",
+        },
+        {
+          question: "ეს სრული security აუდიტია?",
+          answer:
+            "ეს არის production-hardening პილოტი security-minded ტრიაჟით, არა enterprise pen-test თეატრი. ჯერ secrets, payments, admin და high-impact ქმედებები. უფრო ღრმა შენიშვნებია security-audit-for-vibe-coded-websites და vibe-coded-site-hardening-checklist-ში.",
+        },
+        {
+          question: "გაგვირცხვენთ AI tools-ის გამო?",
+          answer:
+            "არა. სიჩქარე რაციონალური იყო. პილოტი ვარაუდობს, რომ builders-მა სწავლაში დაგეხმარათ; ახლა საჭიროა production-სიმართლე. პროცესი საჯაროდაა how-we-rescue-vibe-coded-mvps-ში.",
+        },
+        {
+          question: "რას ვიღებთ ბოლოს?",
+          answer:
+            "severity-ით დალაგებული ტრიაჟი, scope-ში გამყარებული ან rewrite გაკეთებული critical paths, gates და stop-switch, პლუს handoff პაკეტი residual risks-ით, owners-ით და next steps-ით. არა ბუნდოვანი «კოდი გავაუმჯობესეთ».",
+        },
+      ],
+      cta: {
+        publicLabel: "დაიწყეთ vibe-code rescue აუდიტი",
+        publicBody:
+          "თუ MVP უკვე live-ია ან მალე ფულს მიიღებს, გამოგვიგზავნეთ პროდუქტის URL ან repo კონტექსტი და ბილიკები, რომლებიც ყველაზე მეტად გაწუხებთ. Dali გიპასუხებთ ფიქსირებული rescue საზღვრით და acceptance bar-ით.",
+        intakeFields: [
+          "პროდუქტის URL, preview ან repo კონტექსტი ერთი ზედაპირისთვის",
+          "payment, admin, auth ან outbound ბილიკები, რომლებიც უკვე არსებობს",
+          "სად ცხოვრობს ახლა secrets, webhooks ან service keys",
+          "owner, რომელსაც შეუძლია residual risk მიიღოს და severity პრიორიტეტი დააყენოს",
+        ],
+        upworkLabel: "ნახეთ, რა უნდა გააგზავნოთ Upwork-ში",
+        upworkBody:
+          "უპასუხეთ Upwork-ში პროდუქტული ზედაპირით, payment ან admin ბილიკებით და risk გადაწყვეტილებების owner-ით. Dali გიპასუხებთ ფიქსირებული rescue პილოტის საზღვრით და ტრიაჟის რიგით.",
+      },
+    },
   },
   labels: {
     browseAllPilots: "ყველა პილოტის ნახვა",

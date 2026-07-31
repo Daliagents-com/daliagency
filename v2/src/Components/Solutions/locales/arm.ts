@@ -1,5 +1,4 @@
 import type { LocalizedSolutionsBundle } from "./types";
-import { solutionsBySlug } from "../solutionContent";
 
 export const armenianSolutionsBundle = {
   overview: {
@@ -1002,7 +1001,167 @@ export const armenianSolutionsBundle = {
           "Պատասխանեք Upwork-ում զանգի տեսակով, routing գործիքով և handoff կանոններով։ Dali-ը կպատասխանի դիզայն-գործընկեր սահմանով, թեստային մատրիցով և հաստատման ենթադրություններով։",
       },
     },
-    "vibe-code-rescue": solutionsBySlug["vibe-code-rescue"],
+    "vibe-code-rescue": {
+      slug: "vibe-code-rescue",
+      name: "Vibe-code Rescue պիլոտ",
+      summary:
+        "Ֆիքսված պիլոտ՝ AI-ով կառուցված MVP-ի secrets, payments և admin ուղիների տրիաժ, patch vs rewrite որոշումներ, gates, stop-switch և handoff փաթեթ թիմի համար։",
+      accent: "#0B3A4A",
+      accentSoft: "#E4F0F3",
+      tint: "#f4f9fa",
+      metadata: {
+        title: "Vibe-code Rescue պիլոտ | Dali",
+        description:
+          "Ֆիքսված production-hardening պիլոտ vibe-coded MVP-երի համար՝ secrets, payments և admin տրիաժ, patch vs rewrite, gates և stop-switch, ապա handoff փաթեթ, որին թիմը տիրապետում է։",
+      },
+      hero: {
+        eyebrow: "Փաթեթավորված պիլոտ",
+        title: "Ամրացրեք AI-ով կառուցված MVP-ը նախքան այն վստահություն կամ գումար կարժենա։",
+        lead:
+          "Dali-ը ֆիքսված rescue է անում մեկ արտադրանքային մակերեսի վրա՝ գտնում է bleeding ուղիները (secrets, payments, admin, outbound գործողություններ), կանգնեցնում է ամենավատ ռիսկերը, որոշում է patch vs rewrite յուրաքանչյուր critical path-ի համար և դնում է gates, monitoring և stop-switch handoff-ով, որ թիմը կարող է վարել ինքնուրույն։",
+        supportLine:
+          "Լավագույնս համապատասխանում է հիմնադիրներին և օպերատորներին, ովքեր Lovable, Cursor, v0 կամ նման builders-ով են մեկնարկել և հիմա պետք ունեն production-ազնվություն առանց ամոթի դասախոսության և առանց ամբողջ արտադրանքի rewrite-ի։",
+      },
+      workflow: {
+        label: "Աշխատանքային հոսքի դիագրամ",
+        intake: ["Repo կամ preview", "Payment և admin ուղիներ", "Secret մակերեսներ"],
+        agentLabel: "Rescue և harden պիլոտ",
+        review: ["Կրիտիկական severity", "Patch vs rewrite", "Սեփականատիրոջ հաստատում"],
+        outcomes: ["Ռիսկի տրիաժի քարտեզ", "Ամրացված ուղիներ", "Handoff փաթեթ"],
+      },
+      contrast: {
+        painTitle: "Ինչ է փոխարինում",
+        painPoints: [
+          "Դեմո, որ աշխատում է preview-ում, մինչդեռ tokens, webhooks կամ admin routes բաց են production-ում։",
+          "Անվերջ chat-driven պաչեր առանց severity կարգի, առանց stop-switch-ի և առանց sprint-ից հետո հստակ ownership-ի։",
+          "Կեղծ ընտրություն «ուղարկիր ինչպես կա» և «դեն նետիր ամեն ինչ» միջև, երբ ինժեներական խորություն պետք է միայն մի քանի ուղիներին։",
+        ],
+        outcomeTitle: "Ինչ է ստեղծում",
+        outcomePoints: [
+          "Severity-ով դասավորված տրիաժ secrets, payments, admin և outbound գործողությունների համար։",
+          "Գրավոր patch vs rewrite որոշում յուրաքանչյուր critical path-ի համար, ոչ թե անորոշ rewrite մանդատ։",
+          "Gates, monitoring և stop-switch, գումարած handoff փաթեթ, որ թիմը վարում է առանց Dali-ի մշտական ներկայության։",
+        ],
+      },
+      pilot: {
+        label: "Պիլոտի ճշգրիտ ֆիքսված սահման",
+        fixedOutcome:
+          "Մեկ արտադրանքային մակերես, բարձր ռիսկի ուղիների տրիաժ, patch կամ rewrite որոշումներ, production gates և stop-switch, handoff փաթեթ owners-ով և residual risks-ով։",
+        includes: [
+          "1 արտադրանքային մակերես կամ deployable հավելված (կայք, MVP կամ admin-backed flow)",
+          "secrets, payments, admin access և high-impact outbound գործողությունների տրիաժ",
+          "patch vs rewrite նշումներ յուրաքանչյուր critical path-ի համար scope-ում",
+          "production gates, logging սպասումներ և հստակ stop-switch",
+          "handoff փաթեթ՝ residual risks, owners և հաջորդ engineering քայլեր",
+        ],
+        excludes: [
+          "Յուրաքանչյուր feature-ի կամ էկրանի ամբողջական rewrite",
+          "Բաց product redesign կամ rebrand",
+          "Բազմաարտադրանքային rescue մեկ պիլոտում",
+          "Թիմին ամաչեցնել AI builders օգտագործելու համար",
+        ],
+      },
+      integrations: {
+        label: "Ինտեգրացիաներ և օրինակներ",
+        intro:
+          "Պիլոտը աշխատում է այն stack-ի վրա, որն արդեն ուղարկել եք։ Արտադրանքին հանդիպում ենք այնտեղ, որտեղ կա՝ builder output, custom code, payments և host, ապա ամրացնում ենք միայն այն ուղիները, որոնք իրականում կարող են վնասել։",
+        items: [
+          "Lovable, v0, Cursor, Bolt կամ խառը AI-assisted codebase-եր",
+          "Vercel, Netlify, Cloudflare կամ նման preview-to-prod hosts",
+          "Stripe, payment webhooks, promo կոդեր և checkout callbacks",
+          "Supabase, Firebase, custom admin կամ shared service-role keys",
+          "Կապված նյութեր Dali բլոգում՝ how-we-rescue-vibe-coded-mvps, vibe-coded-site-hardening-checklist, security-audit-for-vibe-coded-websites, rewrite-vs-patch-vibe-code",
+        ],
+      },
+      guardrails: {
+        label: "Պաշտպանիչներ և հաստատում",
+        intro:
+          "Rescue-ը լուռ rewrite չէ։ Severity-ն, որոշումները և residual risk-ը տեսանելի են մնում սեփականատիրոջը, մինչև ինչ-որ բան համարվի ավարտված։",
+        items: [
+          "Secrets և payment ուղիները stop-the-bleeding աշխատանք են կոսմետիկ մաքրումից առաջ։",
+          "Յուրաքանչյուր critical path ստանում է հստակ patch կամ rewrite որոշում պատճառով, ոչ թե «վայբով»։",
+          "stop-switch և human gate մնում են high-impact գործողությունների վրա պիլոտից հետո։",
+          "scope-ից դուրս residual risks-ը գրվում են owners-ով, ոչ թե թաղվում չաթում։",
+        ],
+      },
+      validation: {
+        acceptanceTest:
+          "Պիլոտն անցնում է միայն եթե high-severity secrets և payments findings-ը փակված են կամ գրավոր ընդունված owner-ի կողմից, scope-ի յուրաքանչյուր critical path ունի patch-or-rewrite որոշում, high-impact գործողությունների համար կա stop-switch, և handoff փաթեթը անվանում է residual risks և owners։",
+        measures: [
+          "high-severity findings փակված կամ owner-ի կողմից ընդունված",
+          "critical paths գրավոր patch vs rewrite որոշումներով",
+          "stop-switch և gate coverage high-impact գործողությունների վրա",
+          "handoff ամբողջականություն՝ residual risks, owners, next steps",
+        ],
+        commercialModel:
+          "Աուդիտը ֆիքսում է արտադրանքային մակերեսը, ռիսկերի առաջնահերթությունները և acceptance bar-ը։ Այնուհետև Dali-ը գնահատում է մեկ fixed-scope, fixed-price rescue պիլոտ։ Ավելի լայն rewrite կամ multi-surface աշխատանքը handoff-ից հետո առանձին որոշում է։",
+      },
+      delivery: [
+        {
+          title: "bleeding ուղիների տրիաժ",
+          body:
+            "Քարտեզագրում ենք secrets, payments, admin և outbound մակերեսները, դասավորում severity-ն և ֆիքսում պիլոտի սահմանը, որպեսզի աշխատանքը սկսվի այնտեղ, որտեղ վնասը իրական է։",
+        },
+        {
+          title: "Patch, rewrite և gates",
+          body:
+            "Ամրացնում կամ rewrite ենք անում scope-ի յուրաքանչյուր critical path, ավելացնում production gates և stop-switch, և կոսմետիկ պարտքը թողնում ենք առաջին փաթեթից դուրս, եթե այն չի արգելափակում անվտանգությունը։",
+        },
+        {
+          title: "ownership-ի փոխանցում",
+          body:
+            "Ստանում եք փաթեթ որոշումներով, residual risks-ով, owners-ով և հաջորդ engineering քայլերով, որպեսզի թիմը վարի արտադրանքը առանց Dali-ի մշտական on-call-ի։",
+        },
+      ],
+      fit: {
+        fit: [
+          "AI builders-ով կամ heavy AI-assisted coding-ով եք ուղարկել MVP, և իրական օգտատերերը կամ payments-ը մոտ են։",
+          "Կարող եք անվանել մեկ արտադրանքային մակերես և ուղիներ, որոնք դիպչում են գումարին, մուտքին կամ outbound side effects-ին։",
+          "Ձեզ պետք է ազնիվ patch vs rewrite քարտեզ ավելի, քան ամբողջական rebuild-ի կարգախոս։",
+        ],
+        notFit: [
+          "Պետք է յուրաքանչյուր էկրանի ամբողջական product rewrite մեկ engagement-ում։",
+          "Չկա owner, ով կարող է ընդունել residual risk կամ առաջնահերթել severity-ն։",
+          "Արտադրանքը դեռևս մաքուր նախատիպ է առանց production host-ի, օգտատերերի կամ payment ուղու։",
+        ],
+      },
+      faqs: [
+        {
+          question: "Պե՞տք է դեն նետել vibe-coded հավելվածը։",
+          answer:
+            "Սովորաբար ոչ։ Rescue-երի մեծ մասը պահում է աշխատող մակերեսը և rewrite է անում միայն անապահով կամ չսպասարկվող ուղիները։ Patch vs rewrite որոշվում է յուրաքանչյուր critical path-ի համար։ Որոշման շրջանակը տես rewrite-vs-patch-vibe-code Dali բլոգում։",
+        },
+        {
+          question: "Սա ամբողջական security աուդիտ է՞։",
+          answer:
+            "Սա production-hardening պիլոտ է security-minded տրիաժով, ոչ թե enterprise pen-test թատրոն։ Նախ secrets, payments, admin և high-impact գործողություններ։ Ավելի խոր նշումներ՝ security-audit-for-vibe-coded-websites և vibe-coded-site-hardening-checklist։",
+        },
+        {
+          question: "Կամաչեցնե՞ք AI tools-ի համար։",
+          answer:
+            "Ոչ։ Արագությունը ռացիոնալ էր։ Պիլոտը ենթադրում է, որ builders-ը օգնել են սովորել․ հիմա պետք է production-ազնվություն։ Գործընթացը հրապարակային է how-we-rescue-vibe-coded-mvps-ում։",
+        },
+        {
+          question: "Ի՞նչ ենք ստանում վերջում։",
+          answer:
+            "Severity-ով դասավորված տրիաժ, scope-ում ամրացված կամ rewrite արված critical paths, gates և stop-switch, գումարած handoff փաթեթ residual risks-ով, owners-ով և next steps-ով։ Ոչ թե անորոշ «կոդը բարելավեցինք»։",
+        },
+      ],
+      cta: {
+        publicLabel: "Սկսել vibe-code rescue աուդիտը",
+        publicBody:
+          "Եթե MVP-ն արդեն live է կամ շուտով գումար է վերցնելու, ուղարկեք արտադրանքի URL կամ repo context և ուղիները, որոնք ամենաշատն են անհանգստացնում։ Dali-ը կպատասխանի ֆիքսված rescue սահմանով և acceptance bar-ով։",
+        intakeFields: [
+          "Արտադրանքի URL, preview կամ repo context մեկ մակերեսի համար",
+          "payment, admin, auth կամ outbound ուղիներ, որոնք արդեն գոյություն ունեն",
+          "Որտեղ են հիմա secrets, webhooks կամ service keys",
+          "Owner, ով կարող է ընդունել residual risk և առաջնահերթել severity-ն",
+        ],
+        upworkLabel: "Տեսնել ինչ ուղարկել Upwork-ում",
+        upworkBody:
+          "Պատասխանեք Upwork-ում արտադրանքային մակերեսով, payment կամ admin ուղիներով և risk որոշումների owner-ով։ Dali-ը կպատասխանի ֆիքսված rescue պիլոտի սահմանով և տրիաժի կարգով։",
+      },
+    },
   },
   labels: {
     browseAllPilots: "Տեսնել բոլոր պիլոտները",
