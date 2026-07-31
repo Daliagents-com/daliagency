@@ -5,19 +5,12 @@ import {
   daliContactEmail,
   formatConsultationEmail,
   validateConsultationPayload,
+  type ConsultationPayload,
 } from "@/lib/consultation";
 
 export const runtime = "nodejs";
 
-async function deliverLead(payload: {
-  name: string;
-  email: string;
-  company?: string;
-  interest: string;
-  message: string;
-  locale?: string;
-  source?: string;
-}) {
+async function deliverLead(payload: ConsultationPayload) {
   const mail = formatConsultationEmail(payload);
   const webhook = process.env.CONSULTATION_WEBHOOK_URL;
   const resendKey = process.env.RESEND_API_KEY;
