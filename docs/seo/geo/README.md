@@ -21,6 +21,7 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [agent-parallel-work.md](./agent-parallel-work.md) | What agents ship while human blockers stay open |
 | [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md) | How SEO/GEO/AEO work + what moves rankings for Dali |
 | [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Takeaways from GEO video (HTML text + robots + schema) |
+| [mention-sites-exact.md](./mention-sites-exact.md) | Exact URLs to list Dali + mention blog (Reddit, X, dirs, syndicate) |
 
 ## Related (workspace, may be local-only)
 
