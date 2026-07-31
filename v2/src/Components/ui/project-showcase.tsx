@@ -356,14 +356,13 @@ export function ProjectShowcase({
                     <>
                       <Image
                         src={logo}
-                        alt=""
+                        alt={project.title}
                         className={`max-h-[80px] w-auto object-contain md:max-h-[96px] ${
                           logoMaxClass[project.slug as ProjectSlug] ??
                           "max-w-[80px]"
                         }`}
                         sizes="104px"
                       />
-                      <span className="sr-only">{project.title}</span>
                     </>
                   ) : (
                     <h3 className="max-w-full text-center text-[clamp(15px,1.55vw,24px)] font-medium leading-[0.95] tracking-[-0.05em] text-gray-950">
@@ -408,7 +407,7 @@ export function ProjectShowcase({
                 >
                   <Image
                     src={project.image}
-                    alt=""
+                    alt={project.title}
                     fill
                     placeholder="blur"
                     sizes="420px"

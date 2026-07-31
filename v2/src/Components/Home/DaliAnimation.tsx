@@ -134,7 +134,7 @@ export default function DaliAnimation({ className = "" }: Props) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/dali-logo.svg"
-        alt=""
+        alt="Dali"
         width={240}
         height={118}
         draggable={false}

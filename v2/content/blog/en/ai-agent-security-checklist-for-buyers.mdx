@@ -1,0 +1,51 @@
+---
+slug: "ai-agent-security-checklist-for-buyers"
+title: "AI agent security checklist for buyers"
+description: "Buyer-side security checklist for AI agents: secrets, permissions, outbound actions, logging, vendors, and vibe-coded risk."
+date: "2026-07-31"
+locale: "en"
+hreflangGroup: "ai-agent-security-checklist-for-buyers"
+keywords: ["AI agent security checklist", "secure AI agents", "AI automation security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Before agents act in production, lock secrets, least privilege, outbound gates, audit logs, and a stop-switch. Security is part of pilot design, not a polish phase.
+
+## Secrets and keys
+
+No tokens in client JS or public repos. Rotate anything that was ever committed.
+
+## Permissions
+
+Least privilege per tool. Separate prod and test. No shared god-mode service accounts without review.
+
+## Actions
+
+Gate payments, emails, deletes, permission changes, public posts.
+
+## Observability
+
+Log inputs, tool calls, outputs, approvals. Retain enough to debug incidents.
+
+## Vendor access
+
+Time-boxed, minimal, revocable. Written data handling rules.
+
+## How Dali fits
+
+Security-minded triage is part of Dali pilots: [solutions](/solutions).
+
+## FAQ
+
+### Is model choice the main security issue?
+Usually access and actions matter more than which LLM brand you pick.
+
+### What about prompt injection?
+Treat untrusted content as hostile input; limit tools and require gates.
+
+### Vibe-coded MVP risk
+See [vibe-code rescue](/solutions/vibe-code-rescue) and hardening posts.

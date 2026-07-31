@@ -1,0 +1,47 @@
+---
+slug: "ai-agent-pilot-scope-template"
+title: "AI agent pilot scope template (copy and fill)"
+description: "A practical template to scope an AI agent pilot: workflow, tools, gates, acceptance test, exclusions, and owners."
+date: "2026-07-31"
+locale: "en"
+hreflangGroup: "ai-agent-pilot-scope-template"
+keywords: ["AI agent pilot scope", "AI pilot template", "agent implementation scope"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Direct answer
+
+Scope every AI agent pilot as one workflow, one primary tool path, explicit gates, a pass/fail acceptance test, and named owners. Everything else is phase two.
+
+## Template fields
+
+Workflow name. Trigger. Tools. Inputs. Allowed actions. Forbidden actions. Human gate points. Success metrics. Data access. Timeline. Exclusions.
+
+## Example acceptance test shape
+
+On 20 real historical cases: zero silent duplicates, required fields complete above a threshold, every low-confidence case creates an exception.
+
+## How to use with vendors
+
+Send the filled template before pricing. Reject quotes that ignore exclusions.
+
+## Common mistakes
+
+Three workflows in one pilot. No owner for approvals. Success = 'feels smarter' with no measure.
+
+## How Dali fits
+
+Dali pilots use fixed boundaries. See patterns on [solutions](/solutions).
+
+## FAQ
+
+### How long should a pilot be?
+Long enough to replay real cases and fix gates - often weeks, not a weekend.
+
+### Can marketing and ops share one pilot?
+Prefer separate pilots with separate acceptance tests.
+
+### Who fills the template?
+A business owner of the workflow plus whoever controls the tools.

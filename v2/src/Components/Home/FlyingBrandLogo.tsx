@@ -281,7 +281,7 @@ export default function FlyingBrandLogo({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/dali-logo.svg"
-        alt=""
+        alt="Dali"
         width={240}
         height={118}
         className="pointer-events-none h-full w-full select-none object-contain object-center"

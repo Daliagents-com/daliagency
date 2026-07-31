@@ -314,7 +314,13 @@ function ToolNodeView({ data }: NodeProps<AgentFlowNode>) {
       <Handle type="source" position={Position.Bottom} className={styles.rfHandle} />
       <Handle type="source" position={Position.Right} id="r" className={styles.rfHandle} />
       <span className={styles.rfToolLogo}>
-        <Image src={data.logo} alt="" width={22} height={22} unoptimized />
+        <Image
+          src={data.logo}
+          alt={data.label || "Integration"}
+          width={22}
+          height={22}
+          unoptimized
+        />
       </span>
       <span>{data.label}</span>
       <Handle type="target" position={Position.Left} id="l" className={styles.rfHandle} />
@@ -525,7 +531,7 @@ function ToolCallCards({ tools }: { tools: readonly ToolCall[] }) {
                 <span className={styles.toolIcon} aria-hidden="true">
                   <Image
                     src={tool.logo}
-                    alt=""
+                    alt={tool.app || "Tool"}
                     width={14}
                     height={14}
                     unoptimized

@@ -1,0 +1,47 @@
+---
+slug: "human-in-the-loop-ai-agents-explained"
+title: "Human-in-the-loop AI agents explained"
+description: "What human-in-the-loop means for production AI agents, where to place gates, and how to avoid freezing every step."
+date: "2026-07-31"
+locale: "en"
+hreflangGroup: "human-in-the-loop-ai-agents-explained"
+keywords: ["human in the loop AI agents", "AI agent approval gates", "HITL automation"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Direct answer
+
+Human-in-the-loop means people approve irreversible or high-risk agent actions while routine safe steps run automatically. Gate the blast radius, not every internal draft.
+
+## Why HITL exists
+
+Models are probabilistic. Businesses need accountability for external and financial actions.
+
+## What to gate
+
+Sends, money, access changes, public content, destructive updates.
+
+## What not to gate
+
+Internal retrieval, draft generation that cannot leave the sandbox, pure ranking for a human who already owns the next step.
+
+## Operating model
+
+Role-based approvers, evidence packs, SLAs for stale approvals, logs.
+
+## How Dali fits
+
+Dali designs gate placement during discovery: [solutions](/solutions).
+
+## FAQ
+
+### Is HITL temporary?
+Sometimes you loosen gates after metrics prove safety. Sometimes gates stay forever.
+
+### Does HITL kill ROI?
+Poorly designed HITL does. Targeted gates usually preserve speed where it is safe.
+
+### Deeper read
+[Human approval gates for AI agents](/blog/human-approval-gates-for-ai-agents).
