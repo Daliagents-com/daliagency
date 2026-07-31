@@ -31,8 +31,20 @@ export const DALI_HAND_DRAW_MS = 1000;
 export const LOGO_FLIGHT_LOCK_MS =
   HERO_ENTRANCE_DELAY_MS + DALI_HAND_DRAW_MS;
 
-/** Scroll progress (0-1 on logo track) when flight may start. */
-export const LOGO_FLIGHT_START = 0.08;
+/**
+ * Scroll progress (0-1 on logo track) when flight may start.
+ * Early start + long end = slow, unobstructed travel into the nav.
+ */
+export const LOGO_FLIGHT_START = 0.02;
 
-/** Scroll progress when flight must land in nav. */
-export const LOGO_FLIGHT_END = 0.42;
+/**
+ * Scroll progress when flight must land in nav.
+ * Long window keeps speed low across the same hero→nav distance.
+ */
+export const LOGO_FLIGHT_END = 0.78;
+
+/**
+ * Light temporal follow on *linear* flight progress only (1/s).
+ * High enough to kill scroll micro-jitter, low enough to avoid rubber-band lag.
+ */
+export const LOGO_FLIGHT_SMOOTH = 18;

@@ -1,4 +1,5 @@
 import Navbar from "@/Components/Navbar/Navbar";
+import ConsultationShell from "@/Components/Consultation/ConsultationShell";
 import "./globals.css";
 import { monoText, onestText, syneText } from "@/assets/fonts";
 import Footer from "@/Components/Footer/Footer";
@@ -104,10 +105,12 @@ export default async function RootLayout({
             __html: JSON.stringify(organizationJsonLd),
           }}
         />
-        <Navbar />
-        {children}
-        <Footer />
-        {process.env.VERCEL === "1" ? <FunnelAnalytics /> : null}
+        <ConsultationShell>
+          <Navbar />
+          {children}
+          <Footer />
+          {process.env.VERCEL === "1" ? <FunnelAnalytics /> : null}
+        </ConsultationShell>
       </body>
     </html>
   );

@@ -9,7 +9,6 @@ import {
 } from "@/assets/fonts";
 import DavidImage from "@/assets/images/team/david.png";
 import LianaImage from "@/assets/images/team/liana.jpeg";
-import { getGeneralAuditHref } from "@/lib/contact";
 import {
   htmlLanguages,
   localizePath,
@@ -19,6 +18,7 @@ import { homeCopy } from "@/i18n/home";
 import { sectionTitle } from "@/lib/sectionTitle";
 import { solutionSlugs } from "@/Components/Solutions/solutionContent";
 import type { LocalizedSolutionsBundle } from "@/Components/Solutions/locales/types";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import styles from "./AIHome.module.css";
 
 const proofHrefs = [
@@ -53,7 +53,6 @@ export default function AIHome({
   locale?: Locale;
 }) {
   const copy = bundle.overview;
-  const auditHref = getGeneralAuditHref(locale);
   const nav = homeCopy[locale].navigation.solutions;
   // ONE title per section = NN / NavLabel (see src/lib/sectionTitle.ts).
   // Descriptive lines from copy become leads, not second titles.
@@ -92,13 +91,12 @@ export default function AIHome({
                   {copy.hero.lead}
                 </p>
                 <div className={styles.ctaRow}>
-                  <a
-                    href={auditHref}
-                    data-cta="hero-audit"
+                  <ConsultationTrigger
+                    source="ai-home-hero-consultation"
                     className={styles.primaryCta}
                   >
                     {copy.hero.primaryCta}
-                  </a>
+                  </ConsultationTrigger>
                   <a href="#solutions" className={styles.secondaryCta}>
                     {copy.hero.secondaryCta}
                   </a>
@@ -385,13 +383,12 @@ export default function AIHome({
             <p className={`${sansText.className} ${styles.contactLead}`}>
               {copy.contact.body}
             </p>
-            <a
-              href={auditHref}
-              data-cta="final-audit"
+            <ConsultationTrigger
+              source="ai-home-contact-consultation"
               className={styles.primaryCta}
             >
               {copy.contact.cta}
-            </a>
+            </ConsultationTrigger>
           </div>
         </Container>
       </section>

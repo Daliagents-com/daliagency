@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import Container from "@/Components/Container/Container";
 import { monoText, sansText } from "@/assets/fonts";
-import { getGeneralAuditHref } from "@/lib/contact";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import {
   htmlLanguages,
   localizePath,
@@ -78,7 +78,6 @@ export default function DaliCasePage({
   locale?: Locale;
 }) {
   const copy = bundle.overview;
-  const auditHref = getGeneralAuditHref(locale);
   const cards = copy.solutions.cards;
 
   return (
@@ -107,13 +106,12 @@ export default function DaliCasePage({
             </Reveal>
             <Reveal delay={0.18} y={18}>
               <div className={styles.ctaRow}>
-                <a
-                  href={auditHref}
-                  data-cta="dali-case-audit"
+                <ConsultationTrigger
+                  source="dali-case-consultation"
                   className={`${sansText.className} ${styles.primaryCta}`}
                 >
                   {copy.hero.primaryCta}
-                </a>
+                </ConsultationTrigger>
                 <a
                   href="#system-map"
                   className={`${sansText.className} ${styles.secondaryCta}`}
@@ -227,13 +225,12 @@ export default function DaliCasePage({
               <p className={`${sansText.className} ${styles.ctaBody}`}>
                 {copy.contact.body}
               </p>
-              <a
-                href={auditHref}
-                data-cta="dali-case-footer-audit"
+              <ConsultationTrigger
+                source="dali-case-footer-consultation"
                 className={`${sansText.className} ${styles.primaryCta}`}
               >
                 {copy.contact.cta}
-              </a>
+              </ConsultationTrigger>
             </div>
           </Reveal>
         </Container>

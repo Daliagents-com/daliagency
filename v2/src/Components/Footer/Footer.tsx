@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 import Container from "@/Components/Container/Container";
 import { condensedHeadings, serifText, syneText } from "@/assets/fonts";
-import { getGeneralAuditHref } from "@/lib/contact";
 import {
   localeFromPathname,
   localizePath,
@@ -13,6 +12,7 @@ import {
 } from "@/i18n/config";
 import { homeCopy } from "@/i18n/home";
 import Link from "next/link";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 
 const sayHiVariants = [
   { text: "Привет", lang: "ru", className: "" },
@@ -27,7 +27,6 @@ const sayHiVariants = [
 export default function Footer() {
   const pathname = usePathname() ?? "/";
   const locale = localeFromPathname(pathname);
-  const auditHref = getGeneralAuditHref(locale);
   const copy = homeCopy[locale].footer;
   const solutionsLabel = homeCopy[locale].navigation.solutions[0] ?? "Solutions";
   const normalizedPathname = stripLocalePrefix(pathname);
@@ -139,13 +138,12 @@ export default function Footer() {
                     {copy.approach}
                   </p>
                 </div>
-                <a
-                  href={auditHref}
-                  data-cta="footer-audit"
+                <ConsultationTrigger
+                  source="footer-consultation"
                   className="mb-20 inline-flex items-center justify-center border border-white/20 bg-white px-16 py-12 text-body5 uppercase text-primary transition-colors hover:bg-[var(--accent-soft)]"
                 >
                   {copy.startAudit}
-                </a>
+                </ConsultationTrigger>
                 <div>
                   <p className="text-body6 uppercase pb-8">{copy.contact}</p>
                   <a

@@ -1,19 +1,19 @@
 // Purpose: Homepage hero using framer-motion ContainerScroll (product expand).
-// Scope: Localized copy + animated Dali Agents product mock; logo flight to header.
+// Scope: Localized copy + animated Dali Agents product mock.
+// Brand logo: site header (Navbar + DaliAnimation), not this section.
 "use client";
 
 import { useLayoutEffect } from "react";
 import { homeCopy } from "@/i18n/home";
 import { localizePath, type Locale } from "@/i18n/config";
 import { syneText } from "@/assets/fonts";
-import { getGeneralAuditHref } from "@/lib/contact";
 import { ContainerScroll } from "@/Components/ui/container-scroll-animation";
 import HeroProductMock from "@/Components/Home/HeroProductMock";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 
 export default function Hero({ locale = "en" }: { locale?: Locale }) {
   const copy = homeCopy[locale].hero;
   const navigationCopy = homeCopy[locale].navigation;
-  const auditHref = getGeneralAuditHref(locale);
   const homeHref = localizePath("/", locale);
   const words = copy.lines.flat();
 
@@ -65,12 +65,12 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-12">
-              <a
-                href={auditHref}
+              <ConsultationTrigger
+                source="hero-consultation"
                 className="inline-flex items-center justify-center rounded-8 bg-primary px-20 py-12 text-body5 uppercase text-white transition-colors hover:bg-primary-700"
               >
                 {navigationCopy.startAudit}
-              </a>
+              </ConsultationTrigger>
               <a
                 href="#projects"
                 className="inline-flex items-center justify-center rounded-8 border border-black/15 bg-[var(--page-bg-color)] px-20 py-12 text-body5 uppercase transition-colors hover:bg-black hover:text-white"

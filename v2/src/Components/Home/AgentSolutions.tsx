@@ -1,7 +1,6 @@
 // Purpose: Homepage agent solutions - sticky nav + scroll panels.
 // Scope: #agent-solutions. Framer useInView for real entrance; product loop lives in AgentUxPreview.
-// Structure: one scroll panel = one functional product surface. Lead+Inbox share one demo;
-//            View pilot lists every packaged variant with full detail.
+// Structure: one scroll panel = one agent product surface (distinct dashboard demo per kind).
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -190,8 +189,8 @@ export default function AgentSolutions({
   const knowledge = copy.cards["knowledge-assistant"];
   const voice = copy.cards["voice-agents"];
 
-  // One scroll = one functional product surface (distinct mock).
-  // Lead + Client Inbox share one response demo; both pilots stay in the rack.
+  // One scroll panel = one agent. Lead and Inbox are separate so clients
+  // can pick the right product surface immediately (sales vs support).
   const panels: Panel[] = [
     {
       id: "dali-agent",
@@ -220,14 +219,12 @@ export default function AgentSolutions({
       ],
     },
     {
-      id: "agent-response",
-      title: copy.responseLane.title,
-      summary: copy.responseLane.summary,
-      // Lead mock is the shared response surface (list | thread | CRM).
-      // Inbox pilot page still listed - same grammar, different policy path.
+      id: "agent-lead-response",
+      title: lead.title,
+      summary: lead.summary,
       kind: "lead-response",
       tasks: lead.tasks,
-      eyebrow: copy.responseLane.eyebrow,
+      eyebrow: copy.packagedPilot,
       pilots: [
         {
           href: localizePath("/solutions/lead-response", locale),
@@ -237,6 +234,16 @@ export default function AgentSolutions({
           badge: copy.packagedPilot,
           cta: copy.viewPilot,
         },
+      ],
+    },
+    {
+      id: "agent-client-inbox",
+      title: inbox.title,
+      summary: inbox.summary,
+      kind: "client-inbox",
+      tasks: inbox.tasks,
+      eyebrow: copy.packagedPilot,
+      pilots: [
         {
           href: localizePath("/solutions/client-inbox", locale),
           title: inbox.title,

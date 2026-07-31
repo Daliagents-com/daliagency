@@ -48,15 +48,19 @@ type Props = {
 /**
  * Progressive path replay: blank → pen strokes → finished wordmark.
  *
- * Critical: first paint / SSR / no-JS / failed effect always shows FINAL_PATHS.
- * Hand-draw only runs on the client when motion is allowed.
+ * First paint is intentionally blank (not the finished mark). Showing the full
+ * logo first and then replaying the stroke reads as "appear, then draw again".
+ * Reduced-motion / safety timeout land on FINAL_PATHS immediately.
  */
 export default function DaliAnimation({ className = "" }: Props) {
-  // Final frame by default so the mark is never an empty SVG.
-  const [frameIndex, setFrameIndex] = useState(LAST_INDEX);
+  // -1 = no ink yet. Never start on LAST_INDEX or the mark pops in complete.
+  const [frameIndex, setFrameIndex] = useState(-1);
 
   useLayoutEffect(() => {
-    if (DISPLAY_FRAMES.length === 0) return;
+    if (DISPLAY_FRAMES.length === 0) {
+      setFrameIndex(LAST_INDEX);
+      return;
+    }
 
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -70,20 +74,32 @@ export default function DaliAnimation({ className = "" }: Props) {
     let cancelled = false;
     let rafId = 0;
     let startTime = 0;
+    let settled = false;
+    let safety = 0;
 
-    // Restart from blank so the pen-draw is visible on every mount.
+    // Stay blank until the entrance delay elapses, then pen-draw from frame 0.
     setFrameIndex(-1);
 
-    const finish = () => {
-      if (!cancelled) setFrameIndex(LAST_INDEX);
+    /** Land once on the final ink and stop - no second handoff / re-render loop. */
+    const settle = (index = LAST_INDEX) => {
+      if (cancelled || settled) return;
+      settled = true;
+      setFrameIndex(index);
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+      if (safety) {
+        window.clearTimeout(safety);
+        safety = 0;
+      }
     };
 
     const draw = (now: number) => {
-      if (cancelled) return;
+      if (cancelled || settled) return;
       if (!startTime) startTime = now;
 
       const elapsed = now - startTime - HERO_ENTRANCE_DELAY_MS;
       if (elapsed < 0) {
+        // Keep empty during delay - do not flash a full wordmark.
         rafId = requestAnimationFrame(draw);
         return;
       }
@@ -98,13 +114,20 @@ export default function DaliAnimation({ className = "" }: Props) {
         }
       }
 
-      setFrameIndex((current) => (current === nextIndex ? current : nextIndex));
-
-      if (nextIndex < LAST_INDEX) {
+      // First post-delay tick: if replay clock is still before frame 0 ink, stay blank.
+      if (sourceTime < (DISPLAY_FRAMES[0]?.t ?? 0)) {
         rafId = requestAnimationFrame(draw);
-      } else {
-        finish();
+        return;
       }
+
+      if (nextIndex >= LAST_INDEX) {
+        // Drawn - leave the final frame as-is. No extra transition after this.
+        settle(LAST_INDEX);
+        return;
+      }
+
+      setFrameIndex((current) => (current === nextIndex ? current : nextIndex));
+      rafId = requestAnimationFrame(draw);
     };
 
     rafId = requestAnimationFrame(draw);
@@ -114,12 +137,12 @@ export default function DaliAnimation({ className = "" }: Props) {
       LOGO_FLIGHT_LOCK_MS + 200,
       HERO_ENTRANCE_DELAY_MS + DALI_HAND_DRAW_MS + 200,
     );
-    const safety = window.setTimeout(finish, safetyMs);
+    safety = window.setTimeout(() => settle(LAST_INDEX), safetyMs);
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(rafId);
-      window.clearTimeout(safety);
+      if (safety) window.clearTimeout(safety);
     };
   }, []);
 
@@ -130,28 +153,19 @@ export default function DaliAnimation({ className = "" }: Props) {
 
   return (
     <span className={`relative block h-full w-full ${className}`}>
-      {/* Static fallback: visible only while replay paths are empty. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/dali-logo.svg"
-        alt="Dali"
-        width={240}
-        height={118}
-        draggable={false}
-        aria-hidden
-        className={`pointer-events-none absolute inset-0 h-full w-full select-none object-contain object-center transition-opacity duration-150 ${
-          paths.length === 0 ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      {/*
+        No static full-logo img fallback during the blank window.
+        That was the "logo appears, then draws" bug: empty paths → full SVG image.
+        Decorative only (parent link has the accessible name).
+      */}
       <svg
         viewBox={VIEW_BOX}
         xmlns="http://www.w3.org/2000/svg"
-        className={`relative block h-full w-full overflow-visible transition-opacity duration-150 ${
-          paths.length === 0 ? "opacity-0" : "opacity-100"
-        }`}
+        className="relative block h-full w-full overflow-visible"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden
         data-dali-draw="true"
+        data-dali-frame={frameIndex}
       >
         {paths.map((d, index) => (
           <path

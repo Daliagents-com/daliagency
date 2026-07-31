@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Container from "@/Components/Container/Container";
 import { condensedHeadings, monoText, serifText } from "@/assets/fonts";
 import Button from "@/Components/Button/Button";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { ChevronRight } from "lucide-react";
 import TrackAndFieldImage from "./assets/track-and-field.svg";
 import ClientLogos from "./assets/logos.png";
@@ -378,13 +379,12 @@ export default function DesignSprints({
           {copy.hero}
         </h1>
         <p className="flex justify-center">
-          <Button
-            className="mt-40 uppercase"
-            href="https://ch234lt3std.typeform.com/to/OCi31Zif"
-            target="_blank"
+          <ConsultationTrigger
+            source="design-sprints-hero-consultation"
+            className="mt-40 inline-flex items-center justify-between gap-12 bg-primary-500 px-20 py-12 font-ui uppercase text-white transition-colors hover:bg-primary-700"
           >
             {copy.contact} <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
-          </Button>
+          </ConsultationTrigger>
         </p>
         <Image
           src={TrackAndFieldImage}
@@ -575,14 +575,13 @@ export default function DesignSprints({
               <Image src={ClientLogos} alt="" height={120} />
             </p>
             <p className="flex justify-center">
-              <Button
-                className="mt-40 max-lg:w-full uppercase"
-                href="https://ch234lt3std.typeform.com/to/OCi31Zif"
-                target="_blank"
+              <ConsultationTrigger
+                source="design-sprints-vision-consultation"
+                className="mt-40 inline-flex max-lg:w-full items-center justify-between gap-12 bg-primary-500 px-20 py-12 font-ui uppercase text-white transition-colors hover:bg-primary-700"
               >
                 {copy.visionCta}{" "}
                 <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
-              </Button>
+              </ConsultationTrigger>
             </p>
           </div>
         </div>

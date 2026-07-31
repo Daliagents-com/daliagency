@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import Container from "../Container/Container";
 import NavLink from "../NavLink/NavLink";
 import LanguageSwitcher from "../Locale/LanguageSwitcher";
-import { getGeneralAuditHref } from "@/lib/contact";
+import DaliAnimation from "@/Components/Home/DaliAnimation";
 import {
   localeFromPathname,
   localizePath,
@@ -17,6 +17,7 @@ import {
 } from "@/i18n/config";
 import { homeCopy } from "@/i18n/home";
 import { onestText, syneText } from "@/assets/fonts";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 
 const itemVariants = {
   hide: {
@@ -80,7 +81,6 @@ export default function Navbar() {
   const pathname = usePathname() ?? "/";
   const [isOpen, setIsOpen] = useState(false);
   const locale = localeFromPathname(pathname);
-  const auditHref = getGeneralAuditHref(locale);
   const copy = homeCopy[locale];
   const normalizedPathname = stripLocalePrefix(pathname);
   const isUpworkProof = normalizedPathname.startsWith("/for/upwork");
@@ -104,8 +104,7 @@ export default function Navbar() {
 
   const ctaClassName = `${syneText.className} inline-flex items-center justify-center border border-black/10 bg-primary px-16 py-10 text-body6 uppercase text-white transition-colors hover:bg-primary-700`;
 
-  // Centered brand mark. On home: hidden until scroll-flight pins here
-  // (controller toggles [data-logo-mark] opacity). Off home: always visible.
+  // Centered brand mark: hand-draw on every page (header only, not hero).
   const centerLogo = (
     <Link
       id="dali-logo-nav-slot"
@@ -113,21 +112,13 @@ export default function Navbar() {
       aria-label="Dali home"
       className="pointer-events-auto relative z-10 flex h-32 w-[4.5rem] items-center justify-center md:h-40 md:w-[5.5rem]"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <span
         data-logo-mark
-        src="/dali-logo.svg"
-        alt="Dali"
-        width={108}
-        height={56}
-        className="h-32 w-auto md:h-40"
-        style={
-          isHome
-            ? { opacity: 0, visibility: "hidden", pointerEvents: "none" }
-            : undefined
-        }
-        draggable={false}
-      />
+        className="block h-32 w-full overflow-visible md:h-40"
+        style={{ opacity: 1, visibility: "visible" }}
+      >
+        <DaliAnimation />
+      </span>
     </Link>
   );
 
@@ -185,14 +176,14 @@ export default function Navbar() {
                 ariaLabel={copy.navigation.selectLanguage}
                 variant="dropdown"
               />
-              <motion.a
-                href={auditHref}
-                data-cta="nav-audit"
-                className={ctaClassName}
-                variants={itemVariants}
-              >
-                {copy.navigation.startAudit}
-              </motion.a>
+              <motion.div variants={itemVariants}>
+                <ConsultationTrigger
+                  source="nav-consultation"
+                  className={ctaClassName}
+                >
+                  {copy.navigation.startAudit}
+                </ConsultationTrigger>
+              </motion.div>
             </div>
 
             <div className="ml-auto flex items-center gap-12 md:hidden">
@@ -275,15 +266,15 @@ export default function Navbar() {
             onNavigate={toggleNav}
             variant="list"
           />
-          <motion.a
-            href={auditHref}
-            data-cta="nav-audit"
-            onClick={toggleNav}
-            className={`${ctaClassName} mt-24 py-12 text-body5`}
-            variants={itemVariants}
-          >
-            {copy.navigation.startAudit}
-          </motion.a>
+          <motion.div variants={itemVariants}>
+            <ConsultationTrigger
+              source="nav-mobile-consultation"
+              className={`${ctaClassName} mt-24 py-12 text-body5`}
+              onClick={toggleNav}
+            >
+              {copy.navigation.startAudit}
+            </ConsultationTrigger>
+          </motion.div>
         </motion.nav>
       </FocusLock>
     </>

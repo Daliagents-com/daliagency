@@ -1,5 +1,6 @@
-// Purpose: Flat scroll hero - title blurs out, mock rises, logo flies to header.
+// Purpose: Flat scroll hero - title blurs out, mock rises.
 // Scope: Sticky stage; fixed bg settings (no control panel).
+// Brand logo lives in the site header (Navbar + DaliAnimation), not here.
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -10,10 +11,6 @@ import {
   type MotionValue,
 } from "framer-motion";
 import dynamic from "next/dynamic";
-import FlyingBrandLogo, {
-  HeroBrandLogoEntrance,
-  TRACK_ATTR,
-} from "@/Components/Home/FlyingBrandLogo";
 import {
   HERO_ENTRANCE_DELAY_S,
   HERO_ENTRANCE_DURATION_S,
@@ -37,7 +34,7 @@ export function ContainerScroll({
   titleComponent,
   children,
   className = "",
-  homeHref = "/",
+  homeHref: _homeHref = "/",
 }: ContainerScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -81,11 +78,8 @@ export function ContainerScroll({
   return (
     <div
       ref={containerRef}
-      {...{ [TRACK_ATTR]: "" }}
       className={`relative h-[160vh] md:h-[170vh] ${className}`}
     >
-      <FlyingBrandLogo homeHref={homeHref} scrollProgress={scrollYProgress} />
-
       <div className="sticky top-0 h-svh min-h-[36rem] overflow-hidden px-2 md:px-10">
         <div className="absolute inset-0 z-0 opacity-[0.64]">
           <PaperDesignBackground
@@ -101,9 +95,7 @@ export function ContainerScroll({
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center">
-          <HeroBrandLogoEntrance homeHref={homeHref} />
-
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center pt-[min(4svh,1.25rem)] md:pt-[min(5svh,1.75rem)]">
           <Header
             y={titleY}
             opacity={titleOpacity}

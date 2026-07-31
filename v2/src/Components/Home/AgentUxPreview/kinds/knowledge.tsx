@@ -1,11 +1,13 @@
-// Purpose: Knowledge assistant product mock - question log | cited answer | source inspector.
-// Scope: Same density tier as Lead/Inbox. Fixed demo script; stages when live.
+// Purpose: Knowledge assistant mock - search → evidence → cited answer → insert.
+// Scope: Internal Q&A with sources; distinct from sales Lead and support Inbox.
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import styles from "../../AgentUxPreview.module.css";
 import type { Copy } from "../copy";
 import { Tag, Toolbar, useLiveStage } from "../shared";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 type PathTone = "cited" | "review" | "abstain";
 
@@ -26,6 +28,14 @@ type Source = {
   matches: string;
   snippet: string;
 };
+
+const KNOW_STEPS = [
+  { id: "ask", label: "Ask" },
+  { id: "search", label: "Search" },
+  { id: "evidence", label: "Evidence" },
+  { id: "cite", label: "Cite answer" },
+  { id: "insert", label: "Insert" },
+] as const;
 
 const QUESTIONS: readonly Question[] = [
   {
@@ -112,7 +122,7 @@ const SOURCES: readonly Source[] = [
 const ACTIVE = QUESTIONS[0];
 
 const ANSWER_BODY =
-  "Annual plans have a 14-day refund window from the purchase date, as long as usage stays under the free-trial threshold. After day 14, refunds need billing lead approval and a logged exception. Do not promise same-day credit without that path.";
+  "Annual plans have a 14-day refund window from the purchase date, as long as usage stays under the free-trial threshold. After day 14, refunds need billing lead approval and a logged exception.";
 
 function pathTone(path: PathTone): "green" | "amber" | "neutral" {
   if (path === "cited") return "green";
@@ -128,8 +138,9 @@ export function KnowledgeUx({
   tasks: readonly string[];
   live?: boolean;
 }) {
-  // 0 search → 1 sources + snippet → 2 cited answer → 3 ready / checks complete
-  const stage = useLiveStage(live, 4, 1400);
+  const reduce = useReducedMotion();
+  // 0 ask/search → 1 evidence → 2 cited answer → 3 next step → 4 insert
+  const stage = useLiveStage(live, 5, 1100);
 
   const status =
     stage === 0
@@ -138,36 +149,68 @@ export function KnowledgeUx({
         ? copy.evidence
         : stage === 2
           ? copy.ready
-          : copy.approved;
+          : stage >= 3
+            ? copy.approved
+            : copy.ready;
   const statusTone =
-    stage === 0
-      ? "neutral"
-      : stage === 1
-        ? "blue"
-        : stage === 2
-          ? "green"
-          : "green";
+    stage === 0 ? "neutral" : stage === 1 ? "blue" : ("green" as const);
 
-  const primaryAction =
-    stage >= 3 ? "Insert" : stage >= 2 ? "Approve" : "Ask";
+  const stepState = (i: number): "done" | "current" | "todo" => {
+    if (stage > i) return "done";
+    if (stage === i) return "current";
+    if (stage >= 4) return "done";
+    return "todo";
+  };
 
   return (
-    <div className={styles.dash} data-live={live ? "true" : "false"}>
+    <div
+      className={`${styles.dash} ${styles.dashKnow}`}
+      data-live={live ? "true" : "false"}
+      data-agent-story="knowledge"
+    >
       <div className={styles.main}>
         <Toolbar
           title={copy.answer}
+          crumb="Internal · Knowledge"
           search={copy.search}
           actions={
             <button
               type="button"
               className={`${styles.btn} ${styles.btnPrimary} ${
-                stage >= 3 ? styles.btnGreen : ""
+                stage >= 4 ? styles.btnGreen : ""
               }`}
             >
-              {stage >= 3 ? `✓ ${copy.approved}` : primaryAction}
+              {stage >= 4 ? `✓ ${copy.approved}` : stage >= 2 ? "Approve" : "Ask"}
             </button>
           }
         />
+
+        <div className={styles.processRail} aria-label="Knowledge flow">
+          {KNOW_STEPS.map((step, i) => {
+            const state = stepState(i);
+            return (
+              <motion.div
+                key={step.id}
+                className={styles.processStep}
+                data-state={state}
+                data-variant="know"
+                animate={
+                  reduce
+                    ? undefined
+                    : state === "current"
+                      ? { scale: 1.03 }
+                      : { scale: 1 }
+                }
+                transition={{ type: "spring", stiffness: 420, damping: 30 }}
+              >
+                <span className={styles.processDot}>
+                  {state === "done" ? "✓" : i + 1}
+                </span>
+                <span className={styles.processLabel}>{step.label}</span>
+              </motion.div>
+            );
+          })}
+        </div>
 
         <div className={styles.viewTabs}>
           <div className={`${styles.viewTab} ${styles.viewTabActive}`}>
@@ -179,7 +222,6 @@ export function KnowledgeUx({
         </div>
 
         <div className={styles.knowLayout}>
-          {/* Left: question log */}
           <aside className={styles.knowLog} aria-label="Question log">
             <div className={styles.leadListHead}>
               <strong>Questions</strong>
@@ -207,11 +249,7 @@ export function KnowledgeUx({
                     <Tag
                       tone={
                         isActive && stage < 2
-                          ? (statusTone as
-                              | "neutral"
-                              | "blue"
-                              | "green"
-                              | "amber")
+                          ? (statusTone as "neutral" | "blue" | "green" | "amber")
                           : pathTone(item.path)
                       }
                     >
@@ -223,7 +261,6 @@ export function KnowledgeUx({
             })}
           </aside>
 
-          {/* Center: query + cited answer */}
           <section className={styles.knowThread} aria-label="Cited answer">
             <header className={styles.knowThreadHead}>
               <div className={styles.knowQuery}>
@@ -242,7 +279,7 @@ export function KnowledgeUx({
                   <i />
                   <i />
                   <i />
-                  <span>Searching approved sources…</span>
+                  <span>Searching approved SOPs and handbook…</span>
                 </div>
               ) : null}
 
@@ -251,78 +288,90 @@ export function KnowledgeUx({
                   <motion.div
                     key="retrieval"
                     className={styles.knowRetrieval}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={reduce ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
+                    exit={reduce ? undefined : { opacity: 0 }}
+                    transition={{ duration: 0.28, ease: EASE }}
                   >
                     <span className={styles.sectionLabel}>{copy.sources}</span>
                     <div className={styles.knowSourceHits}>
                       {SOURCES.slice(0, 3).map((s, i) => (
-                        <div
+                        <motion.div
                           key={s.id}
                           className={`${styles.knowHit} ${
-                            i === 0 && stage >= 1 ? styles.knowHitActive : ""
+                            i === 0 ? styles.knowHitActive : ""
                           }`}
+                          initial={reduce ? false : { opacity: 0, x: -6 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.06, duration: 0.22 }}
                         >
                           <span className={styles.iconBox}>{s.icon}</span>
                           <span className={styles.rowCopy}>
                             <strong>{s.label}</strong>
                             <small>{s.matches}</small>
                           </span>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </motion.div>
                 ) : null}
               </AnimatePresence>
 
+              {stage === 1 ? (
+                <motion.div
+                  className={styles.knowSnippet}
+                  initial={reduce ? false : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <span className={styles.sectionLabel}>Top match</span>
+                  <p className={styles.bubbleBody}>{SOURCES[0].snippet}</p>
+                </motion.div>
+              ) : null}
+
               <AnimatePresence mode="wait">
                 {stage >= 2 ? (
                   <motion.div
                     key="answer"
                     className={`${styles.bubble} ${styles.bubbleAgent} ${styles.knowAnswer}`}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={reduce ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
+                    exit={reduce ? undefined : { opacity: 0 }}
+                    transition={{ duration: 0.3, ease: EASE }}
                   >
-                    <span>{copy.answer}</span>
-                    {ANSWER_BODY}
+                    <span className={styles.bubbleLabel}>{copy.answer}</span>
+                    <span className={styles.bubbleBody}>{ANSWER_BODY}</span>
                     <div className={styles.threadCites}>
-                      <Tag tone="neutral">1 · Revenue SOP §4.2</Tag>
-                      <Tag tone="neutral">2 · Product handbook</Tag>
+                      <span className={styles.citeChip}>1 · Revenue SOP §4.2</span>
+                      <span className={styles.citeChip}>2 · Product handbook</span>
                     </div>
                   </motion.div>
                 ) : null}
               </AnimatePresence>
 
               <AnimatePresence mode="wait">
-                {stage >= 2 ? (
+                {stage >= 3 ? (
                   <motion.div
                     key="next"
                     className={styles.knowNext}
-                    initial={{ opacity: 0, y: 6 }}
+                    initial={reduce ? false : { opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
+                    exit={reduce ? undefined : { opacity: 0 }}
+                    transition={{ duration: 0.28, ease: EASE }}
                   >
-                    <span className={styles.sectionLabel}>{copy.next}</span>
-                    <p>
+                    <span className={styles.bubbleLabel}>{copy.next}</span>
+                    <p className={styles.bubbleBody}>
                       If the customer is past day 14, open a billing-lead review
                       with the purchase date and usage snapshot attached.
                     </p>
                     <div className={styles.threadCites}>
-                      <Tag tone="blue">Suggested next step</Tag>
-                      <Tag tone="neutral">Human review kept</Tag>
+                      <span className={styles.citeChip} data-tone="blue">
+                        Suggested next step
+                      </span>
+                      <span className={styles.citeChip}>Human review kept</span>
                     </div>
                   </motion.div>
                 ) : null}
               </AnimatePresence>
-
-              {stage === 1 ? (
-                <div className={styles.knowSnippet}>
-                  <span className={styles.sectionLabel}>Top match</span>
-                  <p>{SOURCES[0].snippet}</p>
-                </div>
-              ) : null}
             </div>
 
             <footer className={styles.knowComposer}>
@@ -336,7 +385,9 @@ export function KnowledgeUx({
                       ? "Evidence found · drafting cited answer…"
                       : stage === 2
                         ? "Cited answer ready · human can insert"
-                        : "Answer approved · logged to question log"
+                        : stage === 3
+                          ? "Next step attached · ready to insert"
+                          : "Answer inserted · logged to question log"
                 }
                 aria-label="Status"
               />
@@ -347,16 +398,15 @@ export function KnowledgeUx({
                 <button
                   type="button"
                   className={`${styles.btn} ${styles.btnPrimary} ${
-                    stage >= 3 ? styles.btnGreen : ""
+                    stage >= 4 ? styles.btnGreen : ""
                   }`}
                 >
-                  {stage >= 3 ? "Inserted" : "Insert"}
+                  {stage >= 4 ? "Inserted" : "Insert"}
                 </button>
               </div>
             </footer>
           </section>
 
-          {/* Right: source inspector + guardrails */}
           <aside className={styles.knowInspector} aria-label="Source inspector">
             <div className={styles.knowInspectorTop}>
               <div>
@@ -371,7 +421,7 @@ export function KnowledgeUx({
 
             <div className={styles.knowSnippetCard}>
               <strong>Matched passage</strong>
-              <p>
+              <p className={styles.bubbleBody}>
                 {stage >= 1
                   ? SOURCES[0].snippet
                   : "Waiting for retrieval against the approved source set…"}
@@ -387,7 +437,11 @@ export function KnowledgeUx({
               <div className={styles.prop}>
                 <span>Path</span>
                 <strong>
-                  {stage >= 2 ? "Cited answer" : stage >= 1 ? "Evidence" : "Search"}
+                  {stage >= 2
+                    ? "Cited answer"
+                    : stage >= 1
+                      ? "Evidence"
+                      : "Search"}
                 </strong>
               </div>
               <div className={styles.prop}>
@@ -414,23 +468,15 @@ export function KnowledgeUx({
                 <i aria-hidden="true">{stage >= 2 ? "✓" : ""}</i>
                 Out-of-scope claims blocked
               </li>
-              <li
-                className={
-                  stage >= 3
-                    ? styles.stepDone
-                    : stage >= 2
-                      ? undefined
-                      : undefined
-                }
-              >
-                <i aria-hidden="true">{stage >= 3 ? "✓" : ""}</i>
+              <li className={stage >= 4 ? styles.stepDone : undefined}>
+                <i aria-hidden="true">{stage >= 4 ? "✓" : ""}</i>
                 Human can insert or escalate
               </li>
             </ul>
 
             <div className={styles.knowAbstainNote}>
               <span className={styles.sectionLabel}>Also in log</span>
-              <p>
+              <p className={styles.bubbleBody}>
                 <strong>Export customer data…</strong> abstained — no approved
                 source. Escalated to privacy owner.
               </p>

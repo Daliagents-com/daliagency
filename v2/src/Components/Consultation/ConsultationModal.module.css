@@ -1,0 +1,218 @@
+/* Purpose: On-site consultation dialog styles. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(10, 12, 16, 0.48);
+  backdrop-filter: blur(6px);
+}
+
+.dialog {
+  width: min(32rem, 100%);
+  max-height: min(92vh, 44rem);
+  overflow: auto;
+  border: 1px solid rgba(17, 19, 18, 0.1);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow:
+    0 1px 0 rgba(17, 24, 39, 0.04),
+    0 24px 64px rgba(17, 24, 39, 0.18);
+  color: #111312;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(17, 19, 18, 0.08);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.4rem 0 0;
+  color: #5c6360;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.iconClose {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgba(17, 19, 18, 0.1);
+  border-radius: 8px;
+  background: #f6f6f5;
+  color: #111312;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.iconClose:hover {
+  background: #ececeb;
+}
+
+.form {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field > span {
+  color: #3d4441;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.field em {
+  color: #9aa19e;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.72rem;
+}
+
+.optional {
+  text-transform: lowercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 19, 18, 0.14);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  background: #fafaf9;
+  color: #111312;
+  font: inherit;
+  font-size: 0.92rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(30, 58, 138, 0.45);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 6.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-top: 0.25rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.primary {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.primary:hover:not(:disabled) {
+  background: #172a66;
+}
+
+.primary:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.secondary {
+  border-color: rgba(17, 19, 18, 0.14);
+  background: #fff;
+  color: #111312;
+}
+
+.secondary:hover {
+  background: #f6f6f5;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.success {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem 1.35rem;
+}
+
+.successTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.successBody {
+  margin: 0;
+  color: #5c6360;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+  }
+}

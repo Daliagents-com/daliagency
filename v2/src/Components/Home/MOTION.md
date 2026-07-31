@@ -84,7 +84,8 @@ Missing any of these after mount must log a console error (not silent return).
 | `HERO_ENTRANCE_EASE` | Framer ease |
 | `DALI_HAND_DRAW_MS` | Hand-draw wall time after entrance delay (~1s) |
 | `LOGO_FLIGHT_LOCK_MS` | Hold hero phase until hand-draw can finish |
-| `LOGO_FLIGHT_START` / `LOGO_FLIGHT_END` | Progress window for flight |
+| `LOGO_FLIGHT_START` / `LOGO_FLIGHT_END` | Progress window for flight (wider = calmer travel) |
+| `LOGO_FLIGHT_SMOOTH` | Temporal follow rate (1/s) for silkier scroll-linked path |
 
 ## Magic thresholds (keep in sync with MOTION.md when changing)
 

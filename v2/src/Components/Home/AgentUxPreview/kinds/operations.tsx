@@ -1,11 +1,13 @@
-// Purpose: Operations / Documents-to-Actions product mock.
-// Scope: Packet queue + field inspector + exception path. Matches pilot story.
+// Purpose: Operations product mock - docs → extract → validate → write story.
+// Scope: Packet queue + field inspector + exception path. Distinct from sales/support.
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import styles from "../../AgentUxPreview.module.css";
 import type { Copy } from "../copy";
-import { Tag, Toolbar, clip, useLiveStage } from "../shared";
+import { Tag, Toolbar, useLiveStage } from "../shared";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 type PacketStatus = "extracting" | "live" | "review" | "completed" | "queued";
 type Tone = "neutral" | "blue" | "green" | "amber";
@@ -22,6 +24,14 @@ type Packet = {
   fields: readonly { label: string; value: string; missing?: boolean }[];
   checks: readonly string[];
 };
+
+const OPS_STEPS = [
+  { id: "intake", label: "Intake" },
+  { id: "extract", label: "Extract" },
+  { id: "validate", label: "Validate" },
+  { id: "exception", label: "Exception" },
+  { id: "write", label: "Write ERP" },
+] as const;
 
 const PACKETS: readonly Packet[] = [
   {
@@ -60,11 +70,7 @@ const PACKETS: readonly Packet[] = [
       { label: "Tax id", value: "—", missing: true },
       { label: "Bank", value: "Chase ****4412" },
     ],
-    checks: [
-      "Tax id required",
-      "Bank details validated",
-      "No open vendor duplicate",
-    ],
+    checks: ["Tax id required", "Bank details validated", "No open vendor duplicate"],
   },
   {
     id: "weekly",
@@ -162,63 +168,102 @@ function ctaLabel(copy: Copy, stage: number): string {
 
 export function OperationsUx({
   copy,
-  tasks,
   live = false,
 }: {
   copy: Copy;
   tasks: readonly string[];
   live?: boolean;
 }) {
-  // 0 extract → 1 fields ready → 2 exception (needs review) → 3 approved write
-  const stage = useLiveStage(live, 4, 1400);
+  const reduce = useReducedMotion();
+  // 0 intake/extract → 1 fields → 2 exception → 3 write complete
+  const stage = useLiveStage(live, 5, 1100);
   const active = PACKETS[0];
 
+  // Map 5-step rail onto 4 logical stages
+  const flowStage = Math.min(stage, 4);
   const activeStatus: PacketStatus =
-    stage <= 1 ? "live" : stage === 2 ? "review" : "completed";
-  const activeTone = statusTone(activeStatus, stage);
-  const activeLabel = statusLabel(copy, activeStatus, stage);
-  const primaryCta = ctaLabel(copy, stage);
+    flowStage <= 1 ? "live" : flowStage === 2 || flowStage === 3 ? "review" : "completed";
+  // stage 0 extract, 1 validate fields, 2 exception flag, 3 human approve, 4 written
+  const logical =
+    stage === 0 ? 0 : stage === 1 ? 1 : stage === 2 ? 2 : stage === 3 ? 2 : 3;
+  const activeTone = statusTone(activeStatus, logical);
+  const activeLabel = statusLabel(copy, activeStatus, logical);
+  const primaryCta = ctaLabel(copy, logical);
 
-  // Field reveal: stage 0 shows partial, stage 1+ full with missing PO flagged
   const visibleFields = active.fields.map((field, index) => {
     if (stage === 0 && index > 1) {
       return { ...field, value: "…" };
     }
-    if (stage >= 3 && field.missing) {
+    if (stage >= 4 && field.missing) {
       return { ...field, value: "PO-9914", missing: false };
     }
     return field;
   });
 
-  // Checks complete progressively; stage 2 leaves PO check open; stage 3 closes all
   const checkDoneCount =
-    stage === 0 ? 0 : stage === 1 ? 1 : stage === 2 ? 2 : 4;
+    stage === 0 ? 0 : stage === 1 ? 1 : stage === 2 ? 2 : stage >= 4 ? 4 : 2;
 
   const exceptionNote =
-    stage < 3
-      ? "PO missing for amount over $5k · write blocked until review"
+    stage < 4
+      ? "PO missing for amount over $5k · ERP write blocked until review"
       : "PO-9914 confirmed · ERP write INV-8841 complete";
 
-  const intakeHint = tasks[0]
-    ? clip(tasks[0], 64)
-    : "Email → extract → validate → ERP";
+  const stepState = (i: number): "done" | "current" | "todo" => {
+    // 0 intake, 1 extract, 2 validate, 3 exception, 4 write
+    if (stage > i) return "done";
+    if (stage === i) return "current";
+    if (stage >= 4) return "done";
+    return "todo";
+  };
 
   return (
-    <div className={styles.dash} data-live={live ? "true" : "false"}>
+    <div
+      className={`${styles.dash} ${styles.dashOps}`}
+      data-live={live ? "true" : "false"}
+      data-agent-story="operations"
+    >
       <div className={styles.main}>
         <Toolbar
           title={copy.operations}
+          crumb="Ops · Documents to actions"
           actions={
             <button
               type="button"
               className={`${styles.btn} ${styles.btnPrimary} ${
-                stage >= 3 ? styles.btnGreen : ""
+                stage >= 4 ? styles.btnGreen : ""
               }`}
             >
-              {stage >= 3 ? `✓ ${copy.completed}` : primaryCta}
+              {stage >= 4 ? `✓ ${copy.completed}` : primaryCta}
             </button>
           }
         />
+
+        <div className={styles.processRail} aria-label="Operations flow">
+          {OPS_STEPS.map((step, i) => {
+            const state = stepState(i);
+            return (
+              <motion.div
+                key={step.id}
+                className={styles.processStep}
+                data-state={state}
+                data-variant="ops"
+                animate={
+                  reduce
+                    ? undefined
+                    : state === "current"
+                      ? { scale: 1.03 }
+                      : { scale: 1 }
+                }
+                transition={{ type: "spring", stiffness: 420, damping: 30 }}
+              >
+                <span className={styles.processDot}>
+                  {state === "done" ? "✓" : i + 1}
+                </span>
+                <span className={styles.processLabel}>{step.label}</span>
+              </motion.div>
+            );
+          })}
+        </div>
 
         <div className={styles.viewTabs}>
           <div className={`${styles.viewTab} ${styles.viewTabActive}`}>
@@ -231,6 +276,29 @@ export function OperationsUx({
           </div>
           <div className={styles.viewTab}>Queued</div>
         </div>
+
+        <AnimatePresence mode="wait">
+          {stage === 2 || stage === 3 ? (
+            <motion.div
+              key="exception-banner"
+              className={styles.storyBanner}
+              data-tone="exception"
+              initial={reduce ? false : { opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? undefined : { opacity: 0 }}
+              transition={{ duration: 0.28, ease: EASE }}
+            >
+              <div className={styles.opsExceptionBadge}>!</div>
+              <div>
+                <strong>Exception · missing PO</strong>
+                <p>
+                  Amount $12,400 exceeds auto-write threshold. Hold ERP write
+                  until a human confirms PO-9914.
+                </p>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
 
         <div className={styles.filters}>
           <span className={`${styles.chip} ${styles.chipOn}`}>Source · All</span>
@@ -255,9 +323,7 @@ export function OperationsUx({
             {PACKETS.map((row, index) => {
               const isActive = index === 0;
               const rowStatus = isActive ? activeStatus : row.status;
-              const rowTone = isActive
-                ? activeTone
-                : statusTone(row.status);
+              const rowTone = isActive ? activeTone : statusTone(row.status);
               const rowLabel = isActive
                 ? activeLabel
                 : statusLabel(copy, row.status);
@@ -287,7 +353,7 @@ export function OperationsUx({
                       ? "Parsing…"
                       : isActive && stage === 1
                         ? "Checking schema"
-                        : isActive && stage >= 3
+                        : isActive && stage >= 4
                           ? "Validated"
                           : row.validation}
                   </span>
@@ -316,7 +382,7 @@ export function OperationsUx({
                   <span>{field.label}</span>
                   <strong
                     className={
-                      field.missing && stage < 3 ? styles.opsMissing : undefined
+                      field.missing && stage < 4 ? styles.opsMissing : undefined
                     }
                   >
                     {field.value}
@@ -329,9 +395,19 @@ export function OperationsUx({
             <ul className={styles.checklist}>
               {active.checks.map((check, index) => {
                 const done = index < checkDoneCount;
+                const blocked = index === 1 && stage >= 2 && stage < 4;
                 return (
-                  <li key={check} className={done ? styles.stepDone : undefined}>
-                    <i aria-hidden="true">{done ? "✓" : ""}</i>
+                  <li
+                    key={check}
+                    className={
+                      blocked
+                        ? styles.stepBlocked
+                        : done
+                          ? styles.stepDone
+                          : undefined
+                    }
+                  >
+                    <i aria-hidden="true">{blocked ? "!" : done ? "✓" : ""}</i>
                     {check}
                   </li>
                 );
@@ -339,31 +415,38 @@ export function OperationsUx({
             </ul>
 
             <div className={styles.note}>
-              <span>Exception path</span>
+              <span className={styles.bubbleLabel}>Exception path</span>
               <AnimatePresence mode="wait">
                 <motion.p
                   key={exceptionNote}
-                  initial={{ opacity: 0, y: 4 }}
+                  className={styles.bubbleBody}
+                  initial={reduce ? false : { opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
+                  exit={reduce ? undefined : { opacity: 0 }}
+                  transition={{ duration: 0.22, ease: EASE }}
                 >
                   {exceptionNote}
                 </motion.p>
               </AnimatePresence>
             </div>
 
-            <p className={styles.sectionLabel}>Intake</p>
-            <p className={styles.opsHint}>{intakeHint}</p>
+            <p className={styles.sectionLabel}>Pipeline</p>
+            <p className={styles.opsHint}>
+              Email attachment → OCR extract → schema validate → ERP write
+            </p>
 
             <div className={styles.inspectorFoot}>
               <button
                 type="button"
                 className={`${styles.btn} ${styles.btnWide} ${styles.btnPrimary} ${
-                  stage >= 3 ? styles.btnGreen : ""
+                  stage >= 4 ? styles.btnGreen : ""
                 }`}
               >
-                {stage >= 3 ? `✓ Written to ERP` : stage === 2 ? copy.approveRun : primaryCta}
+                {stage >= 4
+                  ? "✓ Written to ERP"
+                  : stage >= 2
+                    ? copy.approveRun
+                    : primaryCta}
               </button>
             </div>
           </aside>

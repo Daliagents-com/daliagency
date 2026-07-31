@@ -13,7 +13,7 @@ import {
 } from "framer-motion";
 import { ChevronRight, FileText } from "lucide-react";
 import Container from "@/Components/Container/Container";
-import Button from "@/Components/Button/Button";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { onestText, syneText } from "@/assets/fonts";
 import { homeCopy } from "@/i18n/home";
 import type { Locale } from "@/i18n/config";
@@ -29,8 +29,6 @@ import {
   MockRoadmap,
   MockGate,
 } from "./services/mocks";
-
-const CONTACT = "https://ch234lt3std.typeform.com/to/OCi31Zif";
 
 /** When #services enters view, kick any mock that has not autoplayed yet. */
 function useServicesIntroKick(sectionRef: React.RefObject<HTMLElement | null>) {
@@ -171,10 +169,13 @@ export default function DesignSprint({
               <p className={`${styles.introBody} text-lead font-normal`}>
                 {copy.body}
               </p>
-              <Button className={styles.contactButton} href={CONTACT} target="_blank">
+              <ConsultationTrigger
+                source="services-consultation"
+                className={`${styles.contactButton} inline-flex items-center justify-between gap-12 bg-primary-500 px-20 py-12 font-ui text-white transition-colors hover:bg-primary-700`}
+              >
                 <FileText className="h-[1em] w-[1em]" aria-hidden /> {copy.contact}{" "}
                 <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
-              </Button>
+              </ConsultationTrigger>
             </div>
           </div>
         </Container>

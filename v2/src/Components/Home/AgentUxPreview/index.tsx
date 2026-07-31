@@ -77,7 +77,9 @@ export default function AgentUxPreview({
         {kind === "knowledge-assistant" ? (
           <KnowledgeUx copy={copy} tasks={tasks} live={isLive} />
         ) : null}
-        {kind === "voice-agents" ? <VoiceUx copy={copy} tasks={tasks} /> : null}
+        {kind === "voice-agents" ? (
+          <VoiceUx copy={copy} tasks={tasks} live={isLive} />
+        ) : null}
       </Shell>
     </div>
   );
