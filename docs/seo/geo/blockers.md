@@ -18,18 +18,19 @@ Agent work continues without waiting.
 ## B-P0-01 - Google Search Console verify + sitemap
 
 **Priority:** P0  
-**Why SEO/GEO:** Without GSC there is no index coverage view, no query data, no rewrite loop for positions 11-20, no reliable indexing requests.
+**Status 2026-08-01:** **MOSTLY DONE** - domain property `sc-domain:dali.agents.ge` verified; sitemap submitted; home URL on Google. Remaining: ongoing URL Inspection / Request indexing for pillars (not initial setup).
 
-**Steps:**
-1. Open https://search.google.com/search-console
-2. Add property → URL prefix → `https://dali.agents.ge`
-3. Verify via DNS TXT on `agents.ge`, HTML file upload, or meta tag (pick one)
-4. Sitemaps → submit `https://dali.agents.ge/sitemap.xml`
-5. URL Inspection → request indexing for `/`, `/blog`, 3 pillars (e.g. production agents, GEO/SEO, vibe rescue)
+**Why SEO/GEO:** Index coverage view, query data, rewrite loop for positions 11-20, indexing requests.
 
-**Done when:** Property is Verified; sitemap shows Success; at least 5 key URLs inspected.
+**Remaining steps (not full re-setup):**
+1. Open https://search.google.com/search-console?resource_id=sc-domain%3Adali.agents.ge
+2. URL Inspection → request indexing for remaining money URLs (blog, solutions, pillars)
+3. Wait for coverage/performance data (may take days)
 
-**Links:** [gsc-setup.md in workspace](../../../) / also `dali-seo-workspace/docs/gsc-setup.md`
+**Done when (setup):** Property Verified; sitemap Success - **met**.  
+**Done when (ops):** ≥10 URLs inspected/requested this sprint - evidence in SCRATCH search-hygiene.
+
+**Links:** setup log `setup-2026-08-01.md`
 
 ---
 
@@ -66,19 +67,12 @@ Agent work continues without waiting.
 ## B-P1-01 - LinkedIn Company page for Dali
 
 **Priority:** P1  
-**Why GEO:** Entity graph, sameAs, branded search, AI research surfaces.
+**Status 2026-08-01:** **DONE (shell + Premium + posts)**  
+Public: https://www.linkedin.com/company/dali-agents  
+sameAs on prod. Gen-image global posts published.  
+Remaining ops: follower growth, bulk invites optional, avoid Tbilisi-lead copy.
 
-**Steps:**
-1. Create Company Page "Dali" / "Dali Agents"
-2. Website: `https://dali.agents.ge`
-3. Tagline: AI agent systems studio
-4. Link founders David Hakobyan + Liana as admins/employees
-5. Add logo, about, 3 posts (agents / vibe rescue / audit CTA)
-6. Send URL for schema `sameAs` update
-
-**Done when:** Public company URL works; founders linked.
-
-**Personal profile (exists):** https://www.linkedin.com/in/davidhakobyan/
+**Personal profile:** https://www.linkedin.com/in/davidhakobyan/
 
 ---
 
@@ -98,25 +92,21 @@ Agent work continues without waiting.
 ## B-P1-03 - Clutch company profile
 
 **Priority:** P1  
-**Why:** EN B2B vendor research; often cited by humans and sometimes by AI summaries.
+**Status 2026-08-01:** **SHELL DONE / REVIEW OPEN**  
+Public: https://clutch.co/profile/dali (unpublished free / under review)  
+Sales email: `hello@dali.agents.ge`  
+Remaining: **real client review** (human-only); publish when Clutch activates.
 
-**Steps:**
-1. https://clutch.co → join as company
-2. Categories: AI, custom software, IT services (pick truthful)
-3. Location: Georgia / remote as accurate
-4. Link case projects from site (Kora, agents.ge, etc.) without inventing metrics
-5. Request **real** client reviews only
-
-**Done when:** Public profile live; at least 1 real review requested.
+**Done when:** Public profile live + at least 1 real review requested.
 
 ---
 
 ## B-P1-04 - GoodFirms / DesignRush / Sortlist (pick 1-2 after Clutch)
 
 **Priority:** P1  
-**Why:** Secondary EN directories; diminishing returns after Clutch.
-
-**Steps:** See `platforms-publish.md`. Claim only after Clutch is filled (avoid 10 empty profiles).
+**Status 2026-08-01:** **GoodFirms DONE (under review, slug dali)**  
+Crunchbase submitted same sprint.  
+Remaining optional: DesignRush / Sortlist free path one-at-a-time; AI Agents Directory Auth0.
 
 **Done when:** One complete secondary EN directory OR skip with reason.
 

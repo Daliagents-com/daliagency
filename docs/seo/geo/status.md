@@ -1,22 +1,19 @@
 # SEO/GEO status
 
-**Updated:** 2026-08-01 (production deploy + alias)
+**Updated:** 2026-08-01 (post 8h operator sprint)
 
 ## Сейчас актуально (live + git)
 
 | Слой | Статус |
 | --- | --- |
 | Код + 52 статьи (en/ru/ge/arm) | **Да** - GitHub `main` |
-| Prod `dali.agents.ge` | **Да** - 2026-08-01 deploy; 107×4 blog, vibe-rescue, expanded robots, sitemap ~500 |
-| Schema Organization/WebSite + BlogPosting | **Да** (+ sameAs founder profiles) |
+| Prod `dali.agents.ge` | **Да** - 2026-08-01 deploys; hello@ mailto; interlinks; sameAs |
+| Schema Organization/WebSite + BlogPosting | **Да** (LI company + Clutch + phone + Tbilisi) |
 | Nav Blog, hreflang на постах | **Да** |
-| Footer → Blog / Solutions | **Да** (sprint) |
-| Author E-E-A-T block on posts | **Да** (sprint) |
-| Docs pack `docs/seo/geo/*` | **Да** (sprint) |
+| Footer → Blog / Solutions / hello@ | **Да** |
+| Author E-E-A-T block on posts | **Да** |
+| Docs pack `docs/seo/geo/*` | **Да** |
 | SEO workspace (локально) | **Да**, не git |
-
-То есть **продукт-контент, foundation и operator docs - актуальны**.
-Индексация и off-site entity - ещё на Давиде.
 
 ---
 
@@ -29,89 +26,81 @@
 | Crunchbase | submitted uuid `1cb11ce4-e610-469f-91e0-17d70350e748` |
 | Clutch hello@ | sales email updated; profile unpublished/free |
 | LI gen posts x3 | live on company page (global copy) |
-| DNS dali.agents.ge | A 76.76.21.21 added (was NXDOMAIN) |
-| GSC/Bing | property exists; home inspected indexed |
+| Home interlinks | vibe-code-rescue + lead-response + GEO post (`d3ffa9f`) |
+| DNS dali.agents.ge | A `76.76.21.21` on agents.ge (NXDOMAIN fix) |
+| GSC | domain property + sitemap exist; home URL on Google; inspect batch ongoing |
+| Bing | property + sitemap UI; see search-hygiene bing note |
 | X company | still SMS OTP human |
-| AI Agents Dir second free dir | overflow / not completed this pass |
-
+| AI Agents Dir | Auth0 login-block on free submit |
 
 ---
 
-## % готовности (после sprint)
+## % готовности (после 8h sprint)
 
 | Зона | ~ |
 | --- | --- |
-| Site + content foundation | **90%** |
+| Site + content foundation | **92%** |
 | Operator SEO/GEO docs | **95%** |
-| Index / Search Console | **~10%** (ты - B-P0-01) |
-| Entity / off-site GEO | **~20%** (personal LI only) |
-| Analytics + rewrite loop | **~10%** |
+| Index / Search Console | **~55%** (property + sitemap live; coverage still “processing”; need ongoing URL inspect + query data) |
+| Entity / off-site GEO | **~55%** (company LI + Clutch + GoodFirms + Crunchbase; not personal-LI-only) |
+| Analytics + rewrite loop | **~15%** (no weekly query rewrite yet) |
 | Domain strategy | **решено**, cutover later |
 
 ---
 
 ## Что осталось (коротко)
 
-### P0 - Давид
-1. GSC verify + sitemap (`blockers.md` B-P0-01)
-2. Купить/park `daliagents.com` когда удобно (B-P0-02)
-3. Confirm Vercel Git auto-deploy (B-P0-03)
+### P0 - open
+1. GSC: finish Request indexing for remaining pillar URLs (property already verified)
+2. Optional park `daliagents.com` (B-P0-02)
+3. Confirm every `main` push auto-aliases `dali.agents.ge` (B-P0-03) - CLI alias still used when lag
 
-### P1 - Давид
-4. LinkedIn Company + founders (B-P1-01)
-5. Clutch + real reviews (B-P1-03)
-6. Bing Webmaster (B-P1-08)
-7. GBP decision (B-P1-05)
+### P1 - open
+4. Clutch **real client review** (profile shell exists)
+5. X company SMS OTP
+6. AI Agents Directory free submit after Auth0
+7. GBP decision if street appears (B-P1-05)
 
-### P1 - после GSC
+### Done this sprint (do not re-open as setup)
+- GSC property + sitemap existence
+- LinkedIn Company shell + Premium + gen posts
+- Brand email hello@
+- GoodFirms + Crunchbase submissions
+- Bing property import existence
+
+### P1 - after more GSC data
 8. Weekly queries / 11-20 rewrite
-9. Indexing requests on pillars
+9. More indexing requests on new posts
 
 ### P2
-10. GA4, brand email, deeper GE/ARM, workspace git
+10. GA4, deeper GE/ARM, workspace git
 
-Полный список: [blockers.md](./blockers.md)
+Полный список: [blockers.md](./blockers.md) · Closeout: [sprint-closeout-2026-08-01.md](./sprint-closeout-2026-08-01.md)
 
 ---
 
 ## Sprint artifacts
 
-- [audit-independent.md](./audit-independent.md) - score ~6.8/10
-- [playbook-seo-geo.html](./playbook-seo-geo.html) - open in browser
-- [lifehacks-current.md](./lifehacks-current.md)
-- [platforms-publish.md](./platforms-publish.md)
-- [social-linkedin-plan.md](./social-linkedin-plan.md)
-- [find-10-clients.md](./find-10-clients.md)
-- [opportunities-next.md](./opportunities-next.md) - next levers beyond pack
-- [ai-citation-baseline.md](./ai-citation-baseline.md) - manual AI prompt log
-- [youtube-scripts-batch1.md](./youtube-scripts-batch1.md) - film scripts
-- [agent-parallel-work.md](./agent-parallel-work.md) - agent vs human split
+- [audit-independent.md](./audit-independent.md)
+- [playbook-seo-geo.html](./playbook-seo-geo.html)
+- [ai-citation-baseline.md](./ai-citation-baseline.md) - 6 Perplexity rows 2026-08-01
+- [sprint-closeout-2026-08-01.md](./sprint-closeout-2026-08-01.md)
+- [setup-2026-08-01.md](./setup-2026-08-01.md)
+- [goal-8h-2026-08-01.md](./goal-8h-2026-08-01.md)
 
 ---
 
 ## Next 7 days (David)
 
-1. GSC (30-60 min)  
-2. LinkedIn Company shell (45 min)  
-3. 5 personal outreaches to past collaborators  
-4. Optional: buy `daliagents.com` park only  
-5. Open playbook HTML once and skim 30/90 plan  
-6. Skim [opportunities-next.md](./opportunities-next.md) - YouTube + AI citation baseline (beyond GSC/entity blockers)  
-
-## Beyond blockers (research 2026-07-31)
-
-Not a substitute for GSC/entity.
-After foundation human steps, priority new levers are documented in [opportunities-next.md](./opportunities-next.md):
-
-- YouTube process videos (transcripts)
-- Earned brand mentions (not directory farm)
-- Original research / non-commodity pillar upgrades
-- Manual ChatGPT/Perplexity citation log + GSC Generative AI report
+1. GSC remaining URL inspect + Request indexing (15-30 min)
+2. X company OTP when SMS arrives
+3. Clutch real review request
+4. AI Agents Directory after free login
+5. Optional: buy `daliagents.com` park only
 
 ---
 
 ## Итог
 
-Код, блог и docs pack **готовы для работы**.
-Для SEO/GEO “чтобы работало в поиске” главный gap всё ещё **GSC + entity**.
-Ближайший 30-мин ход: **GSC verify + sitemap**.
+Foundation + off-site entity shells + brand email **shipped**.
+Главный remaining gap: **index coverage maturity** (GSC data lag + ongoing inspect) and **human OTP/reviews**, not “no company entity at all”.
