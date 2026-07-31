@@ -18,17 +18,17 @@ Agent work continues without waiting.
 ## B-P0-01 - Google Search Console verify + sitemap
 
 **Priority:** P0  
-**Status 2026-08-01:** **MOSTLY DONE** - domain property `sc-domain:dali.agents.ge` verified; sitemap submitted; home URL on Google. Remaining: ongoing URL Inspection / Request indexing for pillars (not initial setup).
+**Status 2026-08-01:** **MOSTLY DONE** - domain property `sc-domain:dali.agents.ge` verified; sitemap submitted; home URL on Google; **11 URL inspects** + Request indexing fired this sprint. Remaining: crawl/index maturity for money URLs (ops, not setup).
 
 **Why SEO/GEO:** Index coverage view, query data, rewrite loop for positions 11-20, indexing requests.
 
 **Remaining steps (not full re-setup):**
 1. Open https://search.google.com/search-console?resource_id=sc-domain%3Adali.agents.ge
-2. URL Inspection → request indexing for remaining money URLs (blog, solutions, pillars)
+2. In a few days: re-check the 10 money URLs already inspected (do not re-spam Request indexing)
 3. Wait for coverage/performance data (may take days)
 
 **Done when (setup):** Property Verified; sitemap Success - **met**.  
-**Done when (ops):** ≥10 URLs inspected/requested this sprint - evidence in SCRATCH search-hygiene.
+**Done when (ops this sprint):** ≥10 URLs inspected/requested - **met** (11 inspects; evidence in SCRATCH search-hygiene).
 
 **Links:** setup log `setup-2026-08-01.md`
 
@@ -152,15 +152,17 @@ Remaining optional: DesignRush / Sortlist free path one-at-a-time; AI Agents Dir
 ## B-P1-08 - Bing Webmaster + IndexNow
 
 **Priority:** P1  
+**Status 2026-08-01:** **MOSTLY DONE** - property verified; sitemap Submitted / Processing; **0 URLs discovered** yet.  
+Optional later: IndexNow key for new posts.
+
 **Why:** Secondary index; some AI/partners use Bing.
 
-**Steps:**
-1. https://www.bing.com/webmasters
-2. Import from GSC or verify DNS
-3. Submit sitemap
-4. Optional IndexNow key for new posts
+**Remaining steps:**
+1. https://www.bing.com/webmasters - wait for discovery after Processing clears
+2. Optional IndexNow key for new posts
 
-**Done when:** Sitemap accepted.
+**Done when (setup):** Sitemap accepted/Submitted - **met**.  
+**Done when (ops):** URLs discovered / indexed - still open.
 
 ---
 
@@ -178,11 +180,13 @@ Remaining optional: DesignRush / Sortlist free path one-at-a-time; AI Agents Dir
 ## B-P2-02 - Company email / brand consistency
 
 **Priority:** P2  
-**Why:** Trust; public mailto is personal Gmail.
+**Status 2026-08-01:** **DONE for public brand**  
+Public business inbox: `hello@dali.agents.ge` (ImprovMX → founder Gmail).  
+Site Footer + `daliContactEmail` use hello@ (not personal Gmail).  
+GoodFirms + Clutch sales email use hello@.  
+Optional later: Google Workspace / `@daliagents.com` after .com buy; keep personal Gmail for founder outreach only.
 
-**Steps:** Consider `hello@dali.agents.ge` or future `@daliagents.com`; keep personal for founder outreach.
-
-**Done when:** Decision logged; site CTA updated if needed.
+**Done when:** Decision logged; site CTA updated - **met**.
 
 ---
 
@@ -201,17 +205,17 @@ Remaining optional: DesignRush / Sortlist free path one-at-a-time; AI Agents Dir
 
 | ID | Status |
 | --- | --- |
-| B-P0-01 GSC | open |
+| B-P0-01 GSC | **MOSTLY DONE** 2026-08-01 - property + sitemap + 11 URL inspects; coverage still processing; ongoing Request indexing ops |
 | B-P0-02 .com buy | open |
-| B-P0-03 Vercel Git | CLI prod deploy 2026-08-01 + alias dali.agents.ge → latest; still confirm Git auto-deploy on push |
-| B-P1-01 LinkedIn Co | open |
-| B-P1-02 LinkedIn Pro | open |
-| B-P1-03 Clutch | open |
-| B-P1-04 secondary dirs | open |
-| B-P1-05 GBP | open |
+| B-P0-03 Vercel Git | **PARTIAL** 2026-08-01 - CLI prod deploy + alias `dali.agents.ge`; still confirm Git auto-deploy on every push |
+| B-P1-01 LinkedIn Co | **DONE** 2026-08-01 - public company + Premium + gen posts + sameAs |
+| B-P1-02 LinkedIn Pro | **PARTIAL** - Company Premium purchased; bulk invites not done |
+| B-P1-03 Clutch | **SHELL DONE** 2026-08-01 - hello@ + profile under review; real client review still open |
+| B-P1-04 secondary dirs | **PARTIAL** 2026-08-01 - GoodFirms submitted; Crunchbase submitted; Sortlist/DesignRush optional |
+| B-P1-05 GBP | open (no street) |
 | B-P1-06 RU | open |
 | B-P1-07 GE/AM | open |
-| B-P1-08 Bing | open |
+| B-P1-08 Bing | **MOSTLY DONE** 2026-08-01 - property + sitemap Submitted/Processing; 0 URLs discovered yet |
 | B-P2-01 GA4 | open |
-| B-P2-02 email | open |
-| B-P2-03 workspace git | open |
+| B-P2-02 email | **DONE** 2026-08-01 - hello@ public CTAs + dirs |
+| B-P2-03 workspace git | open (docs under daliagency/docs preferred) |

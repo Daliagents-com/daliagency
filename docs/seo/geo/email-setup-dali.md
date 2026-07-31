@@ -52,9 +52,9 @@ App: https://app.improvmx.com/login
 
 1. Test: send mail from another address to `hello@dali.agents.ge` → should land in Gmail
 2. Optional **Send as** in Gmail: Settings → Accounts → Send mail as → ImprovMX SMTP (paid on free may be limited; inbound is enough for GoodFirms signup codes)
-3. GoodFirms register with `hello@dali.agents.ge`
-4. Update Clutch sales email to `hello@dali.agents.ge` when ready
-5. Site schema already has phone; update public mailto when you want
+3. GoodFirms register with `hello@dali.agents.ge` - **done 2026-08-01**
+4. Update Clutch sales email to `hello@dali.agents.ge` - **done 2026-08-01**
+5. Public site mailto / Footer - **done 2026-08-01** (`daliContactEmail`)
 
 ## Not chosen (why)
 
@@ -72,5 +72,5 @@ App: https://app.improvmx.com/login
 - [x] ImprovMX account activated (email link was in Spam)
 - [x] Domain Active + catch-all alias → Gmail
 - [x] Receive test: from `david@21st.dev` → `hello@dali.agents.ge` → landed in Gmail **Spam** at 1:33 AM 2026-08-01 (subject `[Dali test] ImprovMX hello@ receive`)
-- [ ] Use `hello@` on GoodFirms / site CTAs (next)
-- [ ] Optional: Not spam + filter for *@dali.agents.ge so GoodFirms codes not lost in Spam
+- [x] Use `hello@` on GoodFirms / Clutch / site CTAs (Footer + contact.ts) - 2026-08-01
+- [ ] Optional: Not spam + filter for *@dali.agents.ge so OTP codes not lost in Spam
