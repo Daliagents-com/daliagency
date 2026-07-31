@@ -3,6 +3,16 @@
 Items only David can finish.
 Agent work continues without waiting.
 
+## Tracking update 2026-08-01 (8h sprint)
+
+- Email domain `hello@` live (ImprovMX) - public CTAs no longer depend on personal Gmail.
+- GoodFirms free path submitted (under review).
+- Crunchbase org submitted (pending).
+- Clutch sales email set to hello@; still needs real reviews for ranking.
+- X company SMS OTP still human-only.
+- DNS A for `dali.agents.ge` restored (`76.76.21.21`) after NXDOMAIN.
+- AI Agents Directory submit still Auth0-gated.
+
 ---
 
 ## B-P0-01 - Google Search Console verify + sitemap

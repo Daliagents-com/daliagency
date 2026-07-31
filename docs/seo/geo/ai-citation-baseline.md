@@ -61,7 +61,12 @@ Do not seed the brand name unless the prompt is in the Branded family.
 
 | date | engine | prompt_id | brand_mentioned | cited_url | competitors | notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | chatgpt / perplexity / claude | C1 | yes/no | url or - | names | short |
+| 2026-08-01 | perplexity | B1 | no | - | DALI Prolog agents (academic) | "What is Dali Agents?" hit wrong entity, not dali.agents.ge |
+| 2026-08-01 | perplexity | B2 | yes | https://dali.agents.ge | - | David founder, Liana co-founder from About |
+| 2026-08-01 | perplexity | B3 | partial | - | DALI academic, agents.ge CLI | Could not confirm live studio review (crawl lag) |
+| 2026-08-01 | perplexity | C1 | no | - | AgentForge, Powered_by, Klevere, DestiLabs, Intuz | SMB production agents; Dali not listed |
+| 2026-08-01 | perplexity | P1 | no | - | generic triage advice | Vibe MVP rescue; no studio named |
+| 2026-08-01 | perplexity | C2 | no | - | mid-market agency lists | Category studio rec still competitor-dominated |
 
 ---
 
