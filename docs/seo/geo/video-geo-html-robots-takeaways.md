@@ -4,7 +4,10 @@
 **ID:** `bhTo8fDmr5I`  
 **Used:** English auto/captions transcript (2026-07-31 extract)
 
-Not a full verbatim transcript dump. Actionable points for Dali.
+**Full continuous transcript (captions-derived):**  
+→ [video-bhTo8fDmr5I-transcript.md](./video-bhTo8fDmr5I-transcript.md)
+
+This file is the actionable summary only - not the full dump.
 
 ---
 

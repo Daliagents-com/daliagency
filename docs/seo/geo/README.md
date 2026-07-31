@@ -23,6 +23,9 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Takeaways from GEO video (HTML text + robots + schema) |
 | [mention-sites-exact.md](./mention-sites-exact.md) | Exact URLs to list Dali + mention blog (Reddit, X, dirs, syndicate) |
 | [mention-sites-ge-am.md](./mention-sites-ge-am.md) | Georgia + Armenia exact list/mention URLs (BIA, yell, TechBehemoths, TG…) |
+| [vibe-code-rescue-ship-status.md](./vibe-code-rescue-ship-status.md) | Vibe-code Rescue pilot ship status, files, gaps |
+| [video-bhTo8fDmr5I-transcript.md](./video-bhTo8fDmr5I-transcript.md) | Full EN caption transcript of GEO/AI-search video |
+| [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) | Actionable takeaways from that video (robots/HTML) |
 
 ## Related (workspace, may be local-only)
 
