@@ -1,0 +1,40 @@
+---
+slug: "human-handoff-telegram-from-site-chat"
+title: "Handoff из AI-чата в Telegram"
+description: "How to design handoff: fixed request format, instant notify, human replies when ready - without turning the bot into a fake CRM."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "human-handoff-telegram-from-site-chat"
+keywords: ["AI chat Telegram handoff", "human handoff website chatbot", "AI assistant to owner inbox"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/human-handoff-telegram-from-site-chat/hero.jpg"
+heroAlt: "Handoff из AI-чата в Telegram"
+ogImage: "/blog/human-handoff-telegram-from-site-chat/og.jpg"
+---
+
+## Прямой ответ
+
+For exceptions, the assistant should send a fixed-format summary to the owner (Telegram is common because it is always on). The bot is a filter, not a CRM. Status tracking is a later system.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

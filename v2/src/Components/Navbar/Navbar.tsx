@@ -63,6 +63,7 @@ const overlayVariants = {
 const homeHrefs = [
   "/#projects",
   "/#agent-solutions",
+  "/blog",
   "/#services",
   "/#about",
 ] as const;
@@ -70,6 +71,7 @@ const homeHrefs = [
 const solutionHrefs = [
   "/solutions#solutions",
   "/solutions#process",
+  "/blog",
   "/solutions#proof",
   "/solutions#about",
 ] as const;

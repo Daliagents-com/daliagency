@@ -1,0 +1,40 @@
+---
+slug: "admin-tokens-in-browser-storage"
+title: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+description: "Why reusable admin tokens in browser storage and query strings are a medium-severity pattern we fix early."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "admin-tokens-in-browser-storage"
+keywords: ["admin token localStorage", "token in URL security", "vibe coding admin security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/admin-tokens-in-browser-storage/hero.jpg"
+heroAlt: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+ogImage: "/blog/admin-tokens-in-browser-storage/og.jpg"
+---
+
+## Прямой ответ
+
+Reusable admin tokens in localStorage and query strings are available to any XSS or leaked referrer path. Prefer short-lived sessions, httpOnly cookies, and never put long-lived secrets in URLs.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

@@ -1,0 +1,32 @@
+---
+slug: "protecting-api-tokens-in-vibe-coded-apps"
+title: "Protecting API tokens in vibe-coded apps"
+description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
+keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
+heroAlt: "Protecting API tokens in vibe-coded apps"
+ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
+---
+
+## Ուղիղ պատասխան
+
+An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+
+## Պրակտիկա
+
+Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+
+## Dali
+
+Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+
+## FAQ
+
+### Vibe coding-ն անօգտակա՞ր է։
+Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։

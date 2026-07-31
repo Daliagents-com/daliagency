@@ -1,0 +1,32 @@
+---
+slug: "admin-tokens-in-browser-storage"
+title: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+description: "Why reusable admin tokens in browser storage and query strings are a medium-severity pattern we fix early."
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "admin-tokens-in-browser-storage"
+keywords: ["admin token localStorage", "token in URL security", "vibe coding admin security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/admin-tokens-in-browser-storage/hero.jpg"
+heroAlt: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+ogImage: "/blog/admin-tokens-in-browser-storage/og.jpg"
+---
+
+## Ուղիղ պատասխան
+
+Reusable admin tokens in localStorage and query strings are available to any XSS or leaked referrer path. Prefer short-lived sessions, httpOnly cookies, and never put long-lived secrets in URLs.
+
+## Պրակտիկա
+
+Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+
+## Dali
+
+Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+
+## FAQ
+
+### Vibe coding-ն անօգտակա՞ր է։
+Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։

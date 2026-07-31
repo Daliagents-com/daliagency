@@ -1,0 +1,40 @@
+---
+slug: "vibe-coding-limits-when-you-need-engineering"
+title: "Пределы вайбкодинга: когда нужен engineering"
+description: "Where natural-language builders stop being enough: payments, auth, multi-tenant data, rate limits, and ownership."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "vibe-coding-limits-when-you-need-engineering"
+keywords: ["limits of vibe coding", "when vibe coding fails", "vibe coding vs engineering"]
+status: "published"
+author: "Dali"
+type: "comparison"
+heroImage: "/blog/vibe-coding-limits-when-you-need-engineering/hero.jpg"
+heroAlt: "Пределы вайбкодинга: когда нужен engineering"
+ogImage: "/blog/vibe-coding-limits-when-you-need-engineering/og.jpg"
+---
+
+## Прямой ответ
+
+Vibe coding slows down at payments, auth, abuse protection, complex data models, and multi-client ops. That is where product engineering, evals, and production gates take over.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

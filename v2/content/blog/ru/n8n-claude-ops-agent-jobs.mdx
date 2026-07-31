@@ -1,0 +1,40 @@
+---
+slug: "n8n-claude-ops-agent-jobs"
+title: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
+description: "A practical eval for marketplace briefs that mix n8n, Claude, and RAG for business ops."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "n8n-claude-ops-agent-jobs"
+keywords: ["Claude n8n RAG agent", "Upwork n8n AI agent", "business ops AI agent n8n"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/n8n-claude-ops-agent-jobs/hero.jpg"
+heroAlt: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
+ogImage: "/blog/n8n-claude-ops-agent-jobs/og.jpg"
+---
+
+## Прямой ответ
+
+We evaluate: source of truth, tool permissions, RAG freshness, human gates, and failure mode. Tool spaghetti without ownership is not a production agent.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

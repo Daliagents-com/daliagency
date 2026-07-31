@@ -1,0 +1,40 @@
+---
+slug: "cors-and-analytics-data-exposure"
+title: "CORS * and public analytics endpoints on vibe-coded products"
+description: "Why open CORS plus unauthenticated analytics dumps create privacy and XSS-adjacent risk."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "cors-and-analytics-data-exposure"
+keywords: ["CORS star security", "public analytics endpoint", "vibe coded analytics exposure"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/cors-and-analytics-data-exposure/hero.jpg"
+heroAlt: "CORS * and public analytics endpoints on vibe-coded products"
+ogImage: "/blog/cors-and-analytics-data-exposure/og.jpg"
+---
+
+## Прямой ответ
+
+Access-Control-Allow-Origin: * on sensitive JSON plus unauthenticated analytics storage invites cross-origin data reads and unvalidated HTML fields. Scope CORS, auth analytics, sanitize inputs.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

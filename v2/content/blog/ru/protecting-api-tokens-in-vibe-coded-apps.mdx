@@ -1,0 +1,40 @@
+---
+slug: "protecting-api-tokens-in-vibe-coded-apps"
+title: "Защита API-токенов в vibe-приложениях"
+description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
+keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
+heroAlt: "Защита API-токенов в vibe-приложениях"
+ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
+---
+
+## Прямой ответ
+
+An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

@@ -37,6 +37,48 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "Dali",
+      alternateName: ["Dali Agents", "Dali Agency"],
+      url: siteUrl,
+      description: siteDescription,
+      logo: `${siteUrl}/dali-logo.svg`,
+      founders: [
+        {
+          "@type": "Person",
+          name: "David Hakobyan",
+          jobTitle: "Founder",
+        },
+        {
+          "@type": "Person",
+          name: "Liana",
+          jobTitle: "Co-founder",
+        },
+      ],
+      knowsAbout: [
+        "AI agent systems",
+        "workflow automation",
+        "production AI agents",
+        "GEO and SEO for AI companies",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Dali",
+      description: siteDescription,
+      publisher: { "@id": `${siteUrl}/#organization` },
+      inLanguage: ["en", "ru", "ka", "hy"],
+    },
+  ],
+};
+
 export default async function RootLayout({
   children,
 }: {
@@ -50,6 +92,12 @@ export default async function RootLayout({
       <body
         className={`${onestText.className} ${onestText.variable} ${syneText.variable} ${monoText.variable}`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
         <Navbar />
         {children}
         <Footer />

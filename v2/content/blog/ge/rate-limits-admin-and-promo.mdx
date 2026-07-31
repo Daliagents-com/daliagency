@@ -1,0 +1,32 @@
+---
+slug: "rate-limits-admin-and-promo"
+title: "Rate limits for admin login and promo codes (why vibe apps skip them)"
+description: "How missing lockouts enable password and promo brute force - and the minimum controls we install."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "rate-limits-admin-and-promo"
+keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/rate-limits-admin-and-promo/hero.jpg"
+heroAlt: "Rate limits for admin login and promo codes (why vibe apps skip them)"
+ogImage: "/blog/rate-limits-admin-and-promo/og.jpg"
+---
+
+## პირდაპირი პასუხი
+
+Without timeouts, lockouts, or 429s, attackers can probe admin passwords and promo codes at scale. Minimum: rate limits, lockouts, monitoring, and single-use or scoped promos.
+
+## პრაქტიკა
+
+Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+
+## Dali
+
+Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### Vibe coding უსარგებლოა?
+არა. საშიშია, თუ production-ად მიიჩნევენ.

@@ -1,0 +1,71 @@
+---
+slug: "map-workflows-for-ai-agents"
+title: "How to map workflows before you build AI agents"
+description: "A practical workflow-mapping method for production agents: steps, tools, failure cost, and where humans stay in control."
+date: "2026-07-31"
+locale: "en"
+hreflangGroup: "map-workflows-for-ai-agents"
+keywords: ["map workflows for AI agents", "AI agent process mapping", "workflow discovery agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/map-workflows-for-ai-agents/hero.jpg"
+heroAlt: "How to map workflows before you build AI agents"
+ogImage: "/blog/map-workflows-for-ai-agents/og.jpg"
+---
+
+## Direct answer
+
+Map the real workflow before you write prompts or wire tools. A useful map names every step, the tool it lives in, who owns it today, what "done" means, and the cost if that step fails. Without that map, agents automate myths.
+
+## Why mapping comes first
+
+Teams often start with a model or a chatbot UI. Production agents start with work: intake, triage, draft, approve, send, log. If those steps are fuzzy, the agent will be fuzzy too.
+
+## A minimal mapping session (half day)
+
+1. Pick one high-volume workflow (not ten).
+2. Walk a real recent case end to end - not the happy path slide.
+3. Capture for each step: actor, tool, inputs, outputs, exceptions.
+4. Mark irreversible actions (send, pay, change permissions, public post).
+5. Score failure cost: low / medium / high for customer, money, trust.
+6. Decide which steps an agent may draft, execute, or never touch.
+
+## Template fields (copy this)
+
+| Field | Example |
+| --- | --- |
+| Step name | Qualify inbound lead |
+| Tool | Gmail + CRM |
+| Owner today | AE |
+| Inputs | email body, form fields |
+| Output | stage update + draft reply |
+| Irreversible? | send reply = yes |
+| Failure cost | medium (bad first impression) |
+| Agent role | draft only |
+
+## Common mapping failures
+
+- Mapping the org chart instead of the work
+- Skipping exceptions ("VIP clients", "legal holds")
+- Assuming one tool when work hops across five
+- Forgetting the human who currently holds judgment
+
+## After the map
+
+Only then choose agent scope: one production path, clear gates, and a two-to-four week measurement window (cycle time, error rate, rework). See also [human approval gates](/blog/human-approval-gates-for-ai-agents).
+
+## How Dali runs discovery
+
+Dali starts with process discovery inside tools the team already uses, then designs agent paths with approval boundaries. Start from [solutions](/solutions).
+
+## FAQ
+
+### Do we need a six-week process workshop?
+No. One high-volume workflow mapped deeply beats a portfolio of vague process diagrams.
+
+### Who must attend the mapping session?
+Someone who does the work weekly, plus the person who owns risk for irreversible actions.
+
+### Can we map with AI help?
+Yes for capture and cleanup. Humans still validate exceptions and risk.

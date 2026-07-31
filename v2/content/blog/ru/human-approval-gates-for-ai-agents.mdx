@@ -1,0 +1,46 @@
+---
+slug: "human-approval-gates-for-ai-agents"
+title: "Human approval gates для AI-агентов в production"
+description: "Где ставить human review, если агент может сделать необратимую ошибку - без остановки всего workflow."
+date: "2026-07-31"
+locale: "ru"
+hreflangGroup: "human-approval-gates-for-ai-agents"
+keywords: ['human approval gates', 'human in the loop AI', 'контроль AI агентов']
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/human-approval-gates-for-ai-agents/hero.jpg"
+heroAlt: "Схема human gate в agent-системе"
+ogImage: "/blog/human-approval-gates-for-ai-agents/og.jpg"
+---
+
+## Прямой ответ
+
+Ставьте **human approval gate** перед действием агента, которое трудно откатить, дорого ошибочно или видно снаружи. Не гейтите чистый research и внутренние черновики.
+
+## Что гейтить
+
+- Отправки: email, сообщения, счета
+- Записи: стадии CRM, возвраты, права
+- Деньги и доступ
+- Публичные ответы на чувствительные темы
+
+## Минимальный дизайн
+
+1. Назовите действие и blast radius
+2. Назначьте роль approver
+3. Покажите evidence pack агента
+4. Логируйте approve / reject / edit
+5. Ограничьте срок протухания
+
+## Dali
+
+Сначала карта workflow, затем gates на необратимых шагах. [Решения](/ru/solutions).
+
+## FAQ
+
+### Каждый черновик через approve?
+Нет. Только outbound и необратимые действия.
+
+### Кто approver?
+Та же роль, что и без агента.

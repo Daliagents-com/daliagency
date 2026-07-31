@@ -1,0 +1,52 @@
+---
+slug: "n8n-claude-ops-agent-jobs"
+title: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
+description: "A practical eval for marketplace briefs that mix n8n, Claude, and RAG for business ops."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "n8n-claude-ops-agent-jobs"
+keywords: ["Claude n8n RAG agent", "Upwork n8n AI agent", "business ops AI agent n8n"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/n8n-claude-ops-agent-jobs/hero.jpg"
+heroAlt: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
+ogImage: "/blog/n8n-claude-ops-agent-jobs/og.jpg"
+---
+
+## Direct answer
+
+We evaluate: source of truth, tool permissions, RAG freshness, human gates, and failure mode. Tool spaghetti without ownership is not a production agent.
+
+## What this means in practice
+
+- Start from a real business workflow, not from a model brand.
+- Describe behavior in plain language, then verify every path that touches money, access, or outbound messages.
+- Keep a human path for non-standard cases.
+
+## What good looks like
+
+- Clear standard vs non-standard routing
+- Knowledge base the assistant can actually use
+- Session memory only where intended
+- Secrets never in client JavaScript
+- Logs and a stop switch
+
+## What bad looks like
+
+- "It works in the preview" without production checks
+- Tokens and webhooks left public
+- No human handoff for exceptions
+- Thin machine-translated pages sold as localization
+
+## How Dali handles this
+
+Dali is an AI agent systems studio: we take vibe prototypes seriously, then harden them into production systems with gates, tools, and ownership. Related: [production AI agents](/blog/production-ai-agents-for-business), [approval gates](/blog/human-approval-gates-for-ai-agents).
+
+## FAQ
+
+### Is vibe coding useless?
+No. It is a fast way to get a working surface. It becomes dangerous only when it is treated as finished production.
+
+### Do you rewrite everything?
+Not always. Sometimes we harden. Sometimes we isolate and rebuild the critical path.

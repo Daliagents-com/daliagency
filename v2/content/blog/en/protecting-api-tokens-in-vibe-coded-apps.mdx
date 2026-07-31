@@ -1,0 +1,52 @@
+---
+slug: "protecting-api-tokens-in-vibe-coded-apps"
+title: "Protecting API tokens in vibe-coded apps"
+description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
+keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
+heroAlt: "Protecting API tokens in vibe-coded apps"
+ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
+---
+
+## Direct answer
+
+An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+
+## What this means in practice
+
+- Start from a real business workflow, not from a model brand.
+- Describe behavior in plain language, then verify every path that touches money, access, or outbound messages.
+- Keep a human path for non-standard cases.
+
+## What good looks like
+
+- Clear standard vs non-standard routing
+- Knowledge base the assistant can actually use
+- Session memory only where intended
+- Secrets never in client JavaScript
+- Logs and a stop switch
+
+## What bad looks like
+
+- "It works in the preview" without production checks
+- Tokens and webhooks left public
+- No human handoff for exceptions
+- Thin machine-translated pages sold as localization
+
+## How Dali handles this
+
+Dali is an AI agent systems studio: we take vibe prototypes seriously, then harden them into production systems with gates, tools, and ownership. Related: [production AI agents](/blog/production-ai-agents-for-business), [approval gates](/blog/human-approval-gates-for-ai-agents).
+
+## FAQ
+
+### Is vibe coding useless?
+No. It is a fast way to get a working surface. It becomes dangerous only when it is treated as finished production.
+
+### Do you rewrite everything?
+Not always. Sometimes we harden. Sometimes we isolate and rebuild the critical path.

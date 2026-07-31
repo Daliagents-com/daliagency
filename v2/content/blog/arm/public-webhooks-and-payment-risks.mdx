@@ -1,0 +1,32 @@
+---
+slug: "public-webhooks-and-payment-risks"
+title: "Public webhooks and payment underpayment risks on AI-built sites"
+description: "How unauthenticated workflow and payment endpoints create underpayment and abuse paths - and how we close them."
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "public-webhooks-and-payment-risks"
+keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/public-webhooks-and-payment-risks/hero.jpg"
+heroAlt: "Public webhooks and payment underpayment risks on AI-built sites"
+ogImage: "/blog/public-webhooks-and-payment-risks/og.jpg"
+---
+
+## Ուղիղ պատասխան
+
+If payment or workflow webhooks are callable without auth and accept client-controlled amounts, attackers can create cheap invoices or trigger business workflows. Amounts and product identity must be server-authoritative.
+
+## Պրակտիկա
+
+Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+
+## Dali
+
+Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+
+## FAQ
+
+### Vibe coding-ն անօգտակա՞ր է։
+Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։

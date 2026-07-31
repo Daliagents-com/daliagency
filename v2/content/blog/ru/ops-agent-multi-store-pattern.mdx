@@ -1,0 +1,40 @@
+---
+slug: "ops-agent-multi-store-pattern"
+title: "Ops agents across many stores and products: a case pattern"
+description: "Lessons from large catalog/ops automation: adapters, daily product volume, logs, and human review for unsafe changes."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "ops-agent-multi-store-pattern"
+keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/ops-agent-multi-store-pattern/hero.jpg"
+heroAlt: "Ops agents across many stores and products: a case pattern"
+ogImage: "/blog/ops-agent-multi-store-pattern/og.jpg"
+---
+
+## Прямой ответ
+
+Large ops agents succeed when they use adapters for stores/products, act on real data, and log every change. The win is fewer manual operators on repetitive product and discount work - with review on unsafe actions.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

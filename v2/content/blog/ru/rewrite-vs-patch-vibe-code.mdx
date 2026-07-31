@@ -1,0 +1,40 @@
+---
+slug: "rewrite-vs-patch-vibe-code"
+title: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
+description: "How we choose between surgical fixes and rebuilding the critical path of an AI-generated site."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "rewrite-vs-patch-vibe-code"
+keywords: ["rewrite vs patch AI website", "refactor vibe coded app"]
+status: "published"
+author: "Dali"
+type: "comparison"
+heroImage: "/blog/rewrite-vs-patch-vibe-code/hero.jpg"
+heroAlt: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
+ogImage: "/blog/rewrite-vs-patch-vibe-code/og.jpg"
+---
+
+## Прямой ответ
+
+Patch when structure is sound and issues are localized. Rewrite the critical path when auth, payments, or multi-tenant data are entangled with generated spaghetti. Keep marketing pages if they are stable.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

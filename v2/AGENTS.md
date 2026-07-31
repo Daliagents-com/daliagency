@@ -8,6 +8,7 @@ Rules for humans and coding agents working on this app.
 - **Stack:** Next.js 15 App Router, React 18, Tailwind 3, CSS modules, Framer Motion, GSAP, `next/font`.
 - **Code/comments:** English. Match the user language in chat.
 - **`demo/`:** Vite lab for product UI experiments. Never treat it as the homepage source of truth.
+- **Blog:** MDX under `content/blog/{en,ru,ge,arm}/`. Routes `/blog` and `/{locale}/blog`. SEO content factory lives outside this app in `~/Desktop/projects/dali-seo-workspace` (publisher writes into `content/blog`).
 
 ## Homepage motion (hard rules)
 

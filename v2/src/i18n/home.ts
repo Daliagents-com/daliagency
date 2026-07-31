@@ -59,8 +59,8 @@ export type HomeCopy = {
 export const homeCopy: Record<Locale, HomeCopy> = {
   en: {
     navigation: {
-      home: ["Projects", "Solutions", "Services", "About"],
-      solutions: ["Solutions", "Process", "Proof", "About"],
+      home: ["Projects", "Solutions", "Blog", "Services", "About"],
+      solutions: ["Solutions", "Process", "Blog", "Proof", "About"],
       startAudit: "Start audit",
       openMenu: "Open navigation menu",
       closeMenu: "Close navigation menu",
@@ -161,8 +161,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   ru: {
     navigation: {
-      home: ["Проекты", "Решения", "Услуги", "О нас"],
-      solutions: ["Решения", "Процесс", "Кейсы", "О нас"],
+      home: ["Проекты", "Решения", "Блог", "Услуги", "О нас"],
+      solutions: ["Решения", "Процесс", "Блог", "Кейсы", "О нас"],
       startAudit: "Начать аудит",
       openMenu: "Открыть меню навигации",
       closeMenu: "Закрыть меню навигации",
@@ -263,8 +263,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   ge: {
     navigation: {
-      home: ["პროექტები", "გადაწყვეტილებები", "სერვისები", "ჩვენ შესახებ"],
-      solutions: ["გადაწყვეტილებები", "პროცესი", "ნამუშევრები", "ჩვენ შესახებ"],
+      home: ["პროექტები", "გადაწყვეტილებები", "ბლოგი", "სერვისები", "ჩვენ შესახებ"],
+      solutions: ["გადაწყვეტილებები", "პროცესი", "ბლოგი", "ნამუშევრები", "ჩვენ შესახებ"],
       startAudit: "აუდიტის დაწყება",
       openMenu: "ნავიგაციის მენიუს გახსნა",
       closeMenu: "ნავიგაციის მენიუს დახურვა",
@@ -365,8 +365,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   arm: {
     navigation: {
-      home: ["Նախագծեր", "Լուծումներ", "Ծառայություններ", "Մեր մասին"],
-      solutions: ["Լուծումներ", "Գործընթաց", "Նախագծեր", "Մեր մասին"],
+      home: ["Նախագծեր", "Լուծումներ", "Բլոգ", "Ծառայություններ", "Մեր մասին"],
+      solutions: ["Լուծումներ", "Գործընթաց", "Բլոգ", "Նախագծեր", "Մեր մասին"],
       startAudit: "Սկսել աուդիտը",
       openMenu: "Բացել նավիգացիոն ընտրացանկը",
       closeMenu: "Փակել նավիգացիոն ընտրացանկը",

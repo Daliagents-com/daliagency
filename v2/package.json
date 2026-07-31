@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "verify:blog": "npx --yes tsx scripts/verify-blog-loader.mjs",
+    "verify:blog-inventory": "npx --yes tsx scripts/verify-blog-inventory.mjs"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.78",
@@ -15,11 +17,14 @@
     "class-variance-authority": "^0.6.0",
     "embla-carousel-react": "^8.0.0-rc17",
     "framer-motion": "^10.12.12",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^1.27.0",
     "next": "15.5.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-focus-lock": "^2.9.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "sharp": "0.35.3"
   },
   "devDependencies": {

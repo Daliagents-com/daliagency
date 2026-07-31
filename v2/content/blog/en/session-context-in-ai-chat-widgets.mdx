@@ -1,0 +1,52 @@
+---
+slug: "session-context-in-ai-chat-widgets"
+title: "Session context in AI chat widgets: what resets and what should not"
+description: "How session memory works in site chats, why closing the widget often wipes context, and how to design for that."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "session-context-in-ai-chat-widgets"
+keywords: ["AI chat session context", "chatbot session memory", "website AI widget context"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/session-context-in-ai-chat-widgets/hero.jpg"
+heroAlt: "Session context in AI chat widgets: what resets and what should not"
+ogImage: "/blog/session-context-in-ai-chat-widgets/og.jpg"
+---
+
+## Direct answer
+
+Many widgets keep context only for one open session. Close the chat, and memory resets. Design prompts and UX around that: do not assume lifelong memory unless you build it.
+
+## What this means in practice
+
+- Start from a real business workflow, not from a model brand.
+- Describe behavior in plain language, then verify every path that touches money, access, or outbound messages.
+- Keep a human path for non-standard cases.
+
+## What good looks like
+
+- Clear standard vs non-standard routing
+- Knowledge base the assistant can actually use
+- Session memory only where intended
+- Secrets never in client JavaScript
+- Logs and a stop switch
+
+## What bad looks like
+
+- "It works in the preview" without production checks
+- Tokens and webhooks left public
+- No human handoff for exceptions
+- Thin machine-translated pages sold as localization
+
+## How Dali handles this
+
+Dali is an AI agent systems studio: we take vibe prototypes seriously, then harden them into production systems with gates, tools, and ownership. Related: [production AI agents](/blog/production-ai-agents-for-business), [approval gates](/blog/human-approval-gates-for-ai-agents).
+
+## FAQ
+
+### Is vibe coding useless?
+No. It is a fast way to get a working surface. It becomes dangerous only when it is treated as finished production.
+
+### Do you rewrite everything?
+Not always. Sometimes we harden. Sometimes we isolate and rebuild the critical path.

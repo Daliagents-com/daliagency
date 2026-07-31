@@ -1,0 +1,40 @@
+---
+slug: "from-vibe-prototype-to-production-checklist"
+title: "От vibe-прототипа к production: чеклист"
+description: "A checklist to promote an AI-built prototype into something you can run with clients: security, gates, data, and ownership."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "from-vibe-prototype-to-production-checklist"
+keywords: ["vibe prototype to production", "AI site production checklist", "harden vibe coded app"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/from-vibe-prototype-to-production-checklist/hero.jpg"
+heroAlt: "От vibe-прототипа к production: чеклист"
+ogImage: "/blog/from-vibe-prototype-to-production-checklist/og.jpg"
+---
+
+## Прямой ответ
+
+Before production: secrets out of client, webhooks authenticated, rate limits, admin lockouts, payment amount server-side, human gates on irreversible actions, logs, backup owner, and a rewrite plan for critical paths.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

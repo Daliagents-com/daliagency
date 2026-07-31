@@ -1,0 +1,32 @@
+---
+slug: "cors-and-analytics-data-exposure"
+title: "CORS * and public analytics endpoints on vibe-coded products"
+description: "Why open CORS plus unauthenticated analytics dumps create privacy and XSS-adjacent risk."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "cors-and-analytics-data-exposure"
+keywords: ["CORS star security", "public analytics endpoint", "vibe coded analytics exposure"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/cors-and-analytics-data-exposure/hero.jpg"
+heroAlt: "CORS * and public analytics endpoints on vibe-coded products"
+ogImage: "/blog/cors-and-analytics-data-exposure/og.jpg"
+---
+
+## პირდაპირი პასუხი
+
+Access-Control-Allow-Origin: * on sensitive JSON plus unauthenticated analytics storage invites cross-origin data reads and unvalidated HTML fields. Scope CORS, auth analytics, sanitize inputs.
+
+## პრაქტიკა
+
+Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+
+## Dali
+
+Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### Vibe coding უსარგებლოა?
+არა. საშიშია, თუ production-ად მიიჩნევენ.

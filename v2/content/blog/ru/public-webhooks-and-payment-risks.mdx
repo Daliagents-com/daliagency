@@ -1,0 +1,40 @@
+---
+slug: "public-webhooks-and-payment-risks"
+title: "Public webhooks and payment underpayment risks on AI-built sites"
+description: "How unauthenticated workflow and payment endpoints create underpayment and abuse paths - and how we close them."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "public-webhooks-and-payment-risks"
+keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/public-webhooks-and-payment-risks/hero.jpg"
+heroAlt: "Public webhooks and payment underpayment risks on AI-built sites"
+ogImage: "/blog/public-webhooks-and-payment-risks/og.jpg"
+---
+
+## Прямой ответ
+
+If payment or workflow webhooks are callable without auth and accept client-controlled amounts, attackers can create cheap invoices or trigger business workflows. Amounts and product identity must be server-authoritative.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

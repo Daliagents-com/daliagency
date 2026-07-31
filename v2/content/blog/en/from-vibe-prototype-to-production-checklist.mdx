@@ -1,0 +1,52 @@
+---
+slug: "from-vibe-prototype-to-production-checklist"
+title: "From vibe prototype to production: a practical checklist"
+description: "A checklist to promote an AI-built prototype into something you can run with clients: security, gates, data, and ownership."
+date: "2026-08-01"
+locale: "en"
+hreflangGroup: "from-vibe-prototype-to-production-checklist"
+keywords: ["vibe prototype to production", "AI site production checklist", "harden vibe coded app"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/from-vibe-prototype-to-production-checklist/hero.jpg"
+heroAlt: "From vibe prototype to production: a practical checklist"
+ogImage: "/blog/from-vibe-prototype-to-production-checklist/og.jpg"
+---
+
+## Direct answer
+
+Before production: secrets out of client, webhooks authenticated, rate limits, admin lockouts, payment amount server-side, human gates on irreversible actions, logs, backup owner, and a rewrite plan for critical paths.
+
+## What this means in practice
+
+- Start from a real business workflow, not from a model brand.
+- Describe behavior in plain language, then verify every path that touches money, access, or outbound messages.
+- Keep a human path for non-standard cases.
+
+## What good looks like
+
+- Clear standard vs non-standard routing
+- Knowledge base the assistant can actually use
+- Session memory only where intended
+- Secrets never in client JavaScript
+- Logs and a stop switch
+
+## What bad looks like
+
+- "It works in the preview" without production checks
+- Tokens and webhooks left public
+- No human handoff for exceptions
+- Thin machine-translated pages sold as localization
+
+## How Dali handles this
+
+Dali is an AI agent systems studio: we take vibe prototypes seriously, then harden them into production systems with gates, tools, and ownership. Related: [production AI agents](/blog/production-ai-agents-for-business), [approval gates](/blog/human-approval-gates-for-ai-agents).
+
+## FAQ
+
+### Is vibe coding useless?
+No. It is a fast way to get a working surface. It becomes dangerous only when it is treated as finished production.
+
+### Do you rewrite everything?
+Not always. Sometimes we harden. Sometimes we isolate and rebuild the critical path.

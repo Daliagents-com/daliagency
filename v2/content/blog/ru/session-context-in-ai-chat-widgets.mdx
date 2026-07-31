@@ -1,0 +1,40 @@
+---
+slug: "session-context-in-ai-chat-widgets"
+title: "Контекст сессии в AI-виджетах"
+description: "How session memory works in site chats, why closing the widget often wipes context, and how to design for that."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "session-context-in-ai-chat-widgets"
+keywords: ["AI chat session context", "chatbot session memory", "website AI widget context"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/session-context-in-ai-chat-widgets/hero.jpg"
+heroAlt: "Контекст сессии в AI-виджетах"
+ogImage: "/blog/session-context-in-ai-chat-widgets/og.jpg"
+---
+
+## Прямой ответ
+
+Many widgets keep context only for one open session. Close the chat, and memory resets. Design prompts and UX around that: do not assume lifelong memory unless you build it.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

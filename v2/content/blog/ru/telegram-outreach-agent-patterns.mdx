@@ -1,0 +1,40 @@
+---
+slug: "telegram-outreach-agent-patterns"
+title: "Telegram outreach agent patterns (and compliance caution)"
+description: "What works in high-volume messaging agents - and the policy/brand risks clients underestimate."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "telegram-outreach-agent-patterns"
+keywords: ["Telegram outreach AI agent", "Telegram automation agent Upwork"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/telegram-outreach-agent-patterns/hero.jpg"
+heroAlt: "Telegram outreach agent patterns (and compliance caution)"
+ogImage: "/blog/telegram-outreach-agent-patterns/og.jpg"
+---
+
+## Прямой ответ
+
+Outreach agents can handle high daily volume, but compliance, consent, and brand risk dominate. We design rate limits, templates, stop lists, and human review for sensitive threads.
+
+## Практика
+
+Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+
+## Хорошо / плохо
+
+Хорошо: routing, knowledge base, session rules, secrets offline, logs.
+Плохо: preview = prod, публичные tokens, нет handoff.
+
+## Dali
+
+Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+
+## FAQ
+
+### Вайбкодинг бесполезен?
+Нет. Опасен, когда его принимают за готовый production.
+
+### Всегда полный rewrite?
+Нет. Часто harden critical path.

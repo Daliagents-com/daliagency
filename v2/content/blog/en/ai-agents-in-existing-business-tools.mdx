@@ -1,0 +1,53 @@
+---
+slug: "ai-agents-in-existing-business-tools"
+title: "How to put AI agents into tools your team already uses"
+description: "A practical approach to embedding agents in Gmail, CRM, docs, and chat - instead of forcing a new platform day one."
+date: "2026-07-31"
+locale: "en"
+hreflangGroup: "ai-agents-in-existing-business-tools"
+keywords: ["AI agents in existing tools", "AI agents Gmail CRM", "embed AI agents business software"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+heroImage: "/blog/ai-agents-in-existing-business-tools/hero.jpg"
+heroAlt: "How to put AI agents into tools your team already uses"
+ogImage: "/blog/ai-agents-in-existing-business-tools/og.jpg"
+---
+
+## Direct answer
+
+Put agents **where the work already happens**. If intake lives in email and CRM, the agent should read and write there - not force every user into a new portal. New platforms can come later; first win is removing hops.
+
+## Default surfaces
+
+- Inbox and calendar for communication work
+- CRM for pipeline state
+- Docs / wiki for knowledge
+- Chat for internal ops signals
+- Sheets for lightweight queues when that is the real system of record
+
+## Integration pattern
+
+1. Observe: what tool is source of truth for each field?
+2. Act: which writes are drafts vs live?
+3. Gate: which writes need human approval?
+4. Notify: where does the human see the queue?
+5. Log: where do we store agent decisions?
+
+## Anti-patterns
+
+- Building a parallel "AI workspace" nobody opens
+- Syncing every field both ways on day one
+- Letting the agent invent CRM stages not in your process
+
+## Dali's bias
+
+We implement production agents inside tools teams already run. See the [solutions map](/solutions) for multi-agent production patterns.
+
+## FAQ
+
+### Do we need a custom agent platform first?
+Usually no. Start with the tools of record and a thin orchestration layer.
+
+### What if our tools have no API?
+Start with human-in-the-loop drafts and export/import, then automate the highest-ROI connector.
