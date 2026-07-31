@@ -1,5 +1,3 @@
-const colors = require("tailwindcss/colors");
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -11,9 +9,11 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          ...colors.red,
-          DEFAULT: "#DD1E3E",
-          500: "#DD1E3E",
+          50: "#E9EDFF",
+          DEFAULT: "#1E3A8A",
+          500: "#1E3A8A",
+          700: "#172A66",
+          800: "#172A66",
         },
       },
       boxShadow: {
@@ -30,27 +30,36 @@ module.exports = {
         none: "none",
       },
       fontSize: {
+        display: ["clamp(36px, 4.2vw, 64px)", "0.98"],
+        "page-title": ["clamp(36px, 4vw, 56px)", "1"],
+        "section-title": ["clamp(32px, 3.2vw, 48px)", "1"],
+        "card-title": ["clamp(26px, 2.4vw, 34px)", "1.05"],
+        "compact-title": ["clamp(22px, 1.8vw, 26px)", "1.05"],
+        lead: ["clamp(18px, 1.5vw, 20px)", "1.5"],
         h1: ["36px", "1.4"],
         h2: ["32px", "1.4"],
         h3: ["28px", "1.4"],
-        h4: ["22px", "1.4"],
-        h5: ["19px", "1.4"],
-        body1: ["24px", "1.4"],
-        body2: ["20px", "1.4"],
-        body3: ["18px", "1.4"],
+        h4: ["20px", "1.4"],
+        h5: ["18px", "1.4"],
+        body1: ["20px", "1.5"],
+        body2: ["18px", "1.5"],
+        body3: ["17px", "1.5"],
         body4: ["16px", "1.5"],
         body5: ["14px", "1.5"],
         body6: ["12px", "1.5"],
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["var(--font-onest)", "sans-serif"],
+        heading: ["var(--font-syne)", "var(--font-onest)", "sans-serif"],
+        ui: ["var(--font-syne)", "var(--font-onest)", "sans-serif"],
+        mono: ["var(--font-ibm-plex-mono)", "monospace"],
       },
 
       fontWeight: {
-        light: 300,
-        regular: 500,
-        bold: 600,
-        bolder: 700,
+        light: 400,
+        regular: 400,
+        bold: 500,
+        bolder: 500,
       },
 
       spacing: {
@@ -92,7 +101,7 @@ module.exports = {
         0: "0",
       },
       outline: {
-        primary: ["2px solid #7B61FF", "1px"],
+        primary: ["2px solid #1E3A8A", "1px"],
       },
     },
   },

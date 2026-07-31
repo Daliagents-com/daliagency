@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 
 const IBMPlexMonoFont = localFont({
+  preload: false,
+  variable: "--font-ibm-plex-mono",
   src: [
     {
       path: "./IBMPlexMono-Light.ttf",

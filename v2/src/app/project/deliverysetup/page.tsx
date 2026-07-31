@@ -6,11 +6,13 @@ import { condensedHeadings, monoText, serifText } from "@/assets/fonts";
 import { Metadata } from "next";
 import ProjectsSelect from "@/Components/ProjectsSelect/ProjectsSelect";
 import FadeIn from "../Components/FadeIn";
+import { getProjectAlternates } from "@/i18n/projects";
 
 export const metadata: Metadata = {
   title: "Delivery Setup",
   description:
     "Comprehensive delivery setup and optimization for restaurants",
+  alternates: getProjectAlternates("deliverysetup"),
 };
 
 export default function DeliverySetupPage() {
@@ -19,19 +21,19 @@ export default function DeliverySetupPage() {
       <Container id="deliverysetup-page" className="overflow-hidden">
         <section
           id="project-header"
-          className={`${monoText.className} uppercase flex flex-col gap-36 py-80`}
+          className="flex flex-col gap-36 py-80 uppercase"
         >
-          <h1 className={`text-body1 md:text-[72px] leading-none`}>
+          <h1 className={`${condensedHeadings.className} text-page-title`}>
             End-to-end delivery operations for restaurants.
           </h1>
-          <ul className={`flex text-body5 md:text-h2 gap-36 font-light`}>
+          <ul className={`${monoText.className} flex gap-36 text-body5 font-normal`}>
             {projectData.tags.map((tag, idx) => (
               <li key={idx}>
                 <span className="mb-36">/</span> <span>{tag}</span>
               </li>
             ))}
           </ul>
-          <p className="flex text-body5 md:text-body2 font-medium">
+          <p className={`${monoText.className} flex text-body5 font-normal md:text-body4`}>
             <span
               className="origin-top-left"
               style={{ transform: "rotate(90deg) translate(4px,-100%)" }}
@@ -44,7 +46,7 @@ export default function DeliverySetupPage() {
 
         <section className={`${serifText.className} py-40 md:py-80`}>
           <h2
-            className={`${condensedHeadings.className} text-h3 md:text-[48px] uppercase mb-24 md:mb-40`}
+            className={`${condensedHeadings.className} mb-24 text-section-title uppercase md:mb-40`}
           >
             About the project
           </h2>
@@ -63,7 +65,7 @@ export default function DeliverySetupPage() {
 
         <section className="py-80">
           <h2
-            className={`${condensedHeadings.className} text-h3 md:text-[48px] uppercase mb-24`}
+            className={`${condensedHeadings.className} mb-24 text-section-title uppercase`}
           >
             OTHER PROJECTS
           </h2>

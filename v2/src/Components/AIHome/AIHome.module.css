@@ -1,0 +1,492 @@
+.page {
+  background: linear-gradient(
+    180deg,
+    var(--background) 0%,
+    color-mix(in srgb, var(--accent-soft) 42%, var(--background)) 100%
+  );
+  color: var(--text);
+  overflow-x: clip;
+}
+
+.page :is(a, summary):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.hero,
+.section {
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 0;
+}
+
+.section {
+  scroll-margin-top: 5.5rem;
+}
+
+.frame,
+.sectionFrame {
+  position: relative;
+  background: transparent;
+}
+
+.frame::before,
+.sectionFrame::before {
+  display: none;
+}
+
+.frame {
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+.sectionFrame {
+  padding: clamp(1.5rem, 3vw, 3rem);
+}
+
+.heroGrid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.9fr);
+  align-items: center;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+}
+
+.eyebrow,
+.sectionKicker,
+.cardEyebrow,
+.processIndex,
+.founderRole,
+.diagramLabel {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.cardEyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.4rem;
+  border: 1px solid #e5e5e7;
+  border-radius: 0.25rem;
+  padding: 0 0.45rem;
+  background: #f7f7f8;
+  color: #52525b;
+}
+
+.title,
+.sectionTitle,
+.cardTitle,
+.trustTitle {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-body);
+  text-transform: none;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.title {
+  max-width: 14ch;
+  font-size: var(--type-display);
+}
+
+.lead,
+.contactLead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-lead);
+  line-height: 1.5;
+}
+
+.lead {
+  margin-top: 1.2rem;
+  line-height: 1.55;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.primaryCta,
+.secondaryCta,
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  padding: 0.7rem 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.primaryCta {
+  background: var(--accent);
+  color: var(--background);
+}
+
+.secondaryCta,
+.inlineLink {
+  background: transparent;
+  color: var(--text);
+}
+
+.primaryCta:hover,
+.secondaryCta:hover,
+.inlineLink:hover {
+  transform: translateY(-1px);
+}
+
+.primaryCta:hover {
+  background: var(--accent-hover);
+}
+
+.secondaryCta:hover,
+.inlineLink:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.supportLine {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: var(--type-small);
+}
+
+.diagramPanel {
+  min-width: 0;
+}
+
+.diagramCard {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid #e5e5e7;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+}
+
+.diagramInputs,
+.diagramOutputs {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.diagramInputs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.diagramInputs span,
+.diagramAgent,
+.diagramOutputs div {
+  border: 1px solid #e5e5e7;
+  border-radius: 0.375rem;
+  padding: 0.85rem;
+  background: #fafafa;
+  font-family: var(--font-body);
+}
+
+.diagramInputs span,
+.diagramAgent strong,
+.diagramOutputs strong {
+  display: block;
+}
+
+.diagramInputs span,
+.diagramAgent {
+  text-align: center;
+  text-transform: none;
+  font-size: var(--type-small);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.diagramArrow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.diagramArrow span {
+  position: relative;
+  height: 1px;
+  background: rgba(17, 12, 10, 0.28);
+}
+
+.diagramArrow span::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid rgba(17, 12, 10, 0.5);
+  border-right: 1px solid rgba(17, 12, 10, 0.5);
+  transform: rotate(45deg);
+}
+
+.diagramAgent {
+  background: var(--secondary);
+  color: var(--background);
+}
+
+.diagramDivider {
+  height: 1px;
+  background: rgba(17, 12, 10, 0.14);
+}
+
+.diagramOutputs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.diagramOutputs span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.sectionIntro {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.75rem;
+  max-width: 48rem;
+}
+
+.sectionTitle {
+  font-size: var(--type-section-title);
+}
+
+.sectionLead {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.4;
+}
+
+.beforeAfter,
+.cardGrid,
+.founderGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.beforeAfter {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.beforeAfterCard,
+.solutionCard,
+.proofCard,
+.processCard,
+.founderCard,
+.faqItem,
+.trustBlock {
+  border: 1px solid #e5e5e7;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+}
+
+.beforeAfterCard,
+.solutionCard,
+.proofCard,
+.processCard,
+.founderCard {
+  padding: 1.15rem 1.2rem;
+}
+
+.cardGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.solutionGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.solutionGrid .solutionCard:first-child {
+  grid-column: 1 / -1;
+}
+
+.cardTitle {
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-weight: 550;
+  margin-top: 0.45rem;
+}
+
+.cardBody {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.bulletList,
+.trustList {
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.processGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.processIndex {
+  color: var(--muted);
+}
+
+.trustBlock {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  padding: 1.2rem;
+  margin-top: 1rem;
+}
+
+.trustTitle {
+  font-size: var(--type-section-title);
+}
+
+.founderGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.founderCard {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+}
+
+.founderImage {
+  border: 1px solid #e5e5e7;
+  border-radius: 0.375rem;
+  object-fit: cover;
+  object-position: top;
+  background: #f7f7f8;
+}
+
+.faqList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.faqItem {
+  padding: 0;
+}
+
+.faqQuestion {
+  cursor: pointer;
+  list-style: none;
+  padding: 1.1rem 1.2rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.faqQuestion::-webkit-details-marker {
+  display: none;
+}
+
+.faqQuestion::after {
+  content: "+";
+  float: right;
+  color: var(--text);
+}
+
+.faqItem[open] .faqQuestion::after {
+  content: "-";
+}
+
+.faqAnswer {
+  margin: 0;
+  padding: 0 1.2rem 1.2rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.contactFrame {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .heroGrid,
+  .beforeAfter,
+  .cardGrid,
+  .processGrid,
+  .trustBlock,
+  .founderGrid,
+  .diagramOutputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diagramInputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .solutionGrid .solutionCard:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .frame::before,
+  .sectionFrame::before {
+    inset: 10px;
+  }
+
+  .founderCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ctaRow {
+    flex-direction: column;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryCta,
+  .secondaryCta,
+  .inlineLink {
+    transition: none;
+  }
+
+  .primaryCta:hover,
+  .secondaryCta:hover,
+  .inlineLink:hover {
+    transform: none;
+  }
+}

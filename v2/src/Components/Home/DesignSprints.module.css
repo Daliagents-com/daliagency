@@ -1,0 +1,806 @@
+/* Purpose: Tower-style bento + product-scene mocks (no icon-slop).
+   Scope: DesignSprints. Visual top / text bottom. Vignette + hover.
+   Theme: dark lives on .curtain only; section shell is transparent so light
+   page shows during scroll-linked clip reveal (no html[data-page-theme]). */
+
+.section {
+  position: relative;
+  z-index: 10;
+  display: block;
+  /* Transparent host: light canvas peeks while the dark curtain reveals. */
+  background: transparent;
+  color: #f0f0f2;
+  /* Avoid clipping the soft edge bleed of the curtain. */
+  overflow: visible;
+}
+
+/* Dark theme surface. Clip-path driven by scroll (Framer). */
+.curtain {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: clamp(1.75rem, 3.5vh, 3rem) 0;
+  background: #0d0d0f;
+  color: #f0f0f2;
+  /* Hard clip from Framer; soft gradients below fake a fabric edge. */
+  will-change: clip-path;
+}
+
+/* Inner sheen so the hard clip edge reads less like a flat bar. */
+.curtainSheen {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      transparent 4.5rem,
+      transparent calc(100% - 4.5rem),
+      rgba(255, 255, 255, 0.03) 100%
+    );
+}
+
+.section[data-curtain="static"] .curtain {
+  will-change: auto;
+}
+
+.sectionContainer {
+  position: relative;
+  z-index: 1;
+  --min-x-padding: clamp(1.25rem, 4.5vw, 3.5rem);
+  --content-max-width: 1040px;
+  width: 100%;
+}
+
+.sectionShell {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: clamp(0.95rem, 1.8vh, 1.35rem);
+}
+
+/* Shell enter: transform only (opacity always 1). Driven by data-entered. */
+.sectionShell[data-entered="false"] .introTitle,
+.sectionShell[data-entered="false"] .introCopy {
+  transform: translateY(10px);
+}
+
+.sectionShell[data-entered="false"] .card {
+  transform: translateY(14px) scale(0.98);
+}
+
+.sectionShell .introTitle,
+.sectionShell .introCopy {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sectionShell[data-entered="true"] .introTitle,
+.sectionShell[data-entered="true"] .introCopy,
+.sectionShell[data-entered="true"] .card {
+  transform: none;
+}
+
+/* Intro (title only) + CTA under bento */
+
+.intro {
+  display: grid;
+  width: 100%;
+  margin-bottom: clamp(1rem, 2vh, 1.5rem);
+}
+
+.introTitle {
+  display: grid;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.heading {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: #f0f0f2;
+  font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.introCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  margin-top: clamp(1.5rem, 3vh, 2.25rem);
+  padding-inline: 0;
+  text-align: center;
+}
+
+.introBody {
+  margin: 0 auto;
+  width: 100%;
+  max-width: min(40rem, 100%);
+  color: rgba(240, 240, 242, 0.52);
+  font-size: clamp(0.84rem, 0.95vw, 0.94rem);
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.contactButton {
+  white-space: nowrap;
+  margin-inline: auto;
+}
+
+/* Bento 3 + 2 */
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  background: #141416;
+  color: #f0f0f2;
+  cursor: pointer;
+  outline: none;
+  will-change: transform;
+  transition:
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Soft vignette only */
+.card::after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  content: "";
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 40%,
+    transparent 45%,
+    rgba(8, 8, 10, 0.35) 100%
+  );
+}
+
+.card:hover,
+.card[data-hover="true"],
+.card:focus-visible {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: #17171a;
+  transform: translateY(-4px);
+}
+
+.sectionShell[data-entered="false"] .card:hover,
+.sectionShell[data-entered="false"] .card[data-hover="true"],
+.sectionShell[data-entered="false"] .card:focus-visible {
+  transform: translateY(10px) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionShell .introTitle,
+  .sectionShell .introCopy,
+  .sectionShell .card {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+.card:focus-visible {
+  outline: 1px solid rgba(138, 164, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.visual {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1 1 auto;
+  min-height: 9.5rem;
+  place-items: center;
+  overflow: hidden;
+  padding: 1.1rem 1rem 0.5rem;
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.28rem;
+  padding: 0.35rem 1.05rem 1rem;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #f0f0f2;
+  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
+  font-weight: 520;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.cardDesc {
+  margin: 0;
+  max-width: 34ch;
+  color: rgba(240, 240, 242, 0.48);
+  font-size: clamp(0.74rem, 0.85vw, 0.84rem);
+  line-height: 1.4;
+}
+
+.card[data-slot="a"] {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.card[data-slot="b"] {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.card[data-slot="c"] {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+/* Consulting smaller (1 col), Production bigger (2 cols) */
+.card[data-slot="d"] {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.card[data-slot="e"] {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+}
+
+.card[data-slot="a"] .visual,
+.card[data-slot="b"] .visual,
+.card[data-slot="c"] .visual {
+  min-height: 10rem;
+}
+
+.card[data-slot="d"] .visual {
+  min-height: 8.5rem;
+}
+
+.card[data-slot="e"] .visual {
+  min-height: 9.5rem;
+}
+
+/* ── Mocks: no nested chrome, centered ── */
+
+.mock {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+/* Pipeline — stages + ticket only */
+
+.pipeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 15.5rem;
+  min-height: 5.6rem;
+  padding: 0.15rem 0.1rem;
+}
+
+.pipeCol {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.4rem;
+  min-width: 0;
+  justify-items: center;
+}
+
+.pipeHead {
+  color: rgba(240, 240, 242, 0.38);
+  font-size: 0.58rem;
+  font-weight: 520;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.pipeLane {
+  width: 100%;
+  min-height: 3.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ticket {
+  position: absolute;
+  top: 1.85rem;
+  left: 6%;
+  z-index: 2;
+  display: grid;
+  gap: 0.12rem;
+  width: 28%;
+  min-width: 4.4rem;
+  max-width: 5.2rem;
+  padding: 0.42rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: #1a1a1f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  /* left % only — pipeline player animates style.left */
+  will-change: left;
+  transition: none;
+}
+
+.ticket strong {
+  font-size: 0.56rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+}
+
+.ticket span {
+  color: rgba(240, 240, 242, 0.4);
+  font-size: 0.46rem;
+  font-weight: 500;
+}
+
+/* Composer */
+
+.chat {
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 14.5rem;
+  align-content: center;
+}
+
+.replyBubble {
+  min-height: 2.4rem;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  opacity: 0;
+}
+
+.replyText {
+  margin: 0;
+  min-height: 1.6em;
+  color: rgba(240, 240, 242, 0.78);
+  font-size: 0.58rem;
+  font-weight: 440;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  white-space: pre-wrap;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  min-height: 1.1rem;
+}
+
+.tool {
+  min-height: 1.15rem;
+  padding: 0 0.48rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  color: rgba(240, 240, 242, 0.5);
+  font-size: 0.5rem;
+  font-weight: 520;
+  line-height: 1.15rem;
+  opacity: 0;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.05rem;
+  padding: 0.28rem 0.32rem 0.28rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.typeField {
+  display: inline-flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  min-height: 1.1em;
+  color: rgba(240, 240, 242, 0.88);
+  font-size: 0.6rem;
+  font-weight: 440;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.caret {
+  width: 1.2px;
+  height: 0.9em;
+  margin-left: 0.08rem;
+  flex: 0 0 auto;
+  background: #1e3a8a;
+  opacity: 1;
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.send {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f0f2;
+  font-style: normal;
+}
+
+/* Visibility radar */
+
+.radarWrap {
+  position: relative;
+  width: 8.75rem;
+  height: 8.75rem;
+}
+
+.radarSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.radarTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 3.5;
+}
+
+.radarArc {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+/* Brand blue only (no mint / lilac). */
+.radarArc[data-tone="blue"] {
+  stroke: #1e3a8a;
+}
+
+.radarArc[data-tone="blue-mid"] {
+  stroke: #3d5aa8;
+}
+
+.radarArc[data-tone="blue-soft"] {
+  stroke: #6b8ad4;
+}
+
+/* Full-area center grid — never use transform for centering (Framer would stomp it). */
+.radarCenter {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  gap: 0.05rem;
+  pointer-events: none;
+  text-align: center;
+  /* Start hidden — first play fades in (do not look "already done"). */
+  opacity: 0;
+}
+
+.radarCenter b {
+  display: block;
+  width: 100%;
+  font-size: 1.05rem;
+  font-weight: 640;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: center;
+}
+
+.radarCenter small {
+  display: block;
+  width: 100%;
+  color: rgba(240, 240, 242, 0.42);
+  font-size: 0.48rem;
+  font-weight: 520;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.radarPill {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 0.02rem;
+  min-width: 2.15rem;
+  padding: 0.28rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: rgba(24, 24, 30, 0.95);
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  /* no transform animation — keeps layout stable */
+}
+
+.radarPill b {
+  font-size: 0.68rem;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.radarPill small {
+  color: rgba(240, 240, 242, 0.4);
+  font-size: 0.42rem;
+  font-weight: 520;
+}
+
+.radarPill[data-pos="tl"] {
+  top: 4%;
+  left: -2%;
+}
+
+.radarPill[data-pos="tr"] {
+  top: 8%;
+  right: -4%;
+}
+
+.radarPill[data-pos="br"] {
+  right: -2%;
+  bottom: 10%;
+}
+
+/* Consulting checklist — minimal */
+
+.roadmap {
+  display: grid;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 10.5rem;
+}
+
+.roadmapMeta {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.roadmapStatus {
+  color: rgba(240, 240, 242, 0.38);
+  font-size: 0.52rem;
+  font-weight: 520;
+}
+
+.pageList {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pageList li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(240, 240, 242, 0.72);
+  font-size: 0.72rem;
+  font-weight: 460;
+  letter-spacing: -0.015em;
+  opacity: 0.5;
+  /* no transform — checklist stays planted */
+  transform: none !important;
+}
+
+.pageCheck {
+  display: grid;
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  background: transparent;
+  transform: none !important;
+}
+
+/* Production controls — readable 3-step flow */
+
+.ctrlTrack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1.5rem minmax(0, 1fr) 1.5rem minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 34rem;
+  padding: 0.15rem 0;
+}
+
+.ctrlStep {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.4rem;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  opacity: 0.45;
+  transition:
+    opacity 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.ctrlNum {
+  color: rgba(240, 240, 242, 0.32);
+  font-size: 0.68rem;
+  font-weight: 580;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  flex: 0 0 auto;
+}
+
+.ctrlCheck {
+  display: grid;
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(30, 58, 138, 0.7);
+  border-radius: 50%;
+  color: #ffffff;
+  background: #1e3a8a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+}
+
+.ctrlCopy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.ctrlCopy strong {
+  font-size: 0.7rem;
+  font-weight: 540;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctrlCopy small {
+  color: rgba(240, 240, 242, 0.42);
+  font-size: 0.52rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctrlLink {
+  align-self: center;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ctrlLink i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* solid brand blue — no gradient */
+  background: #1e3a8a;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .sectionContainer {
+    --min-x-padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .bento {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .card[data-slot="a"],
+  .card[data-slot="b"],
+  .card[data-slot="c"],
+  .card[data-slot="d"],
+  .card[data-slot="e"] {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .card[data-slot="e"] {
+    grid-column: span 2;
+  }
+
+  .card[data-slot="d"] {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 2.75rem 0;
+  }
+
+  .sectionContainer {
+    --min-x-padding: 1rem;
+  }
+
+  .bento {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .card[data-slot],
+  .card[data-slot="d"] {
+    grid-column: auto;
+  }
+
+  .visual {
+    min-height: 9rem !important;
+  }
+
+  .contactButton {
+    width: 100%;
+  }
+
+  .gateRow {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .gateBeam {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

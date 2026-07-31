@@ -34,19 +34,19 @@ export default function ProjectPage() {
         {/* SECTION 1 — HEADER: title, tags, year & client */}
         <section
           id="project-header"
-          className={`${monoText.className} uppercase flex flex-col gap-36 py-80`}
+          className="flex flex-col gap-36 py-80 uppercase"
         >
-          <h1 className={`text-body1 md:text-[72px] leading-none`}>
+          <h1 className={`${condensedHeadings.className} text-page-title`}>
             {/* [TEXT] Project headline (1–2 lines) */}
           </h1>
-          <ul className={`flex text-body5 md:text-h2 gap-36 font-light`}>
+          <ul className={`${monoText.className} flex gap-36 text-body5 font-normal`}>
             {projectData.tags.map((tag, idx) => (
               <li key={idx}>
                 <span className="mb-36">/</span> <span>{tag}</span>
               </li>
             ))}
           </ul>
-          <p className="flex text-body5 md:text-body2 font-medium">
+          <p className={`${monoText.className} flex text-body5 font-normal md:text-body4`}>
             <span
               className="origin-top-left"
               style={{
@@ -114,7 +114,7 @@ export default function ProjectPage() {
             className={`${serifText.className} grid grid-cols-1 md:grid-cols-2 gap-32 mt-24 md:mt-48`}
           >
             <h2
-              className={`${condensedHeadings.className} text-h3 md:text-[48px] uppercase`}
+              className={`${condensedHeadings.className} text-section-title uppercase`}
             >
               {/* [TEXT] "How might we…" question */}
             </h2>
@@ -189,14 +189,14 @@ export default function ProjectPage() {
         {/* SECTION 11 — TEXT BLOCKS (heading + 2-col text rows) */}
         <section className="py-80">
           <h2
-            className={`${condensedHeadings.className} text-6xl sm:text-8xl font-extralight uppercase pb-40`}
+            className={`${condensedHeadings.className} pb-40 text-display font-medium uppercase`}
           >
             {/* [TEXT] Section heading */}
           </h2>
           <div
             className={`${serifText.className} grid grid-cols-1 md:grid-cols-2 gap-32 mt-24 md:mt-48`}
           >
-            <h3 className="font-light italic text-body4 md:text-h1 leading-[1]">
+            <h3 className="text-card-title font-medium">
               {/* [TEXT] Subheading */}
             </h3>
             <p className="text-body4 md:text-body1">
@@ -208,7 +208,7 @@ export default function ProjectPage() {
         {/* SECTION 12 — OTHER PROJECTS */}
         <section className="py-80">
           <h2
-            className={`${condensedHeadings.className} text-h3 md:text-[48px] uppercase mb-24`}
+            className={`${condensedHeadings.className} mb-24 text-section-title uppercase`}
           >
             OTHER PROJECTS
           </h2>

@@ -7,12 +7,15 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useRouter } from "next/navigation";
 import Portal from "../Portal/Portal";
 import { LayoutGroup, motion } from "framer-motion";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import PhoneFrame from "../PhoneFrame/PhoneFrame";
 import LaptopFrame from "../LaptopFrame/LaptopFrame";
+import { homeCopy } from "@/i18n/home";
+import { localizePath, type Locale } from "@/i18n/config";
 
 interface Props {
   excludeProjects?: string[];
+  locale?: Locale;
 }
 
 type ColorOverride = { backgroundColor?: string; frameColor?: string };
@@ -50,7 +53,7 @@ function ColorsPanel({
         padding: 16,
         borderRadius: 12,
         fontSize: 12,
-        fontFamily: "monospace",
+        fontFamily: "var(--font-technical)",
         width: 320,
         maxHeight: "92vh",
         overflowY: "auto",
@@ -76,7 +79,7 @@ function ColorsPanel({
           <button
             onClick={exportCode}
             style={{
-              background: "#dd1e3e",
+              background: "var(--accent, #1E3A8A)",
               color: "#fff",
               border: "none",
               borderRadius: 6,
@@ -130,7 +133,7 @@ function ColorsPanel({
                   border: "1px solid #333",
                   borderRadius: 4,
                   padding: "2px 6px",
-                  fontFamily: "monospace",
+                  fontFamily: "var(--font-technical)",
                   fontSize: 11,
                 }}
               />
@@ -154,7 +157,7 @@ function ColorsPanel({
                   border: "1px solid #333",
                   borderRadius: 4,
                   padding: "2px 6px",
-                  fontFamily: "monospace",
+                  fontFamily: "var(--font-technical)",
                   fontSize: 11,
                 }}
               />
@@ -166,13 +169,17 @@ function ColorsPanel({
   );
 }
 
-export default function ProjectsSelect({ excludeProjects }: Props) {
+export default function ProjectsSelect({
+  excludeProjects,
+  locale = "en",
+}: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     dragFree: true,
     containScroll: "trimSnaps",
   });
   const router = useRouter();
+  const copy = homeCopy[locale];
   const projectsContainerRef = useRef<HTMLUListElement>(null);
   const isOnScreen = useOnScreen(projectsContainerRef);
 
@@ -250,9 +257,10 @@ export default function ProjectsSelect({ excludeProjects }: Props) {
     }
 
     setOpenProject(project);
-    router.prefetch(`/project/${project.slug}`);
+    const projectHref = localizePath(`/project/${project.slug}`, locale);
+    router.prefetch(projectHref);
     setTimeout(() => {
-      router.push(`/project/${project.slug}`);
+      router.push(projectHref);
     }, 400);
   };
   return (
@@ -267,27 +275,32 @@ export default function ProjectsSelect({ excludeProjects }: Props) {
       <div className="hidden md:flex justify-end gap-12 mb-24">
         <button
           type="button"
-          aria-label="Previous projects"
+          aria-label={copy.projects.previous}
           onClick={scrollPrev}
           disabled={!canScrollPrev}
           className="w-48 h-48 flex items-center justify-center border-2 border-current rounded-full transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black hover:text-white hover:border-black"
         >
-          <FiChevronLeft className="w-20 h-20" />
+          <ChevronLeft className="h-20 w-20" aria-hidden />
         </button>
         <button
           type="button"
-          aria-label="Next projects"
+          aria-label={copy.projects.next}
           onClick={scrollNext}
           disabled={!canScrollNext}
           className="w-48 h-48 flex items-center justify-center border-2 border-current rounded-full transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black hover:text-white hover:border-black"
         >
-          <FiChevronRight className="w-20 h-20" />
+          <ChevronRight className="h-20 w-20" aria-hidden />
         </button>
       </div>
       <div className="overflow-hidden" ref={emblaRef}>
         <ul className="flex gap-24" ref={projectsContainerRef}>
           {options.map((option, idx) => {
             const resolved = resolveColors(option);
+            const localizedProject =
+              copy.projectCards[option.slug] ?? {
+                tagline: option.tagline,
+                tags: option.tags,
+              };
             return (
             <motion.li
               layout
@@ -310,13 +323,15 @@ export default function ProjectsSelect({ excludeProjects }: Props) {
               >
                 <div className="flex flex-wrap md:flex-nowrap justify-between gap-x-36 gap-y-16 font-medium">
                   <div>
-                    <p className="md:text-body1">{option.tagline} </p>
+                    <p className="md:text-body1">
+                      {localizedProject.tagline}{" "}
+                    </p>
                     <p className={`${serifText.className} text-body5`}>
                       {option.title}
                     </p>
                   </div>
                   <div>
-                    {option.tags.map((tag) => (
+                    {localizedProject.tags.map((tag) => (
                       <p key={tag} className="whitespace-nowrap">
                         / {tag}
                       </p>
@@ -350,7 +365,7 @@ export default function ProjectsSelect({ excludeProjects }: Props) {
                       <div className="absolute bottom-[3%] right-[2%] w-[24%] drop-shadow-2xl">
                         <PhoneFrame
                           src={option.mobileImage}
-                          alt={`${option.title} mobile`}
+                          alt={`${option.title} ${copy.projects.mobileSuffix}`}
                           placeholder="blur"
                           priority={isOnScreen}
                           sizes="(max-width: 768px) 25vw, 150px"

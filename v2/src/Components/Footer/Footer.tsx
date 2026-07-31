@@ -1,10 +1,16 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 import Container from "@/Components/Container/Container";
-import { condensedHeadings, serifText } from "@/assets/fonts";
-import NoiseLayer from "@/Components/PageGrain/NoiseLayer";
+import { condensedHeadings, serifText, syneText } from "@/assets/fonts";
+import { getGeneralAuditHref } from "@/lib/contact";
+import {
+  localeFromPathname,
+  stripLocalePrefix,
+} from "@/i18n/config";
+import { homeCopy } from "@/i18n/home";
 
 const sayHiVariants = [
   { text: "Привет", lang: "ru", className: "" },
@@ -17,15 +23,43 @@ const sayHiVariants = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname() ?? "/";
+  const locale = localeFromPathname(pathname);
+  const auditHref = getGeneralAuditHref(locale);
+  const copy = homeCopy[locale].footer;
+  const normalizedPathname = stripLocalePrefix(pathname);
   const [sayHiTextIndex, setSayHiTextIndex] = useState(0);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const footerRef = useRef<HTMLElement | null>(null);
   const sayHiCount = sayHiVariants.length;
+  const isUpworkProof = normalizedPathname.startsWith("/for/upwork");
+  const isHome = normalizedPathname === "/";
 
   useEffect(() => {
+    if (isUpworkProof) return undefined;
+    const footer = footerRef.current;
+    if (!footer) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsFooterVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry?.isIntersecting ?? false),
+      { rootMargin: "200px 0px" },
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [isUpworkProof]);
+
+  useEffect(() => {
+    if (isUpworkProof || !isFooterVisible) return undefined;
     const interval = setInterval(() => {
       setSayHiTextIndex((perv) => perv + 1);
     }, 900);
     return () => clearInterval(interval);
-  }, []);
+  }, [isFooterVisible, isUpworkProof]);
 
   const normalizedSayHiIndex = Number.isFinite(sayHiTextIndex)
     ? sayHiTextIndex % sayHiCount
@@ -35,20 +69,34 @@ export default function Footer() {
     sayHiVariants[(normalizedSayHiIndex - 1 + sayHiCount) % sayHiCount] ??
     sayHiVariants[sayHiCount - 1];
 
+  if (isUpworkProof) return null;
+
   return (
-    <footer className="relative isolate bg-[var(--footer-bg-color)] text-[var(--footer-text-color)]">
-      <NoiseLayer alpha={42} className="z-0 mix-blend-multiply" />
+    <footer
+      ref={footerRef}
+      className={`${syneText.className} relative isolate bg-[var(--footer-bg-color)] text-[var(--footer-text-color)]`}
+    >
       <div className="relative z-10 flex justify-end py-40">
         <p
-          className={`text-body1 relative flex items-center gap-16 uppercase ${condensedHeadings.className}`}
+          className={`relative flex items-center gap-16 text-body1 uppercase ${
+            isHome
+              ? `${syneText.className} font-medium`
+              : condensedHeadings.className
+          }`}
         >
-          Talk to Us
+          {isHome ? copy.talkToUs : copy.agentSystems}
           <span className="bg-[var(--footer-text-color)] h-2 w-64 md:w-[100px]"></span>
         </p>
       </div>
       <Container>
-        <div className="grid md:grid-cols-2">
-          <div>
+        <div
+          className={
+            isHome
+              ? "grid md:grid-cols-2"
+              : "grid min-w-0 gap-32 md:grid-cols-2"
+          }
+        >
+          <div className="min-w-0">
             <div className="overflow-hidden relative h-[136px] ">
               {sayHiVariants.map((text, idx) => (
                 <motion.p
@@ -71,16 +119,55 @@ export default function Footer() {
                 </motion.p>
               ))}
             </div>
-            <a
-              href="mailto:dav.hakobyan100@gmail.com"
-              className={`text-body1 ${serifText.className} underline`}
-            >
-              DAV.HAKOBYAN100@GMAIL.COM
-            </a>
+            {isHome ? (
+              <a
+                href="mailto:dav.hakobyan100@gmail.com"
+                className={`break-all text-body4 md:text-body1 ${serifText.className} underline`}
+              >
+                DAV.HAKOBYAN100@GMAIL.COM
+              </a>
+            ) : (
+              <>
+                <div className="max-w-[560px] space-y-16 pb-24">
+                  <p className="text-body3 uppercase">
+                    {copy.production}
+                  </p>
+                  <p className={`text-body4 ${serifText.className}`}>
+                    {copy.approach}
+                  </p>
+                </div>
+                <a
+                  href={auditHref}
+                  data-cta="footer-audit"
+                  className="mb-20 inline-flex items-center justify-center border border-white/20 bg-white px-16 py-12 text-body5 uppercase text-primary transition-colors hover:bg-[var(--accent-soft)]"
+                >
+                  {copy.startAudit}
+                </a>
+                <div>
+                  <p className="text-body6 uppercase pb-8">{copy.contact}</p>
+                  <a
+                    href="mailto:dav.hakobyan100@gmail.com"
+                    className={`break-all text-body4 md:text-body1 ${serifText.className} underline`}
+                  >
+                    DAV.HAKOBYAN100@GMAIL.COM
+                  </a>
+                </div>
+              </>
+            )}
           </div>
-          <div className="py-42">
+          <div className={isHome ? "py-42" : "py-42 md:pl-32"}>
+            {!isHome ? (
+              <a
+                href="https://www.linkedin.com/in/davidhakobyan/"
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-block pb-24 text-body4 ${serifText.className} hover:underline`}
+              >
+                {copy.founder}
+              </a>
+            ) : null}
             <div>
-              <p className="text-body3">SOCIALS</p>
+              <p className="text-body3 uppercase">{copy.socials}</p>
               <ul className="text-body3 mt-40 flex flex-col gap-12 uppercase">
                 <li>
                   <a
@@ -121,7 +208,7 @@ export default function Footer() {
 
         <div className="mt-40">
           <p
-            className={`${serifText.className} italic text-body5 text-right`}
+            className={`${serifText.className} text-body5 text-right`}
           >
             Dali Labs 2023-2026
           </p>

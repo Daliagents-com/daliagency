@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 const button = cva(
-  ["inline-flex", "items-center", "justify-between", "gap-12"],
+  ["inline-flex", "items-center", "justify-between", "gap-12", "font-ui", "font-normal"],
   {
     variants: {
       color: {

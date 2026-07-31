@@ -2,6 +2,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import DavidImage from "@/assets/images/team/david.png";
 import LianaImage from "@/assets/images/team/liana.jpeg";
+import { syneText } from "@/assets/fonts";
 
 function Avatar({
   initial,
@@ -33,7 +34,7 @@ function Avatar({
     <div
       role="img"
       aria-label={label}
-      className="mx-auto h-[130px] w-[130px] border border-dotted border-black p-0.5 mb-12 flex items-center justify-center bg-[var(--primary,#dd1e3e)] text-white text-4xl font-light uppercase"
+      className={`${syneText.className} mx-auto h-[130px] w-[130px] border border-dotted border-black p-0.5 mb-12 flex items-center justify-center bg-[var(--primary,#1E3A8A)] text-white text-h1 font-medium uppercase`}
     >
       {initial}
     </div>
@@ -57,10 +58,10 @@ function Person({
     <figcaption className="text-center">
       <Avatar initial={initial} image={image} label={altLabel} />
       <div className="mt-4 flex flex-col items-center gap-1">
-        <div className="text-gray-900 uppercase text-base whitespace-nowrap">
+        <div className={`${syneText.className} text-base font-normal uppercase text-gray-900 whitespace-nowrap`}>
           {name}
         </div>
-        <div className="text-gray-600 uppercase font-light text-xs whitespace-nowrap">
+        <div className={`${syneText.className} text-xs font-normal uppercase text-gray-600 whitespace-nowrap`}>
           {role}
         </div>
       </div>

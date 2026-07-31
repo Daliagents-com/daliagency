@@ -1,0 +1,713 @@
+/* Purpose: Shared editorial layout and theming for Dali solution landing pages.
+   Scope: Public solutions index plus public and Upwork detail routes. */
+
+.page {
+  --solution-accent: var(--accent, #1E3A8A);
+  --solution-accent-soft: var(--accent-soft, #E9EDFF);
+  --solution-tint: var(--background);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--solution-accent-soft) 68%, transparent) 0%, transparent 38%),
+    var(--background);
+  color: var(--text);
+  overflow-x: clip;
+}
+
+.page :is(a, button, summary):focus-visible {
+  outline: 3px solid var(--solution-accent);
+  outline-offset: 4px;
+}
+
+.shell,
+.panel {
+  position: relative;
+  background: transparent;
+}
+
+.shell::before,
+.panel::before {
+  display: none;
+}
+
+.shell {
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.panel {
+  padding: clamp(1.25rem, 2.5vw, 2.3rem);
+}
+
+.heroSection,
+.section {
+  padding: clamp(1.4rem, 2.4vw, 2.4rem) 0;
+}
+
+.showcaseSection {
+  padding: clamp(1rem, 2vw, 1.8rem) 0 clamp(2.2rem, 5vw, 4.5rem);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.heroGrid,
+.splitGrid,
+.dualGrid,
+.threeGrid,
+.fitGrid,
+.ctaGrid,
+.cardGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.heroGrid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 3.2vw, 2.8rem);
+}
+
+.heroCopy {
+  display: grid;
+  align-content: center;
+  gap: 0;
+  max-width: 38rem;
+}
+
+.splitGrid,
+.dualGrid,
+.fitGrid,
+.ctaGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.threeGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cardGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.eyebrow,
+.sectionEyebrow,
+.cardEyebrow,
+.stepIndex {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--type-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.title,
+.sectionTitle,
+.cardTitle,
+.boxTitle {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  color: var(--text);
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  line-height: 0.96;
+}
+
+.title {
+  width: min(12ch, 100%);
+  margin-top: 0.75rem;
+  font-size: clamp(2.5rem, 4.8vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+
+/* Longer pilot titles need more horizontal room than the short knowledge line. */
+.page:has([data-slug="lead-response"]) .title,
+.page:has([data-slug="client-inbox"]) .title,
+.page:has([data-slug="operations-docs"]) .title,
+.page:has([data-slug="voice-agents"]) .title {
+  width: min(15ch, 100%);
+  font-size: clamp(2.15rem, 3.9vw, 3.7rem);
+}
+
+.sectionTitle {
+  font-size: var(--type-section-title);
+}
+
+.cardTitle {
+  font-size: var(--type-card-title);
+}
+
+.boxTitle {
+  font-size: 1.25rem;
+}
+
+.page[lang="ru"] :is(.title, .sectionTitle, .cardTitle, .boxTitle) {
+  hyphens: none;
+  overflow-wrap: normal;
+}
+
+.page[lang="hy"] .title {
+  width: 100%;
+  font-size: var(--type-page-title);
+  line-height: 1;
+}
+
+.lead,
+.sectionLead,
+.body,
+.list,
+.detail,
+.supportLine {
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.lead,
+.sectionLead {
+  margin: 0;
+  font-size: var(--type-lead);
+}
+
+.lead {
+  margin-top: 1.15rem;
+  max-width: 32rem;
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  line-height: 1.58;
+}
+
+.supportLine {
+  margin: 1.05rem 0 0;
+  max-width: 30rem;
+  font-size: 0.84rem;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.heroCopy .ctaRow {
+  margin-top: 1.45rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.heroCopy .primaryCta,
+.heroCopy .secondaryCta {
+  width: auto;
+  max-width: 100%;
+  min-height: 3rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.94rem;
+  white-space: nowrap;
+}
+
+.heroCopy .supportLine {
+  font-family: var(--font-body);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.sectionIntro {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 48rem;
+  margin-bottom: 1.7rem;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.primaryCta,
+.secondaryCta,
+.indexLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.15rem;
+  border: 1px solid var(--secondary);
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.primaryCta {
+  background: var(--solution-accent);
+  color: var(--background);
+}
+
+.secondaryCta,
+.indexLink {
+  background: transparent;
+  color: var(--text);
+}
+
+.secondaryCta {
+  cursor: pointer;
+  font: inherit;
+}
+
+.textCta {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  text-underline-offset: 0.2em;
+}
+
+.primaryCta:hover,
+.secondaryCta:hover,
+.indexLink:hover {
+  transform: translateY(-1px);
+}
+
+.primaryCta:hover {
+  background: var(--accent-hover, var(--solution-accent));
+}
+
+.secondaryCta:hover,
+.indexLink:hover {
+  border-color: var(--solution-accent);
+  color: var(--solution-accent);
+}
+
+.primaryCta:focus-visible,
+.secondaryCta:focus-visible,
+.textCta:focus-visible,
+.indexLink:focus-visible,
+.indexQuickLink:focus-visible,
+.faqItem summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--solution-accent) 76%, white);
+  outline-offset: 3px;
+}
+
+.diagram {
+  display: grid;
+  gap: 0.95rem;
+  border: 1px solid rgba(23, 17, 15, 0.14);
+  background: var(--background);
+  padding: clamp(1rem, 2vw, 1.4rem);
+}
+
+.chipRow,
+.outcomeRow,
+.fitList,
+.faqList,
+.bulletList,
+.detailList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.chipRow {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.chip,
+.agentBox,
+.outcomeBox,
+.contrastCard,
+.boundaryCard,
+.surfaceCard,
+.stepCard,
+.fitCard,
+.ctaCard,
+.faqItem {
+  border: 1px solid rgba(23, 17, 15, 0.14);
+  background: var(--background);
+}
+
+.chip,
+.agentBox,
+.outcomeBox {
+  padding: 0.9rem;
+}
+
+.chip,
+.agentBox {
+  text-align: center;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.flowArrow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.flowArrow span {
+  position: relative;
+  height: 1px;
+  background: rgba(23, 17, 15, 0.28);
+}
+
+.flowArrow span::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid rgba(23, 17, 15, 0.48);
+  border-right: 1px solid rgba(23, 17, 15, 0.48);
+  transform: rotate(45deg);
+}
+
+.agentBox {
+  background: var(--secondary);
+  color: var(--background);
+}
+
+.outcomeRow {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.outcomeBox strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.panelStack,
+.cardStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.contrastCard,
+.boundaryCard,
+.surfaceCard,
+.stepCard,
+.fitCard,
+.ctaCard,
+.faqItem {
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.contrastCard {
+  background: linear-gradient(
+    180deg,
+    var(--background),
+    color-mix(in srgb, var(--solution-accent-soft) 28%, var(--background))
+  );
+}
+
+.boundaryHeader,
+.ctaHeader {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.boundaryOutcome {
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--solution-accent);
+  background: color-mix(in srgb, var(--solution-accent-soft) 45%, var(--background));
+  color: var(--text);
+}
+
+.commercialModel {
+  margin: 1rem 0 0;
+  border-top: 1px solid rgba(23, 17, 15, 0.12);
+  padding-top: 1rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.listTitle {
+  margin: 0 0 0.75rem;
+  color: var(--text);
+  font-size: var(--type-small);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.detailList,
+.bulletList,
+.fitList {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.detailList li::marker,
+.bulletList li::marker,
+.fitList li::marker {
+  color: var(--text);
+}
+
+.surfaceLabel {
+  margin: 0 0 0.65rem;
+  color: var(--text);
+  font-size: var(--type-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.stepCard {
+  min-height: 100%;
+}
+
+.stepIndex {
+  margin-bottom: 0.75rem;
+}
+
+.fitCard {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.faqList {
+  margin-top: 0.5rem;
+}
+
+.faqItem summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqQuestion {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.02rem;
+}
+
+.faqToggle {
+  color: var(--text);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.faqAnswer {
+  margin: 0.85rem 0 0;
+}
+
+.ctaCard {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--solution-accent-soft) 38%, var(--background)),
+    var(--background)
+  );
+}
+
+.indexHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.indexHeroCopy {
+  max-width: 48rem;
+}
+
+.indexQuickLinks {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(23, 17, 15, 0.18);
+}
+
+.indexQuickLinks > .cardEyebrow {
+  padding: 1rem 0;
+}
+
+.indexQuickLink {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: baseline;
+  border-top: 1px solid rgba(23, 17, 15, 0.12);
+  padding: 0.85rem 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.indexQuickLink:last-of-type {
+  border-bottom: 1px solid rgba(23, 17, 15, 0.12);
+}
+
+.indexQuickLink span {
+  color: var(--text);
+  font-size: 0.76rem;
+}
+
+.indexQuickLink strong {
+  font-weight: 500;
+}
+
+.indexQuickLink:hover strong {
+  color: var(--solution-accent);
+}
+
+.indexGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.indexCard:first-child {
+  grid-column: 1 / -1;
+}
+
+.indexCard {
+  display: grid;
+  gap: 1rem;
+  min-height: 100%;
+  padding: clamp(1.15rem, 2vw, 1.45rem);
+  border: 1px solid rgba(23, 17, 15, 0.14);
+  background: linear-gradient(
+    180deg,
+    var(--background),
+    color-mix(in srgb, var(--solution-accent-soft) 32%, var(--background))
+  );
+}
+
+.indexCardBody {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.indexSummary {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.indexList {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.indexList li::marker {
+  color: var(--text);
+}
+
+.ctaChecklist {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0 0;
+  padding-left: 1.4rem;
+  color: var(--muted);
+}
+
+.ctaChecklist li::marker {
+  color: var(--text);
+  font-family: var(--font-technical);
+}
+
+.upworkBadge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--solution-accent) 30%, transparent);
+  background: color-mix(in srgb, var(--solution-accent-soft) 58%, var(--background));
+  color: var(--text);
+}
+
+.upworkNextStep {
+  max-width: 36rem;
+  border-left: 3px solid var(--solution-accent);
+  padding: 0.8rem 1rem;
+  background: color-mix(in srgb, var(--solution-accent-soft) 58%, var(--background));
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.ctaBrief {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+  border: 1px solid color-mix(in srgb, var(--solution-accent) 24%, transparent);
+  padding: 1rem;
+  background: color-mix(in srgb, var(--solution-accent-soft) 38%, var(--background));
+  scroll-margin-top: 6rem;
+}
+
+.replyCopy {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 980px) {
+  .heroGrid,
+  .splitGrid,
+  .dualGrid,
+  .threeGrid,
+  .fitGrid,
+  .ctaGrid,
+  .cardGrid,
+  .indexHero,
+  .indexGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .indexCard:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .chipRow,
+  .flowArrow,
+  .outcomeRow {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    width: 100%;
+  }
+
+  .page[lang="ru"] .title {
+    font-size: clamp(2.05rem, 8.5vw, 2.4rem);
+  }
+
+  .page[lang="ru"] .sectionTitle {
+    font-size: clamp(1.8rem, 8.5vw, 2.35rem);
+  }
+
+  .page[lang="hy"] .title {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryCta,
+  .secondaryCta,
+  .indexLink {
+    transition: none;
+  }
+
+  .primaryCta:hover,
+  .secondaryCta:hover,
+  .indexLink:hover {
+    transform: none;
+  }
+}

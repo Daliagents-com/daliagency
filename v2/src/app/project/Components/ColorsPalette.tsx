@@ -1,4 +1,4 @@
-import { condensedHeadings } from "@/assets/fonts";
+import { monoText } from "@/assets/fonts";
 import React from "react";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export default function ColorsPalette({ colors }: Props) {
   return (
     <ul
-      className={`${condensedHeadings.className} grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] font-light`}
+      className={`${monoText.className} grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] text-body5 font-normal md:text-body4`}
     >
       {colors.map(({ backgroundInCYMK, textInHex, borderInHex }, idx) => {
         const rgb = convertCYMKToRGB(backgroundInCYMK);
@@ -25,7 +25,6 @@ export default function ColorsPalette({ colors }: Props) {
               backgroundColor: hex,
               color: textInHex,
               ...(borderInHex && { border: `1px solid ${borderInHex}` }),
-              fontSize: "clamp(0.7rem, 0.56rem + 1.2vw, 2rem)",
             }}
             className="p-8 md:p-16 lg:p-48 uppercase flex-1 break-words"
           >

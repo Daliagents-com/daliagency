@@ -47,6 +47,7 @@ export default function PhoneFrame({
         fill
         sizes={sizes}
         className="object-contain pointer-events-none select-none"
+        priority={priority}
         aria-hidden
       />
     </div>

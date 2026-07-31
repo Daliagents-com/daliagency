@@ -1,0 +1,110 @@
+/* Purpose: Hero product-window chrome around AgentUxPreview.
+   Scope: PilotProductPreview only. */
+
+.frame {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #e2e2e5;
+  border-radius: 0.75rem;
+  background: #f7f7f8;
+  box-shadow:
+    0 1px 0 rgba(17, 24, 39, 0.03),
+    0 18px 48px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.chrome {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.2rem;
+  border-bottom: 1px solid #ebebed;
+  padding: 0.45rem 0.7rem;
+  background: #ffffff;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.28rem;
+}
+
+.dots i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #e5e5e7;
+}
+
+.dots i:nth-child(1) {
+  background: #ff5f57;
+}
+
+.dots i:nth-child(2) {
+  background: #febc2e;
+}
+
+.dots i:nth-child(3) {
+  background: #28c840;
+}
+
+.url {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #ebebed;
+  border-radius: 999px;
+  background: #f7f7f8;
+  padding: 0.28rem 0.7rem;
+  color: #6b7280;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  color: #6b7280;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.live i {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #0a9f6e;
+  box-shadow: 0 0 0 0.14rem #e8faf2;
+}
+
+.viewport {
+  padding: 0.15rem;
+}
+
+.viewport :global([data-agent-ux]) {
+  border: 0;
+  border-radius: 0.55rem;
+  box-shadow: none;
+}
+
+.viewport :global([class*="canvas"]) {
+  min-height: clamp(18.5rem, 36vh, 23rem);
+}
+
+@media (max-width: 720px) {
+  .frame {
+    border-radius: 0.65rem;
+  }
+
+  .live {
+    display: none;
+  }
+}

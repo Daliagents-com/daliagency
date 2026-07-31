@@ -18,7 +18,7 @@ export default function NavLink({
   children,
   ...props
 }: Props) {
-  const currentRoute = usePathname();
+  const currentRoute = usePathname() ?? "/";
 
   const finalClasses = `${className} ${
     currentRoute === props.href ? activeClassName : ""

@@ -4,7 +4,7 @@
   z-index: 30;
   pointer-events: none;
 
-  --color: var(--frame-color, var(--primary));
+  --color: var(--frame-color, var(--frame));
   border-color: var(--color);
   border-width: 10px;
 }

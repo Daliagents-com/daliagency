@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Container from "@/Components/Container/Container";
 import { condensedHeadings, monoText, serifText } from "@/assets/fonts";
 import Button from "@/Components/Button/Button";
-import { FiChevronRight } from "react-icons/fi";
+import { ChevronRight } from "lucide-react";
 import TrackAndFieldImage from "./assets/track-and-field.svg";
 import ClientLogos from "./assets/logos.png";
 import Image, { StaticImageData } from "next/image";
@@ -13,56 +13,23 @@ import DiagramImage from "./assets/diagram.svg";
 import DoodleImage from "./assets/long-term-goals.svg";
 import PatentImage from "./assets/patent.svg";
 import RedefineSprintImage from "./assets/redefine-sprints.svg";
+import type { Locale } from "@/i18n/config";
+import {
+  designSprintsCopy,
+  type DesignSprintService,
+  type DesignSprintsCopy,
+} from "@/i18n/designSprints";
 
-const sprintSchedule = [
-  {
-    day: "01",
-    name: "Define the challenge",
-    duration: "3 hours",
-    durationISO: "PT3H",
-  },
-  {
-    day: "02",
-    name: "Mapping + customer journey + focus",
-    duration: "3 hours",
-    durationISO: "PT3H",
-  },
-  {
-    day: "03",
-    name: "Focus + story board",
-    duration: "3 hours",
-    durationISO: "PT3H",
-  },
-  {
-    day: "04",
-    name: "Prototype",
-    duration: "8 hours",
-    durationISO: "PT8H",
-  },
-  {
-    day: "05",
-    name: "Prototype",
-    duration: "8 hours",
-    durationISO: "PT8H",
-  },
-  {
-    day: "06",
-    name: "Prototype",
-    duration: "8 hours",
-    durationISO: "PT8H",
-  },
-  {
-    day: "07",
-    name: "User testing",
-    duration: "2 days",
-    durationISO: "P2D",
-  },
-  {
-    day: "10",
-    name: "Deliver Report",
-    duration: "",
-    durationISO: "",
-  },
+const sprintDays = ["01", "02", "03", "04", "05", "06", "07", "10"];
+const sprintDurationIso = [
+  "PT3H",
+  "PT3H",
+  "PT3H",
+  "PT8H",
+  "PT8H",
+  "PT8H",
+  "P2D",
+  "",
 ];
 
 enum Service {
@@ -224,9 +191,10 @@ const clients: Client[] = [
 
 type Props = {
   data: Client[];
+  copy: DesignSprintsCopy;
 };
 
-const ClientList: React.FC<Props> = ({ data }) => {
+const ClientList: React.FC<Props> = ({ data, copy }) => {
   const [filter, setFilter] = useState<string>("");
   const [selectedYear, setSelectedYear] = useState<string>("");
 
@@ -238,11 +206,19 @@ const ClientList: React.FC<Props> = ({ data }) => {
     if (!filter && !selectedYear) return true;
     if (filter && selectedYear) {
       return (
-        item.services.includes(filter as Service) &&
+        item.services.some((service) =>
+          copy.services[service as DesignSprintService]
+            .toLocaleLowerCase()
+            .includes(filter.toLocaleLowerCase()),
+        ) &&
         item.year.includes(selectedYear)
       );
     } else if (filter) {
-      return item.services.includes(filter as Service);
+      return item.services.some((service) =>
+        copy.services[service as DesignSprintService]
+          .toLocaleLowerCase()
+          .includes(filter.toLocaleLowerCase()),
+      );
     } else if (selectedYear) {
       return item.year.includes(selectedYear);
     }
@@ -252,10 +228,10 @@ const ClientList: React.FC<Props> = ({ data }) => {
   return (
     <section className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <h4
-        className={`${serifText.className} text-6xl font-light leading-loose italic text-center`}
+        className={`${condensedHeadings.className} text-center text-section-title font-medium`}
       >
-        Past Clients <span className="inline-block amp">&amp;</span>{" "}
-        Collaborators
+        {copy.pastClients} <span className="inline-block amp">&amp;</span>{" "}
+        {copy.collaborators}
       </h4>
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
         <div className="columns-1 sm:columns-2">
@@ -265,7 +241,8 @@ const ClientList: React.FC<Props> = ({ data }) => {
                 type="text"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="Filter by services"
+                placeholder={copy.filterPlaceholder}
+                aria-label={copy.filterPlaceholder}
                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
               />
             </div>
@@ -275,7 +252,7 @@ const ClientList: React.FC<Props> = ({ data }) => {
                 onChange={(e) => setSelectedYear(e.target.value)}
                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
               >
-                <option value="">All Years</option>
+                <option value="">{copy.allYears}</option>
                 {years.map((year, index) => (
                   <option key={index} value={year}>
                     {year}
@@ -289,11 +266,15 @@ const ClientList: React.FC<Props> = ({ data }) => {
               <li key={index} className="flex justify-between py-2">
                 <div>
                   <strong>{item.title}</strong>
-                  {item.status && <span className="badge">{item.status}</span>}
+                  {item.status && (
+                    <span className="badge">
+                      {item.status === "Active" ? copy.active : item.status}
+                    </span>
+                  )}
                   {item.services.length > 0 &&
                     item.services.map((service, index) => (
                       <span key={index} className="badge">
-                        {service}
+                        {copy.services[service as DesignSprintService]}
                       </span>
                     ))}
                   {item.tags.length > 0 &&
@@ -343,15 +324,15 @@ const SprintType: React.FC<Sprint> = ({
     <section
       className={`w-full bg-${backgroundColour} ${textColorClass} box-border overflow-hidden flex flex-col items-start justify-start pt-[30px] px-[21px] pb-[21px] gap-[275px] tracking-[normal] border-[1px] border-solid border-black mq302:gap-[137px_275px]`}
     >
-      <div className="self-stretch flex flex-col items-start justify-start gap-[44px] max-w-full text-left text-[34.3px] font-ibm-plex-sans-condensed mq562:gap-[22px_44px]">
-        <header className="self-stretch h-[13px] relative text-lg leading-[120%] uppercase font-bold font-ibm-plex-mono text-left flex items-center whitespace-nowrap z-[1]">
+      <div className={`${condensedHeadings.className} self-stretch flex flex-col items-start justify-start gap-[44px] max-w-full text-left text-card-title mq562:gap-[22px_44px]`}>
+        <header className={`${monoText.className} self-stretch h-[13px] relative text-body6 uppercase font-normal text-left flex items-center whitespace-nowrap z-[1]`}>
           {type}
         </header>
         <div className="self-stretch flex flex-row items-start justify-start relative max-w-full">
           <p className="flex-1 relative leading-[110%] uppercase flex items-center max-w-full z-[1]">
             {title}
           </p>
-          <div className="h-[512px] w-[382px] !m-[0] absolute right-[-12px] bottom-[-373px] flex flex-row items-end justify-end py-5 px-3 box-border text-right text-lg font-ibm-plex-mono">
+          <div className={`${monoText.className} h-[512px] w-[382px] !m-[0] absolute right-[-12px] bottom-[-373px] flex flex-row items-end justify-end py-5 px-3 box-border text-right text-body6`}>
             <Image
               className="h-full w-full absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] max-w-full overflow-hidden max-h-full"
               loading="lazy"
@@ -370,7 +351,7 @@ const SprintType: React.FC<Sprint> = ({
         </div>
       </div>
       <Image
-        className="w-[179px] h-[78px] relative"
+        className="relative h-auto w-[179px]"
         loading="lazy"
         alt=""
         src={doodleImage}
@@ -379,26 +360,35 @@ const SprintType: React.FC<Sprint> = ({
   );
 };
 
-export default function DesignSprints() {
+export default function DesignSprints({
+  locale = "en",
+}: {
+  locale?: Locale;
+}) {
+  const copy = designSprintsCopy[locale];
+
   return (
     <Container id="design-sprints" className="overflow-hidden">
       <header
         className={`min-h-[min(85vh,1440px)] flex flex-col justify-center relative py-16 isolate z-10`}
       >
         <h1
-          className={`${serifText.className} text-primary sm:text-6xl text-5xl text-center font-serif italic z-10`}
+          className={`${condensedHeadings.className} z-10 text-center text-display font-medium text-gray-950`}
         >
-          — Align on vision <span className="inline-block amp">&amp;</span> test
-          solutions before touching a line of code
+          {copy.hero}
         </h1>
         <p className="flex justify-center">
-          <Button className="mt-40 uppercase">
-            Get in touch <FiChevronRight />
+          <Button
+            className="mt-40 uppercase"
+            href="https://ch234lt3std.typeform.com/to/OCi31Zif"
+            target="_blank"
+          >
+            {copy.contact} <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
           </Button>
         </p>
         <Image
           src={TrackAndFieldImage}
-          alt="Track & Field"
+          alt={copy.trackAlt}
           className="mx-auto mt-8 md:absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         />
       </header>
@@ -406,85 +396,78 @@ export default function DesignSprints() {
         <div
           className={`${serifText.className} grid grid-cols-1 md:grid-cols-2 gap-32 mt-24 md:mt-48`}
         >
-          <h3 className="italic text-h1 md:text-6xl leading-[1] font-extralight">
-            What is a Design Sprint?
+          <h3 className={`${condensedHeadings.className} text-section-title font-medium`}>
+            {copy.introTitle}
           </h3>
           <p className="text-body4 md:text-body1 font-regular">
-            Our flavour of Google Ventures Design Sprint. This 8-day workshop
-            uses design thinking to produce a realistic prototype that allows us
-            to gain insight as an outside contractor, define behavioural
-            requirements, and perform User Testing on an early visual prototype
-            in order to gather real customer feedback.
+            {copy.introBody}
           </p>
         </div>
       </section>
       <section className="py-40 sm:py-80">
         <h2
-          className={`${condensedHeadings.className} text-6xl sm:text-8xl font-extralight uppercase pb-40`}
+          className={`${condensedHeadings.className} pb-40 text-display font-medium uppercase`}
         >
-          <span className="sm:block">Choose a sprint&nbsp;</span>
-          <span className="sm:block">that fits your vision</span>
+          <span className="sm:block">{copy.chooseLineOne}&nbsp;</span>
+          <span className="sm:block">{copy.chooseLineTwo}</span>
         </h2>
         <header className="grid grid-cols-3 gap-5 pb-40">
           <div className="text-body4 md:text-body1 col-start-2 col-span-2">
             <p className={`${serifText.className} mb-20 font-regular`}>
-              This 8-day process uses design thinking to produce a realistic
-              prototype, define behavioural requirements, and perform User
-              Testing on a early visual prototype in order to gather real user
-              feedback.
+              {copy.chooseBody}
             </p>
           </div>
         </header>
         <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           <SprintType
-            type="brand sprint"
-            duration="1 Week"
-            title="creating your unique brand identity"
+            type={copy.sprintCards[0].type}
+            duration={copy.sprintCards[0].duration}
+            title={copy.sprintCards[0].title}
             backgroundColour="black"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
             doodleImage={DoodleImage}
           />
           <SprintType
-            type="product design sprint"
-            duration="2 Weeks"
-            title="Build winning products"
+            type={copy.sprintCards[1].type}
+            duration={copy.sprintCards[1].duration}
+            title={copy.sprintCards[1].title}
             backgroundColour="primary"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
             doodleImage={DoodleImage}
           />
           <SprintType
-            type="Vision Sprint"
-            duration="2 Days"
-            title="Crafting the big picture"
+            type={copy.sprintCards[2].type}
+            duration={copy.sprintCards[2].duration}
+            title={copy.sprintCards[2].title}
             backgroundColour="primary"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
             doodleImage={DoodleImage}
           />
           <SprintType
-            type="freedom tech sprint"
-            duration="2 Weeks"
-            title="decentralised innovation"
+            type={copy.sprintCards[3].type}
+            duration={copy.sprintCards[3].duration}
+            title={copy.sprintCards[3].title}
             backgroundColour="white"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
             doodleImage={DoodleImage}
           />
           <SprintType
-            type="ai sprint"
-            duration="2 Weeks"
-            title="exploring ai for enhanced ux"
+            type={copy.sprintCards[4].type}
+            duration={copy.sprintCards[4].duration}
+            title={copy.sprintCards[4].title}
             backgroundColour="white"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
             doodleImage={DoodleImage}
           />
           <SprintType
-            type="process sprint"
-            duration="3 Days"
-            title="optimising workflow efficiently"
+            type={copy.sprintCards[5].type}
+            duration={copy.sprintCards[5].duration}
+            title={copy.sprintCards[5].title}
             backgroundColour="white"
             backgroundImage={PatentImage}
             diagramImage={DiagramImage}
@@ -500,18 +483,14 @@ export default function DesignSprints() {
           <figure className="mt-10">
             <blockquote className="text-center mb-24">
               <p
-                className={`${serifText.className} text-2xl italic font-light leading-8 text-gray-900 sm:text-3xl sm:leading-10`}
+                className={`${serifText.className} text-body1 text-gray-900`}
               >
                 <span
-                  className="text-[var(--primary,#dd1e3e)]"
-                  style={{ fontFamily: "'Adelia', cursive", fontStyle: "normal" }}
+                  className={`${condensedHeadings.className} text-[var(--primary,#1E3A8A)]`}
                 >
                   Dali
-                </span>{" "}
-                is a husband-and-wife studio — Liana behind the design,
-                David behind the engineering. Working as a couple means
-                complete trust, no politics, and projects we both fully put
-                our name on.
+                </span>
+                {copy.studioQuoteAfterName}
               </p>
             </blockquote>
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24">
@@ -520,9 +499,13 @@ export default function DesignSprints() {
                   {
                     image: DavidImage,
                     name: "David",
-                    role: "Founder",
+                    role: copy.founder,
                   },
-                  { image: LianaImage, name: "Liana", role: "Co-founder" },
+                  {
+                    image: LianaImage,
+                    name: "Liana",
+                    role: copy.coFounder,
+                  },
                 ] as Array<{
                   initial?: string;
                   image?: StaticImageData;
@@ -549,7 +532,7 @@ export default function DesignSprints() {
                     <div
                       role="img"
                       aria-label={`${p.name}, ${p.role}`}
-                      className="mx-auto h-[130px] w-[130px] border border-dotted border-black p-0.5 mb-12 flex items-center justify-center bg-[var(--primary,#dd1e3e)] text-white text-4xl font-light uppercase"
+                      className="mx-auto h-[130px] w-[130px] border border-dotted border-black p-0.5 mb-12 flex items-center justify-center bg-[var(--primary,#1E3A8A)] text-white text-h1 font-medium uppercase"
                     >
                       {p.initial}
                     </div>
@@ -565,7 +548,7 @@ export default function DesignSprints() {
                     >
                       <circle cx="1" cy="1" r="1" />
                     </svg>
-                    <div className="text-gray-600 uppercase font-light">
+                    <div className="text-gray-600 uppercase font-normal">
                       {p.role}
                     </div>
                   </div>
@@ -579,56 +562,48 @@ export default function DesignSprints() {
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="text-center mb-24">
             <h4
-              className={`${serifText.className} text-6xl font-light leading-loose italic text-primary`}
+              className={`${condensedHeadings.className} text-section-title font-medium text-gray-950`}
             >
-              Get your vision out fast
+              {copy.visionTitle}
             </h4>
             <p
-              className={`text- uppercase font-light leading-8 text-gray-900 sm:text-2xl sm:leading-9`}
+              className="text-body3 font-normal uppercase text-gray-900"
             >
-              We have worked with founders and startups at early stages helping
-              them prepare for fundraising, setup project and product management
-              procedures, align executives and product teams, and helped tech
-              and design teams ship better quality work faster
+              {copy.visionBody}
             </p>
             <p className="flex justify-center">
               <Image src={ClientLogos} alt="" height={120} />
             </p>
             <p className="flex justify-center">
-              <Button className="mt-40 max-lg:w-full uppercase">
-                Launch with the best <FiChevronRight />
+              <Button
+                className="mt-40 max-lg:w-full uppercase"
+                href="https://ch234lt3std.typeform.com/to/OCi31Zif"
+                target="_blank"
+              >
+                {copy.visionCta}{" "}
+                <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
               </Button>
             </p>
           </div>
         </div>
       </section>
-      <ClientList data={clients} />
+      <ClientList data={clients} copy={copy} />
       <section className="pt-80">
         <div
           className={`${serifText.className} grid grid-cols-1 md:grid-cols-2 gap-32 mt-24 md:mt-48`}
         >
-          <h3 className={`${condensedHeadings.className} text-h2 uppercase`}>
-            How It Works?
+          <h3 className={`${condensedHeadings.className} text-section-title uppercase`}>
+            {copy.howItWorks}
           </h3>
           <div className="text-body4 md:text-body1">
             <p className="mb-20">
-              This 8-day process uses design thinking to produce a realistic
-              prototype, define behavioural requirements, and perform User
-              Testing on a early visual prototype in order to gather real user
-              feedback.
+              {copy.howParagraphs[0]}
             </p>
             <p className="mb-20">
-              The first three days require a couple hours of your involvement
-              and focus — it is mandatory to the process and we’ve seen this
-              upfront time investment gets everyone in alignment early with the
-              project goals and avoids issues during the implementation phase.
+              {copy.howParagraphs[1]}
             </p>
             <p className="mb-20">
-              ‌To preserve time when coming to a decision we will utilise voting
-              on suggestions offered by individuals, over lengthy discussions so
-              you will have to select a single person on your team as “The
-              Decider”. This person is able to veto certain decisions made by
-              the group.
+              {copy.howParagraphs[2]}
             </p>
           </div>
         </div>
@@ -639,21 +614,21 @@ export default function DesignSprints() {
           itemType="http://schema.org/CreativeWork"
           className={`${serifText.className} grid grid-cols-1 md:grid-cols-2 gap-32 mt-24 md:mt-48`}
         >
-          <header className="text-2xl font-bold mb-4">
+          <header className="mb-4">
             <h3
-              className={`${condensedHeadings.className} text-h2 uppercase`}
+              className={`${condensedHeadings.className} text-section-title uppercase`}
               itemProp="name"
             >
-              Timeline
+              {copy.timeline}
             </h3>
           </header>
           <div>
             <meta
               itemProp="about"
-              content="Design Sprint Activities Schedule"
+              content={copy.scheduleMeta}
             />
             <ol className="relative border-l border-gray-200 border-dotted">
-              {sprintSchedule.map((event, index) => (
+              {copy.schedule.map((event, index) => (
                 <li
                   key={index}
                   itemProp="event"
@@ -662,7 +637,7 @@ export default function DesignSprints() {
                   className="mb-10 ml-4"
                 >
                   <span className="flex absolute -left-8 justify-center items-center px-2 bg-white border border-gray-400 rounded text-xs font-mono uppercase">
-                    Day {event.day}
+                    {copy.day} {sprintDays[index]}
                   </span>
                   <div className="ml-12">
                     <h3
@@ -674,8 +649,8 @@ export default function DesignSprints() {
                     {event.duration && (
                       <time
                         itemProp="duration"
-                        dateTime={event.durationISO}
-                        className={`${condensedHeadings.className} uppercase block text-sm font-normal text-gray-500`}
+                        dateTime={sprintDurationIso[index]}
+                        className={`${monoText.className} block text-body5 font-normal uppercase text-gray-500`}
                       >
                         {event.duration}
                       </time>

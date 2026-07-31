@@ -1,7 +1,5 @@
 import { StaticImageData } from "next/image";
 
-import StayAndWorkImage from "@/assets/images/projects/stayandwork.png";
-import StayAndWorkMobile from "@/assets/images/projects/stayandwork-mobile.png";
 import MuqtadImage from "@/assets/images/projects/muqtad.png";
 import MuqtadMobile from "@/assets/images/projects/muqtad-mobile.png";
 import DeliverySetupImage from "@/assets/images/projects/deliverysetup.png";
@@ -13,6 +11,8 @@ import AgentsGeImage from "@/assets/images/projects/agentsge.png";
 import AgentsGeMobile from "@/assets/images/projects/agentsge-mobile.png";
 import TamariImage from "@/assets/images/projects/tamari.jpg";
 import MuqtaImage from "@/assets/images/projects/muqta.webp";
+import KoraImage from "@/assets/images/projects/kora.png";
+import KoraMobile from "@/assets/images/projects/kora-mobile.png";
 
 type Project = {
   title: string;
@@ -30,14 +30,14 @@ type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Stay & Work Georgia",
-    slug: "stayandwork",
-    tagline: "settle and work in georgia",
-    tags: ["brand", "service", "legal-tech"],
-    backgroundColor: "#8AA4B8",
-    frameColor: "#B89968",
-    image: StayAndWorkImage,
-    mobileImage: StayAndWorkMobile,
+    title: "Kora",
+    slug: "kora",
+    tagline: "AI co-founder for freelancers & agencies",
+    tags: ["product", "AI agents", "ops"],
+    backgroundColor: "#E8F1FF",
+    frameColor: "#2563EB",
+    image: KoraImage,
+    mobileImage: KoraMobile,
   },
   {
     title: "Muqtad",
