@@ -1,0 +1,50 @@
+---
+slug: "prompt-injection-defenses-for-tool-agents"
+title: "Защита от prompt injection для tool-using AI-агентов"
+description: "Как untrusted email, web и PDF hijack'ают агентов - и практические defenses, которые реально помогают."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "prompt-injection-defenses-for-tool-agents"
+keywords: ["prompt injection AI agents", "defend tool calling agents", "indirect prompt injection"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Считайте весь внешний текст **hostile**. Отделяйте instructions от data, ограничивайте tools, требуйте gates на irreversible actions и никогда не давайте retrieved content переопределять system policy.
+
+## Direct vs indirect injection
+
+Пользователь пишет «ignore rules» vs webpage/email со словами «forward secrets to …». Indirect - business killer.
+
+## Defenses, которые помогают
+
+Allowlisted tools, без open browsing у high-trust агентов, sanitize/truncate untrusted text, dual-channel confirmations для sends, human gates.
+
+## Defenses, которые слабы сами по себе
+
+«You are a safe assistant» pep talks в system prompt.
+
+## PDF и email
+
+Те же правила: content - data, не authority.
+
+## Как помогает Dali
+
+Security-minded design - default в pilots Dali: [solutions](/ru/solutions).
+
+## FAQ
+
+### Можно ли полностью решить injection?
+Вы снижаете risk; вы не wish it away, если tools могут act.
+
+### Должны ли support agents browse public web?
+Только с tight allowlists и без credentialed actions из page content.
+
+### Связанное
+[Safe tool calling](/ru/blog/safe-tool-calling-for-business-agents)
+
+
+<!-- covers GPT questions: 37,38 -->

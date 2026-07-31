@@ -1,0 +1,54 @@
+---
+slug: "channel-agents-whatsapp-slack-email"
+title: "WhatsApp, Slack და email AI აგენტები: channel-specific წესები"
+description: "როგორ იცვლება agent design channel-ით: WhatsApp business, Slack internal ops და email classification vs reply."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "channel-agents-whatsapp-slack-email"
+keywords: ["WhatsApp AI agent", "Slack AI agent ops", "email AI agent vs classification"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## პირდაპირი პასუხი
+
+Channel ცვლის risk-სა და UX-ს. **WhatsApp** customer-visible-ა და regulated platform rules-ით. **Slack** internal-ია, მაგრამ მაინც შეუძლია data-ის leak. **Email**-ს ხშირად სჭირდება classify-first, არა auto-send-all.
+
+## WhatsApp / messaging apps
+
+Template rules, opt-in, tone, escalation to humans, no unsupervised commitments.
+
+## Slack
+
+Internal knowledge ACL awareness-ით; თავიდან აიცილეთ cross-channel private data leaks.
+
+## Email
+
+Classification და draft replies ჯერ; sending gates external mail-ისთვის.
+
+## Calendar booking
+
+Confirm timezone, double-booking rules და human override VIP-ისთვის.
+
+## Shared rule
+
+Identity of the counterparty და audit trail ყოველ outbound-ზე.
+
+## როგორ ჯდება Dali
+
+Channel pilots: [lead response](/ge/solutions/lead-response) და [client inbox](/ge/solutions/client-inbox).
+
+## FAQ
+
+### უნდა ფარავდეს ერთმა აგენტმა ყველა channel day one-ზე?
+არა. ჯერ ერთი channel pilot.
+
+### დაკავშირებული
+[Client inbox operations](/ge/blog/client-inbox-agent-operations), [Telegram handoff](/ge/blog/human-handoff-telegram-from-site-chat)
+
+### Email auto-send ოდესმე OK-ა?
+მხოლოდ strong policy-ით, low risk classes-ითა და metrics-ით.
+
+
+<!-- covers GPT questions: 59-62 -->

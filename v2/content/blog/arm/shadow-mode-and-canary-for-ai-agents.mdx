@@ -1,0 +1,54 @@
+---
+slug: "shadow-mode-and-canary-for-ai-agents"
+title: "Shadow mode և canary rollouts AI agents-ի համար"
+description: "Ինչպես safely roll out անել agents. shadow predictions, canary percentages, prompt versioning և rollback։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "shadow-mode-and-canary-for-ai-agents"
+keywords: ["shadow mode AI agents", "canary rollout AI agent", "prompt versioning agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Ship արեք agents ինչպես risky software. **shadow mode** (predict առանց acting), հետո **canary** (փոքր % կամ մեկ segment), versioned prompts-ով և instant rollback-ով։ Big-bang «բոլոր tickets-ը վաղը»-ն այն է, թե ինչպես trust-ը մեռնում է։
+
+## Shadow mode
+
+Agent-ը propose է անում actions. humans-ը կամ current process-ը դեռ act են անում։ Համեմատեք offline։
+
+## Canary
+
+Մեկ queue, մեկ locale, մեկ VIP-excluded segment։ Հետևեք exception և override rates-ին։
+
+## Prompt/version control
+
+Դիտեք prompts-ը և tool schemas-ը ինչպես code. review, tag, release notes։
+
+## Feature flags
+
+Flip արեք behavior առանց ամբողջ stack-ը redeploy անելու, երբ հնարավոր է։
+
+## Rollback
+
+Known-good prompt + tool config մեկ click-ով։ Practice արեք։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն պլանավորում է staged pilots. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Որքա՞ն երկար shadow։
+Մինչև metrics-ը beat անեն baseline-ը golden set-ի և live sample-ի վրա - ոչ fixed marketing number։
+
+### Canary-ն միայն enterprises-ի՞ համար է։
+SMB-ները կարող են canary անել by customer segment կամ channel։
+
+### Related
+[Evaluate before go-live](/arm/blog/how-to-evaluate-ai-agents-before-go-live)
+
+
+<!-- covers GPT questions: 36,57,58 -->

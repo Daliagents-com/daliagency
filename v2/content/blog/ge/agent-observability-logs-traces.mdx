@@ -1,0 +1,50 @@
+---
+slug: "agent-observability-logs-traces"
+title: "Agent observability: logs, traces და რა შეინახოთ"
+description: "რა უნდა log-ოთ production AI აგენტებისთვის tokens-ში დახრჩობის ან secrets-ის leak-ის გარეშე."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "agent-observability-logs-traces"
+keywords: ["AI agent observability", "AI agent tracing", "AI agent tool calls-ის logging"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+Log-ეთ **structured events**: request id, tool name, args (redacted), results status, approvals, model ids, latency, cost. Raw prompts შეინახეთ მხოლოდ retention rules-ის ქვეშ. თუ incident-ის reconstruct ვერ შეგიძლიათ, production არ ხართ.
+
+## Minimum viable trace
+
+Correlation id steps-ზე, who/what triggered the run, tools attempted, gate decisions, final side effects.
+
+## Redaction
+
+ამოიღეთ secrets, tokens, full card numbers, unnecessary PII logs-იდან, რომლებიც third parties-ში მიდის.
+
+## Metrics
+
+Success, exceptions, human overrides, p95 latency, $ per successful completion.
+
+## Privacy tradeoff
+
+მეტი logging ეხმარება debug-ს და შეიძლება გაზარდოს compliance burden - განსაზღვრეთ retention explicitly.
+
+## როგორ ჯდება Dali
+
+Dali მოიცავს logging expectations-ს pilots-ში: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### უნდა შევინახოთ ყოველი token?
+ჩვეულებრივ არა. შეინახეთ hashes ან truncated spans, თუ არ იძიებთ.
+
+### OpenTelemetry აგენტებისთვის?
+სასარგებლოა, თუ stack-ს ერგება; structure უფრო მნიშვნელოვანია, ვიდრე tracer-ის brand.
+
+### დაკავშირებული
+[Agent incident response](/ge/blog/agent-incident-response-and-liability)
+
+
+<!-- covers GPT questions: 29,30,31 -->

@@ -1,0 +1,54 @@
+---
+slug: "idempotency-retries-queues-for-agents"
+title: "Idempotency, retries և queues AI agent actions-ի համար"
+description: "Ինչպես retry անել agent tool calls առանց double emails, double charges կամ duplicate CRM records։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "idempotency-retries-queues-for-agents"
+keywords: ["idempotency AI agents", "retry AI agent tool calls", "queue for AI agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Ամեն side-effecting tool-ին պետք է **idempotency key** և safe retry policy։ Դրեք agent work-ը queues-ի վրա, երբ volume-ը կամ flaky networks-ը կարևոր են։ Blind retries-ը ստեղծում են silent financial և CRM disasters։
+
+## Ինչու agents-ը double-write են անում
+
+Timeouts, user double-clicks, webhook redelivery, model retries mid-plan։
+
+## Idempotency keys
+
+Derive արեք business identity-ից (order id + action) կամ server-issued keys, որոնք պահվում են side effect-ից առաջ։
+
+## Queues
+
+Buffer արեք spikes, control արեք concurrency, isolate արեք poison messages։
+
+## Webhook + agent
+
+Verify արեք signatures, dedupe արեք delivery ids, process արեք exactly-once business layer-ում։
+
+## Event-driven vs cron
+
+Events immediacy-ի համար. cron reconciliation sweeps-ի համար - ոչ որպես միակ correctness mechanism։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Production action design-ը Dali pilots-ի core-ն է. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Կարո՞ղ է LLM-ը generate անել idempotency keys։
+Նախընտրեք server-side keys։ Models-ը uniqueness-ի source չեն։
+
+### Ի՞նչ non-idempotent partner APIs-ի մասին։
+Compensate արեք reconciliation jobs-ով և human exception queues-ով։
+
+### Related
+[Public webhooks և payment risks](/arm/blog/public-webhooks-and-payment-risks)
+
+
+<!-- covers GPT questions: 32-34,53,55 -->

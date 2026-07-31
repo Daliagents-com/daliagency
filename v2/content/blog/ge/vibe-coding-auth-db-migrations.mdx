@@ -1,0 +1,54 @@
+---
+slug: "vibe-coding-auth-db-migrations"
+title: "Vibe coding auth, databases და migrations (demo login-ის მიღმა)"
+description: "როგორ botch-ავენ AI-built apps auth-სა და data layers-ს - და პრაქტიკული path real sessions-ისკენ, RLS-ისა და safe migrations-ისკენ."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "vibe-coding-auth-db-migrations"
+keywords: ["vibe coding authentication", "Supabase RLS vibe coding", "database migrations AI generated app"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+Demo logins და wide-open tables არ არის auth. გაუშვით real session handling, least-privilege database rules (RLS) და migrations review-ით - ან დაგეგმეთ data plane-ის rewrite.
+
+## Auth failures vibe apps-ში
+
+Client-only checks, shared passwords, tokens localStorage-ში, missing email verification.
+
+## Sessions
+
+HTTP-only cookies ან proven session libraries; rotate secrets.
+
+## Databases
+
+Enable RLS/policies; no anon write production tables-ზე; separate service roles.
+
+## Migrations
+
+Expand/contract, backups, staging first. AI-generated SQL untrusted-ია სანამ reviewed არ არის.
+
+## როდის rewrite data plane
+
+თუ permissions coherent ვერ ხდება scaffold-თან ბრძოლის გარეშე.
+
+## როგორ ჯდება Dali
+
+Auth/data-ის hardening [vibe-code rescue](/ge/solutions/vibe-code-rescue)-ის ნაწილია.
+
+## FAQ
+
+### Supabase OK-ა production-ისთვის?
+დიახ correct RLS-ითა და secret handling-ით - defaults საკმარისი არ არის.
+
+### Firebase?
+იგივე story: rules must be intentional.
+
+### დაკავშირებული
+[API tokens-ის დაცვა](/ge/blog/protecting-api-tokens-in-vibe-coded-apps), [rewrite vs patch](/ge/blog/rewrite-vs-patch-vibe-code)
+
+
+<!-- covers GPT questions: 81-83,93 -->

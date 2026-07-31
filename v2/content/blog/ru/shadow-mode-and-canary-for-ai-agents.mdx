@@ -1,0 +1,54 @@
+---
+slug: "shadow-mode-and-canary-for-ai-agents"
+title: "Shadow mode и canary rollouts для AI-агентов"
+description: "Как безопасно выкатывать агентов: shadow predictions, canary percentages, versioning промптов и rollback."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "shadow-mode-and-canary-for-ai-agents"
+keywords: ["shadow mode AI agents", "canary rollout AI agent", "prompt versioning agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Выкатывайте агентов как risky software: **shadow mode** (предсказывает, не действует), затем **canary** (малый % или один segment), с versioned prompts и мгновенным rollback. Big-bang «все tickets завтра» - так умирает trust.
+
+## Shadow mode
+
+Агент предлагает actions; люди или текущий process всё ещё действуют. Сравнивайте offline.
+
+## Canary
+
+Одна queue, один locale, один segment без VIP. Смотрите exception и override rates.
+
+## Prompt/version control
+
+Считайте prompts и tool schemas как code: review, tag, release notes.
+
+## Feature flags
+
+Переключайте поведение без redeploy всего стека, когда возможно.
+
+## Rollback
+
+Known-good prompt + tool config в один click. Отрабатывайте это.
+
+## Как помогает Dali
+
+Dali планирует staged pilots: [solutions](/ru/solutions).
+
+## FAQ
+
+### Как долго держать shadow?
+Пока metrics не обойдут baseline на golden set и live sample - не fixed marketing number.
+
+### Canary только для enterprises?
+SMB могут canary по customer segment или channel.
+
+### Связанное
+[Evaluate before go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live)
+
+
+<!-- covers GPT questions: 36,57,58 -->

@@ -1,0 +1,54 @@
+---
+slug: "zapier-make-n8n-vs-production-agents"
+title: "Zapier, Make, n8n vs production AI-агенты"
+description: "Когда no-code automations достаточно и когда нужны production agent systems с gates, evals и ownership."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "zapier-make-n8n-vs-production-agents"
+keywords: ["Zapier vs AI agents", "n8n vs production agents", "Make.com vs custom AI agent"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Прямой ответ
+
+Используйте **Zapier/Make/n8n** для надёжного glue между apps с clear triggers. Добавляйте **production agents**, когда language understanding, messy inputs и gated multi-step decisions - это job, и вам нужны evals и ownership.
+
+## Когда no-code выигрывает
+
+Stable triggers, deterministic field maps, low NLP need, internal ops с low blast radius.
+
+## Когда no-code ломается
+
+Ambiguous emails, policy-heavy replies, branching that needs judgment, strict audit requirements.
+
+## n8n + LLM
+
+Мощный prototype path. Всё равно нужны gates, secrets hygiene и acceptance tests, чтобы быть «production».
+
+## Custom/agent systems
+
+Tool contracts, HITL, observability, tenant isolation, staged rollout.
+
+## SQL from automations
+
+Предпочитайте constrained APIs вместо open production SQL из любого automation layer.
+
+## Как помогает Dali
+
+Dali внедряет production paths - иногда рядом с n8n: [solutions](/ru/solutions).
+
+## FAQ
+
+### Можно start in n8n and graduate?
+Да - если avoid hard lock-in и keep specs of the workflow.
+
+### No-code «не real engineering»?
+Это real, пока risk не превышает control surface платформы.
+
+### Связанное
+[Build vs buy automation](/ru/blog/build-vs-buy-ai-automation)
+
+
+<!-- covers GPT questions: 49,50,52,54 -->

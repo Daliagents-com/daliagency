@@ -1,0 +1,54 @@
+---
+slug: "idempotency-retries-queues-for-agents"
+title: "Idempotency, retries и queues для действий AI-агента"
+description: "Как повторять tool calls агента без двойных email, двойных списаний или дублей в CRM."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "idempotency-retries-queues-for-agents"
+keywords: ["idempotency AI agents", "retry AI agent tool calls", "queue for AI agents"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Каждый tool с side effects нуждается в **idempotency key** и безопасной retry policy. Кладите работу агента в queues, когда важны объём или нестабильные сети. Слепые retries создают тихие финансовые и CRM-катастрофы.
+
+## Почему агенты пишут дважды
+
+Timeouts, double-click пользователя, повторная доставка webhook, retries модели mid-plan.
+
+## Idempotency keys
+
+Выводите из business identity (order id + action) или server-issued keys, сохранённых до side effect.
+
+## Queues
+
+Буферизуют spikes, контролируют concurrency, изолируют poison messages.
+
+## Webhook + agent
+
+Проверяйте signatures, dedupe delivery ids, обрабатывайте exactly-once на business layer.
+
+## Event-driven vs cron
+
+Events для скорости; cron для reconciliation sweeps - не как единственный механизм корректности.
+
+## Как помогает Dali
+
+Дизайн production-действий - ядро pilots Dali: [solutions](/ru/solutions).
+
+## FAQ
+
+### Может ли LLM генерировать idempotency keys?
+Предпочитайте server-side keys. Модели - не источник uniqueness.
+
+### А non-idempotent partner APIs?
+Компенсируйте reconciliation jobs и очередями human exceptions.
+
+### Связанное
+[Public webhooks и payment risks](/ru/blog/public-webhooks-and-payment-risks)
+
+
+<!-- covers GPT questions: 32-34,53,55 -->

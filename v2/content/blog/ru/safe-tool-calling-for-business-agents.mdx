@@ -1,0 +1,54 @@
+---
+slug: "safe-tool-calling-for-business-agents"
+title: "Безопасный tool calling для business AI-агентов"
+description: "Как tool calling должен работать в production: scopes, allowlists, confirmation gates, loop limits и least privilege."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "safe-tool-calling-for-business-agents"
+keywords: ["AI agent tool calling", "safe tool use AI agents", "LLM function calling security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Дайте агентам **маленькие tool allowlists**, least-privilege credentials, явные schemas, loop limits и human gates на необратимых tools. Tool calling без scopes - путь, которым demos становятся incidents.
+
+## Tool calling vs prompting
+
+Prompting производит текст. Tool calling позволяет модели выбирать structured actions (CRM update, search, send). Action layer - место, где живёт business risk.
+
+## Allowlists и schemas
+
+Каждый tool нуждается в имени, JSON schema, max frequency и owner. Отклоняйте free-form «run any code» в production ops.
+
+## Permissions
+
+Отделяйте read tools от write tools. Отдельные staging credentials. Нет god-mode service accounts в agent runtime.
+
+## Loop и spend limits
+
+Max steps, max tokens, max tool calls, wall-clock timeout. Infinite replanning - это bug, не intelligence.
+
+## Assistants platforms
+
+Hosted assistant APIs помогают bootstrap. Вы всё равно владеете scopes, logging и gates для business actions.
+
+## Как помогает Dali
+
+Dali проектирует tool boundaries в discovery: [solutions](/ru/solutions).
+
+## FAQ
+
+### Должен ли агент execute SQL на production?
+Почти никогда напрямую. Предпочитайте constrained APIs и audited mutations.
+
+### Как подтверждать high-risk tools?
+Human approval gate с evidence pack: inputs, intended action, confidence, source.
+
+### Связанное
+[Human approval gates](/ru/blog/human-approval-gates-for-ai-agents)
+
+
+<!-- covers GPT questions: 5,6,7,12,43 -->

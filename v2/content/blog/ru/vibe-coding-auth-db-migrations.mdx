@@ -1,0 +1,54 @@
+---
+slug: "vibe-coding-auth-db-migrations"
+title: "Vibe coding: auth, databases и migrations (beyond the demo login)"
+description: "Как AI-built apps ломают auth и data layers - и practical path к real sessions, RLS и safe migrations."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "vibe-coding-auth-db-migrations"
+keywords: ["vibe coding authentication", "Supabase RLS vibe coding", "database migrations AI generated app"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Demo logins и wide-open tables - не auth. Доставьте real session handling, least-privilege database rules (RLS) и migrations with review - или планируйте rewrite data plane.
+
+## Auth failures in vibe apps
+
+Client-only checks, shared passwords, tokens in localStorage, missing email verification.
+
+## Sessions
+
+HTTP-only cookies или proven session libraries; rotate secrets.
+
+## Databases
+
+Включите RLS/policies; no anon write to production tables; separate service roles.
+
+## Migrations
+
+Expand/contract, backups, staging first. AI-generated SQL is untrusted until reviewed.
+
+## When to rewrite the data plane
+
+Если permissions cannot be made coherent without fighting the scaffold.
+
+## Как помогает Dali
+
+Hardening auth/data - часть [vibe-code rescue](/ru/solutions/vibe-code-rescue).
+
+## FAQ
+
+### Supabase OK for production?
+Да with correct RLS и secret handling - defaults are not enough.
+
+### Firebase?
+Same story: rules must be intentional.
+
+### Связанное
+[Protecting API tokens](/ru/blog/protecting-api-tokens-in-vibe-coded-apps), [rewrite vs patch](/ru/blog/rewrite-vs-patch-vibe-code)
+
+
+<!-- covers GPT questions: 81-83,93 -->

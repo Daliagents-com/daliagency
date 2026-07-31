@@ -1,0 +1,50 @@
+---
+slug: "versioning-prompts-and-agent-rollouts"
+title: "Versioning промптов и rollout изменений агента"
+description: "Считайте prompts и tool schemas как code: review, version, canary, rollback и release notes для operators."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "versioning-prompts-and-agent-rollouts"
+keywords: ["prompt versioning", "AI agent release management", "roll out prompt changes"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Никогда не редактируйте production prompts live без version tag и rollback. Выкатывайте изменения агента через review → eval → canary → full, с notes для людей, которые handle exceptions.
+
+## Что version'ить
+
+System prompts, tool schemas, retrieval corpora versions, gate rules.
+
+## Review
+
+Вторая пара глаз на high-risk domains (money, legal, medical-adjacent).
+
+## Release notes
+
+Что изменилось, на что смотреть, кого пинговать.
+
+## Rollout
+
+Shadow/canary patterns из companion post.
+
+## Как помогает Dali
+
+Dali оставляет versioned handoff artifacts: [solutions](/ru/solutions).
+
+## FAQ
+
+### Git for prompts?
+Да, или другой source-controlled store с diffs.
+
+### Hotfix without eval?
+Только для pure typo fixes с zero behavior change - всё равно log it.
+
+### Связанное
+[Shadow mode and canary](/ru/blog/shadow-mode-and-canary-for-ai-agents)
+
+
+<!-- covers GPT questions: 56-58 -->

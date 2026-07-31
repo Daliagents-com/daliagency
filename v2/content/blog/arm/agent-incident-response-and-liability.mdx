@@ -1,0 +1,58 @@
+---
+slug: "agent-incident-response-and-liability"
+title: "AI agent incident response և liability basics"
+description: "Ինչ անել, երբ agent-ը սխալ է գործում. contain, revoke, notify, fix, և ինչպես contracts-ը պետք է assign անեն responsibility։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "agent-incident-response-and-liability"
+keywords: ["AI agent incident response", "AI agent liability", "agent sent wrong email"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Երբ agent-ը fail է լինում. **stop արեք agent-ը**, revoke արեք credentials եթե պետք է, preserve արեք traces, fix արեք customer impact, հետո patch արեք prompts/tools։ Contracts-ը պետք է ասեն, թե ով է responsible business decisions-ի vs software defects-ի համար։
+
+## Contain
+
+Kill switch, disable write tools, pause queues։
+
+## Investigate
+
+Pull արեք correlation ids, tool args, approvals - սա է, թե ինչու observability-ն կարևոր է։
+
+## Customer fix
+
+Human outreach, refunds, corrections - real owner-ով։
+
+## Prevent
+
+Eval case incident-ից, tighter gates, better idempotency։
+
+## Liability
+
+Policies-ը և human approval-ը չեն անհետանում, որովհետև model-ը suggest է արել text։ Align արեք vendor SOW-ը այն բանի հետ, թե ով է տիրապետում outcomes-ին։
+
+## SLA
+
+Սահմանեք response times agent-impacted queues-ի համար ինչպես այլ production systems-ում։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali pilots-ը սահմանում են stop-switches և handoff owners. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Պե՞տք է ասենք customers-ին, որ message-ը AI-assisted էր։
+Հետևեք law-ին և brand policy-ին. honesty-ն հաճախ նվազեցնում է damage-ը, երբ errors են լինում։
+
+### Ո՞վ է տիրապետում quality-ին vendor-ի հեռանալուց հետո։
+Name արեք role launch-ից առաջ - տես change management post։
+
+### Related
+[Observability](/arm/blog/agent-observability-logs-traces)
+
+
+<!-- covers GPT questions: 45,46,76,78 -->

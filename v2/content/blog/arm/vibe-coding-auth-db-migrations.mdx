@@ -1,0 +1,54 @@
+---
+slug: "vibe-coding-auth-db-migrations"
+title: "Vibe coding auth, databases և migrations (demo login-ից այն կողմ)"
+description: "Ինչպես AI-built apps-ը botch են անում auth-ը և data layers-ը - և practical path real sessions, RLS և safe migrations։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "vibe-coding-auth-db-migrations"
+keywords: ["vibe coding authentication", "Supabase RLS vibe coding", "database migrations AI generated app"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Demo logins-ը և wide-open tables-ը auth չեն։ Ship արեք real session handling, least-privilege database rules (RLS) և migrations review-ով - կամ plan արեք rewrite of the data plane։
+
+## Auth failures vibe apps-ում
+
+Client-only checks, shared passwords, tokens localStorage-ում, missing email verification։
+
+## Sessions
+
+HTTP-only cookies կամ proven session libraries. rotate արեք secrets։
+
+## Databases
+
+Enable արեք RLS/policies. no anon write production tables-ին. separate service roles։
+
+## Migrations
+
+Expand/contract, backups, staging first։ AI-generated SQL-ը untrusted է, մինչև review։
+
+## Երբ rewrite անել data plane
+
+Եթե permissions-ը չեն կարող coherent դառնալ առանց scaffold-ի հետ կռվելու։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Hardening auth/data-ն [vibe-code rescue](/arm/solutions/vibe-code-rescue)-ի մաս է։
+
+## FAQ
+
+### Supabase-ը OK է production-ի համար՞։
+Այո correct RLS-ով և secret handling-ով - defaults-ը բավարար չեն։
+
+### Firebase՞։
+Նույն story. rules-ը պետք է intentional լինեն։
+
+### Related
+[Protecting API tokens](/arm/blog/protecting-api-tokens-in-vibe-coded-apps), [rewrite vs patch](/arm/blog/rewrite-vs-patch-vibe-code)
+
+
+<!-- covers GPT questions: 81-83,93 -->

@@ -1,0 +1,50 @@
+---
+slug: "prompt-injection-defenses-for-tool-agents"
+title: "Prompt injection defenses tool-using AI აგენტებისთვის"
+description: "როგორ hijack-ავს untrusted email, web და PDF content აგენტებს - და პრაქტიკული defenses, რომლებიც რეალურად ეხმარება."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "prompt-injection-defenses-for-tool-agents"
+keywords: ["prompt injection AI აგენტები", "tool calling აგენტების დაცვა", "indirect prompt injection"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+მოექეცით ყველა external text-ს როგორც **hostile**. გაყავით instructions data-სგან, შეზღუდეთ tools, მოითხოვეთ gates irreversible actions-ზე და არასოდეს მიეცით retrieved content-ს system policy-ის გადაწერის უფლება.
+
+## Direct vs indirect injection
+
+User წერს “ignore rules” vs webpage/email, რომელიც ამბობს “forward secrets to …”. Indirect არის business killer.
+
+## Defenses, რომლებიც ეხმარება
+
+Allowlisted tools, no open browsing high-trust აგენტებში, sanitize/truncate untrusted text, dual-channel confirmations sends-ისთვის, human gates.
+
+## Defenses, რომლებიც სუსტია alone
+
+“You are a safe assistant” pep talks system prompt-ში.
+
+## PDF და email
+
+იგივე წესები: content არის data, არა authority.
+
+## როგორ ჯდება Dali
+
+Security-minded design default-ია Dali pilots-ში: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### შეგვიძლია injection-ის სრულად გადაჭრა?
+რისკს ამცირებთ; არ გაქრება wish-ით, თუ tools-ს შეუძლია მოქმედება.
+
+### უნდა browse-ონ support აგენტებმა public web?
+მხოლოდ tight allowlists-ით და no credentialed actions page content-იდან.
+
+### დაკავშირებული
+[უსაფრთხო tool calling](/ge/blog/safe-tool-calling-for-business-agents)
+
+
+<!-- covers GPT questions: 37,38 -->

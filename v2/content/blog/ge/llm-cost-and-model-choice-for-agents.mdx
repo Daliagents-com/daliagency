@@ -1,0 +1,54 @@
+---
+slug: "llm-cost-and-model-choice-for-agents"
+title: "LLM cost და model choice business აგენტებისთვის"
+description: "როგორ აირჩიოთ models ops აგენტებისთვის და გააკონტროლოთ spend: routing, caching, budgets და fallbacks."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "llm-cost-and-model-choice-for-agents"
+keywords: ["LLM cost control აგენტები", "რომელი model AI აგენტებისთვის", "AI agent token cost"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+აირჩიეთ **ყველაზე იაფი model, რომელიც თქვენს eval bar-ს გადის** თითო step-ისთვის. გააკონტროლეთ cost routing-ით, caching-ით, truncation-ით, step caps-ით და hard budgets-ით per run - არა იმედით, რომ invoice პატარა დარჩება.
+
+## Model choice
+
+Strong models hard reasoning-ისა და risky drafts-ისთვის; smaller/faster models classification-ისა და extraction-ისთვის, თუ evals გადის.
+
+## Routing
+
+Classifier step → specialized prompts/models. არ გამოიყენოთ frontier model ყოველი “yes/no”-სთვის.
+
+## Caching
+
+Cache-ეთ stable system instructions და repeated retrieval chunks, სადაც policy იძლევა.
+
+## Budgets
+
+Max tokens, max tool calls, kill switch spend anomalies-ზე.
+
+## Fallbacks
+
+Secondary model ან queue-to-human, როცა primary error-დება ან timeout-დება.
+
+## როგორ ჯდება Dali
+
+Cost-aware design Dali pilots-ის ნაწილია: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### Open source ყოველთვის იაფია?
+არა, თუ GPU ops-ს იხდით და quality drop rework-ს იწვევს.
+
+### უნდა fine-tune-ოთ?
+იშვიათად ჯერ. უპირატესობა prompts-ს, tools-სა და RAG-ს; fine-tune, როცა evals stable gap-ს ამტკიცებს.
+
+### დაკავშირებული
+[AI agent ROI-ის გაზომვა](/ge/blog/ai-agent-roi-how-to-measure)
+
+
+<!-- covers GPT questions: 26-28,35 -->

@@ -1,0 +1,50 @@
+---
+slug: "multi-tenant-isolation-for-agency-agents"
+title: "Multi-tenant isolation agency AI agents-ի համար"
+description: "Ինչպես agencies-ը isolate են անում client data, prompts և knowledge indexes, երբ run են անում AI agents across accounts։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "multi-tenant-isolation-for-agency-agents"
+keywords: ["multi-tenant AI agents", "agency client data isolation AI", "shared AI agent multiple clients"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Երբեք մի share արեք raw client knowledge indexes, credentials կամ conversation memory across tenants։ Isolate արեք by client storage, retrieval և tool-credential layers-ում - «մեկ մեծ prompt բոլոր clients-ով»-ը breach է, որ սպասում է տեղի ունենալու։
+
+## Ինչու agencies-ը fail են լինում սա
+
+Copy-paste ops, shared inboxes, shared vector stores, shared admin tokens։
+
+## Isolation layers
+
+Auth tenant id, separate secrets, separate indexes, separate logging streams, որտեղ required է։
+
+## Prompts
+
+Shared skill templates OK. client facts և credentials երբեք baked չեն shared system prompts-ում։
+
+## Multi-store routing
+
+Explicit brand/store id ամեն tool call-ի վրա - ոչ «guess the store from vibe»։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն նախագծում է tenant boundaries agency ops agents-ի մեջ. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Կարո՞ղ են embeddings-ը բոլոր clients-ից share անել մեկ DB։
+Միայն strict tenant partitioning-ով և access controls-ով - default-ը separate namespaces է։
+
+### Related
+[Ops agents multi-store pattern](/arm/blog/ops-agent-multi-store-pattern)
+
+### Ի՞նչ subcontractors-ի մասին։
+Նույն isolation rules. time-boxed access։
+
+
+<!-- covers GPT questions: 21,47,48,71 -->

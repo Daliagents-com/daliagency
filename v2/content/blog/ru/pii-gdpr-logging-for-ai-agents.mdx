@@ -1,0 +1,54 @@
+---
+slug: "pii-gdpr-logging-for-ai-agents"
+title: "PII, GDPR и logging для AI-агентов"
+description: "Практический privacy design для агентов: data minimization, redaction, subprocessors, retention и regional concerns."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "pii-gdpr-logging-for-ai-agents"
+keywords: ["GDPR AI agents", "PII in LLM logs", "AI agent data privacy"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Прямой ответ
+
+Минимизируйте то, что model и logs видят, redact PII, знайте subprocessors, задайте retention и задокументируйте lawful basis. «Модель умная» - не privacy program.
+
+## Data minimization
+
+Отправляйте только fields, нужные для задачи. Убирайте free-text dumps с IDs и secrets.
+
+## Redaction
+
+Маскируйте emails, phones, card data до модели и до external log drains.
+
+## Subprocessors
+
+Model APIs, email, CRM - перечислите, review DPAs, понимайте training opt-out flags where relevant.
+
+## Retention
+
+Debug windows vs long-term audit. Удаляйте или агрегируйте aggressively.
+
+## Cross-border
+
+Legal review, когда EU personal data попадает в non-adequate regions - process, не disclaimer в блоге.
+
+## Как помогает Dali
+
+Privacy constraints принадлежат pilot brief: [how to brief a studio](/ru/blog/how-to-brief-an-ai-agent-studio).
+
+## FAQ
+
+### Можно ли consumer ChatGPT на customer tickets?
+Обычно плохая идея для confidential data. Используйте approved API paths с controls.
+
+### Нужен ли DPA?
+Часто да с processors - спросите counsel.
+
+### Связанное
+[Buyer security checklist](/ru/blog/ai-agent-security-checklist-for-buyers)
+
+
+<!-- covers GPT questions: 39-42,44 -->

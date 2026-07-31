@@ -1,0 +1,54 @@
+---
+slug: "pii-gdpr-logging-for-ai-agents"
+title: "PII, GDPR և logging AI agents-ի համար"
+description: "Գործնական privacy design agents-ի համար. data minimization, redaction, subprocessors, retention և regional concerns։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "pii-gdpr-logging-for-ai-agents"
+keywords: ["GDPR AI agents", "PII in LLM logs", "AI agent data privacy"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Ուղիղ պատասխան
+
+Minimize արեք այն, ինչ model-ը և logs-ը տեսնում են, redact արեք PII, իմացեք subprocessors-ը, սահմանեք retention և document արեք lawful basis։ «Model-ը smart է»-ն privacy program չէ։
+
+## Data minimization
+
+Ուղարկեք միայն fields, որոնք required են task-ի համար։ Drop արեք free-text dumps, որոնք պարունակում են IDs և secrets։
+
+## Redaction
+
+Mask արեք emails, phones, card data model-ից առաջ և external log drains-ից առաջ։
+
+## Subprocessors
+
+Model APIs, email, CRM - list արեք, review արեք DPAs, հասկացեք training opt-out flags, որտեղ relevant է։
+
+## Retention
+
+Debug windows vs long-term audit։ Delete կամ aggregate արեք aggressively։
+
+## Cross-border
+
+Legal review, երբ EU personal data-ն հասնում է non-adequate regions - process, ոչ blog disclaimer։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Privacy constraints-ը պատկանում են pilot brief-ին. [ինչպես brief անել studio](/arm/blog/how-to-brief-an-ai-agent-studio)։
+
+## FAQ
+
+### Կարո՞ղ ենք օգտագործել consumer ChatGPT customer tickets-ի վրա։
+Սովորաբար վատ գաղափար է confidential data-ի համար։ Օգտագործեք approved API paths controls-ով։
+
+### Պե՞տք է DPA։
+Հաճախ այո processors-ի հետ - հարցրեք counsel։
+
+### Related
+[Buyer security checklist](/arm/blog/ai-agent-security-checklist-for-buyers)
+
+
+<!-- covers GPT questions: 39-42,44 -->

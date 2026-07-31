@@ -1,0 +1,50 @@
+---
+slug: "document-and-invoice-agents-limits"
+title: "Document და invoice AI აგენტები: შესაძლებლობები და hard limits"
+description: "რას აკეთებენ კარგად document და invoice AI აგენტები, სად fail-დება accuracy და როგორ gate-ოთ finance side effects."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "document-and-invoice-agents-limits"
+keywords: ["invoice AI agent", "PDF extraction AI agent", "document processing AI აგენტები"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## პირდაპირი პასუხი
+
+Document აგენტები excel-ავენ extraction-სა და triage-ზე. Fail-დებიან ambiguous totals-ზე, fraud edge cases-სა და policy exceptions-ზე. **არასოდეს auto-pay** unchecked extraction-იდან.
+
+## Good fit
+
+Pull fields recurring invoice layouts-იდან, route სწორ queue-ზე, flag missing data.
+
+## Weak fit
+
+Adversarial ან highly variable documents human review-ის გარეშე.
+
+## Finance AP pattern
+
+Extract → validate rules → human approve payment tool.
+
+## Accuracy
+
+განსაზღვრეთ field-level tolerances; “looks right” არ არის metric.
+
+## როგორ ჯდება Dali
+
+Document-to-action pilots: [operations-docs](/ge/solutions/operations-docs).
+
+## FAQ
+
+### OCR errors?
+მოელოდეთ მათ; აპროექტეთ validation და human review.
+
+### დაკავშირებული
+[Operations docs pilot](/ge/solutions/operations-docs)
+
+### შეუძლიათ აგენტებს accounting entries-ის კოდირება?
+მხოლოდ staging/review workflows-ში controls-ით.
+
+
+<!-- covers GPT questions: 63,69 -->

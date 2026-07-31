@@ -1,0 +1,50 @@
+---
+slug: "versioning-prompts-and-agent-rollouts"
+title: "Versioning prompts և agent changes-ի rollout"
+description: "Դիտեք prompts-ը և tool schemas-ը ինչպես code. review, version, canary, rollback և release notes operators-ի համար։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "versioning-prompts-and-agent-rollouts"
+keywords: ["prompt versioning", "AI agent release management", "roll out prompt changes"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Երբեք մի edit արեք production prompts live առանց version tag-ի և rollback-ի։ Ship արեք agent changes review → eval → canary → full-ով, notes-ով humans-ի համար, որոնք handle են անում exceptions։
+
+## Ինչ version անել
+
+System prompts, tool schemas, retrieval corpora versions, gate rules։
+
+## Review
+
+Second pair of eyes high-risk domains-ի վրա (money, legal, medical-adjacent)։
+
+## Release notes
+
+Ինչ փոխվեց, ինչ watch անել, ով ping անել։
+
+## Rollout
+
+Shadow/canary patterns companion post-ից։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն թողնում է versioned handoff artifacts. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Git prompts-ի համար՞։
+Այո, կամ այլ source-controlled store diffs-ով։
+
+### Hotfix առանց eval՞։
+Միայն pure typo fixes-ի համար zero behavior change-ով - դեռ log արեք։
+
+### Related
+[Shadow mode և canary](/arm/blog/shadow-mode-and-canary-for-ai-agents)
+
+
+<!-- covers GPT questions: 56-58 -->

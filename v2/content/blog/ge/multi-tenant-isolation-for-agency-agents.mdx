@@ -1,0 +1,50 @@
+---
+slug: "multi-tenant-isolation-for-agency-agents"
+title: "Multi-tenant isolation agency AI აგენტებისთვის"
+description: "როგორ isolate-ავენ agencies client data-ს, prompts-სა და knowledge indexes-ს AI აგენტების accounts-ზე გაშვებისას."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "multi-tenant-isolation-for-agency-agents"
+keywords: ["multi-tenant AI აგენტები", "agency client data isolation AI", "shared AI agent multiple clients"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+არასოდეს გააზიაროთ raw client knowledge indexes, credentials ან conversation memory tenants-ზე. Isolate-ეთ client-ით storage-ზე, retrieval-სა და tool-credential layers-ზე - “one big prompt with all clients” breach-ია, რომელიც ელოდება.
+
+## რატომ fail-დებიან agencies ამაზე
+
+Copy-paste ops, shared inboxes, shared vector stores, shared admin tokens.
+
+## Isolation layers
+
+Auth tenant id, separate secrets, separate indexes, separate logging streams სადაც საჭიროა.
+
+## Prompts
+
+Shared skill templates OK; client facts და credentials არასოდეს baked-დება shared system prompts-ში.
+
+## Multi-store routing
+
+Explicit brand/store id ყოველ tool call-ზე - არა “guess the store from vibe”.
+
+## როგორ ჯდება Dali
+
+Dali აპროექტებს tenant boundaries-ს agency ops აგენტებში: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### შეუძლიათ embeddings-ს ყველა client-იდან ერთი DB-ის გაზიარება?
+მხოლოდ strict tenant partitioning-ითა და access controls-ით - default separate namespaces.
+
+### დაკავშირებული
+[Ops agents multi-store pattern](/ge/blog/ops-agent-multi-store-pattern)
+
+### რაც შეეხება subcontractors-ს?
+იგივე isolation rules; time-boxed access.
+
+
+<!-- covers GPT questions: 21,47,48,71 -->

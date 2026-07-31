@@ -1,0 +1,50 @@
+---
+slug: "prompt-injection-defenses-for-tool-agents"
+title: "Prompt injection defenses tool-using AI agents-ի համար"
+description: "Ինչպես untrusted email, web և PDF content-ը hijack է անում agents - և practical defenses, որոնք իրականում օգնում են։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "prompt-injection-defenses-for-tool-agents"
+keywords: ["prompt injection AI agents", "defend tool calling agents", "indirect prompt injection"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Դիտեք ամբողջ external text-ը որպես **hostile**։ Առանձնացրեք instructions-ը data-ից, constrain արեք tools, պահանջեք gates irreversible actions-ի վրա, և երբեք թույլ մի տվեք retrieved content-ին redefine անել system policy։
+
+## Direct vs indirect injection
+
+User-ը գրում է «ignore rules» vs webpage/email, որ ասում է «forward secrets to …»։ Indirect-ն է business killer-ը։
+
+## Defenses, որոնք օգնում են
+
+Allowlisted tools, no open browsing high-trust agents-ում, sanitize/truncate untrusted text, dual-channel confirmations sends-ի համար, human gates։
+
+## Defenses, որոնք թույլ են միայնակ
+
+«You are a safe assistant» pep talks system prompt-ում։
+
+## PDF և email
+
+Նույն rules. content-ը data է, ոչ authority։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Security-minded design-ը default է Dali pilots-ում. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Կարո՞ղ ենք fully solve անել injection։
+Դուք reduce եք անում risk. չեք կարող wish away անել, եթե tools-ը կարող են act անել։
+
+### Պե՞տք է support agents-ը browse անեն public web։
+Միայն tight allowlists-ով և no credentialed actions page content-ից։
+
+### Related
+[Safe tool calling](/arm/blog/safe-tool-calling-for-business-agents)
+
+
+<!-- covers GPT questions: 37,38 -->

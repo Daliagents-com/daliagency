@@ -1,0 +1,50 @@
+---
+slug: "agent-observability-logs-traces"
+title: "Agent observability. logs, traces և ինչ պահել"
+description: "Ինչ log անել production AI agents-ի համար առանց tokens-ի մեջ խեղդվելու կամ secrets leak անելու։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "agent-observability-logs-traces"
+keywords: ["AI agent observability", "AI agent tracing", "logging AI agent tool calls"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Log արեք **structured events**. request id, tool name, args (redacted), results status, approvals, model ids, latency, cost։ Raw prompts պահեք միայն retention rules-ի տակ։ Եթե չեք կարող reconstruct անել incident, դուք production չեք։
+
+## Minimum viable trace
+
+Correlation id across steps, who/what triggered the run, tools attempted, gate decisions, final side effects։
+
+## Redaction
+
+Strip արեք secrets, tokens, full card numbers, unnecessary PII logs-ից, որ ship են լինում third parties։
+
+## Metrics
+
+Success, exceptions, human overrides, p95 latency, $ per successful completion։
+
+## Privacy tradeoff
+
+Ավելի շատ logging օգնում է debug-ին և կարող է ավելացնել compliance burden - սահմանեք retention explicit։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն ներառում է logging expectations pilots-ում. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Պե՞տք է պահել ամեն token։
+Սովորաբար ոչ։ Պահեք hashes կամ truncated spans, քանի դեռ չեք investigate անում։
+
+### OpenTelemetry agents-ի համար՞։
+Օգտակար է, եթե համապատասխանում է stack-ին. structure-ն ավելի կարևոր է, քան tracer-ի brand-ը։
+
+### Related
+[Agent incident response](/arm/blog/agent-incident-response-and-liability)
+
+
+<!-- covers GPT questions: 29,30,31 -->

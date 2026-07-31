@@ -1,0 +1,54 @@
+---
+slug: "browser-agents-computer-use-risks"
+title: "Browser agents и computer-use AI: риски до включения"
+description: "Когда browser или computer-use agents помогают, и security, reliability и compliance risks, которые operators недооценивают."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "browser-agents-computer-use-risks"
+keywords: ["browser AI agents risks", "computer use AI agent", "AI agent controls browser"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Прямой ответ
+
+Browser и computer-use agents мощные и хрупкие. Используйте их для ограниченных internal tasks с recording, least privilege и human gates - не как unsupervised employees на production admin panels.
+
+## Что это
+
+Агенты, которые кликают UI или управляют desktop, когда APIs нет.
+
+## Почему команды хотят их
+
+Legacy portals, partner sites, нет бюджета на API.
+
+## Риски
+
+Кража credentials через page content, prompt injection из untrusted HTML, необратимые clicks, non-reproducible failures, audit gaps.
+
+## Более безопасный pattern
+
+Отдельный browser profile, vaulted credentials, allowlisted domains, step caps, human confirmation на submit/pay/delete, full session logs.
+
+## Предпочитайте APIs когда возможно
+
+API agents проще тестировать, scope'ить и rate-limit'ить, чем pixel-level automation.
+
+## Как помогает Dali
+
+Предпочитайте API-first pilots с Dali: [solutions](/ru/solutions).
+
+## FAQ
+
+### Browser agents production-ready?
+Для узких, monitored paths - возможно. Для open-ended «делай мою работу» - нет.
+
+### Могут ли они заменить RPA?
+Иногда. RPA всё ещё может быть стабильнее на fixed UIs.
+
+### Связанное
+[Taxonomy agent vs RPA](/ru/blog/agent-chatbot-copilot-rpa-differences)
+
+
+<!-- covers GPT questions: 11 -->

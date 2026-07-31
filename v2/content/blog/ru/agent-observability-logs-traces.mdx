@@ -1,0 +1,50 @@
+---
+slug: "agent-observability-logs-traces"
+title: "Agent observability: logs, traces и что хранить"
+description: "Что логировать для production AI-агентов, не утонув в tokens и не утекая secrets."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "agent-observability-logs-traces"
+keywords: ["AI agent observability", "AI agent tracing", "logging AI agent tool calls"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Логируйте **structured events**: request id, tool name, args (redacted), results status, approvals, model ids, latency, cost. Raw prompts храните только under retention rules. Если вы не можете восстановить incident, вы не production.
+
+## Minimum viable trace
+
+Correlation id across steps, who/what triggered the run, tools attempted, gate decisions, final side effects.
+
+## Redaction
+
+Убирайте secrets, tokens, full card numbers, unnecessary PII из logs, которые уходят third parties.
+
+## Metrics
+
+Success, exceptions, human overrides, p95 latency, $ per successful completion.
+
+## Privacy tradeoff
+
+Больше logging помогает debug и может увеличить compliance burden - define retention explicitly.
+
+## Как помогает Dali
+
+Dali включает logging expectations в pilots: [solutions](/ru/solutions).
+
+## FAQ
+
+### Хранить каждый token?
+Обычно нет. Храните hashes или truncated spans, unless investigating.
+
+### OpenTelemetry для agents?
+Полезно, если fits your stack; structure важнее brand of tracer.
+
+### Связанное
+[Agent incident response](/ru/blog/agent-incident-response-and-liability)
+
+
+<!-- covers GPT questions: 29,30,31 -->

@@ -1,0 +1,62 @@
+---
+slug: "rag-memory-and-grounding-for-agents"
+title: "RAG, memory և grounding production AI agents-ի համար"
+description: "Երբ agents-ին պետք է RAG, ինչպես chunk և cite անել sources, ինչ պահել memory-ում և ինչպես policies-ը թարմ պահել։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "rag-memory-and-grounding-for-agents"
+keywords: ["RAG for AI agents", "agent memory vs RAG", "grounded AI agents knowledge base"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## Ուղիղ պատասխան
+
+Օգտագործեք **RAG**, երբ պատասխանները պետք է հետևեն approved documents-ին։ **Memory**-ը օգտագործեք զգուշորեն session կամ user preferences-ի համար - ոչ որպես secrets-ի junk drawer։ Grounding նշանակում է citations, freshness և evals - ոչ ավելի մեծ prompt։
+
+## Long prompt vs RAG
+
+Prompts-ը փչանում են և հասնում limits-ի։ RAG-ը retrieve է անում relevant chunks per question updateable sources-ով։
+
+## Chunking basics
+
+Chunk արեք coherent policy sections-ով, պահեք metadata (title, date, product), խուսափեք huge blobs-ից, որոնք dilute են անում retrieval-ը։
+
+## Citations
+
+Պահանջեք source IDs knowledge tasks-ի պատասխաններում։ «Կարծում եմ»-ը ops պատասխան չէ։
+
+## Memory types
+
+Ephemeral session context, durable preferences, և երբեք. raw credentials կամ այլ clients-ի data։
+
+## Freshness
+
+Version արեք documents, expire արեք superseded policies, re-index արեք publish-ի վրա։ Stale SOP retrieval-ը silent failure mode է։
+
+## Per-client indexes
+
+Agencies-ին և multi-tenant products-ին պետք է isolation by tenant - shared global indexes-ը leak են անում։
+
+## Eval retrieval
+
+Չափեք hit rate golden questions-ի վրա, ոչ միայն chat style scores։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն նախագծում է grounded knowledge paths pilots-ում. [knowledge assistant](/arm/solutions/knowledge-assistant)։
+
+## FAQ
+
+### Բոլոր agents-ին պետք է vector database՞։
+Ոչ։ Որոշ paths pure tool workflows են։ Search օգտագործեք, երբ language Q&A over docs-ն է աշխատանքը։
+
+### Կարո՞ղ են agents-ը կարդալ ամբողջ Drive/Notion-ը։
+Միայն least privilege-ով, հստակ corpus ownership-ով և redaction rules-ով։
+
+### Related
+[Knowledge bases site assistants-ի համար](/arm/blog/knowledge-base-for-site-ai-assistant)
+
+
+<!-- covers GPT questions: 13-22 -->

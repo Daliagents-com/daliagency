@@ -1,0 +1,54 @@
+---
+slug: "channel-agents-whatsapp-slack-email"
+title: "WhatsApp, Slack և email AI agents. channel-specific rules"
+description: "Ինչպես agent design-ը փոխվում է by channel. WhatsApp business, Slack internal ops և email classification vs reply։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "channel-agents-whatsapp-slack-email"
+keywords: ["WhatsApp AI agent", "Slack AI agent ops", "email AI agent vs classification"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Ուղիղ պատասխան
+
+Channel-ը փոխում է risk-ը և UX-ը։ **WhatsApp**-ը customer-visible է և regulated platform rules-ով։ **Slack**-ը internal է, բայց դեռ կարող է leak անել data։ **Email**-ին հաճախ պետք է classify-first, ոչ auto-send-all։
+
+## WhatsApp / messaging apps
+
+Template rules, opt-in, tone, escalation to humans, no unsupervised commitments։
+
+## Slack
+
+Internal knowledge ACL awareness-ով. կանխեք cross-channel private data leaks։
+
+## Email
+
+Classification և draft replies նախ. sending gates external mail-ի համար։
+
+## Calendar booking
+
+Confirm արեք timezone, double-booking rules և human override VIP-ի համար։
+
+## Shared rule
+
+Identity of the counterparty և audit trail ամեն outbound-ի վրա։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Channel pilots. [lead response](/arm/solutions/lead-response) և [client inbox](/arm/solutions/client-inbox)։
+
+## FAQ
+
+### Պե՞տք է մեկ agent-ը cover անի բոլոր channels day one։
+Ոչ։ Նախ մեկ channel pilot։
+
+### Related
+[Client inbox operations](/arm/blog/client-inbox-agent-operations), [Telegram handoff](/arm/blog/human-handoff-telegram-from-site-chat)
+
+### Email auto-send-ը երբևէ OK է՞։
+Միայն strong policy-ով, low risk classes-ով և metrics-ով։
+
+
+<!-- covers GPT questions: 59-62 -->

@@ -1,0 +1,54 @@
+---
+slug: "llm-cost-and-model-choice-for-agents"
+title: "LLM cost и model choice для business agents"
+description: "Как выбирать models для ops agents и контролировать spend: routing, caching, budgets и fallbacks."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "llm-cost-and-model-choice-for-agents"
+keywords: ["LLM cost control agents", "which model for AI agents", "AI agent token cost"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Выбирайте **самую дешёвую model, которая проходит ваш eval bar** для каждого шага. Контролируйте cost routing'ом, caching, truncation, step caps и hard budgets per run - не надеждой, что invoice останется маленьким.
+
+## Model choice
+
+Strong models для hard reasoning и risky drafts; smaller/faster models для classification и extraction, если evals проходят.
+
+## Routing
+
+Classifier step → specialized prompts/models. Не используйте frontier model на каждый «yes/no».
+
+## Caching
+
+Кешируйте stable system instructions и repeated retrieval chunks, где policy позволяет.
+
+## Budgets
+
+Max tokens, max tool calls, kill switch на spend anomalies.
+
+## Fallbacks
+
+Secondary model или queue-to-human, когда primary errors или times out.
+
+## Как помогает Dali
+
+Cost-aware design - часть Dali pilots: [solutions](/ru/solutions).
+
+## FAQ
+
+### Open source всегда дешевле?
+Нет, если вы платите GPU ops, а quality drops вызывают rework.
+
+### Нужен ли fine-tune?
+Редко first. Предпочитайте prompts, tools и RAG; fine-tune, когда evals доказывают stable gap.
+
+### Связанное
+[AI agent ROI measurement](/ru/blog/ai-agent-roi-how-to-measure)
+
+
+<!-- covers GPT questions: 26-28,35 -->

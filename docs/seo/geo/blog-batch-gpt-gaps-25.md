@@ -2,8 +2,8 @@
 
 **Date:** 2026-07-31  
 **Source map:** [gpt-questions-100-gap-map.md](./gpt-questions-100-gap-map.md)  
-**EN status:** published under `v2/content/blog/en/`  
-**Count:** 25 new EN posts → total EN inventory **107** (was 82)
+**Status:** EN + RU + GE + ARM published  
+**Count:** 25 new posts × 4 locales → total inventory **107 × 4** (was 82 × 4)
 
 These posts answer clusters of ChatGPT-style questions that were **not** covered by the previous 82 articles (agency buyer FAQs + process/vibe checklists).
 
@@ -52,10 +52,12 @@ Each post answers 2–6 related GPT questions with Direct answer + FAQ + interna
 
 ## Locales
 
-| Locale | Status |
-| --- | --- |
-| en | done |
-| ru / ge / arm | in progress / follow-up commit |
+| Locale | Total | Batch 25 |
+| --- | --- | --- |
+| en | 107 | 25/25 |
+| ru | 107 | 25/25 |
+| ge | 107 | 25/25 |
+| arm | 107 | 25/25 |
 
 ---
 

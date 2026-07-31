@@ -1,0 +1,54 @@
+---
+slug: "testing-ci-cd-for-vibe-coded-apps"
+title: "Testing и CI/CD для vibe-coded apps"
+description: "Минимум testing и pipeline practices, когда UI сгенерирован AI builders - чтобы handoff engineers не рухнул."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "testing-ci-cd-for-vibe-coded-apps"
+keywords: ["testing vibe coded app", "CI CD AI generated codebase", "handoff vibe MVP engineers"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+AI-generated UI - не free pass on quality. Добавьте **smoke tests**, critical-path e2e for money/auth, CI on every PR и written handoff map before real users scale.
+
+## Minimum tests
+
+Auth login, checkout or lead form, webhook receiver, permission denial cases.
+
+## CI
+
+Lint, typecheck, unit/smoke, block merge on red.
+
+## Staging
+
+Environment parity for secrets и payments test mode.
+
+## Handoff to engineers
+
+Architecture sketch, known footguns, seed data, how to run locally.
+
+## What AI tests miss
+
+Race conditions, entitlement bugs, multi-tenant leaks.
+
+## Как помогает Dali
+
+Rescue pilots include handoff packages: [vibe-code rescue](/ru/solutions/vibe-code-rescue).
+
+## FAQ
+
+### We have no engineers yet?
+Всё равно run CI; humans понадобятся before serious scale.
+
+### Связанное
+[After vibe-code audit handoff](/ru/blog/after-vibe-code-audit-handoff)
+
+### Playwright/Cypress?
+Fine - cover money paths first, not every pixel.
+
+
+<!-- covers GPT questions: 84,85,94 -->

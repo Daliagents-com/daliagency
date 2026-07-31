@@ -1,0 +1,58 @@
+---
+slug: "agent-incident-response-and-liability"
+title: "AI agent incident response და liability basics"
+description: "რა გააკეთოთ, როცა აგენტი არასწორად მოქმედებს: contain, revoke, notify, fix და როგორ უნდა ანაწილებდეს contracts პასუხისმგებლობას."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "agent-incident-response-and-liability"
+keywords: ["AI agent incident response", "AI agent liability", "აგენტმა არასწორი email გააგზავნა"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+როცა აგენტი fail-დება: **გააჩერეთ აგენტი**, revoke credentials თუ საჭიროა, შეინახეთ traces, გაასწორეთ customer impact, შემდეგ patch prompts/tools. Contracts-მა უნდა თქვას, ვინ არის პასუხისმგებელი business decisions-ზე vs software defects-ზე.
+
+## Contain
+
+Kill switch, disable write tools, pause queues.
+
+## Investigate
+
+გამოიღეთ correlation ids, tool args, approvals - ამიტომ observability მნიშვნელოვანია.
+
+## Customer fix
+
+Human outreach, refunds, corrections - real owner-ით.
+
+## Prevent
+
+Eval case incident-იდან, tighter gates, better idempotency.
+
+## Liability
+
+Policies და human approval არ ქრება იმიტომ, რომ model-მა text შემოგთავაზათ. გაასწორეთ vendor SOW იმასთან, ვინც outcomes-ს ფლობს.
+
+## SLA
+
+განსაზღვრეთ response times agent-impacted queues-ისთვის სხვა production systems-ის მსგავსად.
+
+## როგორ ჯდება Dali
+
+Dali pilots განსაზღვრავს stop-switches-სა და handoff owners-ს: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### უნდა ვუთხრათ customers-ს, რომ message AI-assisted იყო?
+მიჰყევით law-სა და brand policy-ს; honesty ხშირად ამცირებს damage-ს errors-ისას.
+
+### ვინ ფლობს quality-ს vendor-ის წასვლის შემდეგ?
+დაასახელეთ role launch-მდე - იხილეთ change management პოსტი.
+
+### დაკავშირებული
+[Observability](/ge/blog/agent-observability-logs-traces)
+
+
+<!-- covers GPT questions: 45,46,76,78 -->

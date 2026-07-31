@@ -1,0 +1,54 @@
+---
+slug: "how-to-evaluate-ai-agents-before-go-live"
+title: "Ինչպես evaluate անել AI agents go-live-ից առաջ"
+description: "Գործնական eval harness business agents-ի համար. golden cases, failure tests, tool-call checks և pass bars։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "how-to-evaluate-ai-agents-before-go-live"
+keywords: ["evaluate AI agents before production", "AI agent eval set", "test AI agents go-live"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Մի գնացեք live vibes-ի վրա։ Կառուցեք **golden set** իրական cases-ից, score արեք tool correctness և policy compliance, և սահմանեք pass bar։ Եթե չեք կարող fail անել agent-ը staging-ում, չեք կարող վստահել production-ում։
+
+## Golden cases
+
+20–100 historical tickets/leads/docs։ Ներառեք messy, hostile և incomplete inputs։
+
+## Ինչ score անել
+
+Correct tool choice, argument validity, gate triggers, grounded answers, no forbidden actions։
+
+## Adversarial tests
+
+Prompt injection strings, conflicting policies, missing fields, duplicate sends։
+
+## Human review sample
+
+Sample արեք traces weekly նույնիսկ launch-ից հետո։
+
+## Dashboards
+
+Exception rate, override rate, cost per successful case, incident count - նախ baselines։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali pilots-ը ներառում են acceptance tests. [solutions](/arm/solutions)։
+
+## FAQ
+
+### User satisfaction-ը բավարա՞ր է։
+Ոչ։ Users-ը կարող են like անել fluent wrong answers։
+
+### Որքա՞ն հաճախ re-run անել evals։
+Ամեն prompt/tool change-ի վրա և fixed schedule-ով։
+
+### Related
+[Measuring AI agent ops](/arm/blog/measuring-ai-agent-ops)
+
+
+<!-- covers GPT questions: 23-25,31 -->

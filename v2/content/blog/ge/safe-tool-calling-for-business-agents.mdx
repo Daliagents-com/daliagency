@@ -1,0 +1,54 @@
+---
+slug: "safe-tool-calling-for-business-agents"
+title: "უსაფრთხო tool calling business AI აგენტებისთვის"
+description: "როგორ უნდა მუშაობდეს tool calling production-ში: scopes, allowlists, confirmation gates, loop limits და least privilege."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "safe-tool-calling-for-business-agents"
+keywords: ["AI agent tool calling", "უსაფრთხო tool use AI აგენტები", "LLM function calling security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+მიეცით აგენტებს **პატარა tool allowlists**, least-privilege credentials, explicit schemas, loop limits და human gates irreversible tools-ზე. Tool calling scopes-ის გარეშე არის ის, როგორ demos ხდება incidents.
+
+## Tool calling vs prompting
+
+Prompting აწარმოებს ტექსტს. Tool calling აძლევს მოდელს structured actions-ის არჩევის საშუალებას (CRM update, search, send). Action layer არის ის ადგილი, სადაც business risk ცხოვრობს.
+
+## Allowlists და schemas
+
+ყოველ tool-ს სჭირდება name, JSON schema, max frequency და owner. უარყავით free-form “run any code” production ops-ში.
+
+## Permissions
+
+გაყავით read tools write tools-ისგან. გაყავით staging credentials. არანაირი god-mode service accounts agent runtime-ში.
+
+## Loop და spend limits
+
+Max steps, max tokens, max tool calls, wall-clock timeout. Infinite replanning bug-ია, არა intelligence.
+
+## Assistants platforms
+
+Hosted assistant APIs შეიძლება bootstrap-ში დაგეხმაროთ. მაინც თქვენ ფლობთ scopes-ს, logging-სა და gates-ს business actions-ისთვის.
+
+## როგორ ჯდება Dali
+
+Dali აპროექტებს tool boundaries-ს discovery-ში: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### უნდა შეასრულოს აგენტმა SQL production-ზე?
+თითქმის არასოდეს პირდაპირ. უპირატესობა მიეცით constrained APIs-სა და audited mutations-ს.
+
+### როგორ დავადასტუროთ high-risk tools?
+Human approval gate evidence pack-ით: inputs, intended action, confidence, source.
+
+### დაკავშირებული
+[Human approval gates](/ge/blog/human-approval-gates-for-ai-agents)
+
+
+<!-- covers GPT questions: 5,6,7,12,43 -->

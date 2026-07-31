@@ -1,0 +1,54 @@
+---
+slug: "safe-tool-calling-for-business-agents"
+title: "Safe tool calling business AI agents-ի համար"
+description: "Ինչպես պետք է աշխատի tool calling-ը production-ում. scopes, allowlists, confirmation gates, loop limits և least privilege։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "safe-tool-calling-for-business-agents"
+keywords: ["AI agent tool calling", "safe tool use AI agents", "LLM function calling security"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Տվեք agents-ին **փոքր tool allowlists**, least-privilege credentials, explicit schemas, loop limits և human gates irreversible tools-ի վրա։ Tool calling առանց scopes-ի այն է, թե ինչպես demos-ը դառնում են incidents։
+
+## Tool calling vs prompting
+
+Prompting-ը արտադրում է text։ Tool calling-ը թույլ է տալիս model-ին ընտրել structured actions (CRM update, search, send)։ Action layer-ն է, որտեղ ապրում է business risk-ը։
+
+## Allowlists և schemas
+
+Ամեն tool-ի պետք է name, JSON schema, max frequency և owner։ Մերժեք free-form «run any code»-ը production ops-ում։
+
+## Permissions
+
+Առանձնացրեք read tools-ը write tools-ից։ Առանձնացրեք staging credentials։ Ոչ god-mode service accounts agent runtime-ում։
+
+## Loop և spend limits
+
+Max steps, max tokens, max tool calls, wall-clock timeout։ Infinite replanning-ը bug է, ոչ intelligence։
+
+## Assistants platforms
+
+Hosted assistant APIs-ը կարող են օգնել bootstrap-ին։ Դուք դեռ տիրապետում եք scopes-ին, logging-ին և gates-ին business actions-ի համար։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն նախագծում է tool boundaries discovery-ում. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Պե՞տք է agent-ը execute անի SQL production-ում։
+Գրեթե երբեք ուղղակիորեն։ Նախընտրեք constrained APIs և audited mutations։
+
+### Ինչպե՞ս confirm անենք high-risk tools։
+Human approval gate evidence pack-ով. inputs, intended action, confidence, source։
+
+### Related
+[Human approval gates](/arm/blog/human-approval-gates-for-ai-agents)
+
+
+<!-- covers GPT questions: 5,6,7,12,43 -->

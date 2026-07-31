@@ -1,0 +1,54 @@
+---
+slug: "open-frameworks-and-assistants-when-to-use"
+title: "Open agent frameworks и hosted assistants: когда использовать"
+description: "LangChain, CrewAI, AutoGen, n8n и hosted assistant APIs - когда ускоряют и когда добавляют glue risk."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "open-frameworks-and-assistants-when-to-use"
+keywords: ["LangChain for business agents", "CrewAI vs custom agent", "OpenAI Assistants vs custom"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Прямой ответ
+
+Используйте frameworks и hosted assistants, когда они **shorten integration time** without hiding ownership. Avoid them, когда force multi-agent complexity you cannot eval or debug.
+
+## Hosted assistants
+
+Fast tools + threads. Still need your gates, IAM и business evals.
+
+## LangChain-class frameworks
+
+Useful connectors и patterns; can become abstraction mazes.
+
+## Multi-agent frameworks
+
+Only with clear role contracts и traces.
+
+## n8n/Zapier
+
+See automation comparison post - great glue, limited NLP judgment.
+
+## Decision
+
+Choose the thinnest layer that passes evals и your team can maintain.
+
+## Как помогает Dali
+
+Dali picks stack per pilot constraints: [solutions](/ru/solutions).
+
+## FAQ
+
+### Is no framework OK?
+Да - direct SDK + clear modules often wins for one pilot.
+
+### Связанное
+[Multi-agent vs single](/ru/blog/multi-agent-vs-single-agent-when-to-use), [Zapier vs agents](/ru/blog/zapier-make-n8n-vs-production-agents)
+
+### Vendor lock-in?
+Prefer portable prompts, schemas и tool interfaces.
+
+
+<!-- covers GPT questions: 3,12,49 -->

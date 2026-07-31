@@ -1,0 +1,54 @@
+---
+slug: "how-to-evaluate-ai-agents-before-go-live"
+title: "როგორ შეაფასოთ AI აგენტები go-live-მდე"
+description: "პრაქტიკული eval harness business აგენტებისთვის: golden cases, failure tests, tool-call checks და pass bars."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "how-to-evaluate-ai-agents-before-go-live"
+keywords: ["AI აგენტების შეფასება production-მდე", "AI agent eval set", "AI აგენტების ტესტი go-live"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+არ გახვიდეთ live vibes-ზე. ააშენეთ **golden set** რეალური cases-ისგან, შეაფასეთ tool correctness და policy compliance, და დააყენეთ pass bar. თუ staging-ში აგენტის fail-ი ვერ შეგიძლიათ, production-ში ვერ ენდობით.
+
+## Golden cases
+
+20–100 ისტორიული tickets/leads/docs. ჩართეთ messy, hostile და incomplete inputs.
+
+## რა უნდა შეაფასოთ
+
+Correct tool choice, argument validity, gate triggers, grounded answers, no forbidden actions.
+
+## Adversarial tests
+
+Prompt injection strings, conflicting policies, missing fields, duplicate sends.
+
+## Human review sample
+
+Sample traces ყოველკვირეულად launch-ის შემდეგაც.
+
+## Dashboards
+
+Exception rate, override rate, cost per successful case, incident count - ჯერ baselines.
+
+## როგორ ჯდება Dali
+
+Dali pilots მოიცავს acceptance tests-ს: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### User satisfaction საკმარისია?
+არა. Users-ს შეუძლიათ fluent wrong answers-ის მოწონება.
+
+### რამდენად ხშირად re-run evals?
+ყოველ prompt/tool change-ზე და fixed schedule-ზე.
+
+### დაკავშირებული
+[AI agent ops-ის გაზომვა](/ge/blog/measuring-ai-agent-ops)
+
+
+<!-- covers GPT questions: 23-25,31 -->

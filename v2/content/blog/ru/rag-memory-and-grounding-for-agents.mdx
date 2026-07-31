@@ -1,0 +1,62 @@
+---
+slug: "rag-memory-and-grounding-for-agents"
+title: "RAG, memory и grounding для production AI-агентов"
+description: "Когда агентам нужен RAG, как chunk'ить и цитировать sources, что хранить в memory и как держать policies свежими."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "rag-memory-and-grounding-for-agents"
+keywords: ["RAG for AI agents", "agent memory vs RAG", "grounded AI agents knowledge base"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## Прямой ответ
+
+Используйте **RAG**, когда ответы должны следовать approved documents. Используйте **memory** умеренно для session или user preferences - не как junk drawer secrets. Grounding - это citations, freshness и evals, а не bigger prompt.
+
+## Long prompt vs RAG
+
+Prompts гниют и упираются в limits. RAG достаёт relevant chunks на каждый вопрос с updateable sources.
+
+## Chunking basics
+
+Chunk'ить по coherent policy sections, хранить metadata (title, date, product), избегать huge blobs, которые размывают retrieval.
+
+## Citations
+
+Требуйте source IDs в answers для knowledge tasks. «Мне кажется» - не ops answer.
+
+## Типы memory
+
+Ephemeral session context, durable preferences, и никогда: raw credentials или data других clients.
+
+## Freshness
+
+Версионируйте documents, expire superseded policies, re-index on publish. Stale SOP retrieval - silent failure mode.
+
+## Per-client indexes
+
+Agencies и multi-tenant products нуждаются в isolation by tenant - shared global indexes протекают.
+
+## Eval retrieval
+
+Мерите hit rate на golden questions, не только chat style scores.
+
+## Как помогает Dali
+
+Dali проектирует grounded knowledge paths в pilots: [knowledge assistant](/ru/solutions/knowledge-assistant).
+
+## FAQ
+
+### Всем ли агентам нужна vector database?
+Нет. Некоторые paths - pure tool workflows. Используйте search, когда language Q&A over docs - это job.
+
+### Могут ли agents читать весь Drive/Notion?
+Только с least privilege, clear corpus ownership и redaction rules.
+
+### Связанное
+[Knowledge bases для site assistants](/ru/blog/knowledge-base-for-site-ai-assistant)
+
+
+<!-- covers GPT questions: 13-22 -->

@@ -1,0 +1,62 @@
+---
+slug: "rag-memory-and-grounding-for-agents"
+title: "RAG, memory და grounding production AI აგენტებისთვის"
+description: "როდის სჭირდება აგენტებს RAG, როგორ chunk-ოთ და cite-ოთ sources, რა შეინახოთ memory-ში და როგორ შეინარჩუნოთ policies fresh."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "rag-memory-and-grounding-for-agents"
+keywords: ["RAG AI აგენტებისთვის", "agent memory vs RAG", "grounded AI agents knowledge base"]
+status: "published"
+author: "Dali"
+type: "pillar"
+---
+
+## პირდაპირი პასუხი
+
+გამოიყენეთ **RAG**, როცა პასუხები approved documents-ს უნდა მიჰყვეს. გამოიყენეთ **memory** ზომიერად session ან user preferences-ისთვის - არა როგორც junk drawer of secrets. Grounding ნიშნავს citations, freshness და evals - არა უფრო დიდ prompt-ს.
+
+## Long prompt vs RAG
+
+Prompts იშლება და ხვდება limits-ში. RAG იღებს relevant chunks-ს თითო კითხვაზე updateable sources-ით.
+
+## Chunking basics
+
+Chunk-ეთ coherent policy sections-ით, შეინახეთ metadata (title, date, product), აარიდეთ huge blobs, რომლებიც dilute-ავენ retrieval-ს.
+
+## Citations
+
+მოითხოვეთ source IDs knowledge tasks-ის პასუხებში. “ვფიქრობ” არ არის ops პასუხი.
+
+## Memory types
+
+Ephemeral session context, durable preferences, და არასოდეს: raw credentials ან სხვა clients-ის data.
+
+## Freshness
+
+Version documents, expire superseded policies, re-index on publish. Stale SOP retrieval silent failure mode-ია.
+
+## Per-client indexes
+
+Agencies-სა და multi-tenant products-ს სჭირდება isolation tenant-ით - shared global indexes leak-ავენ.
+
+## Eval retrieval
+
+გაზომეთ hit rate golden questions-ზე, არა მხოლოდ chat style scores.
+
+## როგორ ჯდება Dali
+
+Dali აპროექტებს grounded knowledge paths-ს pilots-ში: [knowledge assistant](/ge/solutions/knowledge-assistant).
+
+## FAQ
+
+### ყველა აგენტს სჭირდება vector database?
+არა. ზოგი path pure tool workflows-ია. გამოიყენეთ search, როცა language Q&A over docs არის სამუშაო.
+
+### შეუძლიათ აგენტებს მთელი Drive/Notion-ის კითხვა?
+მხოლოდ least privilege-ით, clear corpus ownership-ით და redaction rules-ით.
+
+### დაკავშირებული
+[Knowledge bases site assistants-ისთვის](/ge/blog/knowledge-base-for-site-ai-assistant)
+
+
+<!-- covers GPT questions: 13-22 -->

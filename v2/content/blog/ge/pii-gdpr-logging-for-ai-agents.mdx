@@ -1,0 +1,54 @@
+---
+slug: "pii-gdpr-logging-for-ai-agents"
+title: "PII, GDPR და logging AI აგენტებისთვის"
+description: "პრაქტიკული privacy design აგენტებისთვის: data minimization, redaction, subprocessors, retention და regional concerns."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "pii-gdpr-logging-for-ai-agents"
+keywords: ["GDPR AI აგენტები", "PII LLM logs-ში", "AI agent data privacy"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## პირდაპირი პასუხი
+
+შეამცირეთ რასაც model და logs ხედავენ, redact-ეთ PII, იცოდეთ subprocessors, დააყენეთ retention და დააფიქსირეთ lawful basis. “მოდელი ჭკვიანია” არ არის privacy program.
+
+## Data minimization
+
+გააგზავნეთ მხოლოდ fields, რომლებიც task-ისთვისაა საჭირო. ამოიღეთ free-text dumps IDs-ითა და secrets-ით.
+
+## Redaction
+
+Mask-ეთ emails, phones, card data model-მდე და external log drains-მდე.
+
+## Subprocessors
+
+Model APIs, email, CRM - ჩამოთვალეთ, review DPAs, გაიგეთ training opt-out flags სადაც relevant-ია.
+
+## Retention
+
+Debug windows vs long-term audit. Delete ან aggregate aggressive-ად.
+
+## Cross-border
+
+Legal review, როცა EU personal data non-adequate regions-ში მიდის - process, არა blog disclaimer.
+
+## როგორ ჯდება Dali
+
+Privacy constraints pilot brief-ში უნდა იყოს: [როგორ brief-ოთ studio](/ge/blog/how-to-brief-an-ai-agent-studio).
+
+## FAQ
+
+### შეგვიძლია consumer ChatGPT customer tickets-ზე?
+ჩვეულებრივ ცუდი იდეაა confidential data-სთვის. გამოიყენეთ approved API paths controls-ით.
+
+### გვჭირდება DPA?
+ხშირად დიახ processors-თან - ჰკითხეთ counsel-ს.
+
+### დაკავშირებული
+[მყიდველის security checklist](/ge/blog/ai-agent-security-checklist-for-buyers)
+
+
+<!-- covers GPT questions: 39-42,44 -->

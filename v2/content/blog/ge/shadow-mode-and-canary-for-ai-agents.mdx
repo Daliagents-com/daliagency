@@ -1,0 +1,54 @@
+---
+slug: "shadow-mode-and-canary-for-ai-agents"
+title: "Shadow mode და canary rollouts AI აგენტებისთვის"
+description: "როგორ rollout-ოთ აგენტები უსაფრთხოდ: shadow predictions, canary percentages, prompt versioning და rollback."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "shadow-mode-and-canary-for-ai-agents"
+keywords: ["shadow mode AI აგენტები", "canary rollout AI agent", "prompt versioning აგენტები"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+გაუშვით აგენტები როგორც risky software: **shadow mode** (predict without acting), შემდეგ **canary** (პატარა % ან ერთი segment), versioned prompts-ით და instant rollback-ით. Big-bang “ყველა ticket ხვალ” არის ის, როგორ კვდება trust.
+
+## Shadow mode
+
+აგენტი სთავაზობს მოქმედებებს; ადამიანები ან current process მაინც მოქმედებენ. შეადარეთ offline.
+
+## Canary
+
+ერთი queue, ერთი locale, ერთი VIP-excluded segment. უყურეთ exception და override rates-ს.
+
+## Prompt/version control
+
+მოექეცით prompts-სა და tool schemas-ს როგორც code-ს: review, tag, release notes.
+
+## Feature flags
+
+Flip behavior whole stack-ის redeploy-ის გარეშე, როცა შესაძლებელია.
+
+## Rollback
+
+Known-good prompt + tool config ერთი click-ით. ივარჯიშეთ.
+
+## როგორ ჯდება Dali
+
+Dali გეგმავს staged pilots-ს: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### რამდენ ხანს shadow?
+სანამ metrics baseline-ს გადააჭარბებს golden set-ზე და live sample-ზე - არა fixed marketing number.
+
+### Canary მხოლოდ enterprises-ისთვისაა?
+SMBs-ს შეუძლიათ canary customer segment-ით ან channel-ით.
+
+### დაკავშირებული
+[შეფასება go-live-მდე](/ge/blog/how-to-evaluate-ai-agents-before-go-live)
+
+
+<!-- covers GPT questions: 36,57,58 -->

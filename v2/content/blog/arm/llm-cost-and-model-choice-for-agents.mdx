@@ -1,0 +1,54 @@
+---
+slug: "llm-cost-and-model-choice-for-agents"
+title: "LLM cost և model choice business agents-ի համար"
+description: "Ինչպես ընտրել models ops agents-ի համար և control անել spend. routing, caching, budgets և fallbacks։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "llm-cost-and-model-choice-for-agents"
+keywords: ["LLM cost control agents", "which model for AI agents", "AI agent token cost"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+Ընտրեք **ամենաէժան model-ը, որ անցնում է ձեր eval bar-ը** ամեն step-ի համար։ Control արեք cost-ը routing-ով, caching-ով, truncation-ով, step caps-ով և hard budgets per run - ոչ invoice-ի փոքր մնալու հույսով։
+
+## Model choice
+
+Strong models hard reasoning-ի և risky drafts-ի համար. smaller/faster models classification-ի և extraction-ի համար, եթե evals-ը անցնում են։
+
+## Routing
+
+Classifier step → specialized prompts/models։ Մի օգտագործեք frontier model ամեն «yes/no»-ի համար։
+
+## Caching
+
+Cache արեք stable system instructions և repeated retrieval chunks, որտեղ policy-ն թույլ է տալիս։
+
+## Budgets
+
+Max tokens, max tool calls, kill switch spend anomalies-ի վրա։
+
+## Fallbacks
+
+Secondary model կամ queue-to-human, երբ primary-ն error է տալիս կամ timeout է լինում։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Cost-aware design-ը Dali pilots-ի մաս է. [solutions](/arm/solutions)։
+
+## FAQ
+
+### Open source-ը միշտ էժա՞ն է։
+Ոչ, եթե վճարում եք GPU ops և quality drop-ը rework է առաջացնում։
+
+### Պե՞տք է fine-tune անենք։
+Հազվադեպ նախ։ Նախընտրեք prompts, tools և RAG. fine-tune արեք, երբ evals-ը ապացուցում են stable gap։
+
+### Related
+[AI agent ROI measurement](/arm/blog/ai-agent-roi-how-to-measure)
+
+
+<!-- covers GPT questions: 26-28,35 -->

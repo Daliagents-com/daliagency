@@ -1,0 +1,54 @@
+---
+slug: "testing-ci-cd-for-vibe-coded-apps"
+title: "Testing և CI/CD vibe-coded apps-ի համար"
+description: "Minimum testing և pipeline practices, երբ UI-ն generate է արվել AI builders-ով - որպեսզի handoff-ը engineers-ին չփլուզվի։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "testing-ci-cd-for-vibe-coded-apps"
+keywords: ["testing vibe coded app", "CI CD AI generated codebase", "handoff vibe MVP engineers"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Ուղիղ պատասխան
+
+AI-generated UI-ն free pass չէ quality-ի վրա։ Ավելացրեք **smoke tests**, critical-path e2e money/auth-ի համար, CI ամեն PR-ի վրա և written handoff map նախքան real users scale։
+
+## Minimum tests
+
+Auth login, checkout կամ lead form, webhook receiver, permission denial cases։
+
+## CI
+
+Lint, typecheck, unit/smoke, block merge on red։
+
+## Staging
+
+Environment parity secrets-ի և payments test mode-ի համար։
+
+## Handoff to engineers
+
+Architecture sketch, known footguns, seed data, how to run locally։
+
+## Ինչ AI tests-ը miss են անում
+
+Race conditions, entitlement bugs, multi-tenant leaks։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Rescue pilots-ը ներառում են handoff packages. [vibe-code rescue](/arm/solutions/vibe-code-rescue)։
+
+## FAQ
+
+### Engineers դեռ չունե՞նք։
+Դեռ run արեք CI. humans կպահանջվեն serious scale-ից առաջ։
+
+### Related
+[After vibe-code audit handoff](/arm/blog/after-vibe-code-audit-handoff)
+
+### Playwright/Cypress՞։
+Fine - cover արեք money paths նախ, ոչ ամեն pixel։
+
+
+<!-- covers GPT questions: 84,85,94 -->

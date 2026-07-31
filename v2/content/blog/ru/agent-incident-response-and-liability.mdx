@@ -1,0 +1,58 @@
+---
+slug: "agent-incident-response-and-liability"
+title: "Incident response AI-агента и основы liability"
+description: "Что делать, когда агент ошибается: contain, revoke, notify, fix, и как contracts должны делить responsibility."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "agent-incident-response-and-liability"
+keywords: ["AI agent incident response", "AI agent liability", "agent sent wrong email"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## Прямой ответ
+
+Когда агент fails: **остановите агента**, revoke credentials если нужно, сохраните traces, исправьте customer impact, затем patch prompts/tools. Contracts должны сказать, кто отвечает за business decisions vs software defects.
+
+## Contain
+
+Kill switch, отключите write tools, pause queues.
+
+## Investigate
+
+Достаньте correlation ids, tool args, approvals - вот почему observability matters.
+
+## Customer fix
+
+Human outreach, refunds, corrections - с real owner.
+
+## Prevent
+
+Eval case из incident, tighter gates, better idempotency.
+
+## Liability
+
+Policies и human approval не исчезают, потому что model suggested text. Align vendor SOW с who owns outcomes.
+
+## SLA
+
+Определите response times для agent-impacted queues как для других production systems.
+
+## Как помогает Dali
+
+Pilots Dali определяют stop-switches и handoff owners: [solutions](/ru/solutions).
+
+## FAQ
+
+### Нужно ли говорить customers, что message was AI-assisted?
+Следуйте law и brand policy; honesty often reduces damage, когда errors happen.
+
+### Кто owns quality after the vendor leaves?
+Назовите role before launch - см. change management post.
+
+### Связанное
+[Observability](/ru/blog/agent-observability-logs-traces)
+
+
+<!-- covers GPT questions: 45,46,76,78 -->

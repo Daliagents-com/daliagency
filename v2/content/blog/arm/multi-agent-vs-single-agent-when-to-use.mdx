@@ -1,0 +1,54 @@
+---
+slug: "multi-agent-vs-single-agent-when-to-use"
+title: "Multi-agent vs single agent. երբ orchestration-ը օգնում է (և երբ վնասում)"
+description: "Գործնական կանոն multi-agent համակարգերի և մեկ tool-using agent-ի միջև. complexity, failure modes և production ownership։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
+keywords: ["multi-agent vs single agent", "multi-agent orchestration", "when to use multi-agent systems"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Ուղիղ պատասխան
+
+Սկսեք **մեկ agent-ով և հստակ tools-ով** մեկ workflow-ի համար։ Multi-agent orchestration ավելացրեք միայն երբ roles-ը, permissions-ը կամ handoff-երը իրականում առանձին են - և կարող եք տիրապետել ամբողջ graph-ի failure modes-ին։
+
+## Ինչ են մարդիկ հասկանում multi-agent-ով
+
+Սովորաբար. planner plus workers, կամ specialized agents research-ի, coding-ի և review-ի համար։ Business ops-ում դա հաճախ նշանակում է ավելի շատ moving parts, ավելի շատ latency և ավելի շատ տեղեր state կորցնելու - ոչ ավտոմատ կերպով ավելի բարձր որակ։
+
+## Երբ single agent-ը բավարար է
+
+Մեկ primary system of record, մեկ approval owner, կարճ tool list և հստակ standard path։ Lead response, inbox triage և document-to-tracker հաճախ ավելի լավ ship են լինում որպես մեկ gated agent։
+
+## Երբ multi-agent-ը կարող է օգնել
+
+Privileges-ի խիստ տարանջատում (read-only research vs write actions), երկար multi-hour jobs checkpoints-ով, կամ տարբեր models տարբեր stages-ի համար explicit contracts-ով նրանց միջև։
+
+## Multi-agent theater-ի արժեքը
+
+Ավելի դժվար evals, ավելի դժվար incident response, անորոշ ownership և demos, որոնք ավելի շատ տպավորում են, քան Monday morning tickets-ի վրա աշխատում։
+
+## Գործնական կանոն
+
+Եթե չեք կարող workflow-ը նկարել մեկ էջի վրա մեկ acceptance test-ով, multi-agent design-ը ձեզ չի փրկի։ Նախ map արեք, հետո ընտրեք topology։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն սկսում է մեկ production path-ով և gates-ով։ Տես [solutions](/arm/solutions) և [երբ չօգտագործել AI agents](/arm/blog/when-not-to-use-ai-agents)։
+
+## FAQ
+
+### LangChain-ը կամ CrewAI-ն պարտադրո՞ւմ են multi-agent։
+Ոչ։ Օգտագործեք դրանք որպես libraries, երբ նվազեցնում են glue code-ը - ոչ որպես պահանջ ամեն pilot-ի համար։
+
+### Planner agent-ը պարտադի՞ր է։
+Միայն եթե planning-ը իրական stage է իր սեփական eval-ով։ Շատ ops agents deterministic routers են plus LLM language-ի համար։
+
+### Կարո՞ղ են sales-ը և support-ը կիսել մեկ agent։
+Նախընտրեք առանձին pilots և policies։ Shared agents-ը խառնում են permissions-ը և knowledge-ը։
+
+
+<!-- covers GPT questions: 1,3,4,8,9,10 -->

@@ -1,0 +1,54 @@
+---
+slug: "open-frameworks-and-assistants-when-to-use"
+title: "Open agent frameworks և hosted assistants. երբ օգտագործել"
+description: "LangChain, CrewAI, AutoGen, n8n և hosted assistant APIs - երբ արագացնում են և երբ ավելացնում են glue risk։"
+date: "2026-08-01"
+locale: "arm"
+hreflangGroup: "open-frameworks-and-assistants-when-to-use"
+keywords: ["LangChain for business agents", "CrewAI vs custom agent", "OpenAI Assistants vs custom"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Ուղիղ պատասխան
+
+Օգտագործեք frameworks և hosted assistants, երբ դրանք **կարճացնում են integration time**-ը առանց ownership թաքցնելու։ Խուսափեք, երբ force են անում multi-agent complexity, որ չեք կարող eval կամ debug անել։
+
+## Hosted assistants
+
+Fast tools + threads։ Դեռ պետք են ձեր gates, IAM և business evals։
+
+## LangChain-class frameworks
+
+Օգտակար connectors և patterns. կարող են դառնալ abstraction mazes։
+
+## Multi-agent frameworks
+
+Միայն clear role contracts-ով և traces-ով։
+
+## n8n/Zapier
+
+Տես automation comparison post - great glue, limited NLP judgment։
+
+## Decision
+
+Ընտրեք thinnest layer-ը, որ անցնում է evals և ձեր team-ը կարող է maintain անել։
+
+## Ինչպես է Dali-ն տեղավորվում
+
+Dali-ն ընտրում է stack per pilot constraints. [solutions](/arm/solutions)։
+
+## FAQ
+
+### No framework OK է՞։
+Այո - direct SDK + clear modules հաճախ win են անում մեկ pilot-ի համար։
+
+### Related
+[Multi-agent vs single](/arm/blog/multi-agent-vs-single-agent-when-to-use), [Zapier vs agents](/arm/blog/zapier-make-n8n-vs-production-agents)
+
+### Vendor lock-in՞։
+Նախընտրեք portable prompts, schemas և tool interfaces։
+
+
+<!-- covers GPT questions: 3,12,49 -->

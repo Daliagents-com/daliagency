@@ -1,0 +1,54 @@
+---
+slug: "multi-agent-vs-single-agent-when-to-use"
+title: "Multi-agent vs single agent: когда orchestration помогает (и когда мешает)"
+description: "Практическое правило для multi-agent systems vs одного tool-using агента: сложность, failure modes и production ownership."
+date: "2026-08-01"
+locale: "ru"
+hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
+keywords: ["multi-agent vs single agent", "multi-agent orchestration", "когда использовать multi-agent systems"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## Прямой ответ
+
+Начинайте с **одного агента и ясных tools** для одного workflow. Добавляйте multi-agent orchestration только когда роли, permissions или handoffs действительно разделены - и вы готовы владеть failure modes всего графа.
+
+## Что люди имеют в виду под multi-agent
+
+Обычно: planner плюс workers, или специализированные агенты для research, coding и review. В business ops это чаще значит больше moving parts, больше latency и больше мест, где теряется state - не автоматически выше quality.
+
+## Когда single agent достаточно
+
+Один primary system of record, один approval owner, короткий список tools и ясный standard path. Lead response, inbox triage и document-to-tracker часто лучше shipping'ятся как один gated agent.
+
+## Когда multi-agent может помочь
+
+Жёсткое разделение privileges (read-only research vs write actions), длинные multi-hour jobs с checkpoints, или разные модели на разных стадиях с явными contracts между ними.
+
+## Цена multi-agent theater
+
+Сложнее evals, сложнее incident response, неясный ownership и demos, которые впечатляют больше, чем работают на Monday morning tickets.
+
+## Практическое правило
+
+Если вы не можете нарисовать workflow на одной странице с одним acceptance test, multi-agent design вас не спасёт. Сначала map, потом topology.
+
+## Как помогает Dali
+
+Dali начинает с одного production path и gates. См. [solutions](/ru/solutions) и [когда не стоит использовать AI-агентов](/ru/blog/when-not-to-use-ai-agents).
+
+## FAQ
+
+### LangChain или CrewAI обязывают multi-agent?
+Нет. Используйте их как libraries, когда они уменьшают glue code - не как требование для каждого pilot.
+
+### Нужен ли planner agent?
+Только если planning - реальная стадия со своим eval. Многие ops-агенты - deterministic routers плюс LLM для языка.
+
+### Могут sales и support делить одного агента?
+Лучше отдельные pilots и policies. Shared agents размывают permissions и knowledge.
+
+
+<!-- covers GPT questions: 1,3,4,8,9,10 -->

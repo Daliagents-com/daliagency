@@ -1,0 +1,54 @@
+---
+slug: "idempotency-retries-queues-for-agents"
+title: "Idempotency, retries და queues AI agent მოქმედებებისთვის"
+description: "როგორ retry-ოთ agent tool calls double emails-ის, double charges-ის ან duplicate CRM records-ის გარეშე."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "idempotency-retries-queues-for-agents"
+keywords: ["idempotency AI აგენტები", "retry AI agent tool calls", "queue AI აგენტებისთვის"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+ყოველ side-effecting tool-ს სჭირდება **idempotency key** და safe retry policy. ჩადეთ agent work queues-ზე, როცა volume ან flaky networks მნიშვნელოვანია. Blind retries ქმნის silent financial და CRM disasters-ს.
+
+## რატომ double-write-ავენ აგენტები
+
+Timeouts, user double-clicks, webhook redelivery, model retries mid-plan.
+
+## Idempotency keys
+
+გამოიყვანეთ business identity-დან (order id + action) ან server-issued keys, რომლებიც side effect-მდე ინახება.
+
+## Queues
+
+Buffer spikes, control concurrency, isolate poison messages.
+
+## Webhook + agent
+
+Verify signatures, dedupe delivery ids, process exactly-once business layer-ზე.
+
+## Event-driven vs cron
+
+Events immediacy-ისთვის; cron reconciliation sweeps-ისთვის - არა როგორც ერთადერთი correctness mechanism.
+
+## როგორ ჯდება Dali
+
+Production action design Dali pilots-ის core-ია: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### შეუძლია LLM-ს idempotency keys-ის გენერაცია?
+უპირატესობა server-side keys-ს. Models uniqueness-ის წყარო არ არის.
+
+### რაც შეეხება non-idempotent partner APIs-ს?
+Compensate reconciliation jobs-ით და human exception queues-ით.
+
+### დაკავშირებული
+[Public webhooks და payment რისკები](/ge/blog/public-webhooks-and-payment-risks)
+
+
+<!-- covers GPT questions: 32-34,53,55 -->

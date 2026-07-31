@@ -1,0 +1,54 @@
+---
+slug: "multi-agent-vs-single-agent-when-to-use"
+title: "Multi-agent vs single agent: როდის ეხმარება orchestration (და როდის ზიანს აყენებს)"
+description: "პრაქტიკული წესი multi-agent სისტემებისა და ერთი tool-using აგენტისთვის: სირთულე, failure modes და production ownership."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
+keywords: ["multi-agent vs single agent", "multi-agent orchestration", "როდის გამოვიყენოთ multi-agent სისტემები"]
+status: "published"
+author: "Dali"
+type: "comparison"
+---
+
+## პირდაპირი პასუხი
+
+დაიწყეთ **ერთი აგენტით და მკაფიო tools-ით** ერთი workflow-სთვის. Multi-agent orchestration დაამატეთ მხოლოდ მაშინ, როცა roles, permissions ან handoffs მართლაც განცალკევებულია - და შეგიძლიათ მთელი graph-ის failure modes-ის ფლობა.
+
+## რას გულისხმობენ multi-agent-ში
+
+ჩვეულებრივ: planner plus workers, ან specialized აგენტები research-ის, coding-ისა და review-ისთვის. Business ops-ში ეს ხშირად ნიშნავს მეტ moving parts-ს, მეტ latency-ს და მეტ ადგილს, სადაც state იკარგება - არა ავტომატურად უფრო მაღალ quality-ს.
+
+## როდის საკმარისია single agent
+
+ერთი primary system of record, ერთი approval owner, მოკლე tool list და მკაფიო standard path. Lead response, inbox triage და document-to-tracker ხშირად უკეთ იშლება როგორც ერთი gated agent.
+
+## როდის შეიძლება multi-agent დაეხმაროს
+
+მკაცრი privileges-ის გამიჯვნა (read-only research vs write actions), გრძელი multi-hour jobs checkpoints-ით, ან სხვადასხვა models სხვადასხვა stages-ისთვის explicit contracts-ით მათ შორის.
+
+## Multi-agent theater-ის ფასი
+
+უფრო რთული evals, უფრო რთული incident response, გაურკვეველი ownership და demos, რომლებიც უფრო აღაფრთოვანებენ, ვიდრე ორშაბათის დილის tickets-ზე მუშაობენ.
+
+## პრაქტიკული წესი
+
+თუ workflow-ს ერთ გვერდზე ერთი acceptance test-ით ვერ დახატავთ, multi-agent design არ გადაგარჩენთ. ჯერ map, შემდეგ topology.
+
+## როგორ ჯდება Dali
+
+Dali იწყებს ერთი production path-ით და gates-ით. იხილეთ [გადაწყვეტები](/ge/solutions) და [როდის არ გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents).
+
+## FAQ
+
+### LangChain ან CrewAI აიძულებს multi-agent-ს?
+არა. გამოიყენეთ როგორც libraries, როცა glue code-ს ამცირებენ - არა როგორც მოთხოვნა ყოველი pilot-ისთვის.
+
+### Planner agent სავალდებულოა?
+მხოლოდ თუ planning რეალური stage-ია საკუთარი eval-ით. ბევრი ops agent არის deterministic routers plus LLM ენისთვის.
+
+### Sales და support-ს შეუძლიათ ერთი აგენტის გაზიარება?
+უპირატესობა მიეცით separate pilots-სა და policies-ს. Shared agents blur-ავენ permissions-სა და knowledge-ს.
+
+
+<!-- covers GPT questions: 1,3,4,8,9,10 -->

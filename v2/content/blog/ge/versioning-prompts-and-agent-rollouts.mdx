@@ -1,0 +1,50 @@
+---
+slug: "versioning-prompts-and-agent-rollouts"
+title: "Prompt versioning და agent rollouts"
+description: "მოექეცით prompts-სა და tool schemas-ს როგორც code-ს: review, version, canary, rollback და release notes operators-ისთვის."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "versioning-prompts-and-agent-rollouts"
+keywords: ["prompt versioning", "AI agent release management", "prompt changes-ის rollout"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+არასოდეს edit-ოთ production prompts live version tag-ისა და rollback-ის გარეშე. გაუშვით agent changes review → eval → canary → full-ით, notes-ით ადამიანებისთვის, რომლებიც exceptions-ს ამუშავებენ.
+
+## რა უნდა version-ოთ
+
+System prompts, tool schemas, retrieval corpora versions, gate rules.
+
+## Review
+
+Second pair of eyes high-risk domains-ზე (money, legal, medical-adjacent).
+
+## Release notes
+
+რა შეიცვალა, რას უნდა უყუროთ, ვის უნდა ping-ოთ.
+
+## Rollout
+
+Shadow/canary patterns companion post-იდან.
+
+## როგორ ჯდება Dali
+
+Dali ტოვებს versioned handoff artifacts-ს: [გადაწყვეტები](/ge/solutions).
+
+## FAQ
+
+### Git prompts-ისთვის?
+დიახ, ან სხვა source-controlled store diffs-ით.
+
+### Hotfix eval-ის გარეშე?
+მხოლოდ pure typo fixes-ისთვის zero behavior change-ით - მაინც log-ეთ.
+
+### დაკავშირებული
+[Shadow mode და canary](/ge/blog/shadow-mode-and-canary-for-ai-agents)
+
+
+<!-- covers GPT questions: 56-58 -->

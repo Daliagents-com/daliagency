@@ -1,0 +1,54 @@
+---
+slug: "testing-ci-cd-for-vibe-coded-apps"
+title: "Testing და CI/CD vibe-coded apps-ისთვის"
+description: "მინიმალური testing და pipeline practices, როცა UI AI builders-მა დააგენერირა - რომ handoff engineers-თან არ დაიშალოს."
+date: "2026-08-01"
+locale: "ge"
+hreflangGroup: "testing-ci-cd-for-vibe-coded-apps"
+keywords: ["testing vibe coded app", "CI CD AI generated codebase", "handoff vibe MVP engineers"]
+status: "published"
+author: "Dali"
+type: "tutorial"
+---
+
+## პირდაპირი პასუხი
+
+AI-generated UI არ არის free pass quality-ზე. დაამატეთ **smoke tests**, critical-path e2e money/auth-ისთვის, CI ყოველ PR-ზე და written handoff map real users-ის scale-მდე.
+
+## Minimum tests
+
+Auth login, checkout ან lead form, webhook receiver, permission denial cases.
+
+## CI
+
+Lint, typecheck, unit/smoke, block merge on red.
+
+## Staging
+
+Environment parity secrets-ისა და payments test mode-ისთვის.
+
+## Handoff engineers-თან
+
+Architecture sketch, known footguns, seed data, როგორ run locally.
+
+## რას miss-ავენ AI tests
+
+Race conditions, entitlement bugs, multi-tenant leaks.
+
+## როგორ ჯდება Dali
+
+Rescue pilots მოიცავს handoff packages-ს: [vibe-code rescue](/ge/solutions/vibe-code-rescue).
+
+## FAQ
+
+### ჯერ engineers არ გვყავს?
+მაინც გაუშვით CI; humans დაგჭირდებათ serious scale-მდე.
+
+### დაკავშირებული
+[After vibe-code audit handoff](/ge/blog/after-vibe-code-audit-handoff)
+
+### Playwright/Cypress?
+კარგია - ჯერ money paths, არა ყოველი pixel.
+
+
+<!-- covers GPT questions: 84,85,94 -->
