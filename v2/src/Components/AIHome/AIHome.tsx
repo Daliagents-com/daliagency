@@ -19,6 +19,7 @@ import { sectionTitle } from "@/lib/sectionTitle";
 import { solutionSlugs } from "@/Components/Solutions/solutionContent";
 import type { LocalizedSolutionsBundle } from "@/Components/Solutions/locales/types";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
+import { DALI_ORG } from "@/lib/seo/organizationIdentity";
 import styles from "./AIHome.module.css";
 
 const proofHrefs = [
@@ -32,17 +33,19 @@ const founderImages = [DavidImage, LianaImage] as const;
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Dali",
-  url: "https://dali.agents.ge",
+  name: DALI_ORG.name,
+  url: DALI_ORG.url,
   founder: {
     "@type": "Person",
     name: "David Hakobyan",
   },
-  sameAs: [
-    "https://www.linkedin.com/in/davidhakobyan/",
-    "https://t.me/aisceptic0",
-    "https://x.com/larseen66",
-  ],
+  sameAs: [...DALI_ORG.sameAs],
+  telephone: DALI_ORG.telephone,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: DALI_ORG.addressLocality,
+    addressCountry: DALI_ORG.addressCountry,
+  },
 };
 
 export default function AIHome({

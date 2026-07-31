@@ -6,8 +6,9 @@ import Footer from "@/Components/Footer/Footer";
 import FunnelAnalytics from "@/Components/Analytics/FunnelAnalytics";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { DALI_ORG } from "@/lib/seo/organizationIdentity";
 
-const siteUrl = "https://dali.agents.ge";
+const siteUrl = DALI_ORG.url;
 const siteTitle = "Dali - AI Agents & Workflow Automation";
 const siteDescription =
   "Production AI agents and workflow automation built inside the business tools your team already uses, from intake and operations to support and internal knowledge work.";
@@ -44,7 +45,7 @@ const organizationJsonLd = {
     {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
-      name: "Dali",
+      name: DALI_ORG.name,
       alternateName: ["Dali Agents", "Dali Agency"],
       url: siteUrl,
       description: siteDescription,
@@ -67,12 +68,13 @@ const organizationJsonLd = {
         "production AI agents",
         "GEO and SEO for AI companies",
       ],
-      // Fill company page when created (blockers B-P1-01). Keep founder profiles now.
-      sameAs: [
-        "https://www.linkedin.com/in/davidhakobyan/",
-        "https://x.com/larseen66",
-        "https://t.me/aisceptic0",
-      ],
+      sameAs: [...DALI_ORG.sameAs],
+      telephone: DALI_ORG.telephone,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: DALI_ORG.addressLocality,
+        addressCountry: DALI_ORG.addressCountry,
+      },
     },
     {
       "@type": "WebSite",
