@@ -29,6 +29,8 @@ const copy: Record<
     ],
     links: [
       { href: "/solutions", label: "Packaged pilots" },
+      { href: "/solutions/vibe-code-rescue", label: "Vibe code rescue" },
+      { href: "/solutions/lead-response", label: "Lead response agents" },
       { href: "/blog", label: "Guides and process posts" },
       { href: "/blog/geo-seo-for-ai-agencies", label: "GEO and SEO for AI agencies" },
       {
@@ -50,6 +52,8 @@ const copy: Record<
     ],
     links: [
       { href: "/ru/solutions", label: "Пилоты" },
+      { href: "/ru/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/ru/solutions/lead-response", label: "Lead response" },
       { href: "/ru/blog", label: "Гайды" },
       {
         href: "/ru/blog/geo-seo-for-ai-agencies",
@@ -74,6 +78,8 @@ const copy: Record<
     ],
     links: [
       { href: "/ge/solutions", label: "პილოტები" },
+      { href: "/ge/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/ge/solutions/lead-response", label: "Lead response" },
       { href: "/ge/blog", label: "ბლოგი" },
       {
         href: "/ge/blog/geo-seo-for-ai-agencies",
@@ -98,6 +104,8 @@ const copy: Record<
     ],
     links: [
       { href: "/arm/solutions", label: "Փորձնականներ" },
+      { href: "/arm/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/arm/solutions/lead-response", label: "Lead response" },
       { href: "/arm/blog", label: "Բլոգ" },
       {
         href: "/arm/blog/geo-seo-for-ai-agencies",

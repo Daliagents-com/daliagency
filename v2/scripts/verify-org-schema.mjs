@@ -53,11 +53,46 @@ const results = {
 };
 
 if (process.env.LIVE === "1") {
-  const res = await fetch("https://dali.agents.ge/", {
-    headers: { "user-agent": "dali-org-schema-verify/1.0" },
-  });
+  // Prefer normal DNS; on ENOTFOUND (local resolver lag), force Vercel anycast A.
+  async function fetchProdHome() {
+    const headers = { "user-agent": "dali-org-schema-verify/1.0" };
+    try {
+      return await fetch("https://dali.agents.ge/", { headers });
+    } catch (err) {
+      const code = err?.cause?.code || err?.code;
+      if (code !== "ENOTFOUND" && code !== "EAI_AGAIN") throw err;
+      // Node fetch cannot set Host+SNI easily without undici Agent; use curl --resolve.
+      const { execFileSync } = await import("node:child_process");
+      const out = execFileSync(
+        "curl",
+        [
+          "-sL",
+          "-A",
+          "dali-org-schema-verify/1.0",
+          "--resolve",
+          "dali.agents.ge:443:76.76.21.21",
+          "-w",
+          "\n__HTTP_STATUS__:%{http_code}",
+          "https://dali.agents.ge/",
+        ],
+        { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      );
+      const marker = "\n__HTTP_STATUS__:";
+      const i = out.lastIndexOf(marker);
+      const body = i >= 0 ? out.slice(0, i) : out;
+      const status = i >= 0 ? Number(out.slice(i + marker.length)) : 0;
+      return {
+        status,
+        text: async () => body,
+        ok: status >= 200 && status < 400,
+        _via: "curl-resolve",
+      };
+    }
+  }
+
+  const res = await fetchProdHome();
   const html = await res.text();
-  // JSON-LD script blocks
+  // JSON-LD script blocks (@graph Organization + WebSite)
   const ldBlocks = [...html.matchAll(
     /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
   )].map((m) => m[1]);
@@ -67,10 +102,12 @@ if (process.env.LIVE === "1") {
   }
   mustInclude(blob, NAP.phone, "live JSON-LD phone");
   mustInclude(blob, NAP.city, "live JSON-LD city");
+  mustInclude(html, "hello@dali.agents.ge", "live public contact email");
   results.live = {
     status: res.status,
     ldBlockCount: ldBlocks.length,
     ok: true,
+    via: res._via || "fetch",
   };
   const outDir = process.env.SCRATCH || join(root, ".verify-out");
   mkdirSync(outDir, { recursive: true });
