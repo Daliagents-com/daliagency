@@ -13,6 +13,7 @@ import {
 import { homeCopy } from "@/i18n/home";
 import Link from "next/link";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
+import { daliContactEmail } from "@/lib/contact";
 
 const sayHiVariants = [
   { text: "Привет", lang: "ru", className: "" },
@@ -123,10 +124,10 @@ export default function Footer() {
             </div>
             {isHome ? (
               <a
-                href="mailto:dav.hakobyan100@gmail.com"
+                href={`mailto:${daliContactEmail}`}
                 className={`break-all text-body4 md:text-body1 ${serifText.className} underline`}
               >
-                DAV.HAKOBYAN100@GMAIL.COM
+                {daliContactEmail.toUpperCase()}
               </a>
             ) : (
               <>
@@ -147,10 +148,10 @@ export default function Footer() {
                 <div>
                   <p className="text-body6 uppercase pb-8">{copy.contact}</p>
                   <a
-                    href="mailto:dav.hakobyan100@gmail.com"
+                    href={`mailto:${daliContactEmail}`}
                     className={`break-all text-body4 md:text-body1 ${serifText.className} underline`}
                   >
-                    DAV.HAKOBYAN100@GMAIL.COM
+                    {daliContactEmail.toUpperCase()}
                   </a>
                 </div>
               </>

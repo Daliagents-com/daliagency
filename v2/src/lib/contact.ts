@@ -2,7 +2,8 @@
 // Scope: Email-based intake for AI agent and workflow audit pages.
 import type { Locale } from "@/i18n/config";
 
-export const daliContactEmail = "dav.hakobyan100@gmail.com";
+/** Public business inbox (ImprovMX → founder Gmail). Do not use personal Gmail on CTAs. */
+export const daliContactEmail = "hello@dali.agents.ge";
 
 export function buildMailtoHref(subject: string, body: string) {
   return `mailto:${daliContactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
