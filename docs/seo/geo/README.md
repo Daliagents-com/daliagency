@@ -15,6 +15,7 @@ Operator docs for SEO and GEO work on **https://dali.agents.ge**.
 | [platforms-publish.md](./platforms-publish.md) | Where to publish (EN/RU/GE/ARM) |
 | [social-linkedin-plan.md](./social-linkedin-plan.md) | Social + LinkedIn Pro 30 days |
 | [find-10-clients.md](./find-10-clients.md) | 10 client acquisition ideas |
+| [opportunities-next.md](./opportunities-next.md) | Next SEO/GEO moves beyond this pack (YouTube, mentions, research, AI measurement) |
 
 ## Related (workspace, may be local-only)
 

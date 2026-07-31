@@ -65,6 +65,7 @@
 - [platforms-publish.md](./platforms-publish.md)
 - [social-linkedin-plan.md](./social-linkedin-plan.md)
 - [find-10-clients.md](./find-10-clients.md)
+- [opportunities-next.md](./opportunities-next.md) - next levers beyond pack
 
 ---
 
@@ -75,6 +76,17 @@
 3. 5 personal outreaches to past collaborators  
 4. Optional: buy `daliagents.com` park only  
 5. Open playbook HTML once and skim 30/90 plan  
+6. Skim [opportunities-next.md](./opportunities-next.md) - YouTube + AI citation baseline (beyond GSC/entity blockers)  
+
+## Beyond blockers (research 2026-07-31)
+
+Not a substitute for GSC/entity.
+After foundation human steps, priority new levers are documented in [opportunities-next.md](./opportunities-next.md):
+
+- YouTube process videos (transcripts)
+- Earned brand mentions (not directory farm)
+- Original research / non-commodity pillar upgrades
+- Manual ChatGPT/Perplexity citation log + GSC Generative AI report
 
 ---
 
