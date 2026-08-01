@@ -1,32 +1,54 @@
 ---
 slug: "session-context-in-ai-chat-widgets"
-title: "Session context in AI chat widgets: what resets and what should not"
-description: "How session memory works in site chats, why closing the widget often wipes context, and how to design for that."
+title: "სესიის კონტექსტი AI ჩატის ვიჯეტებში: რა იშლება და რა არ უნდა"
+description: "როგორ მუშაობს სესიის მეხსიერება საიტის ჩატებში, რატომ შლის ვიჯეტის დახურვა ხშირად კონტექსტს და როგორ დავაპროექტოთ ამის გათვალისწინებით."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "session-context-in-ai-chat-widgets"
-keywords: ["AI chat session context", "chatbot session memory", "website AI widget context"]
+keywords: ["AI chat session context", "ჩატბოტის სესიის მეხსიერება", "chatbot session memory", "საიტის AI ვიჯეტის კონტექსტი"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/session-context-in-ai-chat-widgets/hero.jpg"
-heroAlt: "Session context in AI chat widgets: what resets and what should not"
+heroAlt: "სესიის კონტექსტი AI ჩატის ვიჯეტებში: რა იშლება და რა არ უნდა"
 ogImage: "/blog/session-context-in-ai-chat-widgets/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Many widgets keep context only for one open session. Close the chat, and memory resets. Design prompts and UX around that: do not assume lifelong memory unless you build it.
+ბევრი ვიჯეტი კონტექსტს მხოლოდ ერთი გახსნილი სესიისთვის ინახავს. ჩატი დახურე - და მეხსიერება ნულდება. პრომპტები და UX ამაზე ააშენე: ნუ ივარაუდებ უსასრულო მეხსიერებას, თუ შენ თვითონ არ ააშენე.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყე რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- ქცევა აღწერე მარტივ ენაზე, შემდეგ შეამოწმე ყველა გზა, სადაც ფული, წვდომა ან გამავალი შეტყობინებებია.
+- არასტანდარტული შემთხვევებისთვის დატოვე ადამიანის გზა.
+- თუ კონტექსტი სესიებს შორის გჭირდება - ცალკე დააპროექტე შენახვა, თანხმობა და წაშლის წესები.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო სტანდარტული / არასტანდარტული მარშრუტიზაცია
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც განზრახულია
+- საიდუმლო გასაღებები არასდროს კლიენტის JavaScript-ში
+- ლოგები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- „პრევიუში მუშაობს“ რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და webhook საჯაროდ დარჩენილი
+- გამონაკლისებზე ადამიანზე გადაცემა არ არის
+- თხელი მანქანური თარგმანი, როგორც „ლოკალიზაცია“
+- დაშვება, რომ მომხმარებელი „გაიხსენებს“ წინა ვიზიტს, თუმცა სესია იშლება
+
+## როგორ აკეთებს Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვიღებთ, შემდეგ ვამაგრებთ რეალურ ექსპლუატაციამდე - კონტროლის წერტილებით, ინსტრუმენტებით და პასუხისმგებლობით. დაკავშირებული: [production AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად თვლიან.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამაგრებთ. ზოგჯერ კრიტიკულ გზას ვაშორებთ და თავიდან ვაშენებთ.

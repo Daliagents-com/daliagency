@@ -1,32 +1,55 @@
 ---
 slug: "vibe-coding-limits-when-you-need-engineering"
-title: "Limits of vibe coding: when you need real engineering"
-description: "Where natural-language builders stop being enough: payments, auth, multi-tenant data, rate limits, and ownership."
+title: "Արագ AI նախատիպի սահմանները. երբ պետք է իրական ինժեներիա"
+description: "Որտեղ է բնական լեզվի կոնստրուկտորը դադարում բավարար լինել. վճարումներ, մուտք, multi-tenant տվյալներ, rate limit-եր և սեփականություն."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "vibe-coding-limits-when-you-need-engineering"
-keywords: ["limits of vibe coding", "when vibe coding fails", "vibe coding vs engineering"]
+keywords: ["limits of vibe coding", "արագ AI նախատիպի սահմաններ", "when vibe coding fails", "vibe coding vs engineering"]
 status: "published"
 author: "Dali"
 type: "comparison"
 heroImage: "/blog/vibe-coding-limits-when-you-need-engineering/hero.jpg"
-heroAlt: "Limits of vibe coding: when you need real engineering"
+heroAlt: "Արագ AI նախատիպի սահմանները. երբ պետք է իրական ինժեներիա"
 ogImage: "/blog/vibe-coding-limits-when-you-need-engineering/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Vibe coding slows down at payments, auth, abuse protection, complex data models, and multi-client ops. That is where product engineering, evals, and production gates take over.
+Արագ AI նախատիպը դանդաղում է վճարումների, մուտքի, չարաշահման պաշտպանության, բարդ տվյալների մոդելների և բազմահաճախորդ ops-ի վրա։ Այստեղից սկսվում են արտադրանքի ինժեներիան, գնահատումները և իրական շահագործման վերահսկման կետերը։
 
-## Պրակտիկա
+## Ի՞նչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսիր իրական բիզնեսի աշխատանքային հոսքից, ոչ մոդելի բրենդից։
+- Վարքը նկարագրիր պարզ լեզվով, հետո ստուգիր ամեն ուղի, որտեղ կան գումար, մուտք կամ ելքային հաղորդագրություններ։
+- Ոչ ստանդարտ դեպքերի համար պահիր մարդու ուղի։
+- Երբ հայտնվում են multi-tenant, վճարումներ կամ rate limit-եր՝ այլևս մի՛ սպասիր, որ չաթի կոնստրուկտորը բավարար կլինի։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ / ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականն իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Լոգեր և կանգառի անջատիչ
+- Հստակ սահման. նախատիպ vs մարտական ուղի
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է»՝ իրական շահագործման ստուգումների առանց
+- Տոկեններ և webhook՝ բաց թողնված
+- Բացառությունների համար մարդուն փոխանցում չկա
+- Բարակ մեքենայական թարգմանություն՝ որպես «լոկալիզացիա»
+- Նախատիպը պատրաստ արտադրանք համարել գումարի և իրավունքների ուղիներում
+
+## Ինչպես է անում Dali-ն
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. արագ AI նախատիպերը լուրջ ենք վերցնում, հետո ամրացնում ենք մինչև իրական շահագործում՝ վերահսկման կետերով, գործիքներով և սեփականատիրոջով։ Կապված. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգո՞ւտ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն, երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

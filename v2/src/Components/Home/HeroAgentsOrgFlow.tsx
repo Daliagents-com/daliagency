@@ -28,7 +28,10 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { MockAvatar } from "@/Components/ui/MockAvatar";
+import { AGENTS_VIEW_MS } from "@/Components/Home/heroTourTiming";
 import styles from "./HeroProductMock.module.css";
+
+export { AGENTS_VIEW_MS };
 
 type AgentId = "orch" | "lead" | "know" | "inbox" | "voice" | "ops";
 type AgentPhase = "idle" | "receive" | "work" | "pass" | "done";
@@ -309,8 +312,12 @@ function phaseMs(phase: AgentPhase): number {
 
 const CYCLE_MS = HANDOFF_TIMELINE.reduce((sum, beat) => sum + phaseMs(beat.phase), 0);
 
-/** Parent tour must keep Agents view ≥ this long (one cycle + settle, no mid-cut). */
-export const AGENTS_VIEW_MS = CYCLE_MS + SETTLE_MS;
+// Guard: heroTourTiming.AGENTS_VIEW_MS must equal cycle + settle (tour dwell).
+if (process.env.NODE_ENV !== "production" && CYCLE_MS + SETTLE_MS !== AGENTS_VIEW_MS) {
+  console.error(
+    `[HeroAgentsOrgFlow] AGENTS_VIEW_MS mismatch: timeline=${CYCLE_MS + SETTLE_MS} constant=${AGENTS_VIEW_MS}`,
+  );
+}
 
 const ORG_ACTIVITY = HANDOFF_CHAIN.map((a) => ({
   ...a.feed,

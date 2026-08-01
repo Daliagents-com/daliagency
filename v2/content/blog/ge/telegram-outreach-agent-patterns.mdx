@@ -1,32 +1,55 @@
 ---
 slug: "telegram-outreach-agent-patterns"
-title: "Telegram outreach agent patterns (and compliance caution)"
-description: "What works in high-volume messaging agents - and the policy/brand risks clients underestimate."
+title: "Telegram outreach აგენტის ნიმუშები (და წესების სიფრთხილე)"
+description: "რა მუშაობს მასობრივი შეტყობინებების აგენტებში - და პოლიტიკის/ბრენდის რისკები, რომლებსაც კლიენტები აფასებენ დაბლა."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "telegram-outreach-agent-patterns"
-keywords: ["Telegram outreach AI agent", "Telegram automation agent Upwork"]
+keywords: ["Telegram outreach AI agent", "Telegram ავტომატიზაციის აგენტი", "Telegram automation agent Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/telegram-outreach-agent-patterns/hero.jpg"
-heroAlt: "Telegram outreach agent patterns (and compliance caution)"
+heroAlt: "Telegram outreach აგენტის ნიმუშები და წესების სიფრთხილე"
 ogImage: "/blog/telegram-outreach-agent-patterns/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Outreach agents can handle high daily volume, but compliance, consent, and brand risk dominate. We design rate limits, templates, stop lists, and human review for sensitive threads.
+Outreach აგენტებს შეუძლიათ მაღალი დღიური მოცულობა, მაგრამ დომინირებს წესებთან შესაბამისობა, თანხმობა და ბრენდის რისკი. ჩვენ ვაპროექტებთ სიხშირის ლიმიტებს, შაბლონებს, stop-სიებს და ადამიანის განხილვას მგრძნობიარე საუბრებზე.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყე რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- ქცევა აღწერე მარტივ ენაზე, შემდეგ შეამოწმე ყველა გზა, სადაც ფული, წვდომა ან გამავალი შეტყობინებებია.
+- არასტანდარტული შემთხვევებისთვის დატოვე ადამიანის გზა.
+- მასობრივი გაგზავნისას ცალკე გაითვალისწინე პლატფორმის პოლიტიკა და თანხმობა.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო სტანდარტული / არასტანდარტული მარშრუტიზაცია
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც განზრახულია
+- საიდუმლო გასაღებები არასდროს კლიენტის JavaScript-ში
+- ლოგები და გაჩერების ღილაკი
+- სიხშირის ლიმიტები, stop-სიები, ადამიანის კონტროლი სადავო თემებზე
+
+## როგორ გამოიყურება ცუდი
+
+- „პრევიუში მუშაობს“ რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და webhook საჯაროდ დარჩენილი
+- გამონაკლისებზე ადამიანზე გადაცემა არ არის
+- თხელი მანქანური თარგმანი, როგორც „ლოკალიზაცია“
+- მასობრივი გაგზავნა თანხმობისა და პლატფორმის წესების გარეშე
+
+## როგორ აკეთებს Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვიღებთ, შემდეგ ვამაგრებთ რეალურ ექსპლუატაციამდე - კონტროლის წერტილებით, ინსტრუმენტებით და პასუხისმგებლობით. დაკავშირებული: [production AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად თვლიან.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამაგრებთ. ზოგჯერ კრიტიკულ გზას ვაშორებთ და თავიდან ვაშენებთ.

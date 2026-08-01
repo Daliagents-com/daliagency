@@ -1,32 +1,53 @@
 ---
 slug: "component-registry-agent-workflow"
-title: "Agent workflows for component registries and design systems"
-description: "How agentic pipelines speed component create → format → visual QA → publish - with human release gates."
+title: "აგენტების სამუშაო პროცესები კომპონენტების რეესტრისა და დიზაინ-სისტემებისთვის"
+description: "როგორ აჩქარებს აგენტური კონვეიერები კომპონენტის შექმნას → გაფორმებას → ვიზუალურ შემოწმებას → გამოქვეყნებას - ადამიანის რელიზის კონტროლით."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "component-registry-agent-workflow"
-keywords: ["React component registry agent", "AI frontend workflow agent"]
+keywords: ["React კომპონენტების რეესტრის აგენტი", "AI ფრონტენდის სამუშაო პროცესი", "React component registry agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/component-registry-agent-workflow/hero.jpg"
-heroAlt: "Agent workflows for component registries and design systems"
+heroAlt: "აგენტების სამუშაო პროცესები კომპონენტების რეესტრისა და დიზაინ-სისტემებისთვის"
 ogImage: "/blog/component-registry-agent-workflow/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Registry agents help with formatting, visual checks, metadata, and publish prep. Humans still own final release. Speed comes from removing repeated manual steps, not removing review.
+რეესტრის აგენტები ეხმარებიან გაფორმებაში, ვიზუალურ შემოწმებაში, მეტამონაცემებსა და გამოქვეყნების მომზადებაში. საბოლოო რელიზი ადამიანთან რჩება. სიჩქარე მოდის განმეორებადი ხელითი ნაბიჯების მოხსნით, არა რევიუს გაუქმებით.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- აგენტი ამზადებს ცვლილებებს, სკრინშოტებს და ჩეკლისტს; ადამიანი წყვეტს, რა შედის რეესტრში.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

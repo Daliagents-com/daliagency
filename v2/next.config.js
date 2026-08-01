@@ -7,12 +7,42 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   async redirects() {
+    const legacyPilotMap = [
+      ["lead-response", "conversation-control"],
+      ["client-inbox", "conversation-control"],
+      ["operations-docs", "ops-knowledge"],
+      ["knowledge-assistant", "ops-knowledge"],
+    ];
+    const localePrefixes = ["", "/ru", "/ge", "/arm"];
+    const legacyRedirects = localePrefixes.flatMap((prefix) =>
+      legacyPilotMap.flatMap(([from, to]) => [
+        {
+          source: `${prefix}/solutions/${from}`,
+          destination: `${prefix}/solutions/${to}`,
+          permanent: true,
+        },
+        {
+          source: `/for/upwork/${from}`,
+          destination: `/for/upwork/${to}`,
+          permanent: true,
+        },
+      ]),
+    );
+    // de-dupe upwork redirects (generated once per locale otherwise)
+    const seen = new Set();
+    const uniqueLegacy = legacyRedirects.filter((rule) => {
+      if (seen.has(rule.source)) return false;
+      seen.add(rule.source);
+      return true;
+    });
+
     return [
       {
         source: "/home",
         destination: "/",
         permanent: true,
       },
+      ...uniqueLegacy,
     ];
   },
   async headers() {

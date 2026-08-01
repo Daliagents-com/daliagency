@@ -4,7 +4,8 @@
  */
 export const DALI_ORG = {
   name: "Dali",
-  url: "https://dali.agents.ge",
+  /** Canonical public host (apex). www redirects here on Vercel. */
+  url: "https://daliagents.com",
   telephone: "+995568863212",
   addressLocality: "Tbilisi",
   addressCountry: "GE",
@@ -17,8 +18,12 @@ export const DALI_ORG = {
     "https://clutch.co/profile/dali",
     "https://x.com/larseen66",
     "https://t.me/aisceptic0",
+    "https://github.com/Daliagents-com",
   ],
 } as const;
+
+/** Retired production host - keep only for 301 cutover / docs. */
+export const LEGACY_SITE_URL = "https://dali.agents.ge" as const;
 
 export const REQUIRED_SAME_AS = [
   "https://www.linkedin.com/company/dali-agents",

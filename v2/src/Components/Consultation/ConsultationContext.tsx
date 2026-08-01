@@ -10,6 +10,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { AnalyticsEvent } from "@/lib/analytics/events";
+import { trackClientEvent } from "@/lib/analytics/trackClient";
 
 type ConsultationContextValue = {
   isOpen: boolean;
@@ -28,7 +30,15 @@ export function ConsultationProvider({ children }: { children: ReactNode }) {
 
   const openConsultation = useCallback((nextSource = "site") => {
     setSource(nextSource);
-    setIsOpen(true);
+    setIsOpen((wasOpen) => {
+      // Track only the transition closed -> open (avoid hash + CTA double fire).
+      if (!wasOpen) {
+        trackClientEvent(AnalyticsEvent.ConsultationOpen, {
+          source: nextSource,
+        }, { source: nextSource });
+      }
+      return true;
+    });
   }, []);
 
   const closeConsultation = useCallback(() => {

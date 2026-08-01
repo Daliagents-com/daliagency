@@ -1,32 +1,55 @@
 ---
 slug: "vibe-coding-limits-when-you-need-engineering"
-title: "Limits of vibe coding: when you need real engineering"
-description: "Where natural-language builders stop being enough: payments, auth, multi-tenant data, rate limits, and ownership."
+title: "სწრაფი AI პროტოტიპის საზღვრები: როდის გჭირდება ნამდვილი ინჟინერია"
+description: "სად წყვეტს ბუნებრივი ენის კონსტრუქტორი საკმარისი ყოფნას: გადახდები, ავტორიზაცია, multi-tenant მონაცემები, rate limit-ები და პასუხისმგებლობა."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "vibe-coding-limits-when-you-need-engineering"
-keywords: ["limits of vibe coding", "when vibe coding fails", "vibe coding vs engineering"]
+keywords: ["limits of vibe coding", "სწრაფი AI პროტოტიპის საზღვრები", "when vibe coding fails", "vibe coding vs engineering"]
 status: "published"
 author: "Dali"
 type: "comparison"
 heroImage: "/blog/vibe-coding-limits-when-you-need-engineering/hero.jpg"
-heroAlt: "Limits of vibe coding: when you need real engineering"
+heroAlt: "სწრაფი AI პროტოტიპის საზღვრები: როდის გჭირდება ნამდვილი ინჟინერია"
 ogImage: "/blog/vibe-coding-limits-when-you-need-engineering/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Vibe coding slows down at payments, auth, abuse protection, complex data models, and multi-client ops. That is where product engineering, evals, and production gates take over.
+სწრაფი AI პროტოტიპი ნელდება გადახდებზე, ავტორიზაციაზე, ბოროტად გამოყენების დაცვაზე, რთულ მონაცემთა მოდელებზე და მრავალკლიენტურ ოპერაციებზე. აქედან იწყება პროდუქტის ინჟინერია, შეფასებები და რეალური ექსპლუატაციის კონტროლის წერტილები.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყე რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- ქცევა აღწერე მარტივ ენაზე, შემდეგ შეამოწმე ყველა გზა, სადაც ფული, წვდომა ან გამავალი შეტყობინებებია.
+- არასტანდარტული შემთხვევებისთვის დატოვე ადამიანის გზა.
+- როცა ჩნდება multi-tenant, გადახდები ან rate limit-ები - აღარ მოელოდე, რომ ჩატის კონსტრუქტორი საკმარისი იქნება.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო სტანდარტული / არასტანდარტული მარშრუტიზაცია
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც განზრახულია
+- საიდუმლო გასაღებები არასდროს კლიენტის JavaScript-ში
+- ლოგები და გაჩერების ღილაკი
+- ცხადი საზღვარი: პროტოტიპი vs საბრძოლო გზა
+
+## როგორ გამოიყურება ცუდი
+
+- „პრევიუში მუშაობს“ რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და webhook საჯაროდ დარჩენილი
+- გამონაკლისებზე ადამიანზე გადაცემა არ არის
+- თხელი მანქანური თარგმანი, როგორც „ლოკალიზაცია“
+- პროტოტიპის მიჩნევა მზა პროდუქტად ფულისა და უფლებების გზებზე
+
+## როგორ აკეთებს Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვიღებთ, შემდეგ ვამაგრებთ რეალურ ექსპლუატაციამდე - კონტროლის წერტილებით, ინსტრუმენტებით და პასუხისმგებლობით. დაკავშირებული: [production AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად თვლიან.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამაგრებთ. ზოგჯერ კრიტიკულ გზას ვაშორებთ და თავიდან ვაშენებთ.

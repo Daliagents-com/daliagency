@@ -1,32 +1,53 @@
 ---
 slug: "customer-service-claude-agent-jobs"
-title: "Customer service agent jobs (Claude-class) on marketplaces"
-description: "How to scope support agents: deflection, escalation, tone, and forbidden actions."
+title: "მხარდაჭერის აგენტის სამუშაოები (Claude კლასი) მარკეტპლეისებზე"
+description: "როგორ განვსაზღვროთ მხარდაჭერის აგენტის ფარგლები: გამეორებების მოხსნა, ესკალაცია, ტონი და აკრძალული მოქმედებები."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "customer-service-claude-agent-jobs"
-keywords: ["Claude customer service agent Upwork", "AI support agent job"]
+keywords: ["Claude მხარდაჭერის აგენტი Upwork", "AI მხარდაჭერის აგენტის სამუშაო", "Claude customer service agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/customer-service-claude-agent-jobs/hero.jpg"
-heroAlt: "Customer service agent jobs (Claude-class) on marketplaces"
+heroAlt: "მხარდაჭერის აგენტის სამუშაოები (Claude კლასი) მარკეტპლეისებზე"
 ogImage: "/blog/customer-service-claude-agent-jobs/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Support agents should deflect repetitive tickets with sources and escalate edge cases. Forbidden: refunds, account permission changes, and legal promises without a human.
+მხარდაჭერის აგენტებმა უნდა დახურონ გამეორებადი ტიკეტები წყაროებით და გაესკალირონ კიდური შემთხვევები. აკრძალულია ადამიანის გარეშე: თანხის დაბრუნება, ანგარიშის უფლებების შეცვლა და იურიდიული დაპირებები.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- ბრიფში დააფიქსირეთ ტონი, პასუხების ბაზა, აკრძალვების სია და ოპერატორზე გადაცემის ფორმატი.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

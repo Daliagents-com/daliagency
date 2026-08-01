@@ -1,6 +1,8 @@
+// Purpose: Site footer - contact, resources, socials + rotating "hi" languages.
+// Perf: no framer-motion - CSS transitions + rAF-free interval only when in view.
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 import Container from "@/Components/Container/Container";
@@ -20,7 +22,7 @@ const sayHiVariants = [
   { text: "Привіт", lang: "uk", className: "" },
   { text: "გამარჯობა", lang: "ka", className: "say-hi-word--georgian" },
   { text: "Բարև", lang: "hy", className: "say-hi-word--armenian" },
-  { text: "שלום", lang: "he", className: "say-hi-word--hebrew", dir: "rtl" },
+  { text: "שלום", lang: "he", className: "say-hi-word--hebrew", dir: "rtl" as const },
   { text: "Bonjour", lang: "fr", className: "" },
   { text: "Hola", lang: "es", className: "" },
 ];
@@ -59,7 +61,7 @@ export default function Footer() {
   useEffect(() => {
     if (isUpworkProof || !isFooterVisible) return undefined;
     const interval = setInterval(() => {
-      setSayHiTextIndex((perv) => perv + 1);
+      setSayHiTextIndex((prev) => prev + 1);
     }, 900);
     return () => clearInterval(interval);
   }, [isFooterVisible, isUpworkProof]);
@@ -67,10 +69,11 @@ export default function Footer() {
   const normalizedSayHiIndex = Number.isFinite(sayHiTextIndex)
     ? sayHiTextIndex % sayHiCount
     : 0;
-  const sayHiText = sayHiVariants[normalizedSayHiIndex] ?? sayHiVariants[0];
+  const activeText =
+    sayHiVariants[normalizedSayHiIndex]?.text ?? sayHiVariants[0].text;
   const prevText =
-    sayHiVariants[(normalizedSayHiIndex - 1 + sayHiCount) % sayHiCount] ??
-    sayHiVariants[sayHiCount - 1];
+    sayHiVariants[(normalizedSayHiIndex - 1 + sayHiCount) % sayHiCount]
+      ?.text ?? sayHiVariants[sayHiCount - 1].text;
 
   if (isUpworkProof) return null;
 
@@ -100,27 +103,37 @@ export default function Footer() {
           }
         >
           <div className="min-w-0">
-            <div className="overflow-hidden relative h-[136px] ">
-              {sayHiVariants.map((text, idx) => (
-                <motion.p
-                  key={idx}
-                  lang={text.lang}
-                  dir={text.dir}
-                  style={{ perspective: 900 }}
-                  transition={{ duration: 0.7 }}
-                  className={`say-hi-word ${text.className} text-[4em] py-20 absolute top-0 left-0`}
-                  initial={false}
-                  animate={
-                    sayHiText.text === text.text
-                      ? { opacity: 1, y: 0, rotateX: 0 }
-                      : text.text === prevText.text
-                      ? { opacity: 0, y: -50, rotateX: -90 }
-                      : { opacity: 0, y: 50, rotateX: 90 }
-                  }
-                >
-                  {text.text}
-                </motion.p>
-              ))}
+            <div className="relative h-[136px] overflow-hidden">
+              {sayHiVariants.map((text) => {
+                const isActive = activeText === text.text;
+                const isPrev = prevText === text.text;
+                let transform = "translateY(50%) rotateX(90deg)";
+                let opacity = 0;
+                if (isActive) {
+                  transform = "translateY(0) rotateX(0deg)";
+                  opacity = 1;
+                } else if (isPrev) {
+                  transform = "translateY(-50%) rotateX(-90deg)";
+                  opacity = 0;
+                }
+                return (
+                  <p
+                    key={text.text}
+                    lang={text.lang}
+                    dir={text.dir}
+                    style={{
+                      perspective: 900,
+                      opacity,
+                      transform,
+                      transition: "opacity 0.7s ease, transform 0.7s ease",
+                    }}
+                    className={`say-hi-word ${text.className} absolute left-0 top-0 py-20 text-[4em]`}
+                    aria-hidden={!isActive}
+                  >
+                    {text.text}
+                  </p>
+                );
+              })}
             </div>
             {isHome ? (
               <a
@@ -132,9 +145,7 @@ export default function Footer() {
             ) : (
               <>
                 <div className="max-w-[560px] space-y-16 pb-24">
-                  <p className="text-body3 uppercase">
-                    {copy.production}
-                  </p>
+                  <p className="text-body3 uppercase">{copy.production}</p>
                   <p className={`text-body4 ${serifText.className}`}>
                     {copy.approach}
                   </p>
@@ -200,7 +211,6 @@ export default function Footer() {
                     Telegram
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="https://www.linkedin.com/in/davidhakobyan/"
@@ -211,7 +221,6 @@ export default function Footer() {
                     LinkedIn
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="https://x.com/larseen66"
@@ -228,10 +237,14 @@ export default function Footer() {
         </div>
 
         <div className="mt-40">
-          <p
-            className={`${serifText.className} text-body5 text-right`}
-          >
-            Dali Labs 2023-2026
+          <p className={`${serifText.className} text-body5 text-right`}>
+            <a
+              href="https://daliagents.com"
+              className="hover:underline"
+            >
+              Dali Agents
+            </a>
+            {" · daliagents.com · 2023-2026"}
           </p>
         </div>
       </Container>

@@ -41,6 +41,10 @@ export const englishLabels = {
   commercialBody:
     "Dali does not ask you to buy a broad automation program upfront. We define one acceptance test, quote one pilot, build after agreement, and widen scope only if the first workflow passes.",
   workflowAriaSuffix: "workflow diagram",
+  chooseLane: "Choose a fixed lane",
+  lanesTitle: "One system shell. Two pilot scopes.",
+  laneAcceptance: "Lane acceptance test",
+  startWithLane: "Start with this lane",
 };
 
 export type SolutionPageLabels = {

@@ -48,54 +48,41 @@ export const englishSolutionsBundle = {
       ],
       packagedPilot: "Packaged pilot",
       researchLane: "Research lane",
-      viewPilot: "View pilot",
+      viewPilot: "View family",
       viewResearch: "View research lane",
       responseLane: {
-        title: "Lead & Client Response",
+        title: "Conversation Control",
         summary:
-          "One response surface for inbound leads and existing customer threads: draft, ground, gate sensitive actions, and keep CRM moving.",
-        eyebrow: "Packaged pilots",
-        pilotLabel: "Open pilots",
+          "One conversation shell for inbound leads and existing client threads: draft, ground, gate sensitive actions, and keep CRM moving.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
+      },
+      opsKnowledgeLane: {
+        title: "Ops & Knowledge",
+        summary:
+          "One control loop for documents-to-actions and internal Q&A: approved sources, validated writes or cited answers, exception owner.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
       },
       cards: {
-        "lead-response": {
-          title: "Lead Response Agent",
+        "conversation-control": {
+          title: "Conversation Control System",
           summary:
-            "Reply faster, qualify earlier, and keep every inbound lead moving.",
+            "Supervised inbox system for inbound leads and client support, with fixed lanes and human gates.",
           tasks: [
-            "Triage contact forms, email, WhatsApp, or Telegram inquiries",
-            "Draft personalized first replies with qualification questions",
-            "Update CRM stages, owners, and follow-up tasks automatically",
+            "Pick inbound leads or existing client support as the first lane",
+            "Draft or send approved replies with CRM write-back",
+            "Stop pricing, refunds, and edge cases for human review",
           ],
         },
-        "client-inbox": {
-          title: "Client Inbox Agent",
+        "ops-knowledge": {
+          title: "Ops & Knowledge System",
           summary:
-            "Answer routine customer threads with approved context, CRM history, and a visible handoff.",
+            "Turn recurring documents into actions or answer internal questions from approved sources.",
           tasks: [
-            "Ground replies in approved policies, files, and past cases",
-            "Log the conversation and next action in the existing CRM",
-            "Stop sensitive requests, media, or unsupported answers for review",
-          ],
-        },
-        "operations-docs": {
-          title: "Operations Agent",
-          summary:
-            "Handle routine back-office work before it turns into team drag.",
-          tasks: [
-            "Turn inbox requests into tracker updates and routed tasks",
-            "Reconcile spreadsheets, status fields, and recurring exceptions",
-            "Prepare approvals, summaries, and handoff notes for staff",
-          ],
-        },
-        "knowledge-assistant": {
-          title: "Internal Knowledge Agent",
-          summary:
-            "Give the team a reliable first layer for repetitive questions.",
-          tasks: [
-            "Search SOPs, docs, and past cases before suggesting next steps",
-            "Draft support answers and escalation context for human reviewers",
-            "Keep internal knowledge organized as products and policies change",
+            "Pick documents-to-actions or internal Q&A as the first lane",
+            "Validate writes or cite sources before the team trusts the output",
+            "Route exceptions to a named human owner",
           ],
         },
         "voice-agents": {
@@ -116,6 +103,48 @@ export const englishSolutionsBundle = {
             "Map high-risk secrets, payments, admin, and outbound paths",
             "Decide patch vs rewrite for each critical path in scope",
             "Ship gates, a stop-switch, and an ownership handoff package",
+          ],
+        },
+      },
+      laneCards: {
+        "lead-response": {
+          title: "Inbound leads lane",
+          summary:
+            "Reply faster, qualify earlier, and keep every inbound lead moving.",
+          tasks: [
+            "Triage contact forms, email, WhatsApp, or Telegram inquiries",
+            "Draft personalized first replies with qualification questions",
+            "Update CRM stages, owners, and follow-up tasks automatically",
+          ],
+        },
+        "client-inbox": {
+          title: "Client support lane",
+          summary:
+            "Answer routine customer threads with approved context, CRM history, and a visible handoff.",
+          tasks: [
+            "Ground replies in approved policies, files, and past cases",
+            "Log the conversation and next action in the existing CRM",
+            "Stop sensitive requests, media, or unsupported answers for review",
+          ],
+        },
+        "operations-docs": {
+          title: "Documents-to-actions lane",
+          summary:
+            "Handle routine back-office work before it turns into team drag.",
+          tasks: [
+            "Turn inbox requests into tracker updates and routed tasks",
+            "Reconcile spreadsheets, status fields, and recurring exceptions",
+            "Prepare approvals, summaries, and handoff notes for staff",
+          ],
+        },
+        "knowledge-assistant": {
+          title: "Internal knowledge lane",
+          summary:
+            "Give the team a reliable first layer for repetitive questions.",
+          tasks: [
+            "Search SOPs, docs, and past cases before suggesting next steps",
+            "Draft support answers and escalation context for human reviewers",
+            "Keep internal knowledge organized as products and policies change",
           ],
         },
       },

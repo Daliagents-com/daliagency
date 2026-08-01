@@ -1,32 +1,70 @@
 ---
 slug: "rate-limits-admin-and-promo"
-title: "Rate limits for admin login and promo codes (why vibe apps skip them)"
-description: "How missing lockouts enable password and promo brute force - and the minimum controls we install."
+title: "სიხშირის ლიმიტები ადმინ შესვლასა და პრომოკოდებზე (რატომ ტოვებს AI აგება მათ)"
+description: "როგორ ხსნის lockout-ის არარსებობა პაროლისა და პრომოს brute force-ს - და რა მინიმალურ კონტროლს ვაყენებთ."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "rate-limits-admin-and-promo"
-keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse"]
+keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse", "ადმინ შესვლის ლიმიტი"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/rate-limits-admin-and-promo/hero.jpg"
-heroAlt: "Rate limits for admin login and promo codes (why vibe apps skip them)"
+heroAlt: "სიხშირის ლიმიტები ადმინ შესვლასა და პრომოკოდებზე"
 ogImage: "/blog/rate-limits-admin-and-promo/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Without timeouts, lockouts, or 429s, attackers can probe admin passwords and promo codes at scale. Minimum: rate limits, lockouts, monitoring, and single-use or scoped promos.
+timeout-ების, lockout-ებისა და 429 პასუხების გარეშე თავდამსხმელებს შეუძლიათ ადმინ პაროლებისა და პრომოკოდების მასშტაბური გადარჩევა. მინიმუმი: სიხშირის ლიმიტები, lockout, მონიტორინგი და ერთჯერადი ან შეზღუდული scope-ის პრომოები.
 
-## პრაქტიკა
+სწრაფი AI პროტოტიპი ხატავს ლამაზ login-სა და «პრომოკოდის» ველს. Brute force-ისგან დაცვას თითქმის არასოდეს აგენერირებს.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- ნებისმიერ endpoint-ს, სადაც გამოცნობა სარგებელს იძლევა (admin, promo, reset password, OTP), სჭირდება ლიმიტები.
+- აღწერეთ რა ითვლება «ძალიან ხშირად» IP-ით, ანგარიშით, კოდით.
+- შეამოწმეთ ფულისა და წვდომის გზები: წარმატებული brute force = სხვისი ადმინკა ან 100% ფასდაკლება.
+- დატოვეთ ადამიანს საეჭვო აფეთქებების განხილვა (ალერტები, არა მხოლოდ ლოგი «დისკზე»).
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## როგორ გამოიყურება კარგი
+
+- Rate limit + progressive delay / lockout `/admin/login`-სა და ანალოგებზე.
+- პრომო: მცდელობების ლიმიტი, ერთჯერადი კოდები, ვადა, scope (ერთი SKU / ერთი user).
+- 429 გასაგები ქცევით კლიენტისთვის (არა უსასრულო spinner).
+- Audit log წარუმატებელ შესვლებსა და პრომოს გამოყენებაზე.
+- ალერტები ანომალიაზე: ათასი მცდელობა წუთში.
+- საიდუმლო გასაღებები არა კლიენტის JS-ში; stop უფლებების გაცემაზე.
+
+## როგორ გამოიყურება ცუდი
+
+- უსასრულო POST login-ზე მთვლელის გარეშე.
+- პრომოკოდები მოკლე ლექსიკონიდან ლიმიტის გარეშე (`SALE10`, `VIP`, წლები).
+- «პრევიუში მუშაობს» = მზადაა რეალური ექსპლუატაციისთვის.
+- ინციდენტის ადამიანთან გადაცემა არ არის (უსაფრთხოება «მოგვიანებით»).
+- CAPTCHA მხოლოდ მარკეტინგის ფორმაზე, არა admin-ზე.
+
+## მინიმალური კონტროლების ნაკრები
+
+1. **Per-IP და per-account** ლიმიტები auth-ზე.
+2. **Lockout** N წარუმატებლობის შემდეგ (უსაფრთხო unlock პროცესით).
+3. **Promo attempt budget** + ერთჯერადობა / expiry.
+4. **Monitoring** failed auth / promo spikes.
+5. **არა client-side «საიდუმლო» სია** ვალიდური კოდებისა ბანდლში.
+
+დაკავშირებული: [საჯარო webhook და underpayment](/ge/blog/public-webhooks-and-payment-risks), [გადახდები და საიდუმლო გასაღებები](/ge/blog/payments-and-secrets-on-vibe-apps).
+
+## როგორ აწარმოებს Dali
+
+ვამყარებთ AI აგების კრიტიკულ გზას: [vibe-code rescue](/ge/solutions/vibe-code-rescue). დაკავშირებული: [საბრძოლო აგენტები](/ge/blog/production-ai-agents-for-business), [კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. სწრაფი UI კარგია. საშიშია login/promo-ს გაშვება anti-abuse-ის გარეშე.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ხშირად წერტილოვანად: rate limit middleware, promo service, audit. UI რჩება.
+
+### საკმარისია Cloudflare მთელ საიტზე?
+პერიმეტრზე სასარგებლოა, მაგრამ არ ცვლის app-level ლიმიტებს login-სა და promo-ზე ბიზნეს ლოგიკით.

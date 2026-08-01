@@ -6,8 +6,11 @@ import {
   siteUrl,
   socialPreviewImage,
   twitterPreviewImage,
+  type PilotSourceContent,
+  type PilotSourceSlug,
   type SolutionContent,
 } from "./solutionContent";
+import { legacySolutionRedirects } from "./buildFamilySolutions";
 
 export const russianSolutionSlugs = [
   "client-inbox",
@@ -16,7 +19,8 @@ export const russianSolutionSlugs = [
 
 export type RussianSolutionSlug = (typeof russianSolutionSlugs)[number];
 
-const russianSolutions: Record<RussianSolutionSlug, SolutionContent> = {
+/** Legacy Russian pilot sources (redirect targets map via legacySolutionRedirects). */
+const russianSolutions: Record<RussianSolutionSlug, PilotSourceContent> = {
   "client-inbox": {
     slug: "client-inbox",
     name: "Пилот клиентской переписки",
@@ -327,7 +331,7 @@ const russianSolutions: Record<RussianSolutionSlug, SolutionContent> = {
 
 export function getRussianSolutionBySlug(
   slug: string,
-): SolutionContent | null {
+): PilotSourceContent | null {
   if (!russianSolutionSlugs.includes(slug as RussianSolutionSlug)) {
     return null;
   }
@@ -336,12 +340,18 @@ export function getRussianSolutionBySlug(
 }
 
 export function getRussianSolutionHref(slug: RussianSolutionSlug) {
-  return `/ru/solutions/${slug}`;
+  const family =
+    legacySolutionRedirects[slug] ??
+    (slug as PilotSourceSlug);
+  return `/ru/solutions/${family}`;
 }
 
-export function buildRussianMetadata(solution: SolutionContent): Metadata {
+export function buildRussianMetadata(solution: PilotSourceContent): Metadata {
   const pathname = getRussianSolutionHref(solution.slug as RussianSolutionSlug);
   const url = `${siteUrl}${pathname}`;
+  const familySlug =
+    legacySolutionRedirects[solution.slug] ??
+    (solution.slug as SolutionContent["slug"]);
 
   return {
     title: solution.metadata.title,
@@ -349,7 +359,7 @@ export function buildRussianMetadata(solution: SolutionContent): Metadata {
     alternates: {
       canonical: pathname,
       languages: {
-        en: getSolutionHref(solution.slug),
+        en: getSolutionHref(familySlug),
         ru: pathname,
       },
     },

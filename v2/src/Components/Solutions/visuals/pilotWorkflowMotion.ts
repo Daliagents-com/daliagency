@@ -274,10 +274,8 @@ const vibeCodeRescue: PilotWorkflowMotion = {
 };
 
 export const pilotWorkflowMotion: Record<SolutionSlug, PilotWorkflowMotion> = {
-  "knowledge-assistant": knowledge,
-  "lead-response": leadResponse,
-  "client-inbox": clientInbox,
-  "operations-docs": operationsDocs,
+  "conversation-control": leadResponse,
+  "ops-knowledge": operationsDocs,
   "voice-agents": voiceAgents,
   "vibe-code-rescue": vibeCodeRescue,
 };

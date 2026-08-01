@@ -1,32 +1,53 @@
 ---
 slug: "component-registry-agent-workflow"
-title: "Agent workflows for component registries and design systems"
-description: "How agentic pipelines speed component create → format → visual QA → publish - with human release gates."
+title: "Գործակալների աշխատանքային հոսքեր կոմպոնենտների ռեեստրի և դիզայն-համակարգերի համար"
+description: "Ինչպես են գործակալային խողովակները արագացնում կոմպոնենտի ստեղծումը → ձևավորումը → տեսողական ստուգումը → հրապարակումը - մարդու ռելիզի վերահսկմամբ։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "component-registry-agent-workflow"
-keywords: ["React component registry agent", "AI frontend workflow agent"]
+keywords: ["React կոմպոնենտների ռեեստրի գործակալ", "AI ֆրոնտենդի աշխատանքային հոսք", "React component registry agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/component-registry-agent-workflow/hero.jpg"
-heroAlt: "Agent workflows for component registries and design systems"
+heroAlt: "Գործակալների աշխատանքային հոսքեր կոմպոնենտների ռեեստրի և դիզայն-համակարգերի համար"
 ogImage: "/blog/component-registry-agent-workflow/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Registry agents help with formatting, visual checks, metadata, and publish prep. Humans still own final release. Speed comes from removing repeated manual steps, not removing review.
+Ռեեստրի գործակալները օգնում են ձևավորմանը, տեսողական ստուգումներին, մետատվյալներին և հրապարակման նախապատրաստմանը։ Վերջնական ռելիզը մնում է մարդու մոտ։ Արագությունը գալիս է կրկնվող ձեռքով քայլերի հանելուց, ոչ թե վերանայման չեղարկումից։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական բիզնեսի աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, ապա ստուգեք ամեն ուղի, որ վերաբերում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
+- Գործակալը պատրաստում է փոփոխություններ, սքրինշոթեր և չեքլիստ. մարդը որոշում է, ինչ է մտնում ռեեստր։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ երթուղավորում. ստանդարտ vs ոչ ստանդարտ
+- Գիտելիքների բազա, որով օգնականն իրականում կարող է աշխատել
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Մատյաններ և կանգառի կոճակ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է» առանց իրական շահագործման ստուգումների
+- Թոքեններ և վեբհուքեր թողնված հանրային
+- Մարդուն փոխանցում բացառությունների դեպքում չկա
+- Բարակ մեքենայական թարգմանություններ՝ որպես լոկալիզացիա վաճառված
+
+## Ինչպես է Dali-ն վարում սա
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. մենք լուրջ ենք վերաբերվում արագ AI նախատիպերին, ապա ամրացնում ենք դրանք իրական շահագործման մեջ՝ մարդու վերահսկման կետերով, գործիքներով և սեփականատերերով։ Կապված. [AI գործակալներ իրական շահագործումում](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգտա՞կ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Միշտ ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

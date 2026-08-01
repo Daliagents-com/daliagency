@@ -1,11 +1,11 @@
 ---
 slug: "testing-ci-cd-for-vibe-coded-apps"
-title: "Testing и CI/CD для vibe-coded apps"
-description: "Минимум testing и pipeline practices, когда UI сгенерирован AI builders - чтобы handoff engineers не рухнул."
+title: "Тесты и CI/CD для приложений, собранных в ИИ-чате"
+description: "Минимум тестов и пайплайна, когда интерфейс сгенерирован ИИ-конструктором - чтобы передача инженерам не развалилась."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "testing-ci-cd-for-vibe-coded-apps"
-keywords: ["testing vibe coded app", "CI CD AI generated codebase", "handoff vibe MVP engineers"]
+keywords: ["тесты vibe coded app", "CI CD AI generated codebase", "передача vibe MVP инженерам", "testing vibe coded app"]
 status: "published"
 author: "Dali"
 type: "tutorial"
@@ -13,42 +13,42 @@ type: "tutorial"
 
 ## Прямой ответ
 
-AI-generated UI - не free pass on quality. Добавьте **smoke tests**, critical-path e2e for money/auth, CI on every PR и written handoff map before real users scale.
+Интерфейс, сгенерированный ИИ, - не индульгенция на качество. Добавьте **дымовые тесты**, сквозные проверки критического пути (деньги и вход), CI на каждый pull request и письменную карту передачи до того, как вырастет число реальных пользователей.
 
-## Minimum tests
+## Минимум тестов
 
-Auth login, checkout or lead form, webhook receiver, permission denial cases.
+Вход в аккаунт, оформление заказа или форма лида, приём webhook, случаи отказа в правах. Это не «полное покрытие», а страховка, что приложение не молча ломается на базовых действиях.
 
 ## CI
 
-Lint, typecheck, unit/smoke, block merge on red.
+Линт, проверка типов, unit/smoke - и блок слияния, если пайплайн красный. Без этого «сборка в ИИ-чате» быстро превращается в хаос из незамеченных регрессий.
 
-## Staging
+## Стенд (staging)
 
-Environment parity for secrets и payments test mode.
+Паритет окружения: те же схемы ключей и секретов, платежи в тестовом режиме. Иначе «на стейдже работает» ничего не доказывает про боевую работу.
 
-## Handoff to engineers
+## Передача инженерам
 
-Architecture sketch, known footguns, seed data, how to run locally.
+Эскиз архитектуры, известные ловушки, seed-данные, как поднять локально. Без этого передача MVP в команду стоит дороже самой сборки.
 
-## What AI tests miss
+## Что ИИ-тесты обычно пропускают
 
-Race conditions, entitlement bugs, multi-tenant leaks.
+Гонки состояний (race conditions), ошибки прав доступа, утечки между арендаторами (multi-tenant). Их ловят осмысленные сценарии и ревью, а не «сгенерируй тесты».
 
 ## Как помогает Dali
 
-Rescue pilots include handoff packages: [vibe-code rescue](/ru/solutions/vibe-code-rescue).
+Пробные запуски «спасения» включают пакеты передачи: [спасение vibe-code](/ru/solutions/vibe-code-rescue).
 
 ## FAQ
 
-### We have no engineers yet?
-Всё равно run CI; humans понадобятся before serious scale.
+### У нас ещё нет инженеров?
+Всё равно запускайте CI: до серьёзного масштаба понадобятся люди, и история зелёных/красных сборок сэкономит недели.
 
 ### Связанное
-[After vibe-code audit handoff](/ru/blog/after-vibe-code-audit-handoff)
+[После аудита vibe-code: передача](/ru/blog/after-vibe-code-audit-handoff)
 
-### Playwright/Cypress?
-Fine - cover money paths first, not every pixel.
+### Playwright или Cypress?
+Нормально - сначала пути с деньгами, не каждый пиксель.
 
 
 <!-- covers GPT questions: 84,85,94 -->

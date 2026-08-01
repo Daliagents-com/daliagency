@@ -1,32 +1,53 @@
 ---
 slug: "how-to-scope-upwork-ai-pilot"
-title: "How to scope an Upwork AI pilot that can actually finish"
-description: "A pilot template: one workflow, acceptance test, tools, gates, and a fixed outcome."
+title: "როგორ განვსაზღვროთ Upwork AI საცდელი გაშვება, რომელიც რეალურად დასრულდება"
+description: "საცდელი გაშვების შაბლონი: ერთი სამუშაო პროცესი, მიღების ტესტი, ხელსაწყოები, კონტროლის წერტილები და ფიქსირებული შედეგი."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "how-to-scope-upwork-ai-pilot"
-keywords: ["scope AI agent pilot Upwork", "AI pilot fixed outcome", "Upwork AI project scope"]
+keywords: ["AI საცდელი გაშვების ფარგლები Upwork", "AI პილოტი ფიქსირებული შედეგით", "scope AI agent pilot Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/how-to-scope-upwork-ai-pilot/hero.jpg"
-heroAlt: "How to scope an Upwork AI pilot that can actually finish"
+heroAlt: "როგორ განვსაზღვროთ Upwork AI საცდელი გაშვება, რომელიც რეალურად დასრულდება"
 ogImage: "/blog/how-to-scope-upwork-ai-pilot/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Good pilots have one workflow, a fixed outcome, includes/excludes, tools list, gates, and an acceptance test. Bad pilots say “automate the business with AI” and never end.
+კარგ საცდელ გაშვებას აქვს ერთი სამუშაო პროცესი, ფიქსირებული შედეგი, შედის/არ შედის სია, ხელსაწყოები, ადამიანის კონტროლის წერტილები და მიღების ტესტი. ცუდი პილოტი ამბობს «ავტომატიზაცია AI-ით მთელ ბიზნესზე» და არასოდეს მთავრდება.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- ფარგლებში ჩაწერეთ ერთი გაზომვადი შედეგი: «10 დღეში აგენტი ამზადებს პასუხის პროექტს და CRM ჩანაწერს, ადამიანი აგზავნის».
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

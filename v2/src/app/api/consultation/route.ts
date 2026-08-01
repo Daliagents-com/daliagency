@@ -7,6 +7,8 @@ import {
   validateConsultationPayload,
   type ConsultationPayload,
 } from "@/lib/consultation";
+import { AnalyticsEvent } from "@/lib/analytics/events";
+import { trackServerEvent } from "@/lib/analytics/trackServer";
 
 export const runtime = "nodejs";
 
@@ -102,6 +104,25 @@ export async function POST(request: Request) {
     }
 
     const channel = await deliverLead(parsed.data);
+
+    // Conversion event: no PII - only funnel dims (interest, source, locale, channel).
+    await trackServerEvent(
+      {
+        name: AnalyticsEvent.ConsultationSubmit,
+        path: request.headers.get("referer") ?? "",
+        locale: parsed.data.locale,
+        source: parsed.data.source,
+        props: {
+          interest: parsed.data.interest,
+          channel,
+        },
+      },
+      {
+        referrer: request.headers.get("referer") ?? "",
+        userAgent: request.headers.get("user-agent") ?? "",
+      },
+    );
+
     return NextResponse.json({ ok: true, channel });
   } catch (error) {
     console.error("[consultation]", error);

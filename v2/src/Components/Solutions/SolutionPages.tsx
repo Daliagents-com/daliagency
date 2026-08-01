@@ -4,10 +4,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import Container from "@/Components/Container/Container";
 import {
-  condensedHeadings,
   monoText,
   sansText,
-  serifText,
 } from "@/assets/fonts";
 import {
   allSolutions,
@@ -69,14 +67,10 @@ function getThemeStyle(solution: SolutionContent): CSSProperties {
 
 function getUpworkWorkflowIntake(solution: SolutionContent) {
   switch (solution.slug) {
-    case "lead-response":
-      return ["Website form", "Email inbox", "Shared CRM queue"] as const;
-    case "client-inbox":
-      return ["Customer inbox", "Approved files", "Shared CRM queue"] as const;
-    case "operations-docs":
-      return ["Email or PDF", "Form or screenshot", "Spreadsheet row"] as const;
-    case "knowledge-assistant":
-      return ["Docs", "Past answers", "Policy notes"] as const;
+    case "conversation-control":
+      return ["Inbound or support channel", "Approved context", "Shared CRM queue"] as const;
+    case "ops-knowledge":
+      return ["Email, PDF, or docs", "Approved source set", "Destination system"] as const;
     case "voice-agents":
       return ["Call queue", "Scheduling rules", "FAQ docs"] as const;
     case "vibe-code-rescue":
@@ -86,32 +80,19 @@ function getUpworkWorkflowIntake(solution: SolutionContent) {
 
 function getUpworkIntegrations(solution: SolutionContent) {
   switch (solution.slug) {
-    case "lead-response":
+    case "conversation-control":
       return [
-        "HubSpot, Pipedrive, or a structured Google Sheet",
-        "Email inboxes and booking handoff",
-        "CRM updates and follow-up queues",
+        "HubSpot, Pipedrive, Bitrix24, or a structured Google Sheet",
+        "Email, website chat, WhatsApp, or Telegram",
+        "CRM updates, booking handoff, and case history",
+        "Human approval queues for sensitive actions",
       ] as const;
-    case "client-inbox":
+    case "ops-knowledge":
       return [
-        "Email, website chat, or an existing customer inbox",
-        "HubSpot, Bitrix24, Kommo, GoHighLevel, or another case-history system",
-        "Approved help articles, policy notes, files, and resolved threads",
-        "Human approval queues for sensitive actions or uncertain requests",
-      ] as const;
-    case "operations-docs":
-      return [
-        "Gmail, Outlook, Drive, forms, uploads, or watched folders",
-        "PDFs, screenshots, spreadsheets, order emails, invoices, or application packets",
-        "HubSpot, Salesforce, Odoo, QuickBooks, Buildium, or Google Sheets",
-        "Approvals and exception alerts in the team workspace",
-      ] as const;
-    case "knowledge-assistant":
-      return [
-        "Notion, Google Drive, Confluence, or an internal docs folder",
-        "Internal question intake",
-        "Zendesk, Intercom, or a support triage channel",
-        "Issue or ticket systems for escalation",
+        "Gmail, Outlook, Drive, Notion, Confluence, or uploads",
+        "PDFs, spreadsheets, SOPs, and resolved past answers",
+        "CRM, ERP, Sheets, or ticket systems as destination",
+        "Exception alerts in the team workspace",
       ] as const;
     case "voice-agents":
       return [
@@ -224,15 +205,15 @@ export function SolutionsIndex() {
                 </p>
                 <h1
                   id="solutions-title"
-                  className={`${condensedHeadings.className} ${styles.title}`}
+                  className={`${sansText.className} ${styles.title}`}
                 >
-                  Four packaged pilots. One voice research lane.
+                  Three product families. Fixed pilot lanes inside.
                 </h1>
-                <p className={`${serifText.className} ${styles.lead}`}>
+                <p className={`${sansText.className} ${styles.lead}`}>
                   These pages are for teams that want a narrow, production-grade
                   starting point, not a vague promise about AI replacing the
-                  whole business. Each route has explicit approvals, a clear
-                  not-fit line, and a measurable acceptance test.
+                  whole business. Each family has one system shell, fixed lanes,
+                  explicit approvals, and a measurable acceptance test.
                 </p>
               </div>
 
@@ -271,11 +252,11 @@ export function SolutionsIndex() {
               </p>
               <h2
                 id="solutions-grid-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 Start where the repetition is already obvious.
               </h2>
-              <p className={`${serifText.className} ${styles.sectionLead}`}>
+              <p className={`${sansText.className} ${styles.sectionLead}`}>
                 The best first pilot is the workflow your team already repeats
                 often enough to rehearse, approve, and own.
               </p>
@@ -293,11 +274,11 @@ export function SolutionsIndex() {
                       {solution.hero.eyebrow}
                     </p>
                     <h3
-                      className={`${condensedHeadings.className} ${styles.cardTitle}`}
+                      className={`${sansText.className} ${styles.cardTitle}`}
                     >
                       {solution.name}
                     </h3>
-                    <p className={`${serifText.className} ${styles.indexSummary}`}>
+                    <p className={`${sansText.className} ${styles.indexSummary}`}>
                       {solution.summary}
                     </p>
                     <ul className={`${sansText.className} ${styles.indexList}`}>
@@ -373,7 +354,7 @@ export function SolutionLanding({
                 </p>
                 <h1
                   id="solution-title"
-                  className={`${condensedHeadings.className} ${styles.title}`}
+                  className={`${sansText.className} ${styles.title}`}
                 >
                   {solution.hero.title}
                 </h1>
@@ -420,7 +401,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="contrast-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.contrastTitle}
               </h2>
@@ -461,7 +442,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="boundary-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.boundaryTitle}
               </h2>
@@ -472,7 +453,7 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.cardEyebrow}`}>
                   {solution.pilot.label}
                 </p>
-                <div className={`${serifText.className} ${styles.boundaryOutcome}`}>
+                <div className={`${sansText.className} ${styles.boundaryOutcome}`}>
                   {solution.pilot.fixedOutcome}
                 </div>
               </div>
@@ -504,6 +485,83 @@ export function SolutionLanding({
         </Container>
       </section>
 
+      {solution.lanes && solution.lanes.length > 0 ? (
+        <section className={styles.section} aria-labelledby="lanes-title">
+          <Container wide>
+            <div className={styles.panel}>
+              <div className={styles.sectionIntro}>
+                <p className={`${monoText.className} ${styles.sectionEyebrow}`}>
+                  {labels.chooseLane}
+                </p>
+                <h2
+                  id="lanes-title"
+                  className={`${sansText.className} ${styles.sectionTitle}`}
+                >
+                  {labels.lanesTitle}
+                </h2>
+              </div>
+
+              <div className={styles.dualGrid}>
+                {solution.lanes.map((lane) => (
+                  <article
+                    key={lane.id}
+                    id={`lane-${lane.id}`}
+                    className={styles.boundaryCard}
+                  >
+                    <div className={styles.boundaryHeader}>
+                      <p className={`${monoText.className} ${styles.cardEyebrow}`}>
+                        {labels.startWithLane}
+                      </p>
+                      <h3
+                        className={`${sansText.className} ${styles.cardTitle}`}
+                      >
+                        {lane.name}
+                      </h3>
+                      <p className={`${sansText.className} ${styles.indexSummary}`}>
+                        {lane.summary}
+                      </p>
+                      <div
+                        className={`${sansText.className} ${styles.boundaryOutcome}`}
+                      >
+                        {lane.fixedOutcome}
+                      </div>
+                    </div>
+                    <div className={styles.splitGrid}>
+                      <div>
+                        <h4 className={`${monoText.className} ${styles.listTitle}`}>
+                          {labels.included}
+                        </h4>
+                        <ul className={`${sansText.className} ${styles.detailList}`}>
+                          {lane.includes.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className={`${monoText.className} ${styles.listTitle}`}>
+                          {labels.excluded}
+                        </h4>
+                        <ul className={`${sansText.className} ${styles.detailList}`}>
+                          {lane.excludes.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <p className={`${monoText.className} ${styles.listTitle}`}>
+                      {labels.laneAcceptance}
+                    </p>
+                    <p className={`${sansText.className} ${styles.supportLine}`}>
+                      {lane.acceptanceTest}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
       <section className={styles.section} aria-labelledby="surfaces-title">
         <Container wide>
           <div className={styles.panel}>
@@ -513,7 +571,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="surfaces-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.surfacesTitle}
               </h2>
@@ -524,7 +582,7 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.surfaceLabel}`}>
                   {integrations.label}
                 </p>
-                <p className={`${serifText.className} ${styles.sectionLead}`}>
+                <p className={`${sansText.className} ${styles.sectionLead}`}>
                   {integrations.intro}
                 </p>
                 <ul className={`${sansText.className} ${styles.detailList}`}>
@@ -537,7 +595,7 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.surfaceLabel}`}>
                   {solution.guardrails.label}
                 </p>
-                <p className={`${serifText.className} ${styles.sectionLead}`}>
+                <p className={`${sansText.className} ${styles.sectionLead}`}>
                   {solution.guardrails.intro}
                 </p>
                 <ul className={`${sansText.className} ${styles.detailList}`}>
@@ -560,7 +618,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="validation-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.validationTitle}
               </h2>
@@ -571,7 +629,7 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.surfaceLabel}`}>
                   {labels.passCondition}
                 </p>
-                <p className={`${serifText.className} ${styles.sectionLead}`}>
+                <p className={`${sansText.className} ${styles.sectionLead}`}>
                   {solution.validation.acceptanceTest}
                 </p>
                 <p className={`${sansText.className} ${styles.commercialModel}`}>
@@ -602,7 +660,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="delivery-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.deliveryTitle}
               </h2>
@@ -615,11 +673,11 @@ export function SolutionLanding({
                     {labels.stepPrefix} 0{index + 1}
                   </p>
                   <h3
-                    className={`${condensedHeadings.className} ${styles.boxTitle}`}
+                    className={`${sansText.className} ${styles.boxTitle}`}
                   >
                     {step.title}
                   </h3>
-                  <p className={`${serifText.className} ${styles.body}`}>
+                  <p className={`${sansText.className} ${styles.body}`}>
                     {step.body}
                   </p>
                 </article>
@@ -638,7 +696,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="fit-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.fitTitle}
               </h2>
@@ -646,7 +704,7 @@ export function SolutionLanding({
 
             <div className={styles.fitGrid}>
               <article className={styles.fitCard}>
-                <h3 className={`${condensedHeadings.className} ${styles.boxTitle}`}>
+                <h3 className={`${sansText.className} ${styles.boxTitle}`}>
                   {labels.goodFit}
                 </h3>
                 <ul className={`${sansText.className} ${styles.fitList}`}>
@@ -656,7 +714,7 @@ export function SolutionLanding({
                 </ul>
               </article>
               <article className={styles.fitCard}>
-                <h3 className={`${condensedHeadings.className} ${styles.boxTitle}`}>
+                <h3 className={`${sansText.className} ${styles.boxTitle}`}>
                   {labels.notFit}
                 </h3>
                 <ul className={`${sansText.className} ${styles.fitList}`}>
@@ -679,7 +737,7 @@ export function SolutionLanding({
               </p>
               <h2
                 id="faq-title"
-                className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                className={`${sansText.className} ${styles.sectionTitle}`}
               >
                 {labels.faqTitle}
               </h2>
@@ -696,7 +754,7 @@ export function SolutionLanding({
                       +
                     </span>
                   </summary>
-                  <p className={`${serifText.className} ${styles.faqAnswer}`}>
+                  <p className={`${sansText.className} ${styles.faqAnswer}`}>
                     {faq.answer}
                   </p>
                 </details>
@@ -717,21 +775,21 @@ export function SolutionLanding({
                   </p>
                   <h2
                     id="cta-title"
-                    className={`${condensedHeadings.className} ${styles.sectionTitle}`}
+                    className={`${sansText.className} ${styles.sectionTitle}`}
                   >
                     {labels.ctaTitle}
                   </h2>
                 </div>
                 <div
                   id="upwork-reply-checklist"
-                  className={`${serifText.className} ${styles.ctaBrief}`}
+                  className={`${sansText.className} ${styles.ctaBrief}`}
                 >
                   <p className={`${monoText.className} ${styles.surfaceLabel}`}>
                     {variant === "upwork"
                       ? labels.sendUpwork
                       : labels.sendDali}
                   </p>
-                  <p className={`${serifText.className} ${styles.replyCopy}`}>
+                  <p className={`${sansText.className} ${styles.replyCopy}`}>
                     {ctaBody}
                   </p>
                 </div>
@@ -754,7 +812,7 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.cardEyebrow}`}>
                   {labels.commercialModel}
                 </p>
-                <p className={`${serifText.className} ${styles.sectionLead}`}>
+                <p className={`${sansText.className} ${styles.sectionLead}`}>
                   {labels.commercialBody}
                 </p>
               </article>

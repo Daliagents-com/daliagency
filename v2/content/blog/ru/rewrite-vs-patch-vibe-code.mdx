@@ -1,40 +1,70 @@
 ---
 slug: "rewrite-vs-patch-vibe-code"
-title: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
-description: "How we choose between surgical fixes and rebuilding the critical path of an AI-generated site."
+title: "Переписать или пропатчить: что оставлять из кода быстрой ИИ-сборки"
+description: "Как мы выбираем между точечными фиксами и пересборкой критического пути сайта, сгенерированного ИИ."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "rewrite-vs-patch-vibe-code"
-keywords: ["rewrite vs patch AI website", "refactor vibe coded app"]
+keywords: ["rewrite vs patch AI website", "refactor vibe coded app", "переписать или починить vibe code"]
 status: "published"
 author: "Dali"
 type: "comparison"
 heroImage: "/blog/rewrite-vs-patch-vibe-code/hero.jpg"
-heroAlt: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
+heroAlt: "Переписать или пропатчить код быстрой ИИ-сборки"
 ogImage: "/blog/rewrite-vs-patch-vibe-code/og.jpg"
 ---
 
 ## Прямой ответ
 
-Patch when structure is sound and issues are localized. Rewrite the critical path when auth, payments, or multi-tenant data are entangled with generated spaghetti. Keep marketing pages if they are stable.
+Патчьте, когда структура здравая, а проблемы локальны. Пересобирайте критический путь, когда auth, платежи или multi-tenant данные спутаны с сгенерированной лапшой. Маркетинговые страницы оставляйте, если они стабильны.
 
-## Практика
+Полный rewrite «потому что ИИ писал» - дорогая привычка. Патч «поверх дыры в оплате» - ложная экономия.
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+## Что это значит на практике
 
-## Хорошо / плохо
+- Начинайте с карты реального процесса: вход, данные, деньги, доступы, исходящие.
+- Опишите поведение простым языком, затем проверьте каждый путь, где ошибка стоит денег или репутации.
+- Оставьте человека на нестандарте; не чините «ещё одним промптом» то, что должно быть инженерией.
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+## Когда патч
 
-## Dali
+- UI и layout ок, баги в одном модуле.
+- Секреты уезжают на сервер одной границей.
+- Добавляются rate limits, webhook signature, один middleware.
+- Тесты можно повесить на узкий путь без сноса дерева.
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+## Когда rewrite критического пути
+
+- Auth, payments, multi-tenant и tool-вызовы переплетены в одном файле/промпте.
+- Нет ясной модели заказа, tenant id, server price.
+- Каждый фикс ломает соседний поток.
+- Нет логов, нет владельца, нет способа остановить агента/checkout.
+
+## Как выглядит хорошо
+
+- Чёткая граница: marketing shell vs hardened core.
+- Стандарт / нестандарт маршруты до записи.
+- Ключи только на сервере; логи и стоп-кнопка.
+- Решение rewrite/patch зафиксировано письменно с критериями «готово».
+
+## Как выглядит плохо
+
+- «В превью работает» = ship.
+- Токены и webhook публичны «пока».
+- Нет handoff человеку на исключениях.
+- Полный rewrite ради перфекционизма, пока воронка не принимает оплаты.
+
+## Как Dali это ведёт
+
+Берём быстрый ИИ-прототип всерьёз, затем укрепляем: иногда patch, иногда isolate + rebuild critical path. [Vibe-code rescue](/ru/solutions/vibe-code-rescue), [боевые агенты](/ru/blog/production-ai-agents-for-business), [точки контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрая поверхность. Опасно считать её законченной боевой работой.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Часто hardening. Иногда изоляция и пересборка только auth/payments/tenant. Маркетинг оставляем, если стабилен.
+
+### Как быстро решить rewrite vs patch?
+За один аудит: можно ли за 1–2 спринта закрыть деньги/доступ/изоляцию точечно? Если нет - rewrite core, не всего сайта.

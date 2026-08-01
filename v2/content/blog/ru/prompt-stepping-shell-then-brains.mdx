@@ -1,40 +1,52 @@
 ---
 slug: "prompt-stepping-shell-then-brains"
-title: "Prompt stepping: сначала оболочка, потом мозги"
-description: "A reliable vibe-coding pattern: build UI shells before wiring AI logic, so each change stays reviewable."
+title: "Сборка по шагам: сначала оболочка, потом «мозги»"
+description: "Надёжный приём быстрой сборки в ИИ-чате: сначала интерфейс и каркас, потом логика - чтобы каждый шаг можно было проверить."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "prompt-stepping-shell-then-brains"
-keywords: ["vibe coding prompt steps", "shell then brains prompting", "AI builder iterative prompts"]
+keywords: ["пошаговые запросы к ИИ","сначала оболочка потом логика","итеративная сборка сайта"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/prompt-stepping-shell-then-brains/hero.jpg"
-heroAlt: "Prompt stepping: сначала оболочка, потом мозги"
+heroAlt: "Сборка по шагам: сначала оболочка, потом «мозги»"
 ogImage: "/blog/prompt-stepping-shell-then-brains/og.jpg"
 ---
 
 ## Прямой ответ
 
-Ask for the shell first (button, layout, empty widget), then attach intelligence. One giant prompt creates opaque failures. Stepped prompts create checkpoints you can test.
+Сначала попросите оболочку (кнопка, вёрстка, пустой виджет), затем подключайте «ум». Один огромный запрос даёт непрозрачные сбои. Пошаговые запросы создают контрольные точки, которые можно тестировать.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с названия модели.
+- Опишите нужное поведение простыми словами и проверьте каждый путь, где есть деньги, доступ или исходящие сообщения.
+- Для нестандартных случаев оставьте путь к человеку.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Понятное разделение обычных и нестандартных обращений
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где это задумано
+- Ключи и секреты не лежат в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для реальной эксплуатации
+- Токены и вебхуки оставлены открытыми
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы вместо нормальной локализации
+
+## Как подходит Dali
+
+Dali - студия агентских систем: берём быстрые ИИ-прототипы всерьёз и доводим их до боевой работы с точками ручного контроля, инструментами и понятной зоной ответственности. Связанные материалы: [рабочие ИИ-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Быстрая сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только считать её уже готовой к реальной эксплуатации.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда переписываете всё с нуля?
+Не всегда. Иногда укрепляем то, что есть. Иногда изолируем и пересобираем только критический путь.

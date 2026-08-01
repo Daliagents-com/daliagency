@@ -8,8 +8,15 @@ import {
   localizePath,
   type Locale,
 } from "@/i18n/config";
+import {
+  buildSolutionsCatalog,
+  englishFamilyShells,
+  legacySolutionRedirects,
+} from "./buildFamilySolutions";
+import { siteUrl } from "@/lib/seo/site";
 
-export const siteUrl = "https://dali.agents.ge";
+export { legacySolutionRedirects };
+export { siteUrl };
 export const socialPreviewImage = {
   url: "/opengraph-image",
   width: 1200,
@@ -18,7 +25,16 @@ export const socialPreviewImage = {
 };
 export const twitterPreviewImage = "/twitter-image";
 
+/** Public product families (catalog + routes). */
 export const solutionSlugs = [
+  "conversation-control",
+  "ops-knowledge",
+  "voice-agents",
+  "vibe-code-rescue",
+] as const;
+
+/** Fixed lanes inside families (source pilots before merge). */
+export const pilotSourceSlugs = [
   "lead-response",
   "client-inbox",
   "operations-docs",
@@ -28,7 +44,27 @@ export const solutionSlugs = [
 ] as const;
 
 export type SolutionSlug = (typeof solutionSlugs)[number];
+export type PilotSourceSlug = (typeof pilotSourceSlugs)[number];
 export type SolutionVariant = "public" | "upwork";
+
+/** UI shell used by AgentUxPreview / product mocks. */
+export type SolutionPreviewKind =
+  | "lead-response"
+  | "client-inbox"
+  | "operations-docs"
+  | "knowledge-assistant"
+  | "voice-agents";
+
+export type SolutionLane = {
+  id: string;
+  name: string;
+  summary: string;
+  fixedOutcome: string;
+  includes: readonly string[];
+  excludes: readonly string[];
+  acceptanceTest: string;
+  sourceSlug: PilotSourceSlug;
+};
 
 type SolutionMetadata = {
   title: string;
@@ -105,8 +141,7 @@ type CtaContent = {
   upworkBody: string;
 };
 
-export type SolutionContent = {
-  slug: SolutionSlug;
+type SolutionBody = {
   name: string;
   summary: string;
   accent: string;
@@ -126,7 +161,19 @@ export type SolutionContent = {
   cta: CtaContent;
 };
 
-export const solutionsBySlug: Record<SolutionSlug, SolutionContent> = {
+export type SolutionContent = SolutionBody & {
+  slug: SolutionSlug;
+  /** Fixed lanes for multi-scope families. Single-lane products omit this. */
+  lanes?: readonly SolutionLane[];
+  /** Product mock shell (AgentUxPreview kind). */
+  previewKind: SolutionPreviewKind;
+};
+
+export type PilotSourceContent = SolutionBody & {
+  slug: PilotSourceSlug;
+};
+
+export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
   "lead-response": {
     slug: "lead-response",
     name: "Lead Response Pilot",
@@ -1058,14 +1105,22 @@ export const solutionsBySlug: Record<SolutionSlug, SolutionContent> = {
   },
 };
 
+export const solutionsBySlug: Record<SolutionSlug, SolutionContent> =
+  buildSolutionsCatalog(pilotSourcesBySlug, englishFamilyShells);
+
 export const allSolutions = solutionSlugs.map((slug) => solutionsBySlug[slug]);
 
 export function getSolutionBySlug(slug: string): SolutionContent | null {
-  if (!solutionSlugs.includes(slug as SolutionSlug)) {
-    return null;
+  if (solutionSlugs.includes(slug as SolutionSlug)) {
+    return solutionsBySlug[slug as SolutionSlug];
   }
 
-  return solutionsBySlug[slug as SolutionSlug];
+  const redirected = legacySolutionRedirects[slug];
+  if (redirected) {
+    return solutionsBySlug[redirected];
+  }
+
+  return null;
 }
 
 export function getSolutionHref(slug: SolutionSlug) {

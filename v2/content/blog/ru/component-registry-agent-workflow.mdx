@@ -1,40 +1,53 @@
 ---
 slug: "component-registry-agent-workflow"
-title: "Agent workflows for component registries and design systems"
-description: "How agentic pipelines speed component create → format → visual QA → publish - with human release gates."
+title: "Агенты для реестра компонентов и дизайн-систем"
+description: "Как агентные конвейеры ускоряют создание → оформление → визуальную проверку → публикацию компонентов - с ручным контролем релиза."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "component-registry-agent-workflow"
-keywords: ["React component registry agent", "AI frontend workflow agent"]
+keywords: ["агент реестра React-компонентов", "AI процесс для фронтенда", "React component registry agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/component-registry-agent-workflow/hero.jpg"
-heroAlt: "Agent workflows for component registries and design systems"
+heroAlt: "Агенты для реестра компонентов и дизайн-систем"
 ogImage: "/blog/component-registry-agent-workflow/og.jpg"
 ---
 
 ## Прямой ответ
 
-Registry agents help with formatting, visual checks, metadata, and publish prep. Humans still own final release. Speed comes from removing repeated manual steps, not removing review.
+Агенты реестра помогают с оформлением, визуальными проверками, метаданными и подготовкой к публикации. Финальный релиз остаётся за человеком. Скорость - из снятия повторяющейся ручной работы, а не из отмены ревью.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Опишите поведение простым языком, затем проверьте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставьте путь к человеку для нестандартных случаев.
+- Агент готовит diff, скриншоты и чеклист; человек решает, что уходит в реестр.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясная маршрутизация: стандартный кейс vs нестандартный
+- База знаний, которой ассистент реально может пользоваться
+- Память сессии только там, где это задумано
+- Ключи и секреты никогда не в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок перед реальной эксплуатацией
+- Токены и вебхуки оставлены публичными
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы, проданные как локализация
+
+## Как Dali это ведёт
+
+Dali - студия систем AI-агентов: мы серьёзно относимся к быстрым ИИ-прототипам, затем доводим их до боевой работы с точками ручного контроля, инструментами и владельцами. Связанное: [AI-агенты в боевой работе](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только когда её принимают за готовую боевую систему.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда всё переписываете?
+Не всегда. Иногда усиливаем. Иногда изолируем и пересобираем критический путь.

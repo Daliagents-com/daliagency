@@ -1,7 +1,10 @@
-output/
-.playwright-cli/
-pnpm-lock.yaml
-*.log
-.env
-.env.*
+node_modules
+.next
+demo
+output
+.playwright-cli
+tsconfig.tsbuildinfo
+.env*
 !.env.example
+*.mp4
+*.webm

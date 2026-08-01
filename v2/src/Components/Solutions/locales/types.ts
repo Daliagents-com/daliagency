@@ -1,4 +1,5 @@
 import type {
+  PilotSourceSlug,
   SolutionContent,
   SolutionSlug,
 } from "../solutionContent";
@@ -9,6 +10,15 @@ type OverviewCard = {
   summary: string;
   tasks: readonly string[];
 };
+
+/** Lane cards under a product family (homepage multi-pilot panel). */
+export type LaneCardKey = Extract<
+  PilotSourceSlug,
+  | "lead-response"
+  | "client-inbox"
+  | "operations-docs"
+  | "knowledge-assistant"
+>;
 
 type OverviewStep = {
   title: string;
@@ -66,14 +76,24 @@ export type SolutionsOverviewCopy = {
     researchLane: string;
     viewPilot: string;
     viewResearch: string;
-    /** Homepage #agent-solutions: combined Lead + Client Inbox panel. */
+    /** Homepage #agent-solutions: Conversation family panel chrome. */
     responseLane: {
       title: string;
       summary: string;
       eyebrow: string;
       pilotLabel: string;
     };
+    /** Homepage #agent-solutions: Ops & Knowledge family panel chrome. */
+    opsKnowledgeLane: {
+      title: string;
+      summary: string;
+      eyebrow: string;
+      pilotLabel: string;
+    };
+    /** Family-level cards (index / grid). */
     cards: Record<SolutionSlug, OverviewCard>;
+    /** Fixed lanes inside Conversation + Ops families. */
+    laneCards: Record<LaneCardKey, OverviewCard>;
   };
   process: {
     kicker: string;

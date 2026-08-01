@@ -1,32 +1,54 @@
 ---
 slug: "session-context-in-ai-chat-widgets"
-title: "Session context in AI chat widgets: what resets and what should not"
-description: "How session memory works in site chats, why closing the widget often wipes context, and how to design for that."
+title: "Սեսիայի համատեքստ AI չաթ վիջեթներում. ինչն է զրոյանում և ինչը՝ ոչ"
+description: "ինչպես է աշխատում սեսիայի հիշողությունը կայքի չաթերում, ինչու վիջեթը փակելը հաճախ ջնջում է համատեքստը, և ինչպես նախագծել դրա շուրջ."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "session-context-in-ai-chat-widgets"
-keywords: ["AI chat session context", "chatbot session memory", "website AI widget context"]
+keywords: ["AI chat session context", "չաթբոտ սեսիայի հիշողություն", "chatbot session memory", "կայքի AI վիջեթի համատեքստ"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/session-context-in-ai-chat-widgets/hero.jpg"
-heroAlt: "Session context in AI chat widgets: what resets and what should not"
+heroAlt: "Սեսիայի համատեքստ AI չաթ վիջեթներում. ինչն է զրոյանում և ինչը՝ ոչ"
 ogImage: "/blog/session-context-in-ai-chat-widgets/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Many widgets keep context only for one open session. Close the chat, and memory resets. Design prompts and UX around that: do not assume lifelong memory unless you build it.
+Շատ վիջեթներ համատեքստը պահում են միայն մեկ բաց սեսիայի համար։ Փակիր չաթը՝ և հիշողությունը զրոյանում է։ Պրոմպտներն ու UX-ը կառուցիր դրանով. մի՛ ենթադրիր ցմահ հիշողություն, եթե ինքդ չես կառուցել։
 
-## Պրակտիկա
+## Ի՞նչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսիր իրական բիզնեսի աշխատանքային հոսքից, ոչ մոդելի բրենդից։
+- Վարքը նկարագրիր պարզ լեզվով, հետո ստուգիր ամեն ուղի, որտեղ կան գումար, մուտք կամ ելքային հաղորդագրություններ։
+- Ոչ ստանդարտ դեպքերի համար պահիր մարդու ուղի։
+- Եթե համատեքստը պետք է սեսիաների միջև՝ առանձին նախագծիր պահպանում, համաձայնություն և ջնջման կանոններ։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ / ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականն իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Լոգեր և կանգառի անջատիչ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է»՝ իրական շահագործման ստուգումների առանց
+- Տոկեններ և webhook՝ բաց թողնված
+- Բացառությունների համար մարդուն փոխանցում չկա
+- Բարակ մեքենայական թարգմանություն՝ որպես «լոկալիզացիա»
+- Ենթադրություն, որ օգտատերը «կհիշի» նախորդ այցը, թեև սեսիան զրոյանում է
+
+## Ինչպես է անում Dali-ն
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. արագ AI նախատիպերը լուրջ ենք վերցնում, հետո ամրացնում ենք մինչև իրական շահագործում՝ վերահսկման կետերով, գործիքներով և սեփականատիրոջով։ Կապված. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգո՞ւտ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն, երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

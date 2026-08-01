@@ -1,32 +1,70 @@
 ---
 slug: "rewrite-vs-patch-vibe-code"
-title: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
-description: "How we choose between surgical fixes and rebuilding the critical path of an AI-generated site."
+title: "Վերագրել թե՞ patch անել. ինչ թողնել արագ AI հավաքման կոդից"
+description: "Ինչպես ենք ընտրում կետային ուղղումների և AI-ով գեներացված կայքի կրիտիկական ուղու վերակառուցման միջև."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "rewrite-vs-patch-vibe-code"
-keywords: ["rewrite vs patch AI website", "refactor vibe coded app"]
+keywords: ["rewrite vs patch AI website", "refactor vibe coded app", "վերագրել թե շտկել vibe code"]
 status: "published"
 author: "Dali"
 type: "comparison"
 heroImage: "/blog/rewrite-vs-patch-vibe-code/hero.jpg"
-heroAlt: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
+heroAlt: "Վերագրել թե patch անել արագ AI հավաքման կոդը"
 ogImage: "/blog/rewrite-vs-patch-vibe-code/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Patch when structure is sound and issues are localized. Rewrite the critical path when auth, payments, or multi-tenant data are entangled with generated spaghetti. Keep marketing pages if they are stable.
+Patch արեք, երբ կառուցվածքը առողջ է, և խնդիրները տեղային են։ Վերակառուցեք կրիտիկական ուղին, երբ auth, վճարումներ կամ multi-tenant տվյալները խճճված են գեներացված սպագետտիի հետ։ Մարքեթինգային էջերը թողեք, եթե կայուն են։
 
-## Պրակտիկա
+Ամբողջական rewrite «որովհետև AI էր գրում» - թանկ սովորություն է։ Patch «վճարման անցքի վրայից» - կեղծ խնայողություն։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Սկսեք իրական գործընթացի քարտեզից. մուտք, տվյալներ, փող, մուտքեր, ելքայիններ։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք յուրաքանչյուր ուղի, որտեղ սխալը արժե փող կամ համբավ։
+- Թողեք մարդուն ոչ ստանդարտի վրա. մի շտկեք «ևս մեկ prompt-ով» այն, ինչը ինժեներիա է։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Ե՞րբ patch
+
+- UI և layout-ը լավ են, սխալները մեկ մոդուլում են։
+- Գաղտնի բանալիները սերվեր են տեղափոխվում մեկ սահմանով։
+- Ավելանում են rate limits, webhook signature, մեկ middleware։
+- Թեստերը կարելի է կախել նեղ ուղու վրա՝ առանց ծառը կտրելու։
+
+## Ե՞րբ rewrite կրիտիկական ուղու վրա
+
+- Auth, payments, multi-tenant և tool կանչերը խճճված են մեկ ֆայլում/prompt-ում։
+- Չկա հստակ order մոդել, tenant id, server price։
+- Յուրաքանչյուր ուղղում կոտրում է հարևան հոսքը։
+- Չկան մատյաններ, սեփականատեր, գործակալը/checkout-ը կանգնեցնելու ճանապարհ։
+
+## Ինչպիսին է լավը
+
+- Հստակ սահման. marketing shell vs hardened core։
+- Ստանդարտ / ոչ ստանդարտ երթուղիներ գրառումից առաջ։
+- Բանալիներ միայն սերվերի վրա. մատյաններ և կանգառի կոճակ։
+- rewrite/patch որոշումը գրավոր է՝ «պատրաստ է» չափանիշներով։
+
+## Ինչպիսին է վատը
+
+- «Պրևյուում աշխատում է» = ship։
+- Թոքեններ և webhook հանրային են «առայժմ»։
+- Բացառությունների դեպքում մարդուն փոխանցում չկա։
+- Ամբողջական rewrite պերֆեկցիոնիզմի համար, մինչ funnel-ը վճարում չի ընդունում։
+
+## Ինչպես է վարում Dali-ն
+
+Արագ AI նախատիպին լուրջ ենք վերաբերվում, հետո ամրացնում ենք. երբեմն patch, երբեմն isolate + rebuild critical path։ [Vibe-code rescue](/arm/solutions/vibe-code-rescue), [մարտական գործակալներ](/arm/blog/production-ai-agents-for-business), [վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անպե՞տք է։
+Ոչ։ Դա արագ մակերես է։ Վտանգավոր է այն համարել ավարտված իրական շահագործում։
+
+### Ամեն ինչ վերագրմո՞ւմ եք։
+Ոչ միշտ։ Հաճախ hardening։ Երբեմն մեկուսացում և վերակառուցում միայն auth/payments/tenant-ի վրա։ Մարքեթինգը մնում է, եթե կայուն է։
+
+### Ինչպե՞ս արագ որոշել rewrite vs patch։
+Մեկ աուդիտով. կարո՞ղ ենք 1–2 սպրինտում փողը/մուտքը/մեկուսացումը կետային փակել։ Եթե ոչ - rewrite core, ոչ ամբողջ կայքը։

@@ -1,40 +1,67 @@
 ---
 slug: "n8n-claude-ops-agent-jobs"
-title: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
-description: "A practical eval for marketplace briefs that mix n8n, Claude, and RAG for business ops."
+title: "Задачи Claude + n8n + RAG для ops-агентов: как мы их оцениваем"
+description: "Практическая проверка брифов с маркетплейсов, где смешаны n8n, Claude и RAG для бизнес-операций."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "n8n-claude-ops-agent-jobs"
-keywords: ["Claude n8n RAG agent", "Upwork n8n AI agent", "business ops AI agent n8n"]
+keywords: ["Claude n8n RAG агент", "Upwork n8n AI agent", "business ops AI agent n8n", "n8n Claude агент"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/n8n-claude-ops-agent-jobs/hero.jpg"
-heroAlt: "Claude + n8n + RAG ops agent jobs: how we evaluate them"
+heroAlt: "Задачи Claude + n8n + RAG для ops-агентов: как мы их оцениваем"
 ogImage: "/blog/n8n-claude-ops-agent-jobs/og.jpg"
 ---
 
 ## Прямой ответ
 
-We evaluate: source of truth, tool permissions, RAG freshness, human gates, and failure mode. Tool spaghetti without ownership is not a production agent.
+Мы оцениваем: источник правды, права инструментов, свежесть базы знаний (RAG), точки ручного контроля и режим отказа. Спагетти из узлов n8n без владельца - это не агент для реальной эксплуатации.
 
-## Практика
+Связка Claude + n8n + RAG часто встречается на Upwork и похожих площадках. Бренд модели не равен готовой системе.
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+## Что это значит на практике
 
-## Хорошо / плохо
+- Начинайте с реального бизнес-процесса, а не с названия модели.
+- Опишите поведение простым языком, затем проверьте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставьте человеческий путь для нестандартных случаев.
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+## Как выглядит хорошо
 
-## Dali
+- Ясная маршрутизация: стандартный кейс vs нестандартный.
+- База знаний, которой ассистент реально может пользоваться (актуальные документы, не PDF 2021 года «на всякий»).
+- Память сессии только там, где задумано - не бесконечный контекст «всего чата».
+- Ключи и секреты никогда в клиентском JavaScript.
+- Логи, журнал tool-вызовов и стоп-кнопка.
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+## Как выглядит плохо
+
+- «В превью работает» без проверок для боевой работы.
+- Токены и webhook оставлены публичными.
+- Нет передачи человеку при исключениях.
+- Тонкие машинные «локализации» продают как готовую мультиязычность.
+- RAG без владельца свежести: ассистент уверенно врёт по устаревшим правилам.
+
+## Чеклист оценки брифа
+
+1. **Source of truth** - CRM, Notion, Google Sheet, ERP? Кто обновляет?
+2. **Права tools** - что агент может писать, а что только читать?
+3. **RAG freshness** - как документы попадают в индекс и когда инвалидируются?
+4. **Human gates** - кто approve на деньгах, доступе, внешних сообщениях?
+5. **Failure mode** - что происходит при таймауте, 500, пустом retrieval?
+6. **Ownership** - кто чинит flow в 2 ночи?
+
+## Как Dali это ведёт
+
+Dali - студия агентных систем: мы серьёзно относимся к быстрым ИИ-прототипам, затем укрепляем их до систем реальной эксплуатации с точками контроля, инструментами и владельцами. Связанное: [боевые AI-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только когда её принимают за готовую боевую работу.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Иногда укрепляем. Иногда изолируем и пересобираем критический путь (платежи, доступы, запись в CRM).
+
+### Достаточно ли «подключить Claude к n8n»?
+Нет. Нужны границы инструментов, актуальная база, логи и человек на исключениях. Иначе это клей без ответственности.

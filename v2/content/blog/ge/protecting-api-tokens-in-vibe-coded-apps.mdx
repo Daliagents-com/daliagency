@@ -1,32 +1,66 @@
 ---
 slug: "protecting-api-tokens-in-vibe-coded-apps"
-title: "Protecting API tokens in vibe-coded apps"
-description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+title: "API ტოკენების დაცვა სწრაფ AI პროტოტიპის აპებში"
+description: "რატომ არის ტოკენი პაროლი, რატომ არასოდეს უნდა მოხვდეს საჯარო frontend კოდში, და რა გააკეთოთ გაჟონვისას."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
-keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+keywords: ["API token security vibe coding", "protect chatbot API key", "საიდუმლო გასაღებები AI საიტზე", "API ტოკენის დაცვა"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
-heroAlt: "Protecting API tokens in vibe-coded apps"
+heroAlt: "API ტოკენების დაცვა სწრაფ AI პროტოტიპის აპებში"
 ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+API ტოკენი ამტკიცებს, რომ მოთხოვნა თქვენია. ვისაც აქვს, იმას შეუძლია იმოქმედოს ბოტის სახელით. არასოდეს ჩადოთ ტოკენები საჯარო საიტის კოდში ან ჩატში. გაჟონვისას დაუყოვნებლივ გააუქმეთ და შეცვალეთ. სწრაფი AI ხელსაწყოები ამ შეცდომას ადვილად უშვებს - რეალური ექსპლუატაციის მიმოხილვამ უნდა დაიჭიროს.
 
-## პრაქტიკა
+ტოკენი ≠ «კონფიგის სტრიქონი». ტოკენი = პაროლი სერვისზე.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- დაიწყეთ რეალური ბიზნეს სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივი ენით, შემდეგ შეამოწმეთ ყველა გზა, რომელიც ეხება ფულს, წვდომას ან გამავალ შეტყობინებებს.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის - და **არასოდეს** გაატაროთ service key ბრაუზერში «სიჩქარისთვის».
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## როგორ გამოიყურება კარგი
+
+- ყველა service key მხოლოდ სერვერზე (env / secret manager).
+- Frontend იძახებს თქვენს API-ს; თქვენი API იძახებს Claude / OpenAI / სხვა პროვაიდერს.
+- Scoped keys, მინიმალური უფლებები, ცალკე test/live.
+- ლოგები არასანქცირებული გამოყენებისთვის; გაჩერების/როტაციის პროცედურა.
+- სესიის მეხსიერება და ცოდნის ბაზა - განზრახ, არა «ყველა გასაღები კლიენტში».
+
+## როგორ გამოიყურება ცუდი
+
+- `NEXT_PUBLIC_...` ან Vite `VITE_...` service key-ით.
+- ტოკენი GitHub-ის public repo-ში, Discord/Slack ჩატში, სკრინშოტში.
+- «დავმალეთ» ბრაუზერის საცავში (localStorage) - ეს დაცვა არ არის.
+- Webhook და admin ტოკენები საჯარო URL-ზე.
+- გაჟონვის შემდეგ როტაცია არ ხდება.
+
+## გაჟონვისას რა გააკეთოთ ახლავე
+
+1. Revoke / rotate გასაღები პროვაიდერთან.
+2. შეამოწმეთ გამოყენების ლოგები ანომალიაზე.
+3. ამოიღეთ კოდიდან, ისტორიიდან, CI secrets-დან.
+4. გადააწყვეთ და გადაამოწმეთ bundle (არ უნდა იყოს სტრიქონი კლიენტში).
+5. საჭიროების შემთხვევაში შეატყობინეთ დაზარალებულ მხარეებს.
+
+## როგორ აწარმოებს Dali
+
+Dali ამყარებს სწრაფ AI პროტოტიპებს რეალური ექსპლუატაციის სისტემებად: gates, tools, ownership. დაკავშირებული: [საბრძოლო AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. სწრაფია ზედაპირისთვის. საშიშია, როცა ტოკენებით «მზა პროდუქტად» ითვლება.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ კრიტიკულ გზას (auth, keys, payments) და ვტოვებთ სტაბილურ UI-ს.
+
+### შეიძლება chatbot key იყოს frontend-ზე «მხოლოდ read»?
+თუ key-ით შეიძლება ფასიანი გამოძახება ან მონაცემების წაკითხვა - არა. ბრაუზერი არ არის საიდუმლო ადგილი.

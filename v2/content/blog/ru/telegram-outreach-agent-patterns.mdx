@@ -1,40 +1,54 @@
 ---
 slug: "telegram-outreach-agent-patterns"
-title: "Telegram outreach agent patterns (and compliance caution)"
-description: "What works in high-volume messaging agents - and the policy/brand risks clients underestimate."
+title: "Паттерны Telegram-агента для outreach (и осторожность с правилами)"
+description: "Что работает в агентах массовых сообщений - и риски политики и бренда, которые клиенты недооценивают."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "telegram-outreach-agent-patterns"
-keywords: ["Telegram outreach AI agent", "Telegram automation agent Upwork"]
+keywords: ["Telegram outreach AI agent", "Telegram-агент outreach", "Telegram automation agent Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/telegram-outreach-agent-patterns/hero.jpg"
-heroAlt: "Telegram outreach agent patterns (and compliance caution)"
+heroAlt: "Паттерны Telegram-агента для outreach и осторожность с правилами"
 ogImage: "/blog/telegram-outreach-agent-patterns/og.jpg"
 ---
 
 ## Прямой ответ
 
-Outreach agents can handle high daily volume, but compliance, consent, and brand risk dominate. We design rate limits, templates, stop lists, and human review for sensitive threads.
+Агенты outreach выдерживают высокий дневной объём, но доминируют соответствие правилам, согласие и риск для бренда. Мы проектируем лимиты частоты, шаблоны, стоп-листы и ручной разбор чувствительных переписок.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Описывайте поведение простым языком, затем проверяйте каждый путь, где есть деньги, доступ или исходящие сообщения.
+- Для нестандартных случаев оставляйте человеческий путь.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясная маршрутизация стандарт / нестандарт
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где задумано
+- Ключи и секреты никогда не в клиентском JavaScript
+- Логи и аварийный выключатель
+- Лимиты частоты, стоп-листы, точки ручного контроля на спорных тредах
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для реальной эксплуатации
+- Токены и webhook оставлены в открытом доступе
+- Нет передачи человеку на исключениях
+- Тонкие машинные «переводы» вместо нормальной локализации
+- Массовая рассылка без согласия и без учёта политики платформы
+
+## Как это делает Dali
+
+Dali - студия систем AI-агентов: мы серьёзно относимся к быстрым ИИ-прототипам, затем укрепляем их до боевой работы с гейтами, инструментами и владельцем. Связанное: [production AI-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно, только когда её принимают за готовую боевую систему.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Иногда укрепляем. Иногда изолируем и пересобираем критический путь.

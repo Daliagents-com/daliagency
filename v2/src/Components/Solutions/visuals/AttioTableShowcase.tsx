@@ -88,8 +88,9 @@ function buildModel(
     },
   ];
 
-  const bySlug: Partial<Record<SolutionSlug, ShowcaseModel>> = {
-    "knowledge-assistant": {
+  const bySlug: Partial<Record<SolutionSlug, ShowcaseModel>> &
+    Record<string, ShowcaseModel> = {
+    "ops-knowledge__unused-knowledge": {
       workspace: "Dali",
       collection: "Knowledge assistant",
       view: "All questions",
@@ -177,7 +178,7 @@ function buildModel(
       sideCards: sharedSide,
       guardLabel: solution.guardrails.label,
     },
-    "lead-response": {
+    "conversation-control": {
       workspace: "Dali",
       collection: "Lead response",
       view: "All people",
@@ -258,7 +259,7 @@ function buildModel(
       sideCards: sharedSide,
       guardLabel: solution.guardrails.label,
     },
-    "client-inbox": {
+    "conversation-control__unused-inbox": {
       workspace: "Dali",
       collection: "Client inbox",
       view: "All threads",
@@ -319,7 +320,7 @@ function buildModel(
       sideCards: sharedSide,
       guardLabel: solution.guardrails.label,
     },
-    "operations-docs": {
+    "ops-knowledge": {
       workspace: "Dali",
       collection: "Documents-to-actions",
       view: "Exceptions",
@@ -497,7 +498,15 @@ export default function AttioTableShowcase({ solution, labels }: ShowcaseProps) 
       <div className={styles.frame}>
         <aside className={styles.sidebar} aria-label="Product navigation">
           <div className={styles.workspace}>
-            <span className={`${sansText.className} ${styles.workspaceMark}`}>D</span>
+            <span className={styles.workspaceMark}>
+              <img
+                src="/favicon.svg"
+                alt=""
+                width={20}
+                height={20}
+                draggable={false}
+              />
+            </span>
             <div>
               <strong className={sansText.className}>{model.workspace}</strong>
               <span className={monoText.className}>{model.collection}</span>

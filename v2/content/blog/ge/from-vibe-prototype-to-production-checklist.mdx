@@ -1,32 +1,53 @@
 ---
 slug: "from-vibe-prototype-to-production-checklist"
-title: "From vibe prototype to production: a practical checklist"
-description: "A checklist to promote an AI-built prototype into something you can run with clients: security, gates, data, and ownership."
+title: "სწრაფი AI პროტოტიპიდან რეალურ ექსპლუატაციამდე: პრაქტიკული ჩეკლისტი"
+description: "ჩეკლისტი AI-ით აშენებული პროტოტიპის კლიენტებთან გასაშვებად: უსაფრთხოება, კონტროლის წერტილები, მონაცემები და მფლობელობა."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "from-vibe-prototype-to-production-checklist"
-keywords: ["vibe prototype to production", "AI site production checklist", "harden vibe coded app"]
+keywords: ["პროტოტიპიდან რეალურ ექსპლუატაციამდე", "AI საიტის ჩეკლისტი", "vibe prototype to production"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/from-vibe-prototype-to-production-checklist/hero.jpg"
-heroAlt: "From vibe prototype to production: a practical checklist"
+heroAlt: "სწრაფი AI პროტოტიპიდან რეალურ ექსპლუატაციამდე: პრაქტიკული ჩეკლისტი"
 ogImage: "/blog/from-vibe-prototype-to-production-checklist/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Before production: secrets out of client, webhooks authenticated, rate limits, admin lockouts, payment amount server-side, human gates on irreversible actions, logs, backup owner, and a rewrite plan for critical paths.
+რეალურ ექსპლუატაციამდე: საიდუმლო გასაღებები კლიენტიდან გარეთ, ვებჰუკები ავტორიზაციით, სიხშირის ლიმიტები, ადმინის დაბლოკვები, გადახდის თანხა სერვერზე, ადამიანის კონტროლი შეუქცევად მოქმედებებზე, ჟურნალები, სარეზერვო მფლობელი და კრიტიკული გზების გადაწერის გეგმა.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- ჩეკლისტი გაიარეთ სანამ პირველ რეალურ კლიენტს შეეხებით - არა «მოგვიანებით».
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

@@ -1,32 +1,70 @@
 ---
 slug: "rewrite-vs-patch-vibe-code"
-title: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
-description: "How we choose between surgical fixes and rebuilding the critical path of an AI-generated site."
+title: "გადაწერა თუ პატჩი: რა დავტოვოთ სწრაფი AI აგების კოდიდან"
+description: "როგორ ვირჩევთ წერტილოვან ფიქსებსა და AI-ით გენერირებული საიტის კრიტიკული გზის თავიდან აგებას შორის."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "rewrite-vs-patch-vibe-code"
-keywords: ["rewrite vs patch AI website", "refactor vibe coded app"]
+keywords: ["rewrite vs patch AI website", "refactor vibe coded app", "გადაწერა თუ გასწორება vibe code"]
 status: "published"
 author: "Dali"
 type: "comparison"
 heroImage: "/blog/rewrite-vs-patch-vibe-code/hero.jpg"
-heroAlt: "Rewrite vs patch: deciding what to keep from a vibe-coded codebase"
+heroAlt: "გადაწერა თუ პატჩი სწრაფი AI აგების კოდზე"
 ogImage: "/blog/rewrite-vs-patch-vibe-code/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Patch when structure is sound and issues are localized. Rewrite the critical path when auth, payments, or multi-tenant data are entangled with generated spaghetti. Keep marketing pages if they are stable.
+გაასწორეთ (patch), როცა სტრუქტურა ჯანსაღია და პრობლემები ლოკალურია. თავიდან ააშენეთ კრიტიკული გზა, როცა auth, გადახდები ან multi-tenant მონაცემები გადახლართულია გენერირებულ სპაგეტთან. მარკეტინგის გვერდები დატოვეთ, თუ სტაბილურია.
 
-## პრაქტიკა
+სრული rewrite «რადგან AI წერდა» - ძვირი ჩვევა. პატჩი «გადახდის ხვრელზე ზემოდან» - ყალბი ეკონომია.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- დაიწყეთ რეალური პროცესის რუკით: შესვლა, მონაცემები, ფული, წვდომები, გამავალი.
+- აღწერეთ ქცევა მარტივი ენით, შემდეგ შეამოწმეთ ყველა გზა, სადაც შეცდომა ფულს ან რეპუტაციას ღირს.
+- დატოვეთ ადამიანი არასტანდარტზე; ნუ გაასწორებთ «კიდევ ერთი პრომპტით» იმას, რაც ინჟინერიაა.
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## როდის პატჩი
+
+- UI და layout კარგია, ბაგები ერთ მოდულშია.
+- საიდუმლო გასაღებები სერვერზე გადადის ერთი საზღვრით.
+- ემატება rate limits, webhook signature, ერთი middleware.
+- ტესტები შეიძლება დაკიდდეს ვიწრო გზაზე ხის მოჭრის გარეშე.
+
+## როდის rewrite კრიტიკულ გზაზე
+
+- Auth, payments, multi-tenant და tool გამოძახებები ერთ ფაილში/პრომპტშია გადახლართული.
+- არ არის ნათელი order მოდელი, tenant id, server price.
+- ყოველი ფიქსი მეზობელ ნაკადს არღვევს.
+- არ არის ლოგები, მფლობელი, აგენტის/checkout-ის გაჩერების გზა.
+
+## როგორ გამოიყურება კარგი
+
+- მკაფიო საზღვარი: marketing shell vs hardened core.
+- სტანდარტი / არასტანდარტი მარშრუტები ჩაწერამდე.
+- გასაღებები მხოლოდ სერვერზე; ლოგები და გაჩერების ღილაკი.
+- rewrite/patch გადაწყვეტილება წერილობითია «მზადაა» კრიტერიუმებით.
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» = ship.
+- ტოკენები და webhook საჯაროა «ჯერჯერობით».
+- გამონაკლისებზე ადამიანთან გადაცემა არ არის.
+- სრული rewrite პერფექციონიზმისთვის, სანამ funnel გადახდას არ იღებს.
+
+## როგორ აწარმოებს Dali
+
+სწრაფ AI პროტოტიპს სერიოზულად ვიღებთ, შემდეგ ვამყარებთ: ზოგჯერ patch, ზოგჯერ isolate + rebuild critical path. [Vibe-code rescue](/ge/solutions/vibe-code-rescue), [საბრძოლო აგენტები](/ge/blog/production-ai-agents-for-business), [კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი ზედაპირია. საშიშია მზა რეალურ ექსპლუატაციად მიჩნევა.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ხშირად hardening. ზოგჯერ იზოლაცია და თავიდან აგება მხოლოდ auth/payments/tenant-ზე. მარკეტინგი რჩება, თუ სტაბილურია.
+
+### როგორ სწრაფად გადავწყვიტოთ rewrite vs patch?
+ერთი აუდიტით: შეიძლება თუ არა 1–2 სპრინტში ფული/წვდომა/იზოლაცია წერტილოვნად დაიხუროს? თუ არა - rewrite core, არა მთელი საიტი.

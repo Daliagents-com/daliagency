@@ -10,16 +10,17 @@ import {
   consultationCopy,
   type ConsultationInterest,
 } from "@/lib/consultation";
+import { AnalyticsEvent } from "@/lib/analytics/events";
+import { trackClientEvent } from "@/lib/analytics/trackClient";
 import { useConsultation } from "./ConsultationContext";
 import styles from "./ConsultationModal.module.css";
 
 const INTERESTS: ConsultationInterest[] = [
   "not-sure",
-  "lead-response",
-  "client-inbox",
-  "operations",
-  "knowledge",
+  "conversation-control",
+  "ops-knowledge",
   "voice",
+  "vibe-code-rescue",
   "custom",
 ];
 
@@ -106,12 +107,23 @@ export default function ConsultationModal() {
       if (!res.ok || !data.ok) {
         setStatus("error");
         setError(data.error || copy.error);
+        trackClientEvent(
+          AnalyticsEvent.ConsultationError,
+          { interest, stage: "response" },
+          { source, locale },
+        );
         return;
       }
       setStatus("success");
+      // Server already records consultation_submit; client only tracks UX success path noise-free.
     } catch {
       setStatus("error");
       setError(copy.error);
+      trackClientEvent(
+        AnalyticsEvent.ConsultationError,
+        { interest, stage: "network" },
+        { source, locale },
+      );
     }
   };
 

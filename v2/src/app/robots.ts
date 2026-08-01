@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl, siteUrl } from "@/lib/seo/site";
 
 /**
  * Crawl policy for classic search + AI retrieval.
@@ -12,8 +13,6 @@ import type { MetadataRoute } from "next";
  * `*` already allows all; named agents document intent for operators and logs.
  * Training vs retrieval: both allowed (agency content wants citation + discovery).
  */
-const allowAll = { allow: "/" as const };
-
 const namedBots = [
   // Google
   "Googlebot",
@@ -35,10 +34,18 @@ const namedBots = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", ...allowAll },
-      ...namedBots.map((userAgent) => ({ userAgent, ...allowAll })),
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/internal/", "/api/"],
+      },
+      ...namedBots.map((userAgent) => ({
+        userAgent,
+        allow: "/",
+        disallow: ["/internal/", "/api/"],
+      })),
     ],
-    sitemap: "https://dali.agents.ge/sitemap.xml",
-    host: "https://dali.agents.ge",
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: siteUrl,
   };
 }

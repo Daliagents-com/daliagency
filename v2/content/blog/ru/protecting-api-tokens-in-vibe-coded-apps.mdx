@@ -1,40 +1,52 @@
 ---
 slug: "protecting-api-tokens-in-vibe-coded-apps"
-title: "Защита API-токенов в vibe-приложениях"
-description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+title: "Защита API-ключей в приложениях, собранных в ИИ-чате"
+description: "Почему токен - это пароль, почему его нельзя класть в публичный фронтенд, и что делать при утечке."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
-keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+keywords: ["безопасность API-ключа","токен в коде сайта","секреты в ИИ-сгенерированных сайтах"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
-heroAlt: "Защита API-токенов в vibe-приложениях"
+heroAlt: "Защита API-ключей в приложениях, собранных в ИИ-чате"
 ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
 ---
 
 ## Прямой ответ
 
-An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+API-токен доказывает, что запрос ваш. У кого он есть, тот может действовать от имени бота. Никогда не кладите токены в публичный код сайта или в чат. Если ключ утёк - сразу отзовите и замените. В инструментах быстрой сборки эта ошибка делается легко - проверка перед боевой работой обязана её поймать.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с названия модели.
+- Опишите нужное поведение простыми словами и проверьте каждый путь, где есть деньги, доступ или исходящие сообщения.
+- Для нестандартных случаев оставьте путь к человеку.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Понятное разделение обычных и нестандартных обращений
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где это задумано
+- Ключи и секреты не лежат в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для реальной эксплуатации
+- Токены и вебхуки оставлены открытыми
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы вместо нормальной локализации
+
+## Как подходит Dali
+
+Dali - студия агентских систем: берём быстрые ИИ-прототипы всерьёз и доводим их до боевой работы с точками ручного контроля, инструментами и понятной зоной ответственности. Связанные материалы: [рабочие ИИ-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Быстрая сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только считать её уже готовой к реальной эксплуатации.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда переписываете всё с нуля?
+Не всегда. Иногда укрепляем то, что есть. Иногда изолируем и пересобираем только критический путь.

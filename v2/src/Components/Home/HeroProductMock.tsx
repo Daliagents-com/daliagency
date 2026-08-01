@@ -3,12 +3,20 @@
 "use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MockAvatar } from "@/Components/ui/MockAvatar";
-import HeroAgentsOrgFlow, {
-  AGENTS_VIEW_MS,
-} from "@/Components/Home/HeroAgentsOrgFlow";
+import { AGENTS_VIEW_MS } from "@/Components/Home/heroTourTiming";
 import styles from "./HeroProductMock.module.css";
+
+// @xyflow is heavy - keep it out of the initial hero/product-mock graph.
+const HeroAgentsOrgFlow = dynamic(
+  () => import("@/Components/Home/HeroAgentsOrgFlow"),
+  {
+    ssr: false,
+    loading: () => <div className={styles.agentsFlowFallback} aria-hidden="true" />,
+  },
+);
 
 type ViewId = "agents" | "home" | "pipeline" | "inbox";
 

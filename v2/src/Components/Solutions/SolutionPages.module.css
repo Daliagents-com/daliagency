@@ -1,14 +1,19 @@
-/* Purpose: Shared editorial layout and theming for Dali solution landing pages.
-   Scope: Public solutions index plus public and Upwork detail routes. */
+/* Purpose: Solution family landings aligned to main site marketing type system.
+   Scope: Public solutions index + public/Upwork detail routes.
+   Type rules match Home / DaliCase: sentence case titles, body font, quiet mono labels. */
 
 .page {
   --solution-accent: var(--accent, #1E3A8A);
   --solution-accent-soft: var(--accent-soft, #E9EDFF);
   --solution-tint: var(--background);
+  --solution-line: rgba(17, 19, 18, 0.12);
+  --solution-radius: 0.35rem;
+  --solution-radius-sm: 0.5rem;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--solution-accent-soft) 68%, transparent) 0%, transparent 38%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--solution-accent-soft) 55%, transparent) 0%, transparent 36%),
     var(--background);
   color: var(--text);
+  font-family: var(--font-body);
   overflow-x: clip;
 }
 
@@ -36,7 +41,10 @@
   padding: clamp(1.25rem, 2.5vw, 2.3rem);
 }
 
-.heroSection,
+.heroSection {
+  padding: clamp(5.25rem, 10vh, 6.75rem) 0 clamp(1.4rem, 2.4vw, 2.2rem);
+}
+
 .section {
   padding: clamp(1.4rem, 2.4vw, 2.4rem) 0;
 }
@@ -94,14 +102,20 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* Quiet mono labels - same role as .section-label on the home page. */
 .eyebrow,
 .sectionEyebrow,
 .cardEyebrow,
-.stepIndex {
+.stepIndex,
+.listTitle,
+.surfaceLabel {
   margin: 0;
-  color: var(--text);
-  font-size: var(--type-label);
-  letter-spacing: 0.22em;
+  color: color-mix(in srgb, var(--text) 48%, transparent);
+  font-family: var(--font-technical);
+  font-size: var(--section-label-size, 0.6875rem);
+  font-weight: 400;
+  letter-spacing: var(--section-label-tracking, 0.16em);
+  line-height: 1.2;
   text-transform: uppercase;
 }
 
@@ -114,38 +128,40 @@
   max-width: 100%;
   margin: 0;
   color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  text-transform: none;
   hyphens: auto;
   overflow-wrap: anywhere;
-  text-transform: uppercase;
-  line-height: 0.96;
 }
 
 .title {
-  width: min(12ch, 100%);
-  margin-top: 0.75rem;
-  font-size: clamp(2.5rem, 4.8vw, 4.5rem);
-  letter-spacing: -0.04em;
-}
-
-/* Longer pilot titles need more horizontal room than the short knowledge line. */
-.page:has([data-slug="lead-response"]) .title,
-.page:has([data-slug="client-inbox"]) .title,
-.page:has([data-slug="operations-docs"]) .title,
-.page:has([data-slug="voice-agents"]) .title {
-  width: min(15ch, 100%);
-  font-size: clamp(2.15rem, 3.9vw, 3.7rem);
+  width: min(22ch, 100%);
+  margin-top: 0.65rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
 }
 
 .sectionTitle {
-  font-size: var(--type-section-title);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
 }
 
 .cardTitle {
-  font-size: var(--type-card-title);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
 
 .boxTitle {
-  font-size: 1.25rem;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
 }
 
 .page[lang="ru"] :is(.title, .sectionTitle, .cardTitle, .boxTitle) {
@@ -155,8 +171,6 @@
 
 .page[lang="hy"] .title {
   width: 100%;
-  font-size: var(--type-page-title);
-  line-height: 1;
 }
 
 .lead,
@@ -166,33 +180,32 @@
 .detail,
 .supportLine {
   color: var(--muted);
-  line-height: 1.62;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
 }
 
 .lead,
 .sectionLead {
   margin: 0;
-  font-size: var(--type-lead);
+  font-size: clamp(1.02rem, 1.35vw, 1.15rem);
 }
 
 .lead {
-  margin-top: 1.15rem;
-  max-width: 32rem;
-  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
-  line-height: 1.58;
+  margin-top: 1rem;
+  max-width: 36rem;
 }
 
 .supportLine {
-  margin: 1.05rem 0 0;
-  max-width: 30rem;
-  font-size: 0.84rem;
-  letter-spacing: 0.01em;
+  margin: 1rem 0 0;
+  max-width: 32rem;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
   line-height: 1.5;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--muted) 88%, transparent);
 }
 
 .heroCopy .ctaRow {
-  margin-top: 1.45rem;
+  margin-top: 1.4rem;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -201,30 +214,24 @@
 .heroCopy .secondaryCta {
   width: auto;
   max-width: 100%;
-  min-height: 3rem;
-  padding: 0.8rem 1.2rem;
-  font-size: 0.94rem;
+  min-height: 2.75rem;
+  padding: 0 1.15rem;
+  font-size: 0.95rem;
   white-space: nowrap;
-}
-
-.heroCopy .supportLine {
-  font-family: var(--font-body);
-  text-transform: none;
-  letter-spacing: 0;
 }
 
 .sectionIntro {
   display: grid;
-  gap: 0.8rem;
-  max-width: 48rem;
-  margin-bottom: 1.7rem;
+  gap: 0.55rem;
+  max-width: 42rem;
+  margin-bottom: 1.4rem;
 }
 
 .ctaRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 1.5rem;
+  gap: 0.65rem;
+  margin-top: 1.35rem;
 }
 
 .primaryCta,
@@ -233,25 +240,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.15rem;
-  border: 1px solid var(--secondary);
-  padding: 0.85rem 1.25rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--solution-line);
+  border-radius: var(--solution-radius);
+  padding: 0 1.15rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 550;
+  letter-spacing: -0.02em;
   text-decoration: none;
   transition:
-    transform 160ms ease,
     border-color 160ms ease,
     background-color 160ms ease,
     color 160ms ease;
 }
 
 .primaryCta {
+  border-color: var(--solution-accent);
   background: var(--solution-accent);
-  color: var(--background);
+  color: #fff;
 }
 
 .secondaryCta,
 .indexLink {
-  background: transparent;
+  background: #fff;
   color: var(--text);
 }
 
@@ -264,23 +276,21 @@
   display: inline-flex;
   align-items: center;
   color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   text-underline-offset: 0.2em;
 }
 
-.primaryCta:hover,
-.secondaryCta:hover,
-.indexLink:hover {
-  transform: translateY(-1px);
-}
-
 .primaryCta:hover {
-  background: var(--accent-hover, var(--solution-accent));
+  background: var(--accent-hover, #172a66);
+  border-color: var(--accent-hover, #172a66);
 }
 
 .secondaryCta:hover,
 .indexLink:hover {
-  border-color: var(--solution-accent);
-  color: var(--solution-accent);
+  background: color-mix(in srgb, var(--text) 4%, #fff);
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
 }
 
 .primaryCta:focus-visible,
@@ -296,8 +306,9 @@
 .diagram {
   display: grid;
   gap: 0.95rem;
-  border: 1px solid rgba(23, 17, 15, 0.14);
-  background: var(--background);
+  border: 1px solid var(--solution-line);
+  border-radius: var(--solution-radius-sm);
+  background: #fff;
   padding: clamp(1rem, 2vw, 1.4rem);
 }
 
@@ -325,8 +336,9 @@
 .fitCard,
 .ctaCard,
 .faqItem {
-  border: 1px solid rgba(23, 17, 15, 0.14);
-  background: var(--background);
+  border: 1px solid var(--solution-line);
+  border-radius: var(--solution-radius-sm);
+  background: #fff;
 }
 
 .chip,
@@ -338,9 +350,10 @@
 .chip,
 .agentBox {
   text-align: center;
-  font-size: 0.92rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
 }
 
 .flowArrow {
@@ -413,10 +426,15 @@
 }
 
 .boundaryOutcome {
-  padding: 0.9rem 1rem;
+  padding: 0.85rem 1rem;
   border-left: 3px solid var(--solution-accent);
-  background: color-mix(in srgb, var(--solution-accent-soft) 45%, var(--background));
+  border-radius: 0 var(--solution-radius) var(--solution-radius) 0;
+  background: color-mix(in srgb, var(--solution-accent-soft) 42%, #fff);
   color: var(--text);
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.45;
 }
 
 .commercialModel {
@@ -429,10 +447,6 @@
 
 .listTitle {
   margin: 0 0 0.75rem;
-  color: var(--text);
-  font-size: var(--type-small);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
 }
 
 .detailList,
@@ -440,20 +454,19 @@
 .fitList {
   margin: 0;
   padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .detailList li::marker,
 .bulletList li::marker,
 .fitList li::marker {
-  color: var(--text);
+  color: var(--solution-accent);
 }
 
 .surfaceLabel {
   margin: 0 0 0.65rem;
-  color: var(--text);
-  font-size: var(--type-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 .stepCard {
@@ -489,7 +502,10 @@
 .faqQuestion {
   margin: 0;
   color: var(--text);
-  font-size: 1.02rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
 }
 
 .faqToggle {
@@ -524,7 +540,7 @@
 .indexQuickLinks {
   display: grid;
   gap: 0;
-  border-top: 1px solid rgba(23, 17, 15, 0.18);
+  border-top: 1px solid var(--solution-line);
 }
 
 .indexQuickLinks > .cardEyebrow {
@@ -536,23 +552,25 @@
   grid-template-columns: 2rem minmax(0, 1fr);
   gap: 0.7rem;
   align-items: baseline;
-  border-top: 1px solid rgba(23, 17, 15, 0.12);
+  border-top: 1px solid var(--solution-line);
   padding: 0.85rem 0;
   color: var(--text);
   text-decoration: none;
 }
 
 .indexQuickLink:last-of-type {
-  border-bottom: 1px solid rgba(23, 17, 15, 0.12);
+  border-bottom: 1px solid var(--solution-line);
 }
 
 .indexQuickLink span {
-  color: var(--text);
-  font-size: 0.76rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
 }
 
 .indexQuickLink strong {
-  font-weight: 500;
+  font-weight: 550;
+  letter-spacing: -0.02em;
 }
 
 .indexQuickLink:hover strong {
@@ -574,24 +592,26 @@
   gap: 1rem;
   min-height: 100%;
   padding: clamp(1.15rem, 2vw, 1.45rem);
-  border: 1px solid rgba(23, 17, 15, 0.14);
+  border: 1px solid var(--solution-line);
+  border-radius: var(--solution-radius-sm);
   background: linear-gradient(
     180deg,
-    var(--background),
-    color-mix(in srgb, var(--solution-accent-soft) 32%, var(--background))
+    #fff,
+    color-mix(in srgb, var(--solution-accent-soft) 28%, #fff)
   );
 }
 
 .indexCardBody {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.7rem;
 }
 
 .indexSummary {
   margin: 0;
-  color: var(--text);
-  font-size: 1.02rem;
-  line-height: 1.55;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .indexList {
@@ -683,18 +703,11 @@
 
   .title {
     width: 100%;
+    font-size: clamp(1.85rem, 7.5vw, 2.35rem);
   }
 
-  .page[lang="ru"] .title {
-    font-size: clamp(2.05rem, 8.5vw, 2.4rem);
-  }
-
-  .page[lang="ru"] .sectionTitle {
-    font-size: clamp(1.8rem, 8.5vw, 2.35rem);
-  }
-
-  .page[lang="hy"] .title {
-    font-size: clamp(2rem, 9vw, 2.5rem);
+  .sectionTitle {
+    font-size: clamp(1.35rem, 5.5vw, 1.7rem);
   }
 }
 

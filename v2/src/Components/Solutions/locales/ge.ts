@@ -1,4 +1,85 @@
+import {
+  buildSolutionsCatalog,
+  type FamilyShells,
+} from "../buildFamilySolutions";
+import type { PilotSourceContent, PilotSourceSlug } from "../solutionContent";
 import type { LocalizedSolutionsBundle } from "./types";
+
+const familyShells: FamilyShells = {
+  conversation: {
+    name: "Conversation Control System",
+    summary:
+      "One supervised conversation shell for inbound leads and existing client threads, with fixed lanes, CRM write-back, and human gates.",
+    metadata: {
+      title: "Conversation Control System | Dali",
+      description:
+        "Packaged product family for inbound lead response and client inbox control: approved replies, qualification or grounding, CRM updates, and human escalation.",
+    },
+    hero: {
+      eyebrow: "Product family · two fixed lanes",
+      title: "One conversation system. Two fixed pilot lanes.",
+      lead:
+        "Dali packages a supervised AI conversation system for the inbox you already run. Start with inbound leads or existing client support, keep approvals visible, and expand only after one lane passes.",
+      supportLine:
+        "Best fit for service businesses and operators with real message volume who need speed without unsupervised agents.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One product shell, one CRM or case-history path, one approval model, and one starting lane live with logs and escalation.",
+    agentLabel: "Conversation control",
+    cta: {
+      publicLabel: "Start the conversation audit",
+      publicBody:
+        "Tell us whether the first pain is inbound leads or existing client threads. Dali will reply with the lane boundary, approval map, and pilot outline.",
+      intakeFields: [
+        "Starting lane: inbound leads or client support",
+        "Channels and approximate weekly volume",
+        "CRM or case-history system that must stay accurate",
+        "Cases that must always wait for human review",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane (leads or client support), channels, and CRM. Dali will answer with the fixed pilot boundary for that lane.",
+    },
+  },
+  opsKnowledge: {
+    name: "Ops & Knowledge System",
+    summary:
+      "One control loop for documents-to-actions and internal Q&A: approved sources, validated writes or cited answers, and an exception owner.",
+    metadata: {
+      title: "Ops & Knowledge System | Dali",
+      description:
+        "Packaged product family for operations document workflows and internal knowledge assistants with validation, citations, and human exceptions.",
+    },
+    hero: {
+      eyebrow: "Product family · two fixed lanes",
+      title: "Turn docs and tribal knowledge into one reliable ops loop.",
+      lead:
+        "Dali packages a supervised system that either turns recurring documents into validated actions or answers internal questions from an approved source set. Pick one lane first, then connect the loop.",
+      supportLine:
+        "Best fit for teams drowning in mail, PDFs, SOPs, and repeated internal questions.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One source or input bundle, one destination or answer surface, one exception owner, and one starting lane live with an audit trail.",
+    agentLabel: "Ops & knowledge",
+    cta: {
+      publicLabel: "Start the ops & knowledge audit",
+      publicBody:
+        "Tell us whether the first pain is documents-to-actions or internal Q&A. Dali will reply with the lane boundary and acceptance test.",
+      intakeFields: [
+        "Starting lane: documents-to-actions or internal knowledge",
+        "Sample inputs or source set the team already trusts",
+        "Destination system or answer surface",
+        "Owner for exceptions and residual risk",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed pilot boundary for that lane.",
+    },
+  },
+};
+
 
 export const georgianSolutionsBundle = {
   overview: {
@@ -46,71 +127,100 @@ export const georgianSolutionsBundle = {
       viewPilot: "ნახეთ პილოტი",
       viewResearch: "ნახეთ კვლევის მიმართულება",
       responseLane: {
-        title: "ლიდები და კლიენტის ინბოქსი",
+        title: "Conversation Control",
         summary:
-          "ერთი ზედაპირი პასუხისთვის ახალ ლიდებსა და არსებულ კლიენტურ თრედებზე: დრაფტი, წყაროებზე დაყრდნობა, სენსიტიური ქმედებების ბლოკი და CRM-ის მოძრაობა.",
-        eyebrow: "პაკეტირებული პილოტები",
-        pilotLabel: "გახსენით პილოტები",
+          "One conversation shell for inbound leads and existing client threads: draft, ground, gate sensitive actions, and keep CRM moving.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
+      },
+      opsKnowledgeLane: {
+        title: "Ops & Knowledge",
+        summary:
+          "One control loop for documents-to-actions and internal Q&A: approved sources, validated writes or cited answers, exception owner.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
       },
       cards: {
-        "lead-response": {
-          title: "ლიდებზე რეაგირების აგენტი",
+        "conversation-control": {
+          title: "Conversation Control System",
           summary:
-            "უპასუხეთ უფრო სწრაფად, დააკვალიფიცირეთ უფრო ადრე და არ გააჩეროთ არც ერთი შემომავალი ლიდი.",
+            "Supervised inbox system for inbound leads and client support, with fixed lanes and human gates.",
           tasks: [
-            "დაახარისხეთ მოთხოვნები contact form-ებიდან, email-იდან, WhatsApp-იდან ან Telegram-იდან",
-            "მოამზადეთ პერსონალიზებული პირველი პასუხები საკვალიფიკაციო კითხვებით",
-            "ავტომატურად განაახლეთ CRM-ის ეტაპები, პასუხისმგებლები და follow-up ამოცანები",
+            "Pick inbound leads or existing client support as the first lane",
+            "Draft or send approved replies with CRM write-back",
+            "Stop pricing, refunds, and edge cases for human review",
           ],
         },
-        "client-inbox": {
-          title: "კლიენტის ინბოქსის აგენტი",
+        "ops-knowledge": {
+          title: "Ops & Knowledge System",
           summary:
-            "უპასუხეთ რუტინულ მომხმარებლის მიმოწერას დამტკიცებული კონტექსტით, CRM-ის ისტორიით და ხილული გადაბარებით.",
+            "Turn recurring documents into actions or answer internal questions from approved sources.",
           tasks: [
-            "დააფუძნეთ პასუხები დამტკიცებულ პოლიტიკებზე, ფაილებსა და წინა შემთხვევებზე",
-            "ჩაწერეთ საუბარი და შემდეგი ქმედება არსებულ CRM-ში",
-            "შეჩერეთ სენსიტიური მოთხოვნები, მედია ან დაუდასტურებელი პასუხები შემოწმებისთვის",
-          ],
-        },
-        "operations-docs": {
-          title: "ოპერაციების აგენტი",
-          summary:
-            "აიღეთ რუტინული back-office სამუშაო იქამდე, სანამ ის გუნდის დამაბრკოლებელ ტვირთად გადაიქცევა.",
-          tasks: [
-            "აქციეთ inbox-ის მოთხოვნები tracker-ის განახლებებად და გადამისამართებულ ამოცანებად",
-            "შეათანხმეთ spreadsheets, სტატუსის ველები და განმეორებადი გამონაკლისები",
-            "მოამზადეთ დამტკიცებები, შეჯამებები და გადაბარების ჩანაწერები თანამშრომლებისთვის",
-          ],
-        },
-        "knowledge-assistant": {
-          title: "შიდა ცოდნის აგენტი",
-          summary:
-            "მიეცით გუნდს სანდო პირველი ფენა განმეორებადი კითხვებისთვის.",
-          tasks: [
-            "მოძებნეთ SOP-ებში, docs-ში და წინა შემთხვევებში შემდეგი ნაბიჯის შეთავაზებამდე",
-            "მოამზადეთ მხარდაჭერის პასუხები და ესკალაციის კონტექსტი ადამიანური რევიუსთვის",
-            "შეინარჩუნეთ შიდა ცოდნა მოწესრიგებულად, როცა პროდუქტები და პოლიტიკები იცვლება",
+            "Pick documents-to-actions or internal Q&A as the first lane",
+            "Validate writes or cite sources before the team trusts the output",
+            "Route exceptions to a named human owner",
           ],
         },
         "voice-agents": {
-          title: "Voice Design-Partner პილოტი",
+          title: "Voice Design-Partner Pilot",
           summary:
-            "დაამტკიცეთ ერთი განმეორებადი ზარის პროცესი მანამდე, სანამ სისტემას გააფართოებთ.",
+            "Prove one repeatable call flow before widening the system.",
           tasks: [
-            "დააკვალიფიცირეთ ერთი ტიპის რუტინული შემომავალი ზარი",
-            "დაჯავშნეთ შემდეგი ნაბიჯი და დაწერეთ სტრუქტურირებული CRM შეჯამება",
-            "გადააბარეთ რთული შემთხვევები ადამიანს კონტექსტის დაკარგვის გარეშე",
+            "Qualify one routine inbound call type",
+            "Book the next step and write a structured CRM summary",
+            "Transfer hard cases to a person without losing context",
           ],
         },
         "vibe-code-rescue": {
-          title: "Vibe-code Rescue პილოტი",
+          title: "Vibe-code Rescue Pilot",
           summary:
-            "AI-ით აწყობილი MVP-ის secrets, payments და admin ბილიკების ტრიაჟი, შემდეგ hardening gates-ით და handoff-ით.",
+            "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
           tasks: [
-            "მაღალი რისკის secrets, payments, admin და outbound ბილიკების რუკა",
-            "patch vs rewrite გადაწყვეტილება თითოეულ critical path-ზე scope-ში",
-            "gates, stop-switch და ownership handoff პაკეტი გუნდისთვის",
+            "Map high-risk secrets, payments, admin, and outbound paths",
+            "Decide patch vs rewrite for each critical path in scope",
+            "Ship gates, a stop-switch, and an ownership handoff package",
+          ],
+        },
+      },
+      laneCards: {
+        "lead-response": {
+          title: "Inbound leads lane",
+          summary:
+            "Reply faster, qualify earlier, and keep every inbound lead moving.",
+          tasks: [
+            "Triage contact forms, email, WhatsApp, or Telegram inquiries",
+            "Draft personalized first replies with qualification questions",
+            "Update CRM stages, owners, and follow-up tasks automatically",
+          ],
+        },
+        "client-inbox": {
+          title: "Client support lane",
+          summary:
+            "Answer routine customer threads with approved context, CRM history, and a visible handoff.",
+          tasks: [
+            "Ground replies in approved policies, files, and past cases",
+            "Log the conversation and next action in the existing CRM",
+            "Stop sensitive requests, media, or unsupported answers for review",
+          ],
+        },
+        "operations-docs": {
+          title: "Documents-to-actions lane",
+          summary:
+            "Handle routine back-office work before it turns into team drag.",
+          tasks: [
+            "Turn inbox requests into tracker updates and routed tasks",
+            "Reconcile spreadsheets, status fields, and recurring exceptions",
+            "Prepare approvals, summaries, and handoff notes for staff",
+          ],
+        },
+        "knowledge-assistant": {
+          title: "Internal knowledge lane",
+          summary:
+            "Give the team a reliable first layer for repetitive questions.",
+          tasks: [
+            "Search SOPs, docs, and past cases before suggesting next steps",
+            "Draft support answers and escalation context for human reviewers",
+            "Keep internal knowledge organized as products and policies change",
           ],
         },
       },
@@ -232,7 +342,7 @@ export const georgianSolutionsBundle = {
       cta: "დაიწყეთ პროცესის აუდიტი",
     },
   },
-  details: {
+  details: buildSolutionsCatalog({
     "lead-response": {
       slug: "lead-response",
       name: "ლიდებზე რეაგირების პილოტი",
@@ -1166,7 +1276,7 @@ export const georgianSolutionsBundle = {
           "უპასუხეთ Upwork-ში პროდუქტული ზედაპირით, payment ან admin ბილიკებით და risk გადაწყვეტილებების owner-ით. Dali გიპასუხებთ ფიქსირებული rescue პილოტის საზღვრით და ტრიაჟის რიგით.",
       },
     },
-  },
+  } as Record<PilotSourceSlug, PilotSourceContent>, familyShells),
   labels: {
     browseAllPilots: "ყველა პილოტის ნახვა",
     copyDetailedBrief: "დეტალური brief-ის კოპირება",
@@ -1204,5 +1314,9 @@ export const georgianSolutionsBundle = {
     commercialBody:
       "Dali არ გთხოვთ, რომ თავიდანვე ფართო ავტომატიზაციის პროგრამა იყიდოთ. ჩვენ ვადგენთ ერთ მიღების ტესტს, ვაფასებთ ერთ პილოტს, ვაშენებთ მხოლოდ შეთანხმების შემდეგ და მოცულობას ვაფართოებთ მხოლოდ მაშინ, როცა პირველი პროცესი შემოწმებას გაივლის.",
     workflowAriaSuffix: "პროცესის დიაგრამა",
+    chooseLane: "Choose a fixed lane",
+    lanesTitle: "One system shell. Two pilot scopes.",
+    laneAcceptance: "Lane acceptance test",
+    startWithLane: "Start with this lane",
   },
 } satisfies LocalizedSolutionsBundle;

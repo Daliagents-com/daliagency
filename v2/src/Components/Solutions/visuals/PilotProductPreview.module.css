@@ -49,7 +49,11 @@
 }
 
 .url {
+  display: inline-flex;
   min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
   overflow: hidden;
   border: 1px solid #ebebed;
   border-radius: 999px;
@@ -64,6 +68,14 @@
   text-overflow: ellipsis;
   text-transform: capitalize;
   white-space: nowrap;
+}
+
+.urlFavicon {
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.12rem;
+  object-fit: contain;
 }
 
 .live {

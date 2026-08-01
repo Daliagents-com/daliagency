@@ -1,11 +1,14 @@
 # SEO / GEO pack (Dali)
 
-Operator docs for SEO and GEO work on **https://dali.agents.ge**.
+Operator docs for SEO and GEO work on **https://daliagents.com**.
+
+Legacy host `dali.agents.ge` 308s to apex. Cutover runbook: [domain-cutover-daliagents-com.md](./domain-cutover-daliagents-com.md).
 
 ## Files
 
 | File | What |
 | --- | --- |
+| [domain-cutover-daliagents-com.md](./domain-cutover-daliagents-com.md) | .com cutover wiring + GSC checklist |
 | [status.md](./status.md) | Current readiness % and next 7 days |
 | [blockers.md](./blockers.md) | Human-only steps (GSC, domain, profiles) |
 | [audit-independent.md](./audit-independent.md) | Independent site judge audit |

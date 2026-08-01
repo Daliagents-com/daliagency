@@ -1,32 +1,66 @@
 ---
 slug: "public-webhooks-and-payment-risks"
-title: "Public webhooks and payment underpayment risks on AI-built sites"
-description: "How unauthenticated workflow and payment endpoints create underpayment and abuse paths - and how we close them."
+title: "Հանրային webhook-ներ և թերավճարման ռիսկ AI-ով կառուցված կայքերում"
+description: "Ինչպես չնույնականացված գործընթացի և վճարման endpoint-ները բացում են թերավճարման և չարաշահման ուղիներ - և ինչպես ենք փակում դրանք."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "public-webhooks-and-payment-risks"
-keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security"]
+keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security", "webhook թերավճարում"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/public-webhooks-and-payment-risks/hero.jpg"
-heroAlt: "Public webhooks and payment underpayment risks on AI-built sites"
+heroAlt: "Հանրային webhook-ներ և թերավճարման ռիսկ AI-ով կառուցված կայքերում"
 ogImage: "/blog/public-webhooks-and-payment-risks/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-If payment or workflow webhooks are callable without auth and accept client-controlled amounts, attackers can create cheap invoices or trigger business workflows. Amounts and product identity must be server-authoritative.
+Եթե վճարման կամ գործընթացի webhook-ը կարելի է կանչել առանց նույնականացման և դրանք ընդունում են հաճախորդի կողմից վերահսկվող գումարներ, հարձակվողը կարող է էժան հաշիվներ ստեղծել կամ բիզնես գործընթացներ գործարկել։ Գումարները և ապրանքի ինքնությունը պետք է լինեն հեղինակավոր սերվերի վրա։
 
-## Պրակտիկա
+Արագ AI նախատիպը հաճախ «հարմարության համար» թողնում է `/api/pay` և `/api/webhook` բաց։ Սա հարմարություն չէ - սա անցք է։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Սկսեք իրական վճարման և fulfilment գործընթացից, ոչ թե Checkout-ի դեմո կոճակից։
+- Նկարագրեք պարզ լեզվով. ով է սահմանում գումարը, ով է հաստատում վճարումը, ով է բացում մուտքը։
+- Ստուգեք յուրաքանչյուր ուղի, որտեղ հաճախորդի բրաուզերը կարող է փոխել amount, plan id կամ coupon։
+- Թողեք ձեռքով ուղի վիճելի վճարումների և վերադարձների համար։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Ինչպիսին է լավը
+
+- Webhook մատակարարի ստորագրության ստուգմամբ (Stripe և նմաններ)։
+- Գումարը և product id-ն սերվերի գնացուցակից / պատվերից, ոչ թե հաճախորդի body-ից։
+- Իդեմպոտենտ մշակում. webhook-ի կրկնությունը կրկնակի մուտք չի տալիս։
+- Մատյաններ. event id, order id, արդյունք, սխալներ։
+- Գաղտնի բանալիներ միայն սերվերի վրա. կանգառի կոճակ մուտքի տրամադրման վրա։
+
+## Ինչպիսին է վատը
+
+- «Պրևյուում վճարումը անցնում է» առանց ստորագրության ստուգման։
+- Հանրային endpoint «նշիր որպես վճարված» առանց auth-ի։
+- Գինը և plan id-ն վստահում են frontend query/body-ին։
+- underpay / overpay համադրում չկա։
+- Բարակ մեքենայական «վճարման» լենդինգ առանց սերվերային պատվերի մոդելի։
+
+## Տիպիկ հարձակումներ
+
+1. **Underpayment** - հաճախորդը ուղարկում է amount=1, սերվերը բացում է premium։
+2. **Replay** - հին հաջող event-ը կրկին է ուղարկվում։
+3. **Forged webhook** - POST առանց ստորագրության, կարծես Stripe-ից։
+4. **Workflow trigger** - բաց URL-ը գործարկում է զեղչ, նամակ, CRM գործարք։
+
+## Ինչպես է փակում Dali-ն
+
+Ամրացնում ենք վճարման և գործընթացների ուղին. [vibe-code rescue](/arm/solutions/vibe-code-rescue), [վճարումներ և գաղտնի բանալիներ](/arm/blog/payments-and-secrets-on-vibe-apps), [admin/promo սահմանափակումներ](/arm/blog/rate-limits-admin-and-promo)։ Կապված. [մարտական գործակալներ](/arm/blog/production-ai-agents-for-business), [վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անպե՞տք է։
+Ոչ։ Արագ UI-ն նորմալ է։ Վտանգավոր է պրևյուն համարել պատրաստ դրամարկղ։
+
+### Ամեն ինչ վերագրմո՞ւմ եք։
+Ոչ միշտ։ Հաճախ մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին. order, webhook, մուտքի տրամադրում։ Մարքեթինգային էջերը կարող են մնալ։
+
+### Բավարա՞ր է webhook URL-ը «թաքցնել»։
+Ոչ։ URL-ի գաղտնիությունը թույլ պաշտպանություն է։ Պետք է ստորագրության կրիպտոգրաֆիկ ստուգում և սերվերային պատվերի մոդել։

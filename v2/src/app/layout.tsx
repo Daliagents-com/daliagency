@@ -1,11 +1,10 @@
 import Navbar from "@/Components/Navbar/Navbar";
 import ConsultationShell from "@/Components/Consultation/ConsultationShell";
+import DeferredAnalytics from "@/Components/Analytics/DeferredAnalytics";
 import "./globals.css";
 import { monoText, onestText, syneText } from "@/assets/fonts";
 import Footer from "@/Components/Footer/Footer";
-import FunnelAnalytics from "@/Components/Analytics/FunnelAnalytics";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { DALI_ORG } from "@/lib/seo/organizationIdentity";
 
 const siteUrl = DALI_ORG.url;
@@ -33,9 +32,12 @@ export const metadata: Metadata = {
     description: siteDescription,
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -88,19 +90,20 @@ const organizationJsonLd = {
   ],
 };
 
-export default async function RootLayout({
+// Static default; localized routes corrected by inline script (no headers() → no dynamic HTML).
+const htmlLangBootstrap = `(function(){try{var s=location.pathname.split("/").filter(Boolean)[0];var m={ru:"ru",ge:"ka",arm:"hy"};if(m[s])document.documentElement.lang=m[s];}catch(e){}})();`;
+
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const requestHeaders = await headers();
-  const language = requestHeaders.get("x-dali-language") ?? "en";
-
   return (
-    <html lang={language}>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${onestText.className} ${onestText.variable} ${syneText.variable} ${monoText.variable}`}
       >
+        <script dangerouslySetInnerHTML={{ __html: htmlLangBootstrap }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -111,7 +114,7 @@ export default async function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          {process.env.VERCEL === "1" ? <FunnelAnalytics /> : null}
+          <DeferredAnalytics enableVercelFunnel={process.env.VERCEL === "1"} />
         </ConsultationShell>
       </body>
     </html>

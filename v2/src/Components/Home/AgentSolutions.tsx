@@ -1,6 +1,7 @@
 // Purpose: Homepage agent solutions - sticky nav + scroll panels.
 // Scope: #agent-solutions. Framer useInView for real entrance; product loop lives in AgentUxPreview.
 // Structure: one scroll panel = one agent product surface (distinct dashboard demo per kind).
+// Copy layout: title + CTA + summary + inline points (no duplicate pilot cards).
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -23,13 +24,9 @@ import styles from "./AgentSolutions.module.css";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-type PilotLink = {
+type PanelCta = {
   href: string;
-  title: string;
-  summary: string;
-  tasks: readonly string[];
-  badge: string;
-  cta: string;
+  label: string;
 };
 
 type Panel = {
@@ -39,7 +36,7 @@ type Panel = {
   kind: AgentUxKind;
   tasks: readonly string[];
   eyebrow: string | null;
-  pilots: readonly PilotLink[];
+  cta: PanelCta;
 };
 
 function PanelBlock({
@@ -101,44 +98,27 @@ function PanelBlock({
           <h3 className={`${sansText.className} ${styles.panelHeadline}`}>
             {panel.title}
           </h3>
+          <Link
+            href={panel.cta.href}
+            className={`${sansText.className} ${styles.panelLink}`}
+          >
+            {panel.cta.label} <span aria-hidden="true">↗</span>
+          </Link>
         </div>
         <p className={`${sansText.className} ${styles.panelSummary}`}>
           {panel.summary}
         </p>
 
-        <div
-          className={styles.pilotRack}
-          aria-label={
-            panel.pilots.length > 1 ? "Packaged pilot variants" : "Pilot"
-          }
-        >
-          {panel.pilots.map((pilot) => (
-            <article key={pilot.href} className={styles.pilotCard}>
-              <div className={styles.pilotCardHead}>
-                <p className={`${sansText.className} ${styles.pilotBadge}`}>
-                  {pilot.badge}
-                </p>
-                <h4 className={`${sansText.className} ${styles.pilotCardTitle}`}>
-                  {pilot.title}
-                </h4>
-                <p className={`${sansText.className} ${styles.pilotCardSummary}`}>
-                  {pilot.summary}
-                </p>
-              </div>
-              <ul className={`${sansText.className} ${styles.pilotTaskList}`}>
-                {pilot.tasks.map((task) => (
-                  <li key={task}>{task}</li>
-                ))}
-              </ul>
-              <Link
-                href={pilot.href}
-                className={`${sansText.className} ${styles.panelLink}`}
-              >
-                {pilot.cta} <span aria-hidden="true">↗</span>
-              </Link>
-            </article>
-          ))}
-        </div>
+        {panel.tasks.length > 0 ? (
+          <ul
+            className={`${sansText.className} ${styles.overviewPoints}`}
+            aria-label={panel.title}
+          >
+            {panel.tasks.map((task) => (
+              <li key={task}>{task}</li>
+            ))}
+          </ul>
+        ) : null}
       </motion.header>
 
       <motion.div
@@ -183,14 +163,18 @@ export default function AgentSolutions({
     once: true,
   });
 
-  const lead = copy.cards["lead-response"];
-  const inbox = copy.cards["client-inbox"];
-  const ops = copy.cards["operations-docs"];
-  const knowledge = copy.cards["knowledge-assistant"];
+  const conversation = copy.cards["conversation-control"];
+  const opsKnowledge = copy.cards["ops-knowledge"];
   const voice = copy.cards["voice-agents"];
 
-  // One scroll panel = one agent. Lead and Inbox are separate so clients
-  // can pick the right product surface immediately (sales vs support).
+  const caseCtaLabel: Record<Locale, string> = {
+    en: "Open multi-agent case",
+    ru: "Открыть multi-agent кейс",
+    ge: "მულტი-აგენტური ქეისის გახსნა",
+    arm: "Բացել բազմագործակալային դեպքը",
+  };
+
+  // One panel = one product family (fixed lanes live on the solution page).
   const panels: Panel[] = [
     {
       id: "dali-agent",
@@ -203,92 +187,34 @@ export default function AgentSolutions({
         overview.hero.supportLine,
       ],
       eyebrow: null,
-      pilots: [
-        {
-          href: localizePath("/solutions", locale),
-          title: solutionsLabel,
-          summary: overview.hero.supportLine,
-          tasks: [
-            overview.diagram.reviewBody,
-            overview.diagram.actionBody,
-            copy.title,
-          ],
-          badge: copy.kicker,
-          cta: solutionsLabel,
-        },
-      ],
+      cta: {
+        href: localizePath("/solutions", locale),
+        label: caseCtaLabel[locale],
+      },
     },
     {
-      id: "agent-lead-response",
-      title: lead.title,
-      summary: lead.summary,
+      id: "agent-conversation-control",
+      title: copy.responseLane.title,
+      summary: copy.responseLane.summary,
       kind: "lead-response",
-      tasks: lead.tasks,
-      eyebrow: copy.packagedPilot,
-      pilots: [
-        {
-          href: localizePath("/solutions/lead-response", locale),
-          title: lead.title,
-          summary: lead.summary,
-          tasks: lead.tasks,
-          badge: copy.packagedPilot,
-          cta: copy.viewPilot,
-        },
-      ],
+      tasks: conversation.tasks,
+      eyebrow: copy.responseLane.eyebrow,
+      cta: {
+        href: localizePath("/solutions/conversation-control", locale),
+        label: copy.viewPilot,
+      },
     },
     {
-      id: "agent-client-inbox",
-      title: inbox.title,
-      summary: inbox.summary,
-      kind: "client-inbox",
-      tasks: inbox.tasks,
-      eyebrow: copy.packagedPilot,
-      pilots: [
-        {
-          href: localizePath("/solutions/client-inbox", locale),
-          title: inbox.title,
-          summary: inbox.summary,
-          tasks: inbox.tasks,
-          badge: copy.packagedPilot,
-          cta: copy.viewPilot,
-        },
-      ],
-    },
-    {
-      id: "agent-operations-docs",
-      title: ops.title,
-      summary: ops.summary,
+      id: "agent-ops-knowledge",
+      title: copy.opsKnowledgeLane.title,
+      summary: copy.opsKnowledgeLane.summary,
       kind: "operations-docs",
-      tasks: ops.tasks,
-      eyebrow: copy.packagedPilot,
-      pilots: [
-        {
-          href: localizePath("/solutions/operations-docs", locale),
-          title: ops.title,
-          summary: ops.summary,
-          tasks: ops.tasks,
-          badge: copy.packagedPilot,
-          cta: copy.viewPilot,
-        },
-      ],
-    },
-    {
-      id: "agent-knowledge-assistant",
-      title: knowledge.title,
-      summary: knowledge.summary,
-      kind: "knowledge-assistant",
-      tasks: knowledge.tasks,
-      eyebrow: copy.packagedPilot,
-      pilots: [
-        {
-          href: localizePath("/solutions/knowledge-assistant", locale),
-          title: knowledge.title,
-          summary: knowledge.summary,
-          tasks: knowledge.tasks,
-          badge: copy.packagedPilot,
-          cta: copy.viewPilot,
-        },
-      ],
+      tasks: opsKnowledge.tasks,
+      eyebrow: copy.opsKnowledgeLane.eyebrow,
+      cta: {
+        href: localizePath("/solutions/ops-knowledge", locale),
+        label: copy.viewPilot,
+      },
     },
     {
       id: "agent-voice-agents",
@@ -297,16 +223,10 @@ export default function AgentSolutions({
       kind: "voice-agents",
       tasks: voice.tasks,
       eyebrow: copy.researchLane,
-      pilots: [
-        {
-          href: localizePath("/solutions/voice-agents", locale),
-          title: voice.title,
-          summary: voice.summary,
-          tasks: voice.tasks,
-          badge: copy.researchLane,
-          cta: copy.viewResearch,
-        },
-      ],
+      cta: {
+        href: localizePath("/solutions/voice-agents", locale),
+        label: copy.viewResearch,
+      },
     },
   ];
 

@@ -33,7 +33,7 @@ export async function generateMetadata({
     openGraph: {
       title: copy.metaTitle,
       description: copy.metaDescription,
-      url: `https://dali.agents.ge/${locale}/blog`,
+      url: `https://daliagents.com/${locale}/blog`,
       siteName: "Dali",
       type: "website",
     },

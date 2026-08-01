@@ -1,40 +1,52 @@
 ---
 slug: "after-vibe-code-audit-handoff"
-title: "After the vibe-code audit: handoff package for founders"
-description: "What we deliver after an audit: severity table, proof boundaries, fix order, and next engineering plan."
+title: "После аудита быстрых ИИ-прототипов: пакет передачи для основателей"
+description: "Что мы отдаём после аудита: таблица критичности, границы доказательств, порядок исправлений и следующий инженерный план."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "after-vibe-code-audit-handoff"
-keywords: ["security audit handoff", "vibe code audit report", "founder security report"]
+keywords: ["передача после аудита безопасности", "отчёт аудита ИИ-прототипа", "отчёт для основателя"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/after-vibe-code-audit-handoff/hero.jpg"
-heroAlt: "After the vibe-code audit: handoff package for founders"
+heroAlt: "После аудита быстрых ИИ-прототипов: пакет передачи для основателей"
 ogImage: "/blog/after-vibe-code-audit-handoff/og.jpg"
 ---
 
 ## Прямой ответ
 
-A useful handoff is not fear. It is a severity table, what is proven vs not proven, a fix order, and a production plan. Founders need decisions, not only screenshots.
+Полезная передача - это не запугивание. Это таблица критичности, что доказано и что нет, порядок исправлений и план для боевой работы. Основателям нужны решения, а не только скриншоты.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Опишите поведение простым языком, затем проверьте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставьте человеческий путь для нестандартных случаев.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Чёткое разделение стандартных и нестандартных маршрутов
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где это задумано
+- Ключи и секреты никогда не лежат в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для боевой работы
+- Токены и вебхуки оставлены публичными
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы, продаваемые как локализация
+
+## Как это делает Dali
+
+Dali - студия систем на ИИ-агентах: мы серьёзно относимся к быстрым ИИ-прототипам, затем укрепляем их до систем для реальной эксплуатации с точками ручного контроля, инструментами и понятным владельцем. Связанное: [боевые ИИ-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую оболочку. Опасно становится только когда её принимают за готовую систему для реальной эксплуатации.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда переписываете всё с нуля?
+Не всегда. Иногда укрепляем. Иногда изолируем и пересобираем критический путь.

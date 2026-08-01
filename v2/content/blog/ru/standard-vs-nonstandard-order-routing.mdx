@@ -1,40 +1,52 @@
 ---
 slug: "standard-vs-nonstandard-order-routing"
-title: "Стандартные и нестандартные заказы в AI-чате"
-description: "How production-minded vibe builds split menu orders from exception cases that need a human."
+title: "Обычные и нестандартные заказы в чате на сайте"
+description: "Как разделять простые заказы из меню и исключения, которые нужно передавать человеку."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "standard-vs-nonstandard-order-routing"
-keywords: ["AI chat order routing", "standard vs nonstandard orders AI", "AI assistant order filter"]
+keywords: ["маршрутизация заказов в чате","стандартный и нестандартный заказ","фильтр заказов ИИ-ассистента"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/standard-vs-nonstandard-order-routing/hero.jpg"
-heroAlt: "Стандартные и нестандартные заказы в AI-чате"
+heroAlt: "Обычные и нестандартные заказы в чате на сайте"
 ogImage: "/blog/standard-vs-nonstandard-order-routing/og.jpg"
 ---
 
 ## Прямой ответ
 
-A useful site assistant filters: standard menu-like requests can go toward checkout; non-standard requests collect details and hand off. That filter pattern is the difference between a toy chat and an operations tool.
+Полезный ассистент на сайте фильтрует: обычные запросы «как из меню» можно вести к оформлению; нестандартные - собрать детали и передать человеку. Этот фильтр отличает игрушечный чат от инструмента для операций.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с названия модели.
+- Опишите нужное поведение простыми словами и проверьте каждый путь, где есть деньги, доступ или исходящие сообщения.
+- Для нестандартных случаев оставьте путь к человеку.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Понятное разделение обычных и нестандартных обращений
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где это задумано
+- Ключи и секреты не лежат в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для реальной эксплуатации
+- Токены и вебхуки оставлены открытыми
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы вместо нормальной локализации
+
+## Как подходит Dali
+
+Dali - студия агентских систем: берём быстрые ИИ-прототипы всерьёз и доводим их до боевой работы с точками ручного контроля, инструментами и понятной зоной ответственности. Связанные материалы: [рабочие ИИ-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Быстрая сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только считать её уже готовой к реальной эксплуатации.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда переписываете всё с нуля?
+Не всегда. Иногда укрепляем то, что есть. Иногда изолируем и пересобираем только критический путь.

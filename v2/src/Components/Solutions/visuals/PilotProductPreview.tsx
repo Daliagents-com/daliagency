@@ -5,7 +5,7 @@
 import AgentUxPreview, {
   type AgentUxKind,
 } from "@/Components/Home/AgentUxPreview";
-import type { SolutionContent, SolutionSlug } from "../solutionContent";
+import type { SolutionContent } from "../solutionContent";
 import type { SolutionPageLocale } from "../solutionLabels";
 import styles from "./PilotProductPreview.module.css";
 
@@ -14,25 +14,13 @@ type Props = {
   locale?: SolutionPageLocale;
 };
 
-/** Map solution pages onto existing product-mock shells. */
-function previewKind(slug: SolutionSlug): AgentUxKind {
-  if (slug === "vibe-code-rescue") {
-    return "operations-docs";
-  }
-  return slug;
-}
-
 function tasksFor(solution: SolutionContent): readonly string[] {
   // Hero copy stays short - motion carries the story.
   switch (solution.slug) {
-    case "knowledge-assistant":
-      return ["Refund window?", "Annual plans: 14 days.", "Cited"];
-    case "lead-response":
-      return ["GreenLeaf inquiry", "First reply ready", "CRM sync"];
-    case "client-inbox":
-      return ["Invoice export", "Grounded draft", "Review"];
-    case "operations-docs":
-      return ["Invoice_8841.pdf", "Fields validated", "ERP row"];
+    case "conversation-control":
+      return ["Inbound or support", "Approved draft", "CRM sync"];
+    case "ops-knowledge":
+      return ["Doc or question", "Validated output", "Audit trail"];
     case "voice-agents":
       return ["Book this week", "Two slots offered", "Handoff"];
     case "vibe-code-rescue":
@@ -48,7 +36,7 @@ export default function PilotProductPreview({
   solution,
   locale = "en",
 }: Props) {
-  const kind = previewKind(solution.slug);
+  const kind = solution.previewKind as AgentUxKind;
 
   return (
     <div className={styles.frame} data-slug={solution.slug}>
@@ -58,7 +46,17 @@ export default function PilotProductPreview({
           <i />
           <i />
         </span>
-        <span className={styles.url}>{solution.workflow.agentLabel}</span>
+        <span className={styles.url}>
+          <img
+            className={styles.urlFavicon}
+            src="/favicon.svg"
+            alt=""
+            width={12}
+            height={12}
+            draggable={false}
+          />
+          {solution.workflow.agentLabel}
+        </span>
         <span className={styles.live}>
           <i />
           Live

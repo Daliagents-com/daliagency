@@ -1,40 +1,55 @@
 ---
 slug: "typical-upwork-ai-agent-jobs"
-title: "Typical Upwork AI agent jobs (what clients actually request)"
-description: "Patterns from real marketplace demand: CRM agents, ops agents, Claude+n8n, support agents - and how we scope them."
+title: "Типичные заказы AI-агентов на Upwork (что клиенты реально просят)"
+description: "Паттерны реального спроса на маркетплейсе: CRM-агенты, ops-агенты, Claude+n8n, поддержка - и как мы их ограничиваем по scope."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "typical-upwork-ai-agent-jobs"
-keywords: ["Upwork AI agent jobs", "typical AI agent Upwork requests", "hire AI agent engineer Upwork"]
+keywords: ["Upwork AI agent jobs", "типичные AI agent Upwork", "hire AI agent engineer Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/typical-upwork-ai-agent-jobs/hero.jpg"
-heroAlt: "Typical Upwork AI agent jobs (what clients actually request)"
+heroAlt: "Типичные заказы AI-агентов на Upwork: что клиенты реально просят"
 ogImage: "/blog/typical-upwork-ai-agent-jobs/og.jpg"
 ---
 
 ## Прямой ответ
 
-Common Upwork requests cluster around: CRM/lead agents, customer service agents, ops automation with Claude+n8n/RAG, and outreach agents. Clients often say “agent” when they mean a controlled workflow with tools and review.
+Частые запросы на Upwork группируются вокруг: CRM/лид-агенты, агенты поддержки, ops-автоматизация на Claude+n8n/RAG и outreach-агенты. Клиенты часто говорят «агент», имея в виду контролируемый процесс с инструментами и проверкой.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Описывайте поведение простым языком, затем проверяйте каждый путь, где есть деньги, доступ или исходящие сообщения.
+- Для нестандартных случаев оставляйте человеческий путь.
+- На Upwork отдельно фиксируйте: что входит в пробный запуск, что считается «готово», кто владеет ключами и секретами.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясная маршрутизация стандарт / нестандарт
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где задумано
+- Ключи и секреты никогда не в клиентском JavaScript
+- Логи и аварийный выключатель
+- Scope с границами: один путь, измеримый результат, точки ручного контроля
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для реальной эксплуатации
+- Токены и webhook оставлены в открытом доступе
+- Нет передачи человеку на исключениях
+- Тонкие машинные «переводы» вместо нормальной локализации
+- ТЗ «сделай агента как ChatGPT», без процесса и владельца
+
+## Как это делает Dali
+
+Dali - студия систем AI-агентов: мы серьёзно относимся к быстрым ИИ-прототипам, затем укрепляем их до боевой работы с гейтами, инструментами и владельцем. Связанное: [production AI-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно, только когда её принимают за готовую боевую систему.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Иногда укрепляем. Иногда изолируем и пересобираем критический путь.

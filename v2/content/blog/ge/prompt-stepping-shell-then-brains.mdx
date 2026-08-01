@@ -1,32 +1,66 @@
 ---
 slug: "prompt-stepping-shell-then-brains"
-title: "Prompt stepping: shell first, brains second"
-description: "A reliable vibe-coding pattern: build UI shells before wiring AI logic, so each change stays reviewable."
+title: "პრომპტის ნაბიჯები: ჯერ გარსი, მერე ტვინი"
+description: "სანდო სწრაფი AI პროტოტიპის შაბლონი: ააშენეთ UI გარსი AI ლოგიკის შეერთებამდე, რომ ყოველი ცვლილება გადასახედი დარჩეს."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "prompt-stepping-shell-then-brains"
-keywords: ["vibe coding prompt steps", "shell then brains prompting", "AI builder iterative prompts"]
+keywords: ["vibe coding prompt steps", "shell then brains", "AI builder iterative prompts", "პრომპტის ნაბიჯები"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/prompt-stepping-shell-then-brains/hero.jpg"
-heroAlt: "Prompt stepping: shell first, brains second"
+heroAlt: "პრომპტის ნაბიჯები: ჯერ გარსი, მერე ტვინი"
 ogImage: "/blog/prompt-stepping-shell-then-brains/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Ask for the shell first (button, layout, empty widget), then attach intelligence. One giant prompt creates opaque failures. Stepped prompts create checkpoints you can test.
+ჯერ მოითხოვეთ გარსი (ღილაკი, განლაგება, ცარიელი ვიჯეტი), შემდეგ მიამაგრეთ ინტელექტი. ერთი გიგანტური პრომპტი ქმნის გაუმჭვირვალე მარცხებს. ნაბიჯ-ნაბიჯ პრომპტები ქმნის შემოწმებად საკონტროლო წერტილებს.
 
-## პრაქტიკა
+სწრაფი AI პროტოტიპი (vibe coding) სწრაფია. ის ხდება უკონტროლო, როცა UI, auth, გადახდა და მოდელი ერთ «გააკეთე ყველაფერი» მოთხოვნაში ირევა.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- დაიწყეთ რეალური ბიზნეს სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივი ენით, შემდეგ შეამოწმეთ ყველა გზა, რომელიც ეხება ფულს, წვდომას ან გამავალ შეტყობინებებს.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## რეკომენდებული ნაბიჯები
+
+1. **Shell** - layout, ნავიგაცია, ცარიელი მდგომარეობები, ღილაკები mock მონაცემებით.
+2. **Data shape** - რა ველები შედის/გამოდის; ფორმები რეალური სქემით.
+3. **Server boundaries** - API მარშრუტები, auth stub, საიდუმლო გასაღებები სერვერზე.
+4. **Intelligence** - მოდელის გამოძახება, retrieval, tool calling - უკვე სტაბილურ გარსზე.
+5. **Gates და logs** - ადამიანის კონტროლი, აუდიტი, გაჩერება.
+6. **Hardening** - rate limits, webhook, ტესტები კრიტიკულ გზაზე.
+
+## როგორ გამოიყურება კარგი
+
+- ყოველი ნაბიჯის შემდეგ შეგიძლიათ გვერდის/flow-ის ჩვენება და შემოწმება.
+- UI ცვლილება არ «არღვევს» მოდელის ქცევას შემთხვევით.
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში.
+- ლოგები და გაჩერების ღილაკი ჩნდება ინტელექტის შეერთებისთანავე, არა «მოგვიანებით».
+
+## როგორ გამოიყურება ცუდი
+
+- ერთი პრომპტი: «ააშენე SaaS გადახდებით და ჩატბოტით».
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე.
+- ტოკენები და webhook საჯაროდ.
+- გამონაკლისებზე ადამიანთან გადაცემა არ არის.
+- თხელი მანქანური გვერდები, როგორც «ლოკალიზაცია».
+
+## როგორ აწარმოებს Dali
+
+Dali სერიოზულად იღებს სწრაფ AI პროტოტიპებს, შემდეგ ამყარებს რეალური ექსპლუატაციის სისტემებად. დაკავშირებული: [საბრძოლო AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირისთვის. საშიშია მხოლოდ მაშინ, როცა მას მზა რეალურ ექსპლუატაციად თვლიან.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვაცალკევებთ და კრიტიკულ გზას თავიდან ვაშენებთ.
+
+### რატომ არ «ერთ პრომპტში ყველაფერი»?
+რადგან მარცხი გაუმჭვირვალეა: არ იცით, UI გაფუჭდა, API თუ მოდელის ინსტრუქცია. ნაბიჯები იძლევა დიაგნოზს.

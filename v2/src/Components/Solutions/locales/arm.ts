@@ -1,4 +1,85 @@
+import {
+  buildSolutionsCatalog,
+  type FamilyShells,
+} from "../buildFamilySolutions";
+import type { PilotSourceContent, PilotSourceSlug } from "../solutionContent";
 import type { LocalizedSolutionsBundle } from "./types";
+
+const familyShells: FamilyShells = {
+  conversation: {
+    name: "Conversation Control System",
+    summary:
+      "One supervised conversation shell for inbound leads and existing client threads, with fixed lanes, CRM write-back, and human gates.",
+    metadata: {
+      title: "Conversation Control System | Dali",
+      description:
+        "Packaged product family for inbound lead response and client inbox control: approved replies, qualification or grounding, CRM updates, and human escalation.",
+    },
+    hero: {
+      eyebrow: "Product family · two fixed lanes",
+      title: "One conversation system. Two fixed pilot lanes.",
+      lead:
+        "Dali packages a supervised AI conversation system for the inbox you already run. Start with inbound leads or existing client support, keep approvals visible, and expand only after one lane passes.",
+      supportLine:
+        "Best fit for service businesses and operators with real message volume who need speed without unsupervised agents.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One product shell, one CRM or case-history path, one approval model, and one starting lane live with logs and escalation.",
+    agentLabel: "Conversation control",
+    cta: {
+      publicLabel: "Start the conversation audit",
+      publicBody:
+        "Tell us whether the first pain is inbound leads or existing client threads. Dali will reply with the lane boundary, approval map, and pilot outline.",
+      intakeFields: [
+        "Starting lane: inbound leads or client support",
+        "Channels and approximate weekly volume",
+        "CRM or case-history system that must stay accurate",
+        "Cases that must always wait for human review",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane (leads or client support), channels, and CRM. Dali will answer with the fixed pilot boundary for that lane.",
+    },
+  },
+  opsKnowledge: {
+    name: "Ops & Knowledge System",
+    summary:
+      "One control loop for documents-to-actions and internal Q&A: approved sources, validated writes or cited answers, and an exception owner.",
+    metadata: {
+      title: "Ops & Knowledge System | Dali",
+      description:
+        "Packaged product family for operations document workflows and internal knowledge assistants with validation, citations, and human exceptions.",
+    },
+    hero: {
+      eyebrow: "Product family · two fixed lanes",
+      title: "Turn docs and tribal knowledge into one reliable ops loop.",
+      lead:
+        "Dali packages a supervised system that either turns recurring documents into validated actions or answers internal questions from an approved source set. Pick one lane first, then connect the loop.",
+      supportLine:
+        "Best fit for teams drowning in mail, PDFs, SOPs, and repeated internal questions.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One source or input bundle, one destination or answer surface, one exception owner, and one starting lane live with an audit trail.",
+    agentLabel: "Ops & knowledge",
+    cta: {
+      publicLabel: "Start the ops & knowledge audit",
+      publicBody:
+        "Tell us whether the first pain is documents-to-actions or internal Q&A. Dali will reply with the lane boundary and acceptance test.",
+      intakeFields: [
+        "Starting lane: documents-to-actions or internal knowledge",
+        "Sample inputs or source set the team already trusts",
+        "Destination system or answer surface",
+        "Owner for exceptions and residual risk",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed pilot boundary for that lane.",
+    },
+  },
+};
+
 
 export const armenianSolutionsBundle = {
   overview: {
@@ -46,71 +127,100 @@ export const armenianSolutionsBundle = {
       viewPilot: "Տեսնել պիլոտը",
       viewResearch: "Տեսնել հետազոտական ուղղությունը",
       responseLane: {
-        title: "Լիդեր և հաճախորդների ինբոքս",
+        title: "Conversation Control",
         summary:
-          "Մեկ մակերես նոր լիդերի և գործող հաճախորդական թելերի համար. սևագիր, աղբյուրներ, զգայուն գործողությունների դադար և CRM շարժում։",
-        eyebrow: "Փաթեթավորված պիլոտներ",
-        pilotLabel: "Բացել պիլոտները",
+          "One conversation shell for inbound leads and existing client threads: draft, ground, gate sensitive actions, and keep CRM moving.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
+      },
+      opsKnowledgeLane: {
+        title: "Ops & Knowledge",
+        summary:
+          "One control loop for documents-to-actions and internal Q&A: approved sources, validated writes or cited answers, exception owner.",
+        eyebrow: "Product family",
+        pilotLabel: "Fixed lanes",
       },
       cards: {
-        "lead-response": {
-          title: "Լիդերի արձագանքման գործակալ",
+        "conversation-control": {
+          title: "Conversation Control System",
           summary:
-            "Պատասխանեք ավելի արագ, ավելի շուտ որակավորեք և պահեք յուրաքանչյուր մուտքային լիդ շարժման մեջ։",
+            "Supervised inbox system for inbound leads and client support, with fixed lanes and human gates.",
           tasks: [
-            "Տրիաժ անել կայքի ֆորմաների, email-ի, WhatsApp-ի կամ Telegram-ի հարցումները",
-            "Պատրաստել անձնավորված առաջին պատասխաններ որակավորման հարցերով",
-            "Ավտոմատ թարմացնել CRM փուլերը, պատասխանատուներին և follow-up առաջադրանքները",
+            "Pick inbound leads or existing client support as the first lane",
+            "Draft or send approved replies with CRM write-back",
+            "Stop pricing, refunds, and edge cases for human review",
           ],
         },
-        "client-inbox": {
-          title: "Հաճախորդների նամակների գործակալ",
+        "ops-knowledge": {
+          title: "Ops & Knowledge System",
           summary:
-            "Պատասխանեք սովորական հաճախորդական թելերին հաստատված կոնտեքստով, CRM պատմությամբ և տեսանելի փոխանցմամբ։",
+            "Turn recurring documents into actions or answer internal questions from approved sources.",
           tasks: [
-            "Հիմնել պատասխանները հաստատված քաղաքականությունների, ֆայլերի և նախորդ դեպքերի վրա",
-            "Գրանցել խոսակցությունը և հաջորդ քայլը գործող CRM-ում",
-            "Վերանայման համար կանգնեցնել զգայուն հարցումները, մեդիան կամ չաջակցվող պատասխանները",
-          ],
-        },
-        "operations-docs": {
-          title: "Օպերացիոն գործակալ",
-          summary:
-            "Կատարեք սովորական back-office աշխատանքը նախքան այն կվերածվի թիմային ծանրաբեռնվածության։",
-          tasks: [
-            "Մուտքային հարցումները դարձնել թրեքերի թարմացումներ և փոխանցված առաջադրանքներ",
-            "Համադրել աղյուսակները, ստատուսի դաշտերը և կրկնվող բացառությունները",
-            "Պատրաստել հաստատումներ, ամփոփումներ և փոխանցման նշումներ աշխատակազմի համար",
-          ],
-        },
-        "knowledge-assistant": {
-          title: "Ներքին գիտելիքի գործակալ",
-          summary:
-            "Տվեք թիմին հուսալի առաջին շերտ կրկնվող հարցերի համար։",
-          tasks: [
-            "Որոնել SOP-երում, փաստաթղթերում և նախորդ դեպքերում նախքան հաջորդ քայլ առաջարկելը",
-            "Պատրաստել աջակցության պատասխաններ և էսկալացիայի կոնտեքստ մարդկային վերանայողների համար",
-            "Պահել ներքին գիտելիքը կազմակերպված, երբ ապրանքներն ու քաղաքականությունները փոխվում են",
+            "Pick documents-to-actions or internal Q&A as the first lane",
+            "Validate writes or cite sources before the team trusts the output",
+            "Route exceptions to a named human owner",
           ],
         },
         "voice-agents": {
-          title: "Ձայնային դիզայն-գործընկեր պիլոտ",
+          title: "Voice Design-Partner Pilot",
           summary:
-            "Ապացուցեք մեկ կրկնվող զանգի հոսք նախքան համակարգը լայնացնելը։",
+            "Prove one repeatable call flow before widening the system.",
           tasks: [
-            "Որակավորել մեկ սովորական մուտքային զանգի տեսակ",
-            "Ամրագրել հաջորդ քայլը և գրել կառուցվածքային CRM ամփոփում",
-            "Փոխանցել բարդ դեպքերը մարդուն առանց կոնտեքստը կորցնելու",
+            "Qualify one routine inbound call type",
+            "Book the next step and write a structured CRM summary",
+            "Transfer hard cases to a person without losing context",
           ],
         },
         "vibe-code-rescue": {
-          title: "Vibe-code Rescue պիլոտ",
+          title: "Vibe-code Rescue Pilot",
           summary:
-            "AI-ով կառուցված MVP-ի secrets, payments և admin ուղիների տրիաժ, ապա hardening՝ gates-ով և handoff-ով։",
+            "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
           tasks: [
-            "Բարձր ռիսկի secrets, payments, admin և outbound ուղիների քարտեզ",
-            "patch vs rewrite որոշում յուրաքանչյուր critical path-ի համար scope-ում",
-            "gates, stop-switch և ownership handoff փաթեթ թիմի համար",
+            "Map high-risk secrets, payments, admin, and outbound paths",
+            "Decide patch vs rewrite for each critical path in scope",
+            "Ship gates, a stop-switch, and an ownership handoff package",
+          ],
+        },
+      },
+      laneCards: {
+        "lead-response": {
+          title: "Inbound leads lane",
+          summary:
+            "Reply faster, qualify earlier, and keep every inbound lead moving.",
+          tasks: [
+            "Triage contact forms, email, WhatsApp, or Telegram inquiries",
+            "Draft personalized first replies with qualification questions",
+            "Update CRM stages, owners, and follow-up tasks automatically",
+          ],
+        },
+        "client-inbox": {
+          title: "Client support lane",
+          summary:
+            "Answer routine customer threads with approved context, CRM history, and a visible handoff.",
+          tasks: [
+            "Ground replies in approved policies, files, and past cases",
+            "Log the conversation and next action in the existing CRM",
+            "Stop sensitive requests, media, or unsupported answers for review",
+          ],
+        },
+        "operations-docs": {
+          title: "Documents-to-actions lane",
+          summary:
+            "Handle routine back-office work before it turns into team drag.",
+          tasks: [
+            "Turn inbox requests into tracker updates and routed tasks",
+            "Reconcile spreadsheets, status fields, and recurring exceptions",
+            "Prepare approvals, summaries, and handoff notes for staff",
+          ],
+        },
+        "knowledge-assistant": {
+          title: "Internal knowledge lane",
+          summary:
+            "Give the team a reliable first layer for repetitive questions.",
+          tasks: [
+            "Search SOPs, docs, and past cases before suggesting next steps",
+            "Draft support answers and escalation context for human reviewers",
+            "Keep internal knowledge organized as products and policies change",
           ],
         },
       },
@@ -232,7 +342,7 @@ export const armenianSolutionsBundle = {
       cta: "Սկսել աշխատանքային հոսքի աուդիտը",
     },
   },
-  details: {
+  details: buildSolutionsCatalog({
     "lead-response": {
       slug: "lead-response",
       name: "Լիդերի արձագանքման պիլոտ",
@@ -1162,7 +1272,7 @@ export const armenianSolutionsBundle = {
           "Պատասխանեք Upwork-ում արտադրանքային մակերեսով, payment կամ admin ուղիներով և risk որոշումների owner-ով։ Dali-ը կպատասխանի ֆիքսված rescue պիլոտի սահմանով և տրիաժի կարգով։",
       },
     },
-  },
+  } as Record<PilotSourceSlug, PilotSourceContent>, familyShells),
   labels: {
     browseAllPilots: "Տեսնել բոլոր պիլոտները",
     copyDetailedBrief: "Պատճենել մանրամասն brief-ը",
@@ -1200,5 +1310,9 @@ export const armenianSolutionsBundle = {
     commercialBody:
       "Dali-ը ձեզ չի խնդրում նախապես գնել լայն ավտոմատացման ծրագիր։ Մենք սահմանում ենք մեկ ընդունման թեստ, առաջարկում մեկ պիլոտ, կառուցում ենք համաձայնությունից հետո և ընդլայնում ենք շրջանակը միայն այն դեպքում, եթե առաջին աշխատանքային հոսքը անցնում է ստուգումը։",
     workflowAriaSuffix: "աշխատանքային հոսքի դիագրամ",
+    chooseLane: "Choose a fixed lane",
+    lanesTitle: "One system shell. Two pilot scopes.",
+    laneAcceptance: "Lane acceptance test",
+    startWithLane: "Start with this lane",
   },
 } satisfies LocalizedSolutionsBundle;

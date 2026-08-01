@@ -130,11 +130,11 @@
 
 .panelCopy {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.65rem;
   align-content: start;
   justify-items: start;
   padding: clamp(1rem, 1.8vw, 1.4rem) clamp(1rem, 2vw, 1.5rem)
-    clamp(0.55rem, 1.1vw, 0.8rem);
+    clamp(0.7rem, 1.3vw, 1rem);
 }
 
 .panelKicker {
@@ -177,7 +177,7 @@
 }
 
 .panelSummary {
-  max-width: 44rem;
+  max-width: 40rem;
   margin: 0;
   color: var(--scene-muted);
   font-family: var(--font-body);
@@ -187,93 +187,34 @@
   line-height: 1.5;
 }
 
-/* Detailed pilot variants under panel copy (1+ cards; response lane has 2). */
-.pilotRack {
-  display: grid;
-  width: 100%;
-  max-width: 64rem;
-  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
-  gap: 0.65rem;
-  margin-top: 0.35rem;
-}
-
-.pilotCard {
-  display: grid;
-  gap: 0.55rem;
-  align-content: start;
-  min-width: 0;
-  border: 1px solid var(--scene-border);
-  border-radius: var(--folk-radius-sm);
-  padding: 0.75rem 0.85rem 0.8rem;
-  background: #ffffff;
-  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.03);
-}
-
-.pilotCardHead {
-  display: grid;
-  gap: 0.28rem;
-  min-width: 0;
-}
-
-.pilotBadge {
-  margin: 0;
-  width: fit-content;
-  border: 1px solid #dbe4ff;
-  border-radius: var(--folk-radius-xs);
-  padding: 0.1rem 0.4rem;
-  background: #eef2ff;
-  color: #3730a3;
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.pilotCardTitle {
-  margin: 0;
-  font-size: clamp(0.92rem, 1.15vw, 1.05rem);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  color: var(--scene-text);
-}
-
-.pilotCardSummary {
-  margin: 0;
-  color: var(--scene-muted);
-  font-size: clamp(0.78rem, 0.95vw, 0.86rem);
-  line-height: 1.45;
-}
-
-.pilotTaskList {
-  margin: 0;
+/* Inline points under panel summary - one hierarchy, no pilot cards. */
+.overviewPoints {
+  margin: 0.15rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.28rem;
+  gap: 0.32rem;
+  max-width: 40rem;
 }
 
-.pilotTaskList li {
+.overviewPoints li {
   position: relative;
-  padding-left: 0.85rem;
-  color: color-mix(in srgb, var(--scene-text) 82%, transparent);
-  font-size: clamp(0.74rem, 0.9vw, 0.8rem);
-  line-height: 1.4;
+  padding-left: 0.9rem;
+  color: color-mix(in srgb, var(--scene-text) 78%, transparent);
+  font-size: clamp(0.8rem, 0.98vw, 0.9rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
 }
 
-.pilotTaskList li::before {
+.overviewPoints li::before {
   position: absolute;
-  top: 0.45em;
+  top: 0.5em;
   left: 0;
-  width: 0.28rem;
-  height: 0.28rem;
+  width: 0.3rem;
+  height: 0.3rem;
   border-radius: 999px;
   background: var(--scene-accent);
   content: "";
-}
-
-.pilotCard .panelLink {
-  justify-self: start;
-  margin-top: 0.1rem;
 }
 
 .panelHeadline {

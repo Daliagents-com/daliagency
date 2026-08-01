@@ -1,40 +1,53 @@
 ---
 slug: "lead-response-crm-agent-jobs"
-title: "Lead response and CRM agent jobs on Upwork"
-description: "How we approach lead-response agent gigs: extract, score, draft, gate outbound, write CRM carefully."
+title: "Заказы на агента лидов и CRM на Upwork"
+description: "Как мы подходим к заказам на агента ответа на лиды: извлечь, оценить, черновик, контроль исходящего, аккуратная запись в CRM."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "lead-response-crm-agent-jobs"
-keywords: ["Upwork lead response agent", "CRM AI agent job", "AI sales intake agent"]
+keywords: ["агент лидов Upwork", "заказ на CRM AI-агента", "AI sales intake agent", "Upwork lead response agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/lead-response-crm-agent-jobs/hero.jpg"
-heroAlt: "Lead response and CRM agent jobs on Upwork"
+heroAlt: "Заказы на агента лидов и CRM на Upwork"
 ogImage: "/blog/lead-response-crm-agent-jobs/og.jpg"
 ---
 
 ## Прямой ответ
 
-Lead and CRM gigs need strict write policies. Draft fast, gate first client-facing send, and never invent pipeline stages. Measurement is response time and rework, not chat volume.
+Заказы на лиды и CRM требуют жёсткой политики записи. Черновик - быстро, первый клиентский send - только через точку контроля, стадии воронки не выдумывать. Метрики: время ответа и переделки, а не объём чата.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Опишите поведение простым языком, затем проверьте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставьте путь к человеку для нестандартных случаев.
+- В CRM агент пишет только разрешённые поля; «новый этап» без правила = ошибка.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Ясная маршрутизация: стандартный кейс vs нестандартный
+- База знаний, которой ассистент реально может пользоваться
+- Память сессии только там, где это задумано
+- Ключи и секреты никогда не в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок перед реальной эксплуатацией
+- Токены и вебхуки оставлены публичными
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы, проданные как локализация
+
+## Как Dali это ведёт
+
+Dali - студия систем AI-агентов: мы серьёзно относимся к быстрым ИИ-прототипам, затем доводим их до боевой работы с точками ручного контроля, инструментами и владельцами. Связанное: [AI-агенты в боевой работе](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую поверхность. Опасно только когда её принимают за готовую боевую систему.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда всё переписываете?
+Не всегда. Иногда усиливаем. Иногда изолируем и пересобираем критический путь.

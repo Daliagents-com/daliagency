@@ -1,11 +1,11 @@
 ---
 slug: "channel-agents-whatsapp-slack-email"
-title: "WhatsApp, Slack и email AI-агенты: правила по каналам"
-description: "Как дизайн агента меняется по channel: WhatsApp business, Slack internal ops и email classification vs reply."
+title: "ИИ-агенты в WhatsApp, Slack и почте: правила по каналам"
+description: "Как меняется проектирование агента по каналу: WhatsApp для клиентов, Slack для внутренних операций, почта - сначала классификация, потом ответ."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "channel-agents-whatsapp-slack-email"
-keywords: ["WhatsApp AI agent", "Slack AI agent ops", "email AI agent vs classification"]
+keywords: ["WhatsApp ИИ-агент", "Slack ИИ-агент операции", "почтовый ИИ-агент vs классификация"]
 status: "published"
 author: "Dali"
 type: "article"
@@ -13,42 +13,39 @@ type: "article"
 
 ## Прямой ответ
 
-Канал меняет risk и UX. **WhatsApp** виден клиенту и regulated platform rules. **Slack** internal, но всё ещё может leak data. **Email** чаще нужен classify-first, а не auto-send-all.
+Канал меняет риск и UX. **WhatsApp** виден клиенту и регулируется правилами платформы. **Slack** внутренний, но всё равно может утечь данные. **Почта** чаще требует сначала классифицировать, а не автоотправлять всё подряд.
 
-## WhatsApp / messaging apps
+## WhatsApp и мессенджеры
 
-Template rules, opt-in, tone, escalation to humans, no unsupervised commitments.
+Правила шаблонов, согласие (opt-in), тон, эскалация к людям, никаких обещаний без надзора.
 
 ## Slack
 
-Internal knowledge с ACL awareness; prevent cross-channel private data leaks.
+Внутренние знания с учётом прав доступа; не допускайте утечек приватных данных между каналами.
 
-## Email
+## Почта
 
-Classification и draft replies first; sending gates for external mail.
+Сначала классификация и черновики ответов; точки ручного контроля на отправку внешней почты.
 
-## Calendar booking
+## Запись в календарь
 
-Confirm timezone, double-booking rules и human override for VIP.
+Подтверждайте часовой пояс, правила двойного бронирования и ручной обход для VIP.
 
-## Shared rule
+## Общее правило
 
-Identity of the counterparty и audit trail on every outbound.
+Идентичность контрагента и журнал аудита на каждое исходящее сообщение.
 
-## Как помогает Dali
+## Как вписывается Dali
 
-Channel pilots: [lead response](/ru/solutions/lead-response) и [client inbox](/ru/solutions/client-inbox).
+Пробные запуски по каналам: [ответ на лиды](/ru/solutions/lead-response) и [клиентский инбокс](/ru/solutions/client-inbox).
 
 ## FAQ
 
-### Должен ли один агент покрыть все channels day one?
-Нет. Сначала one channel pilot.
+### Должен ли один агент закрывать все каналы с первого дня?
+Нет. Сначала пробный запуск на одном канале.
 
 ### Связанное
-[Client inbox operations](/ru/blog/client-inbox-agent-operations), [Telegram handoff](/ru/blog/human-handoff-telegram-from-site-chat)
+[Операции клиентского инбокса](/ru/blog/client-inbox-agent-operations), [передача в Telegram](/ru/blog/human-handoff-telegram-from-site-chat)
 
-### Email auto-send когда-нибудь OK?
-Только с strong policy, low risk classes и metrics.
-
-
-<!-- covers GPT questions: 59-62 -->
+### Когда автоотправка почты вообще допустима?
+Только при жёсткой политике, низкорисковых классах писем и метриках.

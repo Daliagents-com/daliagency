@@ -1,4 +1,84 @@
+import {
+  buildSolutionsCatalog,
+  type FamilyShells,
+} from "../buildFamilySolutions";
+import type { PilotSourceContent, PilotSourceSlug } from "../solutionContent";
 import type { LocalizedSolutionsBundle } from "./types";
+
+const familyShells: FamilyShells = {
+  conversation: {
+    name: "Система управления перепиской",
+    summary:
+      "Одна supervised-оболочка для входящих лидов и текущих клиентских тредов: фиксированные lane, запись в CRM и human gates.",
+    metadata: {
+      title: "Система управления перепиской | Dali",
+      description:
+        "Продуктовое семейство для ответа на входящие лиды и контроля клиентского inbox: согласованные ответы, квалификация или grounding, обновления CRM и эскалация человеку.",
+    },
+    hero: {
+      eyebrow: "Продуктовое семейство · два fixed lane",
+      title: "Одна система переписки. Два фиксированных пилотных lane.",
+      lead:
+        "Dali упаковывает supervised AI-систему для inbox, которым вы уже пользуетесь. Начните с входящих лидов или клиентской поддержки, держите согласования видимыми и расширяйте только после прохождения одного lane.",
+      supportLine:
+        "Лучше всего подходит сервисным бизнесам и операторам с реальным объемом сообщений, которым нужна скорость без unsupervised-агентов.",
+    },
+    pilotLabel: "Граница семейства до выбора lane",
+    fixedOutcome:
+      "Одна продуктовая оболочка, один путь CRM или case-history, одна модель согласования и один стартовый lane в проде с журналами и эскалацией.",
+    agentLabel: "Управление перепиской",
+    cta: {
+      publicLabel: "Начать аудит переписки",
+      publicBody:
+        "Скажите, где боль сильнее: входящие лиды или текущие клиентские треды. Dali ответит границей lane, картой согласований и outline пилота.",
+      intakeFields: [
+        "Стартовый lane: входящие лиды или клиентская поддержка",
+        "Каналы и примерный недельный объем",
+        "CRM или case-history, которая должна оставаться точной",
+        "Случаи, которые всегда ждут проверки человеком",
+      ],
+      upworkLabel: "Что прислать в Upwork",
+      upworkBody:
+        "Ответьте в Upwork со стартовым lane (лиды или поддержка), каналами и CRM. Dali ответит фиксированной границей пилота для этого lane.",
+    },
+  },
+  opsKnowledge: {
+    name: "Система Ops и знаний",
+    summary:
+      "Один control loop для documents-to-actions и внутренних Q&A: approved sources, validated writes или cited answers, владелец исключений.",
+    metadata: {
+      title: "Система Ops и знаний | Dali",
+      description:
+        "Продуктовое семейство для операционных документных процессов и внутренних knowledge-ассистентов с валидацией, цитатами и human exceptions.",
+    },
+    hero: {
+      eyebrow: "Продуктовое семейство · два fixed lane",
+      title: "Документы и знания команды в одном надежном ops-контуре.",
+      lead:
+        "Dali упаковывает supervised-систему, которая либо превращает повторяющиеся документы в validated actions, либо отвечает на внутренние вопросы из approved source set. Сначала один lane, потом связка.",
+      supportLine:
+        "Лучше всего подходит командам, которые тонут в почте, PDF, SOP и повторяющихся внутренних вопросах.",
+    },
+    pilotLabel: "Граница семейства до выбора lane",
+    fixedOutcome:
+      "Один bundle источников или входов, одна destination или answer surface, один owner исключений и один стартовый lane в проде с audit trail.",
+    agentLabel: "Ops и знания",
+    cta: {
+      publicLabel: "Начать аудит ops и знаний",
+      publicBody:
+        "Скажите, где боль сильнее: documents-to-actions или internal Q&A. Dali ответит границей lane и acceptance test.",
+      intakeFields: [
+        "Стартовый lane: documents-to-actions или internal knowledge",
+        "Примеры входов или source set, которому команда уже доверяет",
+        "Destination system или answer surface",
+        "Owner исключений и residual risk",
+      ],
+      upworkLabel: "Что прислать в Upwork",
+      upworkBody:
+        "Ответьте в Upwork со стартовым lane, sample inputs/docs и destination system. Dali ответит фиксированной границей пилота для этого lane.",
+    },
+  },
+};
 
 export const russianSolutionsBundle: LocalizedSolutionsBundle = {
   overview: {
@@ -46,51 +126,38 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
       viewPilot: "Посмотреть пилот",
       viewResearch: "Посмотреть исследовательское направление",
       responseLane: {
-        title: "Лиды и клиентская переписка",
+        title: "Управление перепиской",
         summary:
-          "Одна поверхность ответа для новых лидов и текущих клиентских тредов: черновик, опора на источники, стоп на чувствительных действиях и движение CRM.",
-        eyebrow: "Пакетные пилоты",
-        pilotLabel: "Открыть пилоты",
+          "Одна оболочка ответа для новых лидов и текущих клиентских тредов: черновик, grounding, стоп на чувствительных действиях и движение CRM.",
+        eyebrow: "Продуктовое семейство",
+        pilotLabel: "Фиксированные lane",
+      },
+      opsKnowledgeLane: {
+        title: "Ops и знания",
+        summary:
+          "Один control loop для documents-to-actions и internal Q&A: approved sources, validated writes или cited answers, owner исключений.",
+        eyebrow: "Продуктовое семейство",
+        pilotLabel: "Фиксированные lane",
       },
       cards: {
-        "lead-response": {
-          title: "Агент обработки лидов",
+        "conversation-control": {
+          title: "Система управления перепиской",
           summary:
-            "Отвечайте быстрее, раньше квалифицируйте лиды и не давайте ни одному входящему запросу выпадать из процесса.",
+            "Supervised inbox-система для входящих лидов и клиентской поддержки с fixed lanes и human gates.",
           tasks: [
-            "Разбирать заявки из форм, email, WhatsApp или Telegram",
-            "Готовить персонализированные первые ответы с вопросами для квалификации",
-            "Автоматически обновлять стадии CRM, ответственных и задачи на follow-up",
+            "Выбрать первый lane: входящие лиды или клиентская поддержка",
+            "Готовить или отправлять approved replies с записью в CRM",
+            "Останавливать цену, refunds и edge cases на проверке человеком",
           ],
         },
-        "client-inbox": {
-          title: "Агент клиентской переписки",
+        "ops-knowledge": {
+          title: "Система Ops и знаний",
           summary:
-            "Отвечайте на типовые клиентские диалоги с опорой на утвержденный контекст, историю в CRM и видимую передачу человеку.",
+            "Превращать повторяющиеся документы в actions или отвечать на внутренние вопросы из approved sources.",
           tasks: [
-            "Строить ответы на утвержденных правилах, файлах и прошлых кейсах",
-            "Записывать диалог и следующее действие в существующую CRM",
-            "Останавливать чувствительные запросы, медиа и неподдерживаемые ответы на проверку",
-          ],
-        },
-        "operations-docs": {
-          title: "Операционный агент",
-          summary:
-            "Берет на себя рутинную бэк-офисную работу до того, как она начинает тормозить команду.",
-          tasks: [
-            "Превращать запросы из inbox в обновления трекеров и направленные задачи",
-            "Сверять таблицы, статусы и повторяющиеся исключения",
-            "Готовить согласования, сводки и заметки для передачи сотрудникам",
-          ],
-        },
-        "knowledge-assistant": {
-          title: "Агент внутренних знаний",
-          summary:
-            "Дайте команде надежный первый слой ответов на повторяющиеся вопросы.",
-          tasks: [
-            "Искать в SOP, документах и прошлых кейсах до предложения следующего шага",
-            "Готовить ответы и контекст эскалации для проверки человеком",
-            "Поддерживать внутреннюю базу знаний в порядке по мере изменения продуктов и правил",
+            "Выбрать первый lane: documents-to-actions или internal Q&A",
+            "Валидировать writes или цитировать sources до доверия команды",
+            "Направлять exceptions named human owner",
           ],
         },
         "voice-agents": {
@@ -111,6 +178,48 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
             "Карта высокорисковых secrets, payments, admin и outbound-путей",
             "Решение patch vs rewrite по каждому критическому пути в scope",
             "Gates, stop-switch и пакет передачи ownership команде",
+          ],
+        },
+      },
+      laneCards: {
+        "lead-response": {
+          title: "Lane входящих лидов",
+          summary:
+            "Отвечайте быстрее, раньше квалифицируйте лиды и не давайте ни одному входящему запросу выпадать из процесса.",
+          tasks: [
+            "Разбирать заявки из форм, email, WhatsApp или Telegram",
+            "Готовить персонализированные первые ответы с вопросами для квалификации",
+            "Автоматически обновлять стадии CRM, ответственных и задачи на follow-up",
+          ],
+        },
+        "client-inbox": {
+          title: "Lane клиентской поддержки",
+          summary:
+            "Отвечайте на типовые клиентские диалоги с опорой на утвержденный контекст, историю в CRM и видимую передачу человеку.",
+          tasks: [
+            "Строить ответы на утвержденных правилах, файлах и прошлых кейсах",
+            "Записывать диалог и следующее действие в существующую CRM",
+            "Останавливать чувствительные запросы, медиа и неподдерживаемые ответы на проверку",
+          ],
+        },
+        "operations-docs": {
+          title: "Lane documents-to-actions",
+          summary:
+            "Берет на себя рутинную бэк-офисную работу до того, как она начинает тормозить команду.",
+          tasks: [
+            "Превращать запросы из inbox в обновления трекеров и направленные задачи",
+            "Сверять таблицы, статусы и повторяющиеся исключения",
+            "Готовить согласования, сводки и заметки для передачи сотрудникам",
+          ],
+        },
+        "knowledge-assistant": {
+          title: "Lane внутренних знаний",
+          summary:
+            "Дайте команде надежный первый слой ответов на повторяющиеся вопросы.",
+          tasks: [
+            "Искать в SOP, документах и прошлых кейсах до предложения следующего шага",
+            "Готовить ответы и контекст эскалации для проверки человеком",
+            "Поддерживать внутреннюю базу знаний в порядке по мере изменения продуктов и правил",
           ],
         },
       },
@@ -232,7 +341,7 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
       cta: "Начать аудит процесса",
     },
   },
-  details: {
+  details: buildSolutionsCatalog({
     "lead-response": {
       slug: "lead-response",
       name: "Пилот обработки лидов",
@@ -1162,7 +1271,7 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
           "Ответьте в Upwork с продуктовой поверхностью, payment или admin-путями и владельцем risk-решений. Dali вернет фиксированную границу rescue-пилота и порядок триажа.",
       },
     },
-  },
+  } as Record<PilotSourceSlug, PilotSourceContent>, familyShells),
   labels: {
     browseAllPilots: "Все пилоты",
     copyDetailedBrief: "Скопировать подробный бриф",
@@ -1200,5 +1309,10 @@ export const russianSolutionsBundle: LocalizedSolutionsBundle = {
     commercialBody:
       "Dali не просит сразу покупать широкую программу автоматизации. Мы фиксируем один тест приемки, называем цену за один пилот, начинаем после согласования и расширяем объем только тогда, когда первый поток проходит проверку.",
     workflowAriaSuffix: "схема работы",
+    chooseLane: "Выберите fixed lane",
+    lanesTitle: "Одна оболочка системы. Два пилотных scope.",
+    laneAcceptance: "Acceptance test lane",
+    startWithLane: "Начать с этого lane",
   },
 };
+

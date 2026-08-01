@@ -1,11 +1,11 @@
 ---
 slug: "open-frameworks-and-assistants-when-to-use"
-title: "Open agent frameworks и hosted assistants: когда использовать"
-description: "LangChain, CrewAI, AutoGen, n8n и hosted assistant APIs - когда ускоряют и когда добавляют glue risk."
+title: "Открытые фреймворки агентов и облачные ассистенты: когда что брать"
+description: "LangChain, CrewAI, AutoGen, n8n и hosted assistant API - когда они ускоряют, а когда добавляют клей и риск, который нельзя отладить."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "open-frameworks-and-assistants-when-to-use"
-keywords: ["LangChain for business agents", "CrewAI vs custom agent", "OpenAI Assistants vs custom"]
+keywords: ["LangChain для бизнес-агентов", "CrewAI vs свой агент", "OpenAI Assistants vs custom", "n8n AI агент"]
 status: "published"
 author: "Dali"
 type: "comparison"
@@ -13,42 +13,54 @@ type: "comparison"
 
 ## Прямой ответ
 
-Используйте frameworks и hosted assistants, когда они **shorten integration time** without hiding ownership. Avoid them, когда force multi-agent complexity you cannot eval or debug.
+Берите фреймворки и облачные ассистенты, когда они **сокращают время интеграции** и не прячут ответственность. Избегайте их, когда они навязывают multi-agent сложность, которую вы не можете проверить и отладить.
 
-## Hosted assistants
+Правило тонкого слоя: самый простой стек, который проходит ваши проверки (evals) и который команда реально умеет сопровождать.
 
-Fast tools + threads. Still need your gates, IAM и business evals.
+## Облачные ассистенты (hosted)
 
-## LangChain-class frameworks
+Быстрые tools + threads / sessions. Удобно для прототипа и стандартных tool-calling сценариев.  
+Всё равно нужны ваши точки ручного контроля, IAM (права доступа) и бизнес-проверки. Хостинг не снимает ownership.
 
-Useful connectors и patterns; can become abstraction mazes.
+## Фреймворки класса LangChain
 
-## Multi-agent frameworks
+Плюс: коннекторы, паттерны, готовые куски.  
+Минус: легко уйти в лабиринт абстракций, где «магия» важнее трассировки. На пробном запуске часто выигрывает прямой SDK + ясные модули.
 
-Only with clear role contracts и traces.
+## Multi-agent фреймворки (CrewAI, AutoGen и аналоги)
 
-## n8n/Zapier
+Только при ясных ролевых контрактах, трассировке шагов и измеримом результате.  
+Если роли размыты, вы получаете дорогой чат между ботами без владельца инцидента.
 
-See automation comparison post - great glue, limited NLP judgment.
+## n8n / Zapier
 
-## Decision
+Отличный клей для интеграций, слабый «судья» по смыслу текста. Смотрите сравнение: [Zapier / Make / n8n vs боевые агенты](/ru/blog/zapier-make-n8n-vs-production-agents).  
+Связка «оркестрация в n8n + модель на спорных шагах» часто лучше, чем «всё в одном multi-agent фреймворке».
 
-Choose the thinnest layer that passes evals и your team can maintain.
+## Решение
 
-## Как помогает Dali
+| Ситуация | Что брать |
+| --- | --- |
+| Один узкий пробный запуск | Прямой SDK, минимум слоёв |
+| Много систем, мало NLP-суждений | n8n / автоматизация + точечная модель |
+| Нужны threads и быстрые tools | Hosted assistant + ваши gates |
+| Сложная цепочка ролей | Multi-agent только с контрактами и traces |
+| Команда не читает абстракции фреймворка | Не берите этот фреймворк |
 
-Dali picks stack per pilot constraints: [solutions](/ru/solutions).
+## Как вписывается Dali
+
+Dali выбирает стек под ограничения пробного запуска: [решения](/ru/solutions). Связанное: [multi-agent vs single](/ru/blog/multi-agent-vs-single-agent-when-to-use).
 
 ## FAQ
 
-### Is no framework OK?
-Да - direct SDK + clear modules often wins for one pilot.
+### Нормально ли без фреймворка?
+Да. Прямой SDK и понятные модули часто выигрывают на одном pilot.
 
-### Связанное
-[Multi-agent vs single](/ru/blog/multi-agent-vs-single-agent-when-to-use), [Zapier vs agents](/ru/blog/zapier-make-n8n-vs-production-agents)
+### Как не попасть в vendor lock-in?
+Держите переносимыми промпты, схемы данных и интерфейсы инструментов. Модель и «обёртка» должны быть сменяемы.
 
-### Vendor lock-in?
-Prefer portable prompts, schemas и tool interfaces.
+### Когда фреймворк уже вреден?
+Когда вы не можете за 30 минут объяснить, кто вызвал tool, с какими данными и почему. Если debug = гадание - слой слишком толстый.
 
-
-<!-- covers GPT questions: 3,12,49 -->
+### Можно ли начать на hosted и потом уйти?
+Да, если с первого дня отделены бизнес-правила, gates и схемы tool-вызовов от vendor-специфичного glue.

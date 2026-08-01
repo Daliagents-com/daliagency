@@ -3,6 +3,7 @@ import { locales, localizedLocales, localizePath } from "@/i18n/config";
 import { projectSlugs } from "@/i18n/projects";
 import { solutionSlugs } from "@/Components/Solutions/solutionContent";
 import { blogPath, getPublishedPosts } from "@/lib/blog/loadPosts";
+import { absoluteUrl } from "@/lib/seo/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const localizedContentPaths = [
@@ -34,6 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map((route) => ({
-    url: `https://dali.agents.ge${route || "/"}`,
+    url: absoluteUrl(route || "/"),
   }));
 }

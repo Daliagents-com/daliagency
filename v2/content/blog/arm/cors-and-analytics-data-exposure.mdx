@@ -1,32 +1,53 @@
 ---
 slug: "cors-and-analytics-data-exposure"
-title: "CORS * and public analytics endpoints on vibe-coded products"
-description: "Why open CORS plus unauthenticated analytics dumps create privacy and XSS-adjacent risk."
+title: "CORS * և հանրային անալիտիկայի endpoint-ներ արագ AI արտադրանքներում"
+description: "Ինչու են բաց CORS-ը և առանց նույնականացման անալիտիկան ստեղծում գաղտնիության և XSS-ին մոտ ռիսկ։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "cors-and-analytics-data-exposure"
-keywords: ["CORS star security", "public analytics endpoint", "vibe coded analytics exposure"]
+keywords: ["CORS անվտանգություն", "հանրային անալիտիկայի endpoint", "անալիտիկայի արտահոսք", "CORS star security"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/cors-and-analytics-data-exposure/hero.jpg"
-heroAlt: "CORS * and public analytics endpoints on vibe-coded products"
+heroAlt: "CORS * և հանրային անալիտիկայի endpoint-ներ արագ AI արտադրանքներում"
 ogImage: "/blog/cors-and-analytics-data-exposure/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Access-Control-Allow-Origin: * on sensitive JSON plus unauthenticated analytics storage invites cross-origin data reads and unvalidated HTML fields. Scope CORS, auth analytics, sanitize inputs.
+`Access-Control-Allow-Origin: *` զգայուն JSON-ի վրա և անալիտիկայի պահպանում առանց նույնականացման հրավիրում են տվյալների կարդալու այլ դոմեններից և չստուգված HTML դաշտերին։ Սահմանափակեք CORS-ը, պաշտպանեք անալիտիկան նույնականացմամբ, մաքրեք մուտքային տվյալները։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական բիզնեսի աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, ապա ստուգեք ամեն ուղի, որ վերաբերում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
+- Ցանկացած endpoint, որ վերադարձնում է իրադարձություններ, email կամ HTML, պետք է իմանա, ով է կարդում և ով է գրում։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ երթուղավորում. ստանդարտ vs ոչ ստանդարտ
+- Գիտելիքների բազա, որով օգնականն իրականում կարող է աշխատել
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Մատյաններ և կանգառի կոճակ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է» առանց իրական շահագործման ստուգումների
+- Թոքեններ և վեբհուքեր թողնված հանրային
+- Մարդուն փոխանցում բացառությունների դեպքում չկա
+- Բարակ մեքենայական թարգմանություններ՝ որպես լոկալիզացիա վաճառված
+
+## Ինչպես է Dali-ն վարում սա
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. մենք լուրջ ենք վերաբերվում արագ AI նախատիպերին, ապա ամրացնում ենք դրանք իրական շահագործման մեջ՝ մարդու վերահսկման կետերով, գործիքներով և սեփականատերերով։ Կապված. [AI գործակալներ իրական շահագործումում](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգտա՞կ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Միշտ ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

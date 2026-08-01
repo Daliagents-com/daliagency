@@ -1,32 +1,55 @@
 ---
 slug: "telegram-outreach-agent-patterns"
-title: "Telegram outreach agent patterns (and compliance caution)"
-description: "What works in high-volume messaging agents - and the policy/brand risks clients underestimate."
+title: "Telegram outreach գործակալի ձևանմուշներ (և կանոնների զգուշություն)"
+description: "Ինչն է աշխատում բարձր ծավալի հաղորդագրությունների գործակալներում - և քաղաքականության/բրենդի ռիսկերը, որոնք հաճախորդները թերագնահատում են."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "telegram-outreach-agent-patterns"
-keywords: ["Telegram outreach AI agent", "Telegram automation agent Upwork"]
+keywords: ["Telegram outreach AI agent", "Telegram ավտոմատացման գործակալ", "Telegram automation agent Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/telegram-outreach-agent-patterns/hero.jpg"
-heroAlt: "Telegram outreach agent patterns (and compliance caution)"
+heroAlt: "Telegram outreach գործակալի ձևանմուշներ և կանոնների զգուշություն"
 ogImage: "/blog/telegram-outreach-agent-patterns/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Outreach agents can handle high daily volume, but compliance, consent, and brand risk dominate. We design rate limits, templates, stop lists, and human review for sensitive threads.
+Outreach գործակալները կարող են կրել բարձր օրական ծավալ, բայց գերիշխում են համապատասխանությունը կանոններին, համաձայնությունը և բրենդի ռիսկը։ Մենք նախագծում ենք հաճախականության սահմանափակումներ, ձևանմուշներ, stop-ցուցակներ և մարդու վերանայում զգայուն թեմաների համար։
 
-## Պրակտիկա
+## Ի՞նչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսիր իրական բիզնեսի աշխատանքային հոսքից, ոչ մոդելի բրենդից։
+- Վարքը նկարագրիր պարզ լեզվով, հետո ստուգիր ամեն ուղի, որտեղ կան գումար, մուտք կամ ելքային հաղորդագրություններ։
+- Ոչ ստանդարտ դեպքերի համար պահիր մարդու ուղի։
+- Զանգվածային ուղարկման ժամանակ առանձին հաշվի առ պլատֆորմի քաղաքականությունն ու համաձայնությունը։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ / ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականն իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Լոգեր և կանգառի անջատիչ
+- Հաճախականության սահմաններ, stop-ցուցակներ, մարդու վերահսկում վիճելի թեմաներում
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է»՝ իրական շահագործման ստուգումների առանց
+- Տոկեններ և webhook՝ բաց թողնված
+- Բացառությունների համար մարդուն փոխանցում չկա
+- Բարակ մեքենայական թարգմանություն՝ որպես «լոկալիզացիա»
+- Զանգվածային ուղարկում առանց համաձայնության և պլատֆորմի կանոնների
+
+## Ինչպես է անում Dali-ն
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. արագ AI նախատիպերը լուրջ ենք վերցնում, հետո ամրացնում ենք մինչև իրական շահագործում՝ վերահսկման կետերով, գործիքներով և սեփականատիրոջով։ Կապված. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգո՞ւտ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն, երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

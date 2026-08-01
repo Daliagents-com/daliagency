@@ -1,11 +1,11 @@
 ---
 slug: "multi-tenant-isolation-for-agency-agents"
-title: "Multi-tenant isolation для agency AI-агентов"
-description: "Как agencies изолируют client data, prompts и knowledge indexes, когда AI-агенты работают across accounts."
+title: "Изоляция клиентов для агентских AI-систем агентства"
+description: "Как агентства разделяют данные клиентов, промпты и базы знаний, когда один AI-агент обслуживает несколько аккаунтов."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "multi-tenant-isolation-for-agency-agents"
-keywords: ["multi-tenant AI agents", "agency client data isolation AI", "shared AI agent multiple clients"]
+keywords: ["изоляция данных клиентов AI", "multi-tenant AI agents", "общий AI-агент несколько клиентов", "agency client data isolation"]
 status: "published"
 author: "Dali"
 type: "tutorial"
@@ -13,38 +13,53 @@ type: "tutorial"
 
 ## Прямой ответ
 
-Никогда не шарьте сырые client knowledge indexes, credentials или conversation memory across tenants. Изолируйте по client на storage, retrieval и tool-credential layers - «один большой prompt со всеми clients» is a breach waiting to happen.
+Никогда не смешивайте сырые базы знаний клиентов, учётные данные и память диалогов между арендаторами (tenant - отдельный клиент/аккаунт). Изолируйте по клиенту на уровне хранения, поиска и ключей инструментов. «Один огромный промпт со всеми клиентами» - это утечка, которая ещё не случилась.
 
-## Почему agencies fail this
+Агентству удобно шарить инфраструктуру. Клиенту важно, чтобы его бренд, цены и переписка не всплыли у соседа.
 
-Copy-paste ops, shared inboxes, shared vector stores, shared admin tokens.
+## Почему агентства ломают изоляцию
 
-## Isolation layers
+- Копипаст-операции: один чат, много клиентов.
+- Общие ящики и общие админ-токены.
+- Один vector store (хранилище эмбеддингов) «на всех».
+- Промпт-шаблоны, куда вшиты факты клиента A и случайно уехали в сессию клиента B.
+- Субподрядчики с вечным доступом «на всякий случай».
 
-Auth tenant id, separate secrets, separate indexes, separate logging streams где требуется.
+## Слои изоляции
 
-## Prompts
+1. **Auth и tenant id** - каждый запрос несёт идентификатор клиента; без него инструменты молчат.
+2. **Ключи и секреты** - отдельные credentials на клиента или строго scoped роли; не один master-ключ на агентство.
+3. **Индексы знаний** - отдельные namespace / коллекции; по умолчанию не «одна БД на всех».
+4. **Память диалогов** - сессии не пересекаются; history клиента A недоступна B.
+5. **Логи** - отдельные потоки или жёсткая фильтрация по tenant, если нужен audit per client.
 
-Shared skill templates OK; client facts и credentials never baked into shared system prompts.
+## Промпты
 
-## Multi-store routing
+Общие шаблоны навыков (skill templates) - нормально: «как отвечать на возврат», «как собрать бриф».  
+Факты клиента, цены, пароли, внутренние URL и имена сотрудников - **никогда** в общий system prompt.
 
-Явный brand/store id на каждый tool call - no «guess the store from vibe».
+Клиентский контекст подмешивается в runtime из изолированного store, а не «запекается» в общий мозг.
 
-## Как помогает Dali
+## Маршрутизация multi-store
 
-Dali встраивает tenant boundaries в agency ops agents: [solutions](/ru/solutions).
+Если агентство ведёт много магазинов/брендов: явный brand/store id на **каждый** вызов инструмента. Никакого «угадай магазин по вайбу». Ошибочный store id = запись в чужой каталог.
+
+См. также паттерн [ops-агента на много магазинов](/ru/blog/ops-agent-multi-store-pattern).
+
+## Как вписывается Dali
+
+Dali закладывает границы tenant в ops-агентов агентств: [решения](/ru/solutions).
 
 ## FAQ
 
-### Могут embeddings from all clients share one DB?
-Только с strict tenant partitioning и access controls - default to separate namespaces.
+### Можно ли хранить эмбеддинги всех клиентов в одной БД?
+Только при строгом разделении tenant и контроле доступа. По умолчанию - отдельные namespace. Если сомневаетесь - раздельные индексы.
 
-### Связанное
-[Ops agents multi-store pattern](/ru/blog/ops-agent-multi-store-pattern)
+### Что с субподрядчиками?
+Те же правила изоляции. Доступ по времени (time-boxed), минимум прав, отзыв после задачи.
 
-### А subcontractors?
-Те же isolation rules; time-boxed access.
+### Достаточно ли «не упоминать клиента в промпте»?
+Нет. Нужна изоляция на storage, retrieval и credentials. Промпт-гигиена - один слой, не вся защита.
 
-
-<!-- covers GPT questions: 21,47,48,71 -->
+### Нужен ли отдельный агент на каждого клиента?
+Не всегда отдельный runtime, но всегда отдельные данные, ключи и маршруты. Shared code + isolated data - нормальная схема.

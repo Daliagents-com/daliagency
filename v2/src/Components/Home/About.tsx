@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Container from "@/Components/Container/Container";
 import { onestText, syneText } from "@/assets/fonts";
 import DavidImage from "@/assets/images/team/david.png";
@@ -7,6 +8,124 @@ import LianaImage from "@/assets/images/team/liana.jpeg";
 import { homeCopy } from "@/i18n/home";
 import type { Locale } from "@/i18n/config";
 import { sectionTitle } from "@/lib/sectionTitle";
+import styles from "./About.module.css";
+
+/**
+ * Unified About section: team identity + SSR GEO summary.
+ * Key service phrases stay in plain HTML for crawlers (not client-only trees).
+ */
+const buildsCopy: Record<
+  Locale,
+  {
+    heading: string;
+    body: string;
+    services: string[];
+    explore: string;
+    links: { href: string; label: string }[];
+  }
+> = {
+  en: {
+    heading: "What Dali builds",
+    body:
+      "Dali is an AI agent systems studio. We design production AI agents and workflow automation inside tools teams already use: conversation control for leads and client support, ops and knowledge systems, and voice design-partner pilots. We also harden vibe-coded MVPs, place human approval gates, and build GEO and SEO visibility systems so the business is findable in classic search and AI answers.",
+    services: [
+      "Custom AI agent systems with tools, rules, and approval boundaries",
+      "Agent-first products where agents do core work, not only chat",
+      "AI consulting, workflow mapping, and production rollouts",
+      "AI visibility systems: GEO, SEO, citable content, multi-language surfaces",
+      "Vibe-code rescue: secrets, payments, admin, patch vs rewrite",
+    ],
+    explore: "Explore",
+    links: [
+      { href: "/solutions", label: "Product families" },
+      { href: "/solutions/vibe-code-rescue", label: "Vibe code rescue" },
+      {
+        href: "/solutions/conversation-control",
+        label: "Conversation control",
+      },
+      { href: "/blog", label: "Guides and process posts" },
+      { href: "/blog/geo-seo-for-ai-agencies", label: "GEO and SEO for AI agencies" },
+    ],
+  },
+  ru: {
+    heading: "Что делает Dali",
+    body:
+      "Dali - студия production AI-агентов и автоматизации workflow внутри инструментов, которые команда уже использует: управление перепиской (лиды и support), ops и знания, voice-пилоты. Мы также hardening vibe-coded MVP, ставим human approval gates и строим GEO/SEO-видимость для классического поиска и AI-ответов.",
+    services: [
+      "Кастомные AI agent systems: tools, rules, approval boundaries",
+      "Agent-first продукты, где агент делает работу, а не только чат",
+      "AI-консалтинг, карта процессов и production rollout",
+      "AI visibility: GEO, SEO, цитируемый контент, мультиязык",
+      "Vibe-code rescue: secrets, payments, admin, patch vs rewrite",
+    ],
+    explore: "Смотреть",
+    links: [
+      { href: "/ru/solutions", label: "Продуктовые семейства" },
+      { href: "/ru/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      {
+        href: "/ru/solutions/conversation-control",
+        label: "Управление перепиской",
+      },
+      { href: "/ru/blog", label: "Гайды" },
+      {
+        href: "/ru/blog/geo-seo-for-ai-agencies",
+        label: "GEO и SEO для AI-агентств",
+      },
+    ],
+  },
+  ge: {
+    heading: "რას აკეთებს Dali",
+    body:
+      "Dali არის AI agent systems სტუდია. ვქმნით production AI აგენტებს და workflow ავტომატიზაციას არსებულ ინსტრუმენტებში: conversation control, ops & knowledge და voice პილოტები. ასევე ვამაგრებთ vibe-coded MVP-ებს, ვაყენებთ human approval gates-ს და ვაშენებთ GEO/SEO ხილვადობას.",
+    services: [
+      "Custom AI agent systems - tools, rules, approvals",
+      "Agent-first products",
+      "AI consulting და production rollout",
+      "GEO / SEO visibility systems",
+      "Vibe-code rescue და hardening",
+    ],
+    explore: "გადასვლა",
+    links: [
+      { href: "/ge/solutions", label: "პროდუქტის ოჯახები" },
+      { href: "/ge/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      {
+        href: "/ge/solutions/conversation-control",
+        label: "Conversation control",
+      },
+      { href: "/ge/blog", label: "ბლოგი" },
+      {
+        href: "/ge/blog/geo-seo-for-ai-agencies",
+        label: "GEO და SEO",
+      },
+    ],
+  },
+  arm: {
+    heading: "Ինչ է անում Dali-ն",
+    body:
+      "Dali-ն AI agent systems ստուդիա է։ Մենք կառուցում ենք production AI գործակալներ և workflow ավտոմատացում արդեն օգտագործվող գործիքներում՝ conversation control, ops & knowledge և voice փորձնականներ։ Նաև harden ենք անում vibe-coded MVP-ները, դնում human approval gates և կառուցում GEO/SEO տեսանելիություն։",
+    services: [
+      "Custom AI agent systems",
+      "Agent-first products",
+      "AI consulting և production rollout",
+      "GEO / SEO visibility",
+      "Vibe-code rescue",
+    ],
+    explore: "Բացել",
+    links: [
+      { href: "/arm/solutions", label: "Արտադրանքի ընտանիքներ" },
+      { href: "/arm/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      {
+        href: "/arm/solutions/conversation-control",
+        label: "Conversation control",
+      },
+      { href: "/arm/blog", label: "Բլոգ" },
+      {
+        href: "/arm/blog/geo-seo-for-ai-agencies",
+        label: "GEO և SEO",
+      },
+    ],
+  },
+};
 
 const photoMaskStyle = {
   maskImage:
@@ -67,25 +186,27 @@ function BrandMark() {
 
 export default function About({ locale = "en" }: { locale?: Locale }) {
   const copy = homeCopy[locale].about;
-  const aboutLabel = homeCopy[locale].navigation.home[3];
+  // home nav: Projects, Solutions, Blog, Services, About — About is last.
+  const aboutLabel = homeCopy[locale].navigation.home[4];
+  const builds = buildsCopy[locale] ?? buildsCopy.en;
 
   return (
     <section
       id="about"
-      className="relative isolate z-[3] scroll-mt-80 bg-[var(--background,#FCFCFA)] py-64 md:scroll-mt-64 md:py-100"
+      className={styles.section}
       aria-labelledby="about-title"
     >
       <Container wide>
-        <div className="px-[clamp(6px,1vw,16px)]">
-          <header className="mb-32 max-w-[680px] md:mb-48">
+        <div className={styles.inner}>
+          <header className={styles.header}>
             <h2 id="about-title" className="section-label">
               {sectionTitle(4, aboutLabel)}
             </h2>
           </header>
 
-          <div className="grid items-center gap-40 md:gap-48 lg:grid-cols-12 lg:gap-64">
+          <div className={styles.people}>
             <p
-              className={`${onestText.className} max-w-[42rem] text-body3 leading-[1.65] text-[var(--text)] lg:col-span-7 lg:max-w-none lg:text-body2 lg:leading-[1.6]`}
+              className={`${onestText.className} ${styles.identity} text-body3 leading-[1.65] lg:text-body2 lg:leading-[1.6]`}
             >
               {copy.beforeName}
               {copy.beforeName ? " " : null}
@@ -93,9 +214,66 @@ export default function About({ locale = "en" }: { locale?: Locale }) {
               {copy.afterName ? ` ${copy.afterName}` : null}
             </p>
 
-            <div className="flex flex-row items-start justify-center gap-32 sm:gap-48 lg:col-span-5">
+            <div className={styles.founders}>
               <Person image={DavidImage} name="David" role={copy.founder} />
               <Person image={LianaImage} name="Liana" role={copy.coFounder} />
+            </div>
+          </div>
+
+          <hr className={styles.divider} />
+
+          <div
+            id="what-dali-builds"
+            className={styles.builds}
+            aria-labelledby="what-dali-builds-title"
+          >
+            <div className={styles.buildsLead}>
+              <h3
+                id="what-dali-builds-title"
+                className={`section-label ${styles.buildsLabel}`}
+              >
+                {builds.heading}
+              </h3>
+              <p
+                className={`${onestText.className} ${styles.buildsBody} text-body4 leading-[1.65] md:text-body3`}
+              >
+                {builds.body}
+              </p>
+            </div>
+
+            <div className={styles.side}>
+              <ul className={`${onestText.className} ${styles.list}`}>
+                {builds.services.map((item, index) => (
+                  <li
+                    key={item}
+                    className={`${styles.item} text-body5 md:text-body4`}
+                  >
+                    <span className={styles.index} aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className={styles.itemText}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <nav
+                aria-label={builds.explore}
+                className={`${onestText.className} ${styles.nav}`}
+              >
+                <span className={styles.navLabel}>{builds.explore}</span>
+                <ul className={styles.links}>
+                  {builds.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className={`${styles.link} text-body6`}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

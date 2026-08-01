@@ -1,32 +1,53 @@
 ---
 slug: "marketing-agency-ops-agent-pattern"
-title: "Marketing agency ops agents: recurring account work at scale"
-description: "A pattern for agents that take recurring account-management load while the team keeps client judgment."
+title: "მარკეტინგ სააგენტოს ოპერაციული აგენტები: ანგარიშების რუტინა მასშტაბზე"
+description: "პატერნი აგენტებისთვის, რომლებიც იღებენ განმეორებად ანგარიშ-მენეჯმენტის დატვირთვას, სანამ გუნდი ინარჩუნებს კლიენტურ განსჯას."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "marketing-agency-ops-agent-pattern"
-keywords: ["marketing agency AI ops agent", "agency account management agent"]
+keywords: ["მარკეტინგ სააგენტოს AI ops აგენტი", "ანგარიშ-მენეჯმენტის აგენტი", "marketing agency AI ops agent"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/marketing-agency-ops-agent-pattern/hero.jpg"
-heroAlt: "Marketing agency ops agents: recurring account work at scale"
+heroAlt: "მარკეტინგ სააგენტოს ოპერაციული აგენტები: ანგარიშების რუტინა მასშტაბზე"
 ogImage: "/blog/marketing-agency-ops-agent-pattern/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Agency ops agents target recurring account work: status collection, draft updates, task creation. Client strategy and sensitive communication stay human. Goal: same team size, more throughput.
+სააგენტოს ოპერაციული აგენტები მიზნად ისახავენ განმეორებად ანგარიშის სამუშაოს: სტატუსების შეგროვება, განახლებების პროექტები, ამოცანების შექმნა. კლიენტის სტრატეგია და მგრძნობიარე კომუნიკაცია ადამიანთან რჩება. მიზანი: იგივე გუნდის ზომა, მეტი გამტარუნარიანობა.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- აგენტი ამზადებს პაკეტს «სტატუსი + პროექტი + ამოცანები»; მენეჯერი წყვეტს, რა მიდის კლიენტთან.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

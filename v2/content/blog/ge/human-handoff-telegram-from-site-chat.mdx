@@ -1,32 +1,53 @@
 ---
 slug: "human-handoff-telegram-from-site-chat"
-title: "Human handoff from site AI chat to Telegram (or any inbox)"
-description: "How to design handoff: fixed request format, instant notify, human replies when ready - without turning the bot into a fake CRM."
+title: "ადამიანზე გადაცემა საიტის AI ჩატიდან Telegram-ში (ან ნებისმიერ inbox-ში)"
+description: "როგორ დავაპროექტოთ გადაცემა: ფიქსირებული მოთხოვნის ფორმატი, მყისიერი შეტყობინება, ადამიანის პასუხი მზადყოფნისას - ბოტის ყალბ CRM-ად გადაქცევის გარეშე."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "human-handoff-telegram-from-site-chat"
-keywords: ["AI chat Telegram handoff", "human handoff website chatbot", "AI assistant to owner inbox"]
+keywords: ["AI ჩატი Telegram გადაცემა", "ადამიანზე გადაცემა ვებსაიტის ჩატბოტიდან", "AI chat Telegram handoff"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/human-handoff-telegram-from-site-chat/hero.jpg"
-heroAlt: "Human handoff from site AI chat to Telegram (or any inbox)"
+heroAlt: "ადამიანზე გადაცემა საიტის AI ჩატიდან Telegram-ში (ან ნებისმიერ inbox-ში)"
 ogImage: "/blog/human-handoff-telegram-from-site-chat/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-For exceptions, the assistant should send a fixed-format summary to the owner (Telegram is common because it is always on). The bot is a filter, not a CRM. Status tracking is a later system.
+გამონაკლისებზე ასისტენტმა უნდა გაუგზავნოს მფლობელს ფიქსირებული ფორმატის შეჯამება (Telegram ხშირია, რადგან ყოველთვის ჩართულია). ბოტი არის ფილტრი, არა CRM. სტატუსის თვალყური - მოგვიანებითი სისტემა.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- ერთი შაბლონი: ვინ, რა სურს, კონტექსტი, სასწრაფოობა - და შეტყობინება მფლობელის inbox-ში.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

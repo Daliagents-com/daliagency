@@ -1,13 +1,14 @@
 # SEO/GEO status
 
-**Updated:** 2026-08-01 (post 8h operator sprint)
+**Updated:** 2026-08-01 (domain cutover to daliagents.com)
 
 ## Сейчас актуально (live + git)
 
 | Слой | Статус |
 | --- | --- |
-| Код + 52 статьи (en/ru/ge/arm) | **Да** - GitHub `main` |
-| Prod `dali.agents.ge` | **Да** - 2026-08-01 deploys; hello@ mailto; interlinks; sameAs |
+| Код + 52 статьи (en/ru/ge/arm) | **Да** - GitHub `Daliagents-com/daliagency` |
+| Prod **`daliagents.com`** | **Canonical** - apex primary; www + `dali.agents.ge` → 308 apex |
+| Legacy `dali.agents.ge` | **Redirect only** - not a content host |
 | Schema Organization/WebSite + BlogPosting | **Да** (LI company + Clutch + phone + Tbilisi) |
 | Nav Blog, hreflang на постах | **Да** |
 | Footer → Blog / Solutions / hello@ | **Да** |

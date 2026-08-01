@@ -1,32 +1,67 @@
 ---
 slug: "ops-agent-multi-store-pattern"
-title: "Ops agents across many stores and products: a case pattern"
-description: "Lessons from large catalog/ops automation: adapters, daily product volume, logs, and human review for unsafe changes."
+title: "Ops գործակալներ բազմաթիվ խանութներում և ապրանքներում. աշխատանքային օրինաչափություն"
+description: "Դասեր մեծ կատալոգի/գործառնությունների ավտոմատացումից. ադապտերներ, օրական ապրանքի ծավալ, մատյաններ և մարդու ստուգում անվտանգ չլինող փոփոխությունների վրա."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "ops-agent-multi-store-pattern"
-keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent"]
+keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent", "կատալոգի AI գործակալ"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ops-agent-multi-store-pattern/hero.jpg"
-heroAlt: "Ops agents across many stores and products: a case pattern"
+heroAlt: "Ops գործակալներ բազմաթիվ խանութներում և ապրանքներում. աշխատանքային օրինաչափություն"
 ogImage: "/blog/ops-agent-multi-store-pattern/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Large ops agents succeed when they use adapters for stores/products, act on real data, and log every change. The win is fewer manual operators on repetitive product and discount work - with review on unsafe actions.
+Մեծ ops գործակալներն աշխատում են, երբ օգտագործում են ադապտերներ խանութների և ապրանքների համար, գործում են իրական տվյալների վրա և մատյանագրում են յուրաքանչյուր փոփոխություն։ Շահումը՝ ավելի քիչ ձեռքով օպերատոր կրկնվող ապրանքային և զեղչային աշխատանքի վրա, պարտադիր ստուգմամբ անվտանգ չլինող գործողությունների վրա։
 
-## Պրակտիկա
+Մեկ «ունիվերսալ prompt բոլոր marketplace-ների համար» առանց ադապտերների և store id-ի արագ գրում է սխալ տեղում։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Սկսեք իրական աշխատանքային հոսքից. գներ, պաշարներ, նկարագրություններ, զեղչեր - ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք ուղիները, որտեղ գործակալը փոխում է փողը, մուտքը կամ հրապարակային քարտերը։
+- Թողեք մարդու ուղի ոչ ստանդարտի համար. վիճելի զեղչ, պաշարի կոնֆլիկտ, վիճելի SEO տեքստ։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Ինչպիսին է լավը
+
+- Հստակ store / brand / product id յուրաքանչյուր tool կանչի վրա։
+- API ադապտերներ. մեկ ներքին պայմանագիր → տարբեր marketplace-ներ։
+- Ստանդարտ / ոչ ստանդարտ երթուղավորում գրառումից առաջ։
+- Մատյան. ով (գործակալ/մարդ), ինչ փոխվեց, old → new, երբ։
+- Մարդու վերահսկման կետեր զանգվածային զեղչերի, ջնջման, շեմից ցածր գնի վրա։
+- Կանգառի կոճակ և rollback մատյանով, որտեղ API-ն թույլ է տալիս։
+
+## Ինչպիսին է վատը
+
+- «Դեմո կատալոգի պրևյուում աշխատում է» առանց մարտական ծավալների։
+- Ընդհանուր admin թոքեններ բոլոր խանութների վրա առանց scope-ի։
+- Բացառությունների դեպքում մարդուն փոխանցում չկա։
+- Փոփոխություններ առանց մատյանի. «ինչ-որ մեկը գիշերը գինը տեղափոխեց»։
+- Խանութի կռահում չաթի տեքստից՝ հստակ id-ի փոխարեն։
+
+## Օրական ծավալ և բեռնվածություն
+
+Պլանավորեք batch պատուհաններ, հերթեր և API սահմանափակումներ։ Գործակալը, որը «ամեն ինչ միանգամից է թարմացնում» պիկին, սպանում է քվոտաները և թողնում մասնակի թարմացումներ։ Ավելի լավ է. task հերթ, իդեմպոտենտ թարմացումներ, միայն failed items-ի կրկնում։
+
+## Մեկուսացում և multi-tenant
+
+Եթե գործակալությունը վարում է ուրիշների խանութներ - տեսեք [հաճախորդների մեկուսացումը](/arm/blog/multi-tenant-isolation-for-agency-agents)։ Ուրիշի կատալոգը retrieval-ում = վստահության միջադեպ։
+
+## Ինչպես է վարում Dali-ն
+
+Dali-ն ամրացնում է արագ նախատիպերը մինչև իրական շահագործման համակարգեր. ադապտերներ, gates, ownership։ Կապված. [մարտական AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արդյո՞ք առանձին գործակալ է պետք յուրաքանչյուր խանութի համար։
+Պարտադիր չէ առանձին runtime։ Պետք են առանձին credentials, store id և տվյալների սահմաններ։ Shared code + isolated config - նորմա է։
+
+### Ի՞նչը պարտադիր է gate անել։
+Զանգվածային զեղչեր, SKU ջնջում, գին նվազագույն մարժայից ցածր, վիճելի բովանդակության հրապարակում, մուտքի իրավունքների փոփոխություն։
+
+### Արագ AI նախատիպն անպե՞տք է ops-ի համար։
+Ոչ - հարմար է UI-ի և draft flow-ի համար։ Վտանգավոր է, եթե առանց ադապտերների, մատյանների և review-ի գնում է մարտական կատալոգ։

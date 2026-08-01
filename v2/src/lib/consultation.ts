@@ -4,11 +4,10 @@ import { daliContactEmail } from "@/lib/contact";
 import type { Locale } from "@/i18n/config";
 
 export type ConsultationInterest =
-  | "lead-response"
-  | "client-inbox"
-  | "operations"
-  | "knowledge"
+  | "conversation-control"
+  | "ops-knowledge"
   | "voice"
+  | "vibe-code-rescue"
   | "custom"
   | "not-sure";
 
@@ -64,11 +63,10 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     error: "Something went wrong. Check the fields and try again.",
     required: "Required",
     interests: {
-      "lead-response": "Lead Response Agent",
-      "client-inbox": "Client Inbox Agent",
-      operations: "Operations Agent",
-      knowledge: "Knowledge Agent",
+      "conversation-control": "Conversation Control (leads or support)",
+      "ops-knowledge": "Ops & Knowledge (docs or Q&A)",
       voice: "Voice Agent",
+      "vibe-code-rescue": "Vibe-code Rescue",
       custom: "Custom agent system",
       "not-sure": "Not sure yet — need advice",
     },
@@ -94,11 +92,10 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     error: "Не удалось отправить. Проверьте поля и попробуйте снова.",
     required: "Обязательно",
     interests: {
-      "lead-response": "Lead Response Agent",
-      "client-inbox": "Client Inbox Agent",
-      operations: "Operations Agent",
-      knowledge: "Knowledge Agent",
+      "conversation-control": "Управление перепиской (лиды или support)",
+      "ops-knowledge": "Ops и знания (docs или Q&A)",
       voice: "Voice Agent",
+      "vibe-code-rescue": "Vibe-code Rescue",
       custom: "Кастомная agent-система",
       "not-sure": "Пока не уверен — нужен совет",
     },
@@ -124,11 +121,10 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     error: "ვერ გაიგზავნა. შეამოწმეთ ველები და სცადეთ თავიდან.",
     required: "სავალდებულო",
     interests: {
-      "lead-response": "Lead Response Agent",
-      "client-inbox": "Client Inbox Agent",
-      operations: "Operations Agent",
-      knowledge: "Knowledge Agent",
+      "conversation-control": "Conversation Control (leads or support)",
+      "ops-knowledge": "Ops & Knowledge (docs or Q&A)",
       voice: "Voice Agent",
+      "vibe-code-rescue": "Vibe-code Rescue",
       custom: "მორგებული agent სისტემა",
       "not-sure": "ჯერ არ ვიცი — რჩევა მჭირდება",
     },
@@ -154,11 +150,10 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     error: "Չհաջողվեց ուղարկել։ Ստուգեք դաշտերը և կրկին փորձեք։",
     required: "Պարտադիր",
     interests: {
-      "lead-response": "Lead Response Agent",
-      "client-inbox": "Client Inbox Agent",
-      operations: "Operations Agent",
-      knowledge: "Knowledge Agent",
+      "conversation-control": "Conversation Control (leads or support)",
+      "ops-knowledge": "Ops & Knowledge (docs or Q&A)",
       voice: "Voice Agent",
+      "vibe-code-rescue": "Vibe-code Rescue",
       custom: "Անհատական agent համակարգ",
       "not-sure": "Դեռ վստահ չեմ — խորհուրդ է պետք",
     },
@@ -166,11 +161,10 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
 };
 
 const INTEREST_IDS: ConsultationInterest[] = [
-  "lead-response",
-  "client-inbox",
-  "operations",
-  "knowledge",
+  "conversation-control",
+  "ops-knowledge",
   "voice",
+  "vibe-code-rescue",
   "custom",
   "not-sure",
 ];

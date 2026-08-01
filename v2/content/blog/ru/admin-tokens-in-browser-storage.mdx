@@ -1,40 +1,52 @@
 ---
 slug: "admin-tokens-in-browser-storage"
-title: "Admin tokens in localStorage and URLs: a common vibe-code failure"
-description: "Why reusable admin tokens in browser storage and query strings are a medium-severity pattern we fix early."
+title: "Админ-токены в хранилище браузера и URL: типичная ошибка быстрых ИИ-прототипов"
+description: "Почему многоразовые админ-токены в хранилище браузера и строке запроса - уязвимость средней тяжести, которую мы закрываем в первую очередь."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "admin-tokens-in-browser-storage"
-keywords: ["admin token localStorage", "token in URL security", "vibe coding admin security"]
+keywords: ["админ токен localStorage", "токен в URL безопасность", "безопасность админки ИИ-прототип"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/admin-tokens-in-browser-storage/hero.jpg"
-heroAlt: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+heroAlt: "Админ-токены в хранилище браузера и URL: типичная ошибка быстрых ИИ-прототипов"
 ogImage: "/blog/admin-tokens-in-browser-storage/og.jpg"
 ---
 
 ## Прямой ответ
 
-Reusable admin tokens in localStorage and query strings are available to any XSS or leaked referrer path. Prefer short-lived sessions, httpOnly cookies, and never put long-lived secrets in URLs.
+Многоразовые админ-токены в хранилище браузера (localStorage) и в строке запроса URL доступны любому XSS или пути с «утекшим» referrer. Используйте короткоживущие сессии, cookies с флагом httpOnly и никогда не кладите долгоживущие ключи и секреты в URL.
 
-## Практика
+## Что это значит на практике
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+- Начинайте с реального бизнес-процесса, а не с бренда модели.
+- Опишите поведение простым языком, затем проверьте каждый путь, который касается денег, доступа или исходящих сообщений.
+- Оставьте человеческий путь для нестандартных случаев.
 
-## Хорошо / плохо
+## Как выглядит хорошо
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+- Чёткое разделение стандартных и нестандартных маршрутов
+- База знаний, которой ассистент реально пользуется
+- Память сессии только там, где это задумано
+- Ключи и секреты никогда не лежат в клиентском JavaScript
+- Журналы и кнопка аварийной остановки
 
-## Dali
+## Как выглядит плохо
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+- «В превью работает» без проверок для боевой работы
+- Токены и вебхуки оставлены публичными
+- Нет передачи человеку при исключениях
+- Тонкие машинные переводы, продаваемые как локализация
+
+## Как это делает Dali
+
+Dali - студия систем на ИИ-агентах: мы серьёзно относимся к быстрым ИИ-прототипам, затем укрепляем их до систем для реальной эксплуатации с точками ручного контроля, инструментами и понятным владельцем. Связанное: [боевые ИИ-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Это быстрый способ получить рабочую оболочку. Опасно становится только когда её принимают за готовую систему для реальной эксплуатации.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всегда переписываете всё с нуля?
+Не всегда. Иногда укрепляем. Иногда изолируем и пересобираем критический путь.

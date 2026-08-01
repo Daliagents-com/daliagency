@@ -1,32 +1,66 @@
 ---
 slug: "protecting-api-tokens-in-vibe-coded-apps"
-title: "Protecting API tokens in vibe-coded apps"
-description: "Why tokens are passwords, why they must never ship in public frontend code, and what to do if one leaks."
+title: "API թոքենների պաշտպանություն արագ AI նախատիպի հավելվածներում"
+description: "Ինչու է թոքենը գաղտնաբառ, ինչու երբեք չպետք է հայտնվի հանրային frontend կոդում, և ինչ անել արտահոսքի դեպքում."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "protecting-api-tokens-in-vibe-coded-apps"
-keywords: ["API token security vibe coding", "protect chatbot API key", "secrets in AI generated websites"]
+keywords: ["API token security vibe coding", "protect chatbot API key", "գաղտնի բանալիներ AI կայքում", "API թոքենի պաշտպանություն"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/hero.jpg"
-heroAlt: "Protecting API tokens in vibe-coded apps"
+heroAlt: "API թոքենների պաշտպանություն արագ AI նախատիպի հավելվածներում"
 ogImage: "/blog/protecting-api-tokens-in-vibe-coded-apps/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-An API token proves the request is yours. Whoever has it can act as the bot. Never put tokens in public site code or chat. If leaked, revoke and rotate immediately. Vibe tools make this mistake easy - production reviews must catch it.
+API թոքենը ապացուցում է, որ հարցումը ձերն է։ Ով ունի այն, կարող է գործել բոտի անունից։ Երբեք մի դրեք թոքեններ հանրային կայքի կոդում կամ չաթում։ Արտահոսքի դեպքում անմիջապես չեղարկեք և փոխարինեք։ Արագ AI գործիքները այս սխալը հեշտ են անում - իրական շահագործման վերանայումը պետք է բռնի այն։
 
-## Պրակտիկա
+Թոքենը ≠ «config տող»։ Թոքենը = գաղտնաբառ ծառայության վրա։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Սկսեք իրական բիզնես աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք յուրաքանչյուր ուղի, որն առնչվում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար - և **երբեք** մի անցկացրեք service key բրաուզերով «արագության համար»։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Ինչպիսին է լավը
+
+- Բոլոր service key-երը միայն սերվերի վրա (env / secret manager)։
+- Frontend-ը կանչում է ձեր API-ն. ձեր API-ն կանչում է Claude / OpenAI / այլ մատակարար։
+- Scoped keys, նվազագույն իրավունքներ, առանձին test/live։
+- Մատյաններ չարտոնված օգտագործման համար. չեղարկման/պտույտի ընթացակարգ։
+- Սեսիայի հիշողություն և գիտելիքի բազա - մտածված, ոչ թե «բոլոր բանալիները հաճախորդում»։
+
+## Ինչպիսին է վատը
+
+- `NEXT_PUBLIC_...` կամ Vite `VITE_...` service key-ով։
+- Թոքեն GitHub public repo-ում, Discord/Slack չաթում, սքրինշոթում։
+- «Թաքցրինք» բրաուզերի պահեստում (localStorage) - սա պաշտպանություն չէ։
+- Webhook և admin թոքեններ հանրային URL-ում։
+- Արտահոսքից հետո պտույտ չի արվում։
+
+## Արտահոսքի դեպքում ի՞նչ անել հիմա
+
+1. Revoke / rotate բանալին մատակարարի մոտ։
+2. Ստուգեք օգտագործման մատյանները անոմալիայի համար։
+3. Հանեք կոդից, պատմությունից, CI secrets-ից։
+4. Վերակառուցեք և ստուգեք bundle-ը (տողը չպետք է լինի հաճախորդում)։
+5. Անհրաժեշտության դեպքում տեղեկացրեք տուժած կողմերին։
+
+## Ինչպես է վարում Dali-ն
+
+Dali-ն ամրացնում է արագ AI նախատիպերը իրական շահագործման համակարգերի. gates, tools, ownership։ Կապված. [մարտական AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անպե՞տք է։
+Ոչ։ Արագ է մակերեսի համար։ Վտանգավոր է, երբ թոքեններով այն համարվում է «պատրաստ արտադրանք»։
+
+### Ամեն ինչ վերագրմո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք կրիտիկական ուղին (auth, keys, payments) և թողնում կայուն UI-ն։
+
+### Կարո՞ղ է chatbot key-ը լինել frontend-ում «միայն read»։
+Եթե key-ով հնարավոր է վճարովի կանչ կամ տվյալների ընթերցում - ոչ։ Բրաուզերը գաղտնի տեղ չէ։

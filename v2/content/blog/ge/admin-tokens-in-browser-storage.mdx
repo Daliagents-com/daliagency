@@ -1,32 +1,52 @@
 ---
 slug: "admin-tokens-in-browser-storage"
-title: "Admin tokens in localStorage and URLs: a common vibe-code failure"
-description: "Why reusable admin tokens in browser storage and query strings are a medium-severity pattern we fix early."
+title: "ადმინ-ტოკენები ბრაუზერის საცავში და URL-ში: სწრაფი AI პროტოტიპის ტიპური შეცდომა"
+description: "რატომ არის მრავალჯერადი ადმინ-ტოკენები ბრაუზერის საცავში და query string-ში საშუალო სიმძიმის ხვრელი, რომელსაც ადრე ვხურავთ."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "admin-tokens-in-browser-storage"
-keywords: ["admin token localStorage", "token in URL security", "vibe coding admin security"]
+keywords: ["ადმინ ტოკენი localStorage", "ტოკენი URL უსაფრთხოება", "AI პროტოტიპი ადმინ უსაფრთხოება"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/admin-tokens-in-browser-storage/hero.jpg"
-heroAlt: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+heroAlt: "ადმინ-ტოკენები ბრაუზერის საცავში და URL-ში: სწრაფი AI პროტოტიპის ტიპური შეცდომა"
 ogImage: "/blog/admin-tokens-in-browser-storage/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Reusable admin tokens in localStorage and query strings are available to any XSS or leaked referrer path. Prefer short-lived sessions, httpOnly cookies, and never put long-lived secrets in URLs.
+მრავალჯერადი ადმინ-ტოკენები ბრაუზერის საცავში (localStorage) და URL-ის query string-ში ხელმისაწვდომია ნებისმიერი XSS-ისთვის ან გაჟონილი referrer-ის გზისთვის. უპირატესობა მიეცით მოკლევადიან სესიებს, httpOnly cookie-ებს და არასდროს ჩადოთ გრძელვადიანი საიდუმლო გასაღებები URL-ში.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნეს პროცესით, და არა მოდელის ბრენდით.
+- ქცევა აღწერეთ მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გარე შეტყობინებებს ეხება.
+- არასტანდარტული შემთხვევებისთვის შეინარჩუნეთ ადამიანის გზა.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- ნათელი სტანდარტული და არასტანდარტული მარშრუტიზაცია
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასდროს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმებების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დატოვებული
+- ადამიანზე გადაცემა გამონაკლისებისთვის არ არის
+- თხელი მანქანური თარგმანები, რომლებიც ლოკალიზაციად იყიდება
+
+## როგორ ამუშავებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვიღებთ, შემდეგ ვამყარებთ რეალური ექსპლუატაციის სისტემებად ადამიანის კონტროლის წერტილებით, ხელსაწყოებით და მკაფიო მფლობელობით. დაკავშირებული: [საბრძოლო AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს არის სწრაფი გზა სამუშაო ზედაპირის მისაღებად. საშიში ხდება მხოლოდ მაშინ, როცა მას დასრულებულ რეალურ ექსპლუატაციად მიიჩნევენ.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ კრიტიკულ გზას ვაცალკევებთ და თავიდან ვაშენებთ.

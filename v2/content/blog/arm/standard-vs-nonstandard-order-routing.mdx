@@ -1,32 +1,54 @@
 ---
 slug: "standard-vs-nonstandard-order-routing"
-title: "Standard vs non-standard order routing for AI chat widgets"
-description: "How production-minded vibe builds split menu orders from exception cases that need a human."
+title: "Ստանդարտ vs ոչ ստանդարտ պատվերների երթուղավորում AI չաթ վիջեթներում"
+description: "Ինչպես են իրական շահագործմանը ուղղված արագ AI հավաքումները բաժանում մենյուի պատվերները բացառություններից, որոնք մարդ են պահանջում."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "standard-vs-nonstandard-order-routing"
-keywords: ["AI chat order routing", "standard vs nonstandard orders AI", "AI assistant order filter"]
+keywords: ["AI chat order routing", "ստանդարտ vs ոչ ստանդարտ պատվերներ AI", "AI assistant order filter"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/standard-vs-nonstandard-order-routing/hero.jpg"
-heroAlt: "Standard vs non-standard order routing for AI chat widgets"
+heroAlt: "Ստանդարտ vs ոչ ստանդարտ պատվերների երթուղավորում AI չաթ վիջեթներում"
 ogImage: "/blog/standard-vs-nonstandard-order-routing/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-A useful site assistant filters: standard menu-like requests can go toward checkout; non-standard requests collect details and hand off. That filter pattern is the difference between a toy chat and an operations tool.
+Օգտակար կայքի օգնականը ֆիլտրում է. ստանդարտ, մենյուի նման հարցումները կարող են գնալ դեպի checkout. ոչ ստանդարտ հարցումները հավաքում են մանրամասներ և փոխանցում մարդուն։ Այս ֆիլտրի ձևանմուշն է տարբերությունը խաղալիք չաթի և օպերացիոն գործիքի միջև։
 
-## Պրակտիկա
+## Ի՞նչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսիր իրական բիզնեսի աշխատանքային հոսքից, ոչ մոդելի բրենդից։
+- Վարքը նկարագրիր պարզ լեզվով, հետո ստուգիր ամեն ուղի, որտեղ կան գումար, մուտք կամ ելքային հաղորդագրություններ։
+- Ոչ ստանդարտ դեպքերի համար պահիր մարդու ուղի։
+- Նախապես սահմանիր՝ ինչն է ստանդարտ (գին, պաշար, առաքման գոտի) և ինչը՝ բացառություն։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ / ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականն իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Լոգեր և կանգառի անջատիչ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է»՝ իրական շահագործման ստուգումների առանց
+- Տոկեններ և webhook՝ բաց թողնված
+- Բացառությունների համար մարդուն փոխանցում չկա
+- Բարակ մեքենայական թարգմանություն՝ որպես «լոկալիզացիա»
+- Բոլոր հարցումների «ավտոմատ» ընդունում առանց ալերգիաների և հատուկ պատվերների կանոնների
+
+## Ինչպես է անում Dali-ն
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. արագ AI նախատիպերը լուրջ ենք վերցնում, հետո ամրացնում ենք մինչև իրական շահագործում՝ վերահսկման կետերով, գործիքներով և սեփականատիրոջով։ Կապված. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգո՞ւտ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն, երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

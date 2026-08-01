@@ -1,32 +1,52 @@
 ---
 slug: "admin-tokens-in-browser-storage"
-title: "Admin tokens in localStorage and URLs: a common vibe-code failure"
-description: "Why reusable admin tokens in browser storage and query strings are a medium-severity pattern we fix early."
+title: "Ադմին-տոկեններ բրաուզերի պահոցում և URL-ում. արագ AI նախատիպի տիպիկ սխալ"
+description: "Ինչու են բազմակի ադմին-տոկենները բրաուզերի պահոցում և հարցման տողում միջին ծանրության խոցելիություն, որը փակում ենք առաջին հերթին."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "admin-tokens-in-browser-storage"
-keywords: ["admin token localStorage", "token in URL security", "vibe coding admin security"]
+keywords: ["ադմին տոկեն localStorage", "տոկեն URL անվտանգություն", "արագ AI նախատիպ ադմին անվտանգություն"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/admin-tokens-in-browser-storage/hero.jpg"
-heroAlt: "Admin tokens in localStorage and URLs: a common vibe-code failure"
+heroAlt: "Ադմին-տոկեններ բրաուզերի պահոցում և URL-ում. արագ AI նախատիպի տիպիկ սխալ"
 ogImage: "/blog/admin-tokens-in-browser-storage/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Reusable admin tokens in localStorage and query strings are available to any XSS or leaked referrer path. Prefer short-lived sessions, httpOnly cookies, and never put long-lived secrets in URLs.
+Բազմակի ադմին-տոկենները բրաուզերի պահոցում (localStorage) և URL-ի հարցման տողում հասանելի են ցանկացած XSS-ի կամ արտահոսած referrer ուղու համար։ Նախընտրեք կարճատև սեսիաներ, httpOnly cookie-ներ և երբեք երկարատև գաղտնի բանալիներ մի դրեք URL-ում։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական բիզնես գործընթացից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք ամեն ուղի, որ դիպչում է փողին, մուտքին կամ արտաքին հաղորդագրություններին։
+- Պահեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ և ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականը իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիները երբեք կլիենտի JavaScript-ում չեն
+- Մատյաններ և կանգառի անջատիչ
+
+## Ինչպես է վատը
+
+- «Նախադիտումում աշխատում է»՝ առանց իրական շահագործման ստուգումների
+- Տոկեններ և վեբհուքեր թողնված են հանրային
+- Չկա մարդուն փոխանցում բացառությունների համար
+- Բարակ մեքենայական թարգմանություններ՝ որպես տեղայնացում վաճառված
+
+## Ինչպես է Dali-ն վերաբերվում սրան
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. մենք լուրջ ենք վերաբերվում արագ AI նախատիպերին, հետո դրանք ամրացնում ենք իրական շահագործման համակարգերի՝ մարդու վերահսկման կետերով, գործիքներով և հստակ սեփականությամբ։ Առնչվող. [իրական AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անօգտակա՞ր է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է դառնում միայն այն ժամանակ, երբ այն ընդունում են որպես ավարտված իրական շահագործում։
+
+### Ամեն ինչ զրոյից վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն առանձնացնում ենք և վերակառուցում կրիտիկական ուղին։

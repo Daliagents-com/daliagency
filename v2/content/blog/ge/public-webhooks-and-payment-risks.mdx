@@ -1,32 +1,66 @@
 ---
 slug: "public-webhooks-and-payment-risks"
-title: "Public webhooks and payment underpayment risks on AI-built sites"
-description: "How unauthenticated workflow and payment endpoints create underpayment and abuse paths - and how we close them."
+title: "საჯარო webhook-ები და ნაკლებად გადახდის რისკი AI-ით აგებულ საიტებზე"
+description: "როგორ ქმნის არაავთენტიფიცირებული პროცესისა და გადახდის endpoint-ები underpayment-ისა და ბოროტად გამოყენების გზებს - და როგორ ვხურავთ მათ."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "public-webhooks-and-payment-risks"
-keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security"]
+keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security", "webhook ნაკლებად გადახდა"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/public-webhooks-and-payment-risks/hero.jpg"
-heroAlt: "Public webhooks and payment underpayment risks on AI-built sites"
+heroAlt: "საჯარო webhook-ები და ნაკლებად გადახდის რისკი AI-ით აგებულ საიტებზე"
 ogImage: "/blog/public-webhooks-and-payment-risks/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-If payment or workflow webhooks are callable without auth and accept client-controlled amounts, attackers can create cheap invoices or trigger business workflows. Amounts and product identity must be server-authoritative.
+თუ გადახდის ან პროცესის webhook-ის გამოძახება auth-ის გარეშე შეიძლება და ისინი იღებენ კლიენტის მიერ კონტროლირებად თანხებს, თავდამსხმელს შეუძლია იაფი ინვოისები შექმნას ან ბიზნეს პროცესები გაუშვას. თანხები და პროდუქტის იდენტობა სერვერზე უნდა იყოს ავტორიტეტული.
 
-## პრაქტიკა
+სწრაფი AI პროტოტიპი ხშირად «მოხერხებულობისთვის» ტოვებს `/api/pay` და `/api/webhook` ღიად. ეს მოხერხებულობა არ არის - ეს ხვრელია.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- დაიწყეთ რეალური გადახდისა და fulfilment პროცესიდან, არა Checkout-ის დემო ღილაკიდან.
+- აღწერეთ მარტივი ენით: ვინ ადგენს თანხას, ვინ ადასტურებს გადახდას, ვინ ხსნის წვდომას.
+- შეამოწმეთ ყველა გზა, სადაც კლიენტის ბრაუზერს შეუძლია amount, plan id ან coupon შეცვალოს.
+- დატოვეთ ხელით გზა სადავო გადახდებისა და დაბრუნებებისთვის.
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## როგორ გამოიყურება კარგი
+
+- Webhook პროვაიდერის ხელმოწერის შემოწმებით (Stripe და ანალოგები).
+- თანხა და product id სერვერის ფასიდან / შეკვეთიდან, არა კლიენტის body-დან.
+- იდემპოტენტური დამუშავება: webhook-ის გამეორება ორმაგ წვდომას არ იძლევა.
+- ლოგები: event id, order id, შედეგი, შეცდომები.
+- საიდუმლო გასაღებები მხოლოდ სერვერზე; გაჩერების ღილაკი წვდომის გაცემაზე.
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში გადახდა გადის» ხელმოწერის შემოწმების გარეშე.
+- საჯარო endpoint «მონიშნე გადახდილად» auth-ის გარეშე.
+- ფასი და plan id ენდობა frontend query/body-ს.
+- underpay / overpay შეჯერება არ არის.
+- თხელი მანქანური «გადახდის» ლენდინგი სერვერული შეკვეთის მოდელის გარეშე.
+
+## ტიპური თავდასხმები
+
+1. **Underpayment** - კლიენტი აგზავნის amount=1, სერვერი ხსნის premium-ს.
+2. **Replay** - ძველი წარმატებული event ხელახლა იგზავნება.
+3. **Forged webhook** - POST ხელმოწერის გარეშე, თითქოს Stripe-იდან.
+4. **Workflow trigger** - ღია URL უშვებს ფასდაკლებას, წერილს, CRM გარიგებას.
+
+## როგორ ხურავს Dali
+
+ვამყარებთ გადახდისა და პროცესების გზას: [vibe-code rescue](/ge/solutions/vibe-code-rescue), [გადახდები და საიდუმლო გასაღებები](/ge/blog/payments-and-secrets-on-vibe-apps), [admin/promo ლიმიტები](/ge/blog/rate-limits-admin-and-promo). დაკავშირებული: [საბრძოლო აგენტები](/ge/blog/production-ai-agents-for-business), [კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. სწრაფი UI ნორმალურია. საშიშია პრევიუს მზა სალაროდ მიჩნევა.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ხშირად ვაცალკევებთ და თავიდან ვაშენებთ კრიტიკულ გზას: order, webhook, წვდომის გაცემა. მარკეტინგის გვერდები შეიძლება დარჩეს.
+
+### საკმარისია webhook URL-ის «დამალვა»?
+არა. URL-ის საიდუმლოება სუსტი დაცვაა. საჭიროა ხელმოწერის კრიპტოგრაფიული შემოწმება და სერვერული შეკვეთის მოდელი.

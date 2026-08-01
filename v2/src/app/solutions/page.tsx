@@ -7,10 +7,11 @@ import {
   twitterPreviewImage,
 } from "@/Components/Solutions/solutionContent";
 import { englishSolutionsBundle } from "@/Components/Solutions/locales/en";
+import { absoluteUrl } from "@/lib/seo/site";
 
 const title = "Dali agent system | Multi-agent production map";
 const description =
-  "See how Dali runs Lead Response, Client Inbox, Operations, Knowledge, and Voice agents inside Gmail, HubSpot, Notion, Slack, and more - with human review and live chat.";
+  "See how Dali runs Conversation Control, Ops & Knowledge, Voice, and Rescue systems inside Gmail, HubSpot, Notion, Slack, and more - with human review and live chat.";
 
 export const metadata: Metadata = {
   title,
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: "https://dali.agents.ge/solutions",
+    url: absoluteUrl("/solutions"),
     siteName: "Dali",
     type: "website",
     images: [socialPreviewImage],

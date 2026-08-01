@@ -1,32 +1,53 @@
 ---
 slug: "from-vibe-prototype-to-production-checklist"
-title: "From vibe prototype to production: a practical checklist"
-description: "A checklist to promote an AI-built prototype into something you can run with clients: security, gates, data, and ownership."
+title: "Արագ AI նախատիպից իրական շահագործում. գործնական չեքլիստ"
+description: "Չեքլիստ՝ AI-ով կառուցված նախատիպը հաճախորդների հետ աշխատեցնելու համար. անվտանգություն, վերահսկման կետեր, տվյալներ և սեփականություն։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "from-vibe-prototype-to-production-checklist"
-keywords: ["vibe prototype to production", "AI site production checklist", "harden vibe coded app"]
+keywords: ["նախատիպից իրական շահագործում", "AI կայքի չեքլիստ", "vibe prototype to production"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/from-vibe-prototype-to-production-checklist/hero.jpg"
-heroAlt: "From vibe prototype to production: a practical checklist"
+heroAlt: "Արագ AI նախատիպից իրական շահագործում. գործնական չեքլիստ"
 ogImage: "/blog/from-vibe-prototype-to-production-checklist/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Before production: secrets out of client, webhooks authenticated, rate limits, admin lockouts, payment amount server-side, human gates on irreversible actions, logs, backup owner, and a rewrite plan for critical paths.
+Իրական շահագործումից առաջ. գաղտնի բանալիները դուրս կլիենտից, վեբհուքեր՝ նույնականացմամբ, հաճախականության սահմաններ, ադմինի կողպումներ, վճարման գումարը սերվերում, մարդու վերահսկում անշրջելի գործողությունների վրա, մատյաններ, պահեստային սեփականատեր և կրիտիկական ուղիների վերագրության պլան։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական բիզնեսի աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, ապա ստուգեք ամեն ուղի, որ վերաբերում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
+- Չեքլիստն անցեք նախքան առաջին իրական հաճախորդին դիպչելը - ոչ թե «հետո»։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ երթուղավորում. ստանդարտ vs ոչ ստանդարտ
+- Գիտելիքների բազա, որով օգնականն իրականում կարող է աշխատել
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Մատյաններ և կանգառի կոճակ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է» առանց իրական շահագործման ստուգումների
+- Թոքեններ և վեբհուքեր թողնված հանրային
+- Մարդուն փոխանցում բացառությունների դեպքում չկա
+- Բարակ մեքենայական թարգմանություններ՝ որպես լոկալիզացիա վաճառված
+
+## Ինչպես է Dali-ն վարում սա
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. մենք լուրջ ենք վերաբերվում արագ AI նախատիպերին, ապա ամրացնում ենք դրանք իրական շահագործման մեջ՝ մարդու վերահսկման կետերով, գործիքներով և սեփականատերերով։ Կապված. [AI գործակալներ իրական շահագործումում](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգտա՞կ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Միշտ ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

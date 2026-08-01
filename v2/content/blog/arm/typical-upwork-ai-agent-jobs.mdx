@@ -1,32 +1,55 @@
 ---
 slug: "typical-upwork-ai-agent-jobs"
-title: "Typical Upwork AI agent jobs (what clients actually request)"
-description: "Patterns from real marketplace demand: CRM agents, ops agents, Claude+n8n, support agents - and how we scope them."
+title: "Տիպիկ Upwork AI գործակալի աշխատանքներ (ինչ են իրականում խնդրում հաճախորդները)"
+description: "Իրական շուկայի պահանջարկի ձևանմուշներ. CRM գործակալներ, ops գործակալներ, Claude+n8n, աջակցություն - և ինչպես ենք սահմանափակում scope-ը."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "typical-upwork-ai-agent-jobs"
-keywords: ["Upwork AI agent jobs", "typical AI agent Upwork requests", "hire AI agent engineer Upwork"]
+keywords: ["Upwork AI agent jobs", "տիպիկ AI agent Upwork", "hire AI agent engineer Upwork"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/typical-upwork-ai-agent-jobs/hero.jpg"
-heroAlt: "Typical Upwork AI agent jobs (what clients actually request)"
+heroAlt: "Տիպիկ Upwork AI գործակալի աշխատանքներ. ինչ են իրականում խնդրում հաճախորդները"
 ogImage: "/blog/typical-upwork-ai-agent-jobs/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Common Upwork requests cluster around: CRM/lead agents, customer service agents, ops automation with Claude+n8n/RAG, and outreach agents. Clients often say “agent” when they mean a controlled workflow with tools and review.
+Հաճախակի Upwork հարցումները խմբավորվում են այսպես. CRM/լիդ գործակալներ, հաճախորդների սպասարկման գործակալներ, ops ավտոմատացում Claude+n8n/RAG-ով և outreach գործակալներ։ Հաճախորդները հաճախ ասում են «գործակալ», երբ նկատի ունեն վերահսկվող աշխատանքային հոսք՝ գործիքներով և վերանայումով։
 
-## Պրակտիկա
+## Ի՞նչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսիր իրական բիզնեսի աշխատանքային հոսքից, ոչ մոդելի բրենդից։
+- Վարքը նկարագրիր պարզ լեզվով, հետո ստուգիր ամեն ուղի, որտեղ կան գումար, մուտք կամ ելքային հաղորդագրություններ։
+- Ոչ ստանդարտ դեպքերի համար պահիր մարդու ուղի։
+- Upwork-ում առանձին ամրագրիր. ինչն է մտնում փորձնական գործարկման մեջ, ինչն է «պատրաստ», և ով է տիրապետում գաղտնի բանալիներին։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ ստանդարտ / ոչ ստանդարտ երթուղավորում
+- Գիտելիքների բազա, որն օգնականն իրականում օգտագործում է
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Լոգեր և կանգառի անջատիչ
+- Scope սահմաններով. մեկ ուղի, չափելի արդյունք, մարդու վերահսկման կետեր
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է»՝ իրական շահագործման ստուգումների առանց
+- Տոկեններ և webhook՝ բաց թողնված
+- Բացառությունների համար մարդուն փոխանցում չկա
+- Բարակ մեքենայական թարգմանություն՝ որպես «լոկալիզացիա»
+- Առաջադրանք «արա ChatGPT-ի նման գործակալ»՝ առանց գործընթացի և սեփականատիրոջ
+
+## Ինչպես է անում Dali-ն
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. արագ AI նախատիպերը լուրջ ենք վերցնում, հետո ամրացնում ենք մինչև իրական շահագործում՝ վերահսկման կետերով, գործիքներով և սեփականատիրոջով։ Կապված. [production AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգո՞ւտ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն, երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

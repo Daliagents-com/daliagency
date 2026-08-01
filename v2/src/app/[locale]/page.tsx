@@ -1,27 +1,22 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
-import HomeSeoSummary from "@/Components/Home/HomeSeoSummary";
+import HomeDeferredSections from "@/Components/Home/HomeDeferredSections";
 import {
   isLocale,
   localizedLocales,
   type Locale,
 } from "@/i18n/config";
 
-// Below-the-fold home sections: keep SSR HTML, split client graphs off hero path.
-const Projects = dynamic(() => import("@/Components/Home/Projects"), {
+// Prerender locale homes (generateStaticParams). No request-time data.
+export const dynamic = "force-static";
+
+// Projects still SSR for crawlable case grid; agents/services load after idle/IO.
+const Projects = nextDynamic(() => import("@/Components/Home/Projects"), {
   ssr: true,
 });
-const AgentSolutions = dynamic(
-  () => import("@/Components/Home/AgentSolutions"),
-  { ssr: true },
-);
-const DesignSprints = dynamic(
-  () => import("@/Components/Home/DesignSprints"),
-  { ssr: true },
-);
 
 type LocalizedHomeProps = {
   params: Promise<{
@@ -115,9 +110,7 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
     <main>
       <Hero locale={locale} />
       <Projects locale={locale} />
-      <AgentSolutions locale={locale} />
-      <DesignSprints locale={locale} />
-      <HomeSeoSummary locale={locale} />
+      <HomeDeferredSections locale={locale} />
       <About locale={locale} />
     </main>
   );

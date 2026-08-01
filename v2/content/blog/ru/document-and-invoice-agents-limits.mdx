@@ -1,11 +1,11 @@
 ---
 slug: "document-and-invoice-agents-limits"
-title: "Document и invoice AI-агенты: возможности и hard limits"
-description: "Что document и invoice AI-агенты делают хорошо, где accuracy fails, и как gate finance side effects."
+title: "AI-агенты для документов и счетов: возможности и жёсткие пределы"
+description: "Что агенты документов и счетов делают хорошо, где ломается точность и как ограничивать финансовые побочные эффекты."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "document-and-invoice-agents-limits"
-keywords: ["invoice AI agent", "PDF extraction AI agent", "document processing AI agents"]
+keywords: ["AI-агент для счетов", "извлечение данных из PDF", "агенты обработки документов", "invoice AI agent"]
 status: "published"
 author: "Dali"
 type: "article"
@@ -13,38 +13,37 @@ type: "article"
 
 ## Прямой ответ
 
-Document agents сильны в extraction и triage. Они fail на ambiguous totals, fraud edge cases и policy exceptions. **Никогда auto-pay** из unchecked extraction.
+Агенты документов сильны в извлечении полей и первичной сортировке. Они ошибаются на неоднозначных суммах, мошеннических краевых случаях и исключениях из политики. **Никогда не платите автоматически** по непроверенному извлечению.
 
-## Good fit
+## Где хорошо подходит
 
-Доставать fields из recurring invoice layouts, route в нужную queue, flag missing data.
+Вытаскивать поля из повторяющихся макетов счетов, направлять в нужную очередь, помечать недостающие данные.
 
-## Weak fit
+## Где слабо
 
-Adversarial или highly variable documents без human review.
+Враждебные или сильно меняющиеся документы без ревью человеком.
 
-## Finance AP pattern
+## Паттерн для финансов (AP)
 
-Extract → validate rules → human approve payment tool.
+Извлечь → проверить правила → человек одобряет инструмент оплаты.
 
-## Accuracy
+## Точность
 
-Define field-level tolerances; «looks right» - не metric.
+Задайте допуски по каждому полю; «вроде похоже» - это не метрика.
 
-## Как помогает Dali
+## Как вписывается Dali
 
-Document-to-action pilots: [operations-docs](/ru/solutions/operations-docs).
+Пробные запуски «документ → действие»: [операционные документы](/ru/solutions/operations-docs).
 
 ## FAQ
 
-### OCR errors?
-Ожидайте их; проектируйте validation и human review.
+### Ошибки OCR?
+Ожидайте их; проектируйте проверки и ревью человеком.
 
 ### Связанное
-[Operations docs pilot](/ru/solutions/operations-docs)
+[Пробный запуск по операционным документам](/ru/solutions/operations-docs)
 
-### Могут agents code accounting entries?
-Только в staging/review workflows with controls.
-
+### Могут ли агенты проводить проводки?
+Только в черновые/ревью-процессы с контролем.
 
 <!-- covers GPT questions: 63,69 -->

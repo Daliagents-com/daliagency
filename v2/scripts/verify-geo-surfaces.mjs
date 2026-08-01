@@ -32,7 +32,7 @@ const footer = readFileSync(
   "utf8",
 );
 const homeSeo = readFileSync(
-  join(root, "src/Components/Home/HomeSeoSummary.tsx"),
+  join(root, "src/Components/Home/About.tsx"),
   "utf8",
 );
 const identity = readFileSync(
@@ -49,22 +49,25 @@ mustNotInclude(footer, "dav.hakobyan100@gmail.com", "Footer");
 // Interlink money pillars on home SSR summary
 const pillars = [
   "/solutions/vibe-code-rescue",
-  "/solutions/lead-response",
+  "/solutions/conversation-control",
   "/blog/geo-seo-for-ai-agencies",
 ];
 for (const href of pillars) {
-  mustInclude(homeSeo, href, "HomeSeoSummary interlink");
+  mustInclude(homeSeo, href, "About GEO interlink");
 }
 
+mustInclude(identity, 'url: "https://daliagents.com"', "canonical site url");
 mustInclude(identity, "https://www.linkedin.com/company/dali-agents", "sameAs LI");
 mustInclude(identity, "https://clutch.co/profile/dali", "sameAs Clutch");
 mustInclude(identity, "+995568863212", "NAP phone");
 mustInclude(identity, "Tbilisi", "NAP city");
+mustNotInclude(identity, 'url: "https://dali.agents.ge"', "legacy host as canonical");
 
 console.log(
   JSON.stringify(
     {
       ok: true,
+      site: "https://daliagents.com",
       contact: "hello@dali.agents.ge",
       interlinks: pillars,
       sameAsRequired: [

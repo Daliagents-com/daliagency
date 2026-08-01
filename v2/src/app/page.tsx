@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import Hero from "../Components/Home/Hero";
 import About from "../Components/Home/About";
-import HomeSeoSummary from "../Components/Home/HomeSeoSummary";
+import HomeDeferredSections from "../Components/Home/HomeDeferredSections";
 
-// Below-the-fold home sections: keep SSR HTML, split client graphs off hero path.
-const Projects = dynamic(() => import("../Components/Home/Projects"), {
+// Prerender + CDN-friendly HTML (no headers()/cookies in this tree).
+export const dynamic = "force-static";
+
+// Projects still SSR for crawlable case grid; agents/services load after idle/IO.
+const Projects = nextDynamic(() => import("../Components/Home/Projects"), {
   ssr: true,
 });
-const AgentSolutions = dynamic(
-  () => import("../Components/Home/AgentSolutions"),
-  { ssr: true },
-);
-const DesignSprints = dynamic(
-  () => import("../Components/Home/DesignSprints"),
-  { ssr: true },
-);
 
 const homeKeywords = [
   "AI agent systems",
@@ -53,9 +48,7 @@ export default function Home() {
     <main>
       <Hero locale="en" />
       <Projects locale="en" />
-      <AgentSolutions locale="en" />
-      <DesignSprints locale="en" />
-      <HomeSeoSummary locale="en" />
+      <HomeDeferredSections locale="en" />
       <About locale="en" />
     </main>
   );

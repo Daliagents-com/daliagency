@@ -1,40 +1,70 @@
 ---
 slug: "rate-limits-admin-and-promo"
-title: "Rate limits for admin login and promo codes (why vibe apps skip them)"
-description: "How missing lockouts enable password and promo brute force - and the minimum controls we install."
+title: "Лимиты частоты для входа в админку и промокодов (почему ИИ-сборки их пропускают)"
+description: "Как отсутствие блокировок открывает перебор паролей и промокодов - и какой минимум контроля мы ставим."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "rate-limits-admin-and-promo"
-keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse"]
+keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse", "лимит входа админка"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/rate-limits-admin-and-promo/hero.jpg"
-heroAlt: "Rate limits for admin login and promo codes (why vibe apps skip them)"
+heroAlt: "Лимиты частоты для входа в админку и промокодов"
 ogImage: "/blog/rate-limits-admin-and-promo/og.jpg"
 ---
 
 ## Прямой ответ
 
-Without timeouts, lockouts, or 429s, attackers can probe admin passwords and promo codes at scale. Minimum: rate limits, lockouts, monitoring, and single-use or scoped promos.
+Без таймаутов, блокировок и ответов 429 атакующие перебирают пароли админки и промокоды в масштабе. Минимум: лимиты частоты, lockout, мониторинг и одноразовые или ограниченные по области промо.
 
-## Практика
+Сборка в ИИ-чате рисует красивый login и поле «промокод». Защиту от перебора почти никогда не генерирует.
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+## Что это значит на практике
 
-## Хорошо / плохо
+- Любой эндпоинт, где угадывание даёт выгоду (admin, promo, reset password, OTP), нуждается в лимитах.
+- Опишите, что считается «слишком часто» по IP, по аккаунту, по коду.
+- Проверьте пути денег и доступа: успешный brute force = чужая админка или 100% скидка.
+- Оставьте человеку разбор подозрительных всплесков (алерты, не только лог «на диске»).
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+## Как выглядит хорошо
 
-## Dali
+- Rate limit + progressive delay / lockout на `/admin/login` и аналоги.
+- Промо: лимит попыток, одноразовые коды, срок действия, scope (один SKU / один user).
+- 429 с понятным поведением для клиента (не вечный spinner).
+- Audit log неудачных входов и применений промо.
+- Алерты на аномалию: тысяча попыток за минуту.
+- Ключи и секреты не в клиентском JS; стоп на выдаче прав.
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+## Как выглядит плохо
+
+- Бесконечные POST на login без счётчика.
+- Промокоды из короткого словаря без лимита (`SALE10`, `VIP`, годы).
+- «Работает в превью» = готово к продакшену.
+- Нет передачи инцидента человеку (безопасность «потом»).
+- CAPTCHA только на маркетинговой форме, но не на admin.
+
+## Минимальный набор контролей
+
+1. **Per-IP и per-account** лимиты на auth.
+2. **Lockout** после N неудач (с безопасным unlock-процессом).
+3. **Promo attempt budget** + одноразовость / expiry.
+4. **Monitoring** failed auth / promo spikes.
+5. **Нет client-side «секретного» списка** валидных кодов в бандле.
+
+Связанное: [публичные webhook и недоплата](/ru/blog/public-webhooks-and-payment-risks), [платежи и секреты](/ru/blog/payments-and-secrets-on-vibe-apps).
+
+## Как Dali это ведёт
+
+Укрепляем критический путь ИИ-сборок: [vibe-code rescue](/ru/solutions/vibe-code-rescue). Связанное: [боевые агенты](/ru/blog/production-ai-agents-for-business), [точки контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Быстрый UI - ок. Опасно выкатывать login/promo без anti-abuse.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Часто точечно: middleware лимитов, promo service, audit. UI оставляем.
+
+### Достаточно ли Cloudflare на весь сайт?
+Полезно на периметре, но не заменяет app-level лимиты на login и promo с бизнес-логикой.

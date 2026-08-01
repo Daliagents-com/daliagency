@@ -57,7 +57,7 @@ if (process.env.LIVE === "1") {
   async function fetchProdHome() {
     const headers = { "user-agent": "dali-org-schema-verify/1.0" };
     try {
-      return await fetch("https://dali.agents.ge/", { headers });
+      return await fetch("https://daliagents.com/", { headers });
     } catch (err) {
       const code = err?.cause?.code || err?.code;
       if (code !== "ENOTFOUND" && code !== "EAI_AGAIN") throw err;
@@ -70,10 +70,10 @@ if (process.env.LIVE === "1") {
           "-A",
           "dali-org-schema-verify/1.0",
           "--resolve",
-          "dali.agents.ge:443:76.76.21.21",
+          "daliagents.com:443:76.76.21.21",
           "-w",
           "\n__HTTP_STATUS__:%{http_code}",
-          "https://dali.agents.ge/",
+          "https://daliagents.com/",
         ],
         { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
       );

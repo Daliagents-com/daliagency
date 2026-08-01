@@ -1,32 +1,67 @@
 ---
 slug: "ops-agent-multi-store-pattern"
-title: "Ops agents across many stores and products: a case pattern"
-description: "Lessons from large catalog/ops automation: adapters, daily product volume, logs, and human review for unsafe changes."
+title: "Ops აგენტები მრავალ მაღაზიასა და პროდუქტზე: სამუშაო შაბლონი"
+description: "გაკვეთილები დიდი კატალოგის/ოპერაციების ავტომატიზაციიდან: ადაპტერები, დღიური პროდუქტის მოცულობა, ლოგები და ადამიანის შემოწმება არაუსაფრთხო ცვლილებებზე."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "ops-agent-multi-store-pattern"
-keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent"]
+keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent", "კატალოგის AI აგენტი"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ops-agent-multi-store-pattern/hero.jpg"
-heroAlt: "Ops agents across many stores and products: a case pattern"
+heroAlt: "Ops აგენტები მრავალ მაღაზიასა და პროდუქტზე: სამუშაო შაბლონი"
 ogImage: "/blog/ops-agent-multi-store-pattern/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Large ops agents succeed when they use adapters for stores/products, act on real data, and log every change. The win is fewer manual operators on repetitive product and discount work - with review on unsafe actions.
+დიდი ops აგენტები მუშაობს, როცა იყენებენ ადაპტერებს მაღაზიებისა და პროდუქტებისთვის, მოქმედებენ რეალურ მონაცემებზე და ალოგებენ ყოველ ცვლილებას. მოგება - ნაკლები ხელით ოპერატორი განმეორებად პროდუქტისა და ფასდაკლების სამუშაოზე, სავალდებულო შემოწმებით არაუსაფრთხო მოქმედებებზე.
 
-## პრაქტიკა
+ერთი «უნივერსალური პრომპტი ყველა მარკეტპლეისზე» ადაპტერებისა და store id-ის გარეშე სწრაფად წერს არასწორ ადგილას.
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+## რას ნიშნავს ეს პრაქტიკაში
 
-## Dali
+- დაიწყეთ რეალური სამუშაო პროცესიდან: ფასები, ნაშთები, აღწერები, ფასდაკლებები - არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივი ენით, შემდეგ შეამოწმეთ გზები, სადაც აგენტი ცვლის ფულს, წვდომას ან საჯარო ბარათებს.
+- დატოვეთ ადამიანის გზა არასტანდარტისთვის: სადავო ფასდაკლება, ნაშთის კონფლიქტი, სადავო SEO ტექსტი.
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+## როგორ გამოიყურება კარგი
+
+- ცხადი store / brand / product id ყოველ tool გამოძახებაზე.
+- API ადაპტერები: ერთი შიდა კონტრაქტი → სხვადასხვა მარკეტპლეისი.
+- სტანდარტი / არასტანდარტი მარშრუტი ჩაწერამდე.
+- ჟურნალი: ვინ (აგენტი/ადამიანი), რა შეიცვალა, old → new, როდის.
+- ადამიანის კონტროლის წერტილები მასობრივ ფასდაკლებაზე, წაშლაზე, ფასზე ზღვარზე ქვემოთ.
+- გაჩერების ღილაკი და rollback ჟურნალით, სადაც API იძლევა.
+
+## როგორ გამოიყურება ცუდი
+
+- «დემო კატალოგზე პრევიუში მუშაობს» საბრძოლო მოცულობის გარეშე.
+- საერთო admin ტოკენები ყველა მაღაზიაზე scope-ის გარეშე.
+- გამონაკლისებზე ადამიანთან გადაცემა არ არის.
+- ცვლილებები ლოგის გარეშე: «ვიღაცამ ღამით ფასი გადააწია».
+- მაღაზიის გამოცნობა ჩატის ტექსტიდან ცხადი id-ის ნაცვლად.
+
+## დღიური მოცულობა და დატვირთვა
+
+დაგეგმეთ batch ფანჯრები, რიგები და API ლიმიტები. აგენტი, რომელიც «ყველაფერს ერთად ანახლებს» პიკზე, კლავს კვოტებს და ტოვებს ნაწილობრივ განახლებებს. უკეთესია: task რიგი, იდემპოტენტური განახლებები, მხოლოდ failed items-ის გამეორება.
+
+## იზოლაცია და multi-tenant
+
+თუ სააგენტო სხვების მაღაზიებს მართავს - იხილეთ [კლიენტების იზოლაცია](/ge/blog/multi-tenant-isolation-for-agency-agents). სხვისი კატალოგი retrieval-ში = ნდობის ინციდენტი.
+
+## როგორ აწარმოებს Dali
+
+Dali ამყარებს სწრაფ პროტოტიპებს რეალური ექსპლუატაციის სისტემებად: ადაპტერები, gates, ownership. დაკავშირებული: [საბრძოლო AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სჭირდება ცალკე აგენტი თითოეულ მაღაზიაზე?
+არა აუცილებლად ცალკე runtime. საჭიროა ცალკე credentials, store id და მონაცემთა საზღვრები. Shared code + isolated config - ნორმა.
+
+### რა აუცილებლად უნდა გეითდეს?
+მასობრივი ფასდაკლებები, SKU წაშლა, ფასი მინიმალური მარჟის ქვემოთ, სადავო კონტენტის პუბლიკაცია, წვდომის უფლებების ცვლილება.
+
+### სწრაფი AI პროტოტიპი უსარგებლოა ops-ისთვის?
+არა - მოსახერხებელია UI-სა და draft flow-სთვის. საშიშია, თუ ადაპტერების, ლოგებისა და review-ის გარეშე მიდის საბრძოლო კატალოგში.

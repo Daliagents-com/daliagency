@@ -1,32 +1,54 @@
 ---
 slug: "standard-vs-nonstandard-order-routing"
-title: "Standard vs non-standard order routing for AI chat widgets"
-description: "How production-minded vibe builds split menu orders from exception cases that need a human."
+title: "სტანდარტული vs არასტანდარტული შეკვეთების მარშრუტიზაცია AI ჩატის ვიჯეტებში"
+description: "როგორ ყოფს რეალურ ექსპლუატაციაზე ორიენტირებული სწრაფი AI აწყობა მენიუს შეკვეთებს გამონაკლისებისგან, რომლებსაც ადამიანი სჭირდება."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "standard-vs-nonstandard-order-routing"
-keywords: ["AI chat order routing", "standard vs nonstandard orders AI", "AI assistant order filter"]
+keywords: ["AI chat order routing", "სტანდარტული vs არასტანდარტული შეკვეთები AI", "AI assistant order filter"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/standard-vs-nonstandard-order-routing/hero.jpg"
-heroAlt: "Standard vs non-standard order routing for AI chat widgets"
+heroAlt: "სტანდარტული vs არასტანდარტული შეკვეთების მარშრუტიზაცია AI ჩატის ვიჯეტებში"
 ogImage: "/blog/standard-vs-nonstandard-order-routing/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-A useful site assistant filters: standard menu-like requests can go toward checkout; non-standard requests collect details and hand off. That filter pattern is the difference between a toy chat and an operations tool.
+სასარგებლო საიტის ასისტენტი ფილტრავს: სტანდარტული, მენიუს მსგავსი მოთხოვნები შეიძლება წავიდეს checkout-ისკენ; არასტანდარტული მოთხოვნები აგროვებს დეტალებს და გადასცემს ადამიანს. ეს ფილტრის ნიმუშია განსხვავება სათამაშო ჩატსა და ოპერაციულ ინსტრუმენტს შორის.
 
-## პრაქტიკა
+## რას ნიშნავს ეს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყე რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- ქცევა აღწერე მარტივ ენაზე, შემდეგ შეამოწმე ყველა გზა, სადაც ფული, წვდომა ან გამავალი შეტყობინებებია.
+- არასტანდარტული შემთხვევებისთვის დატოვე ადამიანის გზა.
+- წინასწარ განსაზღვრე: რა ითვლება სტანდარტად (ფასი, მარაგი, მიტანის ზონა) და რა - გამონაკლისად.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო სტანდარტული / არასტანდარტული მარშრუტიზაცია
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც განზრახულია
+- საიდუმლო გასაღებები არასდროს კლიენტის JavaScript-ში
+- ლოგები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- „პრევიუში მუშაობს“ რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და webhook საჯაროდ დარჩენილი
+- გამონაკლისებზე ადამიანზე გადაცემა არ არის
+- თხელი მანქანური თარგმანი, როგორც „ლოკალიზაცია“
+- ყველა მოთხოვნის „ავტომატური“ მიღება ალერგიებისა და სპეცშეკვეთების გარეშე
+
+## როგორ აკეთებს Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვიღებთ, შემდეგ ვამაგრებთ რეალურ ექსპლუატაციამდე - კონტროლის წერტილებით, ინსტრუმენტებით და პასუხისმგებლობით. დაკავშირებული: [production AI აგენტები](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად თვლიან.
+
+### ყველაფერს თავიდან წერთ?
+არა ყოველთვის. ზოგჯერ ვამაგრებთ. ზოგჯერ კრიტიკულ გზას ვაშორებთ და თავიდან ვაშენებთ.

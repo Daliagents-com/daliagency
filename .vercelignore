@@ -1,0 +1,16 @@
+# Keep Vercel upload lean (Root Directory = v2 still benefits from root ignore)
+**/node_modules
+**/.next
+**/demo
+**/output
+**/.playwright-cli
+**/.git
+**/tsconfig.tsbuildinfo
+**/.env*
+!**/.env.example
+ref-journal
+docs
+output
+.omx
+*.mp4
+*.webm

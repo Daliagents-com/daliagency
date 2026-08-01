@@ -1,32 +1,70 @@
 ---
 slug: "rate-limits-admin-and-promo"
-title: "Rate limits for admin login and promo codes (why vibe apps skip them)"
-description: "How missing lockouts enable password and promo brute force - and the minimum controls we install."
+title: "Հաճախականության սահմանափակումներ admin մուտքի և պրոմոկոդերի համար (ինչու AI հավաքումները բաց են թողնում)"
+description: "Ինչպես արգելափակումների բացակայությունը բացում է գաղտնաբառերի և պրոմոների brute force - և ինչ նվազագույն վերահսկում ենք դնում."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "rate-limits-admin-and-promo"
-keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse"]
+keywords: ["rate limit admin login", "promo code brute force", "vibe app anti abuse", "admin մուտքի սահմանափակում"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/rate-limits-admin-and-promo/hero.jpg"
-heroAlt: "Rate limits for admin login and promo codes (why vibe apps skip them)"
+heroAlt: "Հաճախականության սահմանափակումներ admin մուտքի և պրոմոկոդերի համար"
 ogImage: "/blog/rate-limits-admin-and-promo/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Without timeouts, lockouts, or 429s, attackers can probe admin passwords and promo codes at scale. Minimum: rate limits, lockouts, monitoring, and single-use or scoped promos.
+Առանց timeout-ների, արգելափակումների և 429 պատասխանների հարձակվողները կարող են մասշտաբով փորձել admin գաղտնաբառեր և պրոմոկոդեր։ Նվազագույնը. հաճախականության սահմանափակումներ, lockout, մոնիտորինգ և մեկանգամյա կամ սահմանափակ scope-ի պրոմոներ։
 
-## Պրակտիկա
+Արագ AI նախատիպը նկարում է գեղեցիկ login և «պրոմոկոդ» դաշտ։ Brute force-ից պաշտպանություն գրեթե երբեք չի գեներացնում։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Ցանկացած endpoint, որտեղ գուշակումը տալիս է օգուտ (admin, promo, reset password, OTP), կարիք ունի սահմանափակումների։
+- Նկարագրեք, թե ինչ է համարվում «շատ հաճախ» IP-ով, հաշվով, կոդով։
+- Ստուգեք փողի և մուտքի ուղիները. հաջող brute force = ուրիշի admin կամ 100% զեղչ։
+- Թողեք մարդուն կասկածելի պոռթկումների վերանայում (ալերտներ, ոչ միայն մատյան «սկավառակի վրա»)։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Ինչպիսին է լավը
+
+- Rate limit + progressive delay / lockout `/admin/login`-ի և նմանների վրա։
+- Պրոմո. փորձերի սահման, մեկանգամյա կոդեր, ժամկետ, scope (մեկ SKU / մեկ user)։
+- 429 հասկանալի վարքով հաճախորդի համար (ոչ անվերջ spinner)։
+- Audit log անհաջող մուտքերի և պրոմո կիրառումների վրա։
+- Ալերտներ անոմալիայի վրա. հազար փորձ րոպեում։
+- Գաղտնի բանալիներ ոչ հաճախորդի JS-ում. stop իրավունքների տրամադրման վրա։
+
+## Ինչպիսին է վատը
+
+- Անվերջ POST login-ի վրա առանց հաշվիչի։
+- Պրոմոկոդեր կարճ բառարանից առանց սահմանի (`SALE10`, `VIP`, տարիներ)։
+- «Պրևյուում աշխատում է» = պատրաստ է իրական շահագործման։
+- Միջադեպի մարդուն փոխանցում չկա (անվտանգություն «հետո»)։
+- CAPTCHA միայն մարքեթինգային ձևի վրա, ոչ admin-ի։
+
+## Նվազագույն վերահսկումների հավաքածու
+
+1. **Per-IP և per-account** սահմանափակումներ auth-ի վրա։
+2. **Lockout** N անհաջողությունից հետո (անվտանգ unlock գործընթացով)։
+3. **Promo attempt budget** + մեկանգամյա / expiry։
+4. **Monitoring** failed auth / promo spikes։
+5. **Ոչ client-side «գաղտնի» ցուցակ** վավեր կոդերի bundle-ում։
+
+Կապված. [հանրային webhook և թերավճարում](/arm/blog/public-webhooks-and-payment-risks), [վճարումներ և գաղտնի բանալիներ](/arm/blog/payments-and-secrets-on-vibe-apps)։
+
+## Ինչպես է վարում Dali-ն
+
+Ամրացնում ենք AI հավաքումների կրիտիկական ուղին. [vibe-code rescue](/arm/solutions/vibe-code-rescue)։ Կապված. [մարտական գործակալներ](/arm/blog/production-ai-agents-for-business), [վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անպե՞տք է։
+Ոչ։ Արագ UI-ն լավ է։ Վտանգավոր է login/promo-ն դուրս բերել առանց anti-abuse-ի։
+
+### Ամեն ինչ վերագրմո՞ւմ եք։
+Ոչ միշտ։ Հաճախ կետային. rate limit middleware, promo service, audit։ UI-ն մնում է։
+
+### Բավարա՞ր է Cloudflare ամբողջ կայքի վրա։
+Պարագծում օգտակար է, բայց չի փոխարինում app-level սահմանափակումները login-ի և promo-ի վրա՝ բիզնես տրամաբանությամբ։

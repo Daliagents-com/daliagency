@@ -1,7 +1,7 @@
 import { parseBlogBody } from "@/lib/blog/parseFaq";
 import type { BlogPost } from "@/lib/blog/types";
 
-const siteUrl = "https://dali.agents.ge";
+import { siteUrl } from "@/lib/seo/site";
 
 function plainText(markdown: string): string {
   return markdown

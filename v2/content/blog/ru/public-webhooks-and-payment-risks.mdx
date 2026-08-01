@@ -1,40 +1,66 @@
 ---
 slug: "public-webhooks-and-payment-risks"
-title: "Public webhooks and payment underpayment risks on AI-built sites"
-description: "How unauthenticated workflow and payment endpoints create underpayment and abuse paths - and how we close them."
+title: "Публичные webhook и риск недоплаты на сайтах из ИИ-сборки"
+description: "Как неаутентифицированные эндпоинты процессов и платежей открывают путь к недоплате и злоупотреблениям - и как мы их закрываем."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "public-webhooks-and-payment-risks"
-keywords: ["public webhook security", "payment underpayment vulnerability", "vibe coded payment security"]
+keywords: ["public webhook security", "payment underpayment vulnerability", "безопасность платежей vibe", "webhook недоплата"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/public-webhooks-and-payment-risks/hero.jpg"
-heroAlt: "Public webhooks and payment underpayment risks on AI-built sites"
+heroAlt: "Публичные webhook и риск недоплаты на сайтах из ИИ-сборки"
 ogImage: "/blog/public-webhooks-and-payment-risks/og.jpg"
 ---
 
 ## Прямой ответ
 
-If payment or workflow webhooks are callable without auth and accept client-controlled amounts, attackers can create cheap invoices or trigger business workflows. Amounts and product identity must be server-authoritative.
+Если платёжные или процессные webhook можно вызвать без проверки подлинности и они принимают суммы с клиента, атакующий создаёт дешёвые счета или запускает бизнес-процессы. Суммы и идентичность товара должны быть авторитетны на сервере.
 
-## Практика
+Сборка в ИИ-чате часто «для удобства» делает `/api/pay` и `/api/webhook` открытыми. Это не удобство - это дыра.
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+## Что это значит на практике
 
-## Хорошо / плохо
+- Начинайте с реального платёжного и fulfilment-процесса, не с демо-кнопки Checkout.
+- Опишите простым языком: кто выставляет сумму, кто подтверждает оплату, кто открывает доступ.
+- Проверьте каждый путь, где клиентский браузер может подменить amount, plan id или coupon.
+- Оставьте ручной путь для спорных платежей и возвратов.
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+## Как выглядит хорошо
 
-## Dali
+- Webhook с проверкой подписи провайдера (Stripe и аналоги).
+- Сумма и product id берутся из серверного прайса / заказа, не из body клиента.
+- Идемпотентная обработка: повтор webhook не выдаёт двойной доступ.
+- Логи: event id, order id, результат, ошибки.
+- Ключи и секреты только на сервере; стоп-кнопка на выдачу доступа.
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+## Как выглядит плохо
+
+- «В превью оплата проходит» без проверки подписи.
+- Публичный endpoint «отметить оплаченным» без auth.
+- Цена и plan id доверяются query/body с фронта.
+- Нет сверки underpay / overpay.
+- Тонкий машинный лендинг «оплата» без серверной модели заказа.
+
+## Типичные атаки
+
+1. **Underpayment** - клиент шлёт amount=1, сервер открывает premium.
+2. **Replay** - старый успешный event гоняется повторно.
+3. **Forged webhook** - POST без подписи, как будто от Stripe.
+4. **Workflow trigger** - открытый URL запускает скидку, письмо, CRM-сделку.
+
+## Как Dali это закрывает
+
+Укрепляем путь оплаты и процессов: [спасение vibe-кода](/ru/solutions/vibe-code-rescue), [платежи и секреты](/ru/blog/payments-and-secrets-on-vibe-apps), [лимиты admin/promo](/ru/blog/rate-limits-admin-and-promo). Связанное: [боевые агенты](/ru/blog/production-ai-agents-for-business), [точки контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Сборка в ИИ-чате бесполезна?
+Нет. Быстрый UI - нормально. Опасно считать превью готовой кассой.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Вы всё переписываете?
+Не всегда. Часто изолируем и пересобираем критический путь: order, webhook, выдача доступа. Маркетинговые страницы можно оставить.
+
+### Можно ли «просто спрятать» URL webhook?
+Нет. Секрет URL - слабая защита. Нужна криптографическая проверка подписи и серверная модель заказа.

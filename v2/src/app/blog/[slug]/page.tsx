@@ -51,7 +51,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://dali.agents.ge${blogPath("en", slug)}`,
+      url: `https://daliagents.com${blogPath("en", slug)}`,
       type: "article",
       publishedTime: post.date,
       authors: [post.author],

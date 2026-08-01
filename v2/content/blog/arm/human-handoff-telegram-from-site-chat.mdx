@@ -1,32 +1,53 @@
 ---
 slug: "human-handoff-telegram-from-site-chat"
-title: "Human handoff from site AI chat to Telegram (or any inbox)"
-description: "How to design handoff: fixed request format, instant notify, human replies when ready - without turning the bot into a fake CRM."
+title: "Մարդուն փոխանցում կայքի AI չատից Telegram (կամ ցանկացած inbox)"
+description: "Ինչպես նախագծել փոխանցումը. ֆիքսված հարցման ձևաչափ, ակնթարթային ծանուցում, մարդու պատասխան երբ պատրաստ է - առանց բոտը կեղծ CRM դարձնելու։"
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "human-handoff-telegram-from-site-chat"
-keywords: ["AI chat Telegram handoff", "human handoff website chatbot", "AI assistant to owner inbox"]
+keywords: ["AI չատ Telegram փոխանցում", "մարդուն փոխանցում կայքի չատբոտից", "AI chat Telegram handoff"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/human-handoff-telegram-from-site-chat/hero.jpg"
-heroAlt: "Human handoff from site AI chat to Telegram (or any inbox)"
+heroAlt: "Մարդուն փոխանցում կայքի AI չատից Telegram (կամ ցանկացած inbox)"
 ogImage: "/blog/human-handoff-telegram-from-site-chat/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-For exceptions, the assistant should send a fixed-format summary to the owner (Telegram is common because it is always on). The bot is a filter, not a CRM. Status tracking is a later system.
+Բացառությունների դեպքում օգնականը պետք է սեփականատիրոջը ուղարկի ֆիքսված ձևաչափի ամփոփում (Telegram-ը տարածված է, որովհետև միշտ միացված է)։ Բոտը ֆիլտր է, ոչ թե CRM։ Կարգավիճակի հետևումը՝ ավելի ուշ համակարգ։
 
-## Պրակտիկա
+## Ինչ է սա նշանակում գործնականում
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+- Սկսեք իրական բիզնեսի աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, ապա ստուգեք ամեն ուղի, որ վերաբերում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
+- Մեկ ձևանմուշ. ով, ինչ է ուզում, համատեքստ, հրատապություն - և ծանուցում սեփականատիրոջ inbox-ում։
 
-## Dali
+## Ինչպես է լավը
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+- Հստակ երթուղավորում. ստանդարտ vs ոչ ստանդարտ
+- Գիտելիքների բազա, որով օգնականն իրականում կարող է աշխատել
+- Սեսիայի հիշողություն միայն այնտեղ, որտեղ նախատեսված է
+- Գաղտնի բանալիներ երբեք կլիենտի JavaScript-ում
+- Մատյաններ և կանգառի կոճակ
+
+## Ինչպես է վատը
+
+- «Պրևյուում աշխատում է» առանց իրական շահագործման ստուգումների
+- Թոքեններ և վեբհուքեր թողնված հանրային
+- Մարդուն փոխանցում բացառությունների դեպքում չկա
+- Բարակ մեքենայական թարգմանություններ՝ որպես լոկալիզացիա վաճառված
+
+## Ինչպես է Dali-ն վարում սա
+
+Dali-ն AI գործակալների համակարգերի ստուդիա է. մենք լուրջ ենք վերաբերվում արագ AI նախատիպերին, ապա ամրացնում ենք դրանք իրական շահագործման մեջ՝ մարդու վերահսկման կետերով, գործիքներով և սեփականատերերով։ Կապված. [AI գործակալներ իրական շահագործումում](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպը անօգտա՞կ է։
+Ոչ։ Դա արագ ճանապարհ է աշխատող մակերես ստանալու համար։ Վտանգավոր է միայն երբ այն ընդունում են որպես պատրաստ մարտական համակարգ։
+
+### Միշտ ամեն ինչ վերագրո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։

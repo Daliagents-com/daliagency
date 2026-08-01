@@ -1,32 +1,53 @@
 ---
 slug: "cors-and-analytics-data-exposure"
-title: "CORS * and public analytics endpoints on vibe-coded products"
-description: "Why open CORS plus unauthenticated analytics dumps create privacy and XSS-adjacent risk."
+title: "CORS * და საჯარო ანალიტიკის endpoint-ები სწრაფ AI პროდუქტებზე"
+description: "რატომ ქმნის ღია CORS და ავტორიზაციის გარეშე ანალიტიკა კონფიდენციალურობისა და XSS-მსგავს რისკს."
 date: "2026-08-01"
 locale: "ge"
 hreflangGroup: "cors-and-analytics-data-exposure"
-keywords: ["CORS star security", "public analytics endpoint", "vibe coded analytics exposure"]
+keywords: ["CORS უსაფრთხოება", "საჯარო ანალიტიკის endpoint", "ანალიტიკის გაჟონვა", "CORS star security"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/cors-and-analytics-data-exposure/hero.jpg"
-heroAlt: "CORS * and public analytics endpoints on vibe-coded products"
+heroAlt: "CORS * და საჯარო ანალიტიკის endpoint-ები სწრაფ AI პროდუქტებზე"
 ogImage: "/blog/cors-and-analytics-data-exposure/og.jpg"
 ---
 
 ## პირდაპირი პასუხი
 
-Access-Control-Allow-Origin: * on sensitive JSON plus unauthenticated analytics storage invites cross-origin data reads and unvalidated HTML fields. Scope CORS, auth analytics, sanitize inputs.
+`Access-Control-Allow-Origin: *` მგრძნობიარე JSON-ზე და ანალიტიკის შენახვა ავტორიზაციის გარეშე იწვევს მონაცემების კითხვას სხვა დომენებიდან და გადაუმოწმებელ HTML ველებს. შეზღუდეთ CORS, დაიცავით ანალიტიკა ავტორიზაციით, გაასუფთავეთ შემავალი მონაცემები.
 
-## პრაქტიკა
+## რას ნიშნავს პრაქტიკაში
 
-Workflow first. Secrets client JS-ში არა. Human path exceptions-ზე.
+- დაიწყეთ რეალური ბიზნესის სამუშაო პროცესიდან, არა მოდელის ბრენდიდან.
+- აღწერეთ ქცევა მარტივ ენაზე, შემდეგ შეამოწმეთ ყოველი გზა, რომელიც ფულს, წვდომას ან გამავალ შეტყობინებებს ეხება.
+- დატოვეთ ადამიანის გზა არასტანდარტული შემთხვევებისთვის.
+- ნებისმიერმა endpoint-მა, რომელიც ივენთებს, email-ს ან HTML-ს აბრუნებს, უნდა იცოდეს, ვინ კითხულობს და ვინ წერს.
 
-## Dali
+## როგორ გამოიყურება კარგი
 
-Vibe prototype → production gates. [გადაწყვეტები](/ge/solutions).
+- მკაფიო მარშრუტიზაცია: სტანდარტული vs არასტანდარტული
+- ცოდნის ბაზა, რომელსაც ასისტენტი რეალურად იყენებს
+- სესიის მეხსიერება მხოლოდ იქ, სადაც ეს განზრახულია
+- საიდუმლო გასაღებები არასოდეს კლიენტის JavaScript-ში
+- ჟურნალები და გაჩერების ღილაკი
+
+## როგორ გამოიყურება ცუდი
+
+- «პრევიუში მუშაობს» რეალური ექსპლუატაციის შემოწმების გარეშე
+- ტოკენები და ვებჰუკები საჯაროდ დარჩენილი
+- ადამიანზე გადაცემა გამონაკლისებზე არ არის
+- თხელი მანქანური თარგმანი, გაყიდული როგორც ლოკალიზაცია
+
+## როგორ აკეთებს ამას Dali
+
+Dali არის AI აგენტების სისტემების სტუდია: სწრაფ AI პროტოტიპებს სერიოზულად ვუყურებთ, შემდეგ ვამყარებთ რეალურ ექსპლუატაციაში ადამიანის კონტროლის წერტილებით, ხელსაწყოებითა და მფლობელებით. დაკავშირებული: [AI აგენტები რეალურ ექსპლუატაციაში](/ge/blog/production-ai-agents-for-business), [ადამიანის კონტროლის წერტილები](/ge/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Vibe coding უსარგებლოა?
-არა. საშიშია, თუ production-ად მიიჩნევენ.
+### სწრაფი AI პროტოტიპი უსარგებლოა?
+არა. ეს სწრაფი გზაა სამუშაო ზედაპირის მისაღებად. საშიშია მხოლოდ მაშინ, როცა მას მზა საბრძოლო სისტემად მიიჩნევენ.
+
+### ყოველთვის ყველაფერს გადავწერთ?
+არა ყოველთვის. ზოგჯერ ვამყარებთ. ზოგჯერ ვიზოლირებთ და კრიტიკულ გზას თავიდან ვაშენებთ.

@@ -1,40 +1,67 @@
 ---
 slug: "ops-agent-multi-store-pattern"
-title: "Ops agents across many stores and products: a case pattern"
-description: "Lessons from large catalog/ops automation: adapters, daily product volume, logs, and human review for unsafe changes."
+title: "Ops-агенты на многих магазинах и товарах: рабочий паттерн"
+description: "Уроки автоматизации крупных каталогов: адаптеры, суточный объём товаров, логи и ручная проверка небезопасных изменений."
 date: "2026-08-01"
 locale: "ru"
 hreflangGroup: "ops-agent-multi-store-pattern"
-keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent"]
+keywords: ["operations AI agent marketplace", "multi store ops agent", "product catalog AI agent", "агент каталога товаров"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/ops-agent-multi-store-pattern/hero.jpg"
-heroAlt: "Ops agents across many stores and products: a case pattern"
+heroAlt: "Ops-агенты на многих магазинах и товарах: рабочий паттерн"
 ogImage: "/blog/ops-agent-multi-store-pattern/og.jpg"
 ---
 
 ## Прямой ответ
 
-Large ops agents succeed when they use adapters for stores/products, act on real data, and log every change. The win is fewer manual operators on repetitive product and discount work - with review on unsafe actions.
+Крупные ops-агенты работают, когда используют адаптеры под магазины и товары, действуют на реальных данных и логируют каждое изменение. Выигрыш - меньше ручных операторов на повторяемой работе с товарами и скидками, при обязательной проверке небезопасных действий.
 
-## Практика
+Один «универсальный промпт на все маркетплейсы» без адаптеров и store id быстро пишет не туда.
 
-Workflow first. Язык описания → проверка money/access/outbound. Human path для non-standard.
+## Что это значит на практике
 
-## Хорошо / плохо
+- Начинайте с реального процесса: обновление цен, остатков, описаний, скидок - не с бренда модели.
+- Опишите поведение простым языком, затем проверьте пути, где агент меняет деньги, доступ или публичные карточки.
+- Оставьте человеческий путь для нестандарта: спорная скидка, конфликт остатков, спорный SEO-текст.
 
-Хорошо: routing, knowledge base, session rules, secrets offline, logs.
-Плохо: preview = prod, публичные tokens, нет handoff.
+## Как выглядит хорошо
 
-## Dali
+- Явный store / brand / product id на каждый tool-вызов.
+- Адаптеры API: единый внутренний контракт → разные маркетплейсы.
+- Маршрутизация стандарт / нестандарт до записи.
+- Журнал: кто (агент/человек), что изменил, old → new, когда.
+- Точки ручного контроля на массовых скидках, удалении, смене цены ниже порога.
+- Стоп-кнопка и откат по журналу, где API позволяет.
 
-Студия agent-систем: от vibe-прототипа к production с gates. [Решения](/ru/solutions).
+## Как выглядит плохо
+
+- «В превью на демо-каталоге работает» без боевых объёмов.
+- Общие токены админа на все магазины без scope.
+- Нет передачи человеку при исключениях.
+- Изменения без лога: «кто-то сдвинул цену ночью».
+- Угадывание магазина из текста чата вместо явного id.
+
+## Суточный объём и нагрузка
+
+Планируйте batch-окна, очереди и лимиты API. Агент, который «обновляет всё сразу» на пике, убивает квоты и создаёт частичные апдейты. Лучше: очередь задач, идемпотентные апдейты, повтор только failed items.
+
+## Изоляция и multi-tenant
+
+Если агентство ведёт чужие магазины - см. [изоляцию клиентов](/ru/blog/multi-tenant-isolation-for-agency-agents). Чужой каталог в retrieval = инцидент доверия.
+
+## Как Dali это ведёт
+
+Dali укрепляет быстрые прототипы до систем реальной эксплуатации: адаптеры, gates, ownership. Связанное: [боевые AI-агенты](/ru/blog/production-ai-agents-for-business), [точки ручного контроля](/ru/blog/human-approval-gates-for-ai-agents).
 
 ## FAQ
 
-### Вайбкодинг бесполезен?
-Нет. Опасен, когда его принимают за готовый production.
+### Нужен ли отдельный агент на каждый магазин?
+Не обязательно отдельный runtime. Нужны отдельные credentials, store id и границы данных. Shared code + isolated config - норма.
 
-### Всегда полный rewrite?
-Нет. Часто harden critical path.
+### Что обязательно гейтить?
+Массовые скидки, удаление SKU, цена ниже минимальной маржи, публикация спорного контента, смена прав доступа.
+
+### Сборка в ИИ-чате бесполезна для ops?
+Нет - удобна для UI и чернового flow. Опасна, если без адаптеров, логов и review уходит в боевой каталог.

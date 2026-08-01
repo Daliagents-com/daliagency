@@ -1,32 +1,66 @@
 ---
 slug: "prompt-stepping-shell-then-brains"
-title: "Prompt stepping: shell first, brains second"
-description: "A reliable vibe-coding pattern: build UI shells before wiring AI logic, so each change stays reviewable."
+title: "Prompt քայլեր. նախ պատյան, հետո ուղեղ"
+description: "Հուսալի արագ AI նախատիպի օրինաչափություն. կառուցեք UI պատյանը AI տրամաբանությունը միացնելուց առաջ, որպեսզի յուրաքանչյուր փոփոխություն ստուգելի մնա."
 date: "2026-08-01"
 locale: "arm"
 hreflangGroup: "prompt-stepping-shell-then-brains"
-keywords: ["vibe coding prompt steps", "shell then brains prompting", "AI builder iterative prompts"]
+keywords: ["vibe coding prompt steps", "shell then brains", "AI builder iterative prompts", "prompt քայլեր"]
 status: "published"
 author: "Dali"
 type: "tutorial"
 heroImage: "/blog/prompt-stepping-shell-then-brains/hero.jpg"
-heroAlt: "Prompt stepping: shell first, brains second"
+heroAlt: "Prompt քայլեր. նախ պատյան, հետո ուղեղ"
 ogImage: "/blog/prompt-stepping-shell-then-brains/og.jpg"
 ---
 
 ## Ուղիղ պատասխան
 
-Ask for the shell first (button, layout, empty widget), then attach intelligence. One giant prompt creates opaque failures. Stepped prompts create checkpoints you can test.
+Նախ խնդրեք պատյանը (կոճակ, դասավորություն, դատարկ վիջեթ), հետո կցեք խելքը։ Մեկ հսկա prompt-ը ստեղծում է անթափանց ձախողումներ։ Քայլ առ քայլ prompt-ները ստեղծում են ստուգելի վերահսկման կետեր։
 
-## Պրակտիկա
+Արագ AI նախատիպը (vibe coding) արագ է։ Այն դառնում է անվերահսկելի, երբ UI, auth, վճարում և մոդելը խառնվում են մեկ «արա ամեն ինչ» հարցման մեջ։
 
-Workflow first։ Secrets-ը client JS-ում չեն։ Human path exceptions-ի համար։
+## Ի՞նչ է սա նշանակում գործնականում
 
-## Dali
+- Սկսեք իրական բիզնես աշխատանքային հոսքից, ոչ թե մոդելի բրենդից։
+- Նկարագրեք վարքը պարզ լեզվով, հետո ստուգեք յուրաքանչյուր ուղի, որն առնչվում է փողին, մուտքին կամ ելքային հաղորդագրություններին։
+- Թողեք մարդու ուղի ոչ ստանդարտ դեպքերի համար։
 
-Vibe prototype → production gates։ [Լուծումներ](/arm/solutions)։
+## Առաջարկվող քայլեր
+
+1. **Shell** - layout, նավիգացիա, դատարկ վիճակներ, կոճակներ mock տվյալներով։
+2. **Data shape** - ինչ դաշտեր են մտնում/ելնում. ձևեր իրական սխեմայով։
+3. **Server boundaries** - API երթուղիներ, auth stub, գաղտնի բանալիներ սերվերի վրա։
+4. **Intelligence** - մոդելի կանչ, retrieval, tool calling - արդեն կայուն պատյանի վրա։
+5. **Gates և logs** - մարդու վերահսկում, աուդիտ, կանգառ։
+6. **Hardening** - rate limits, webhook, թեստեր կրիտիկական ուղու վրա։
+
+## Ինչպիսին է լավը
+
+- Յուրաքանչյուր քայլից հետո կարող եք ցույց տալ էջը/flow-ը և ստուգել։
+- UI փոփոխությունը պատահաբար չի «կոտրում» մոդելի վարքը։
+- Գաղտնի բանալիներ երբեք հաճախորդի JavaScript-ում։
+- Մատյաններ և կանգառի կոճակ հայտնվում են խելքը միացնելուն պես, ոչ թե «հետո»։
+
+## Ինչպիսին է վատը
+
+- Մեկ prompt. «կառուցիր SaaS վճարումներով և չաթբոտով»։
+- «Պրևյուում աշխատում է» առանց իրական շահագործման ստուգումների։
+- Թոքեններ և webhook հանրային։
+- Բացառությունների դեպքում մարդուն փոխանցում չկա։
+- Բարակ մեքենայական էջեր որպես «տեղայնացում»։
+
+## Ինչպես է վարում Dali-ն
+
+Dali-ն լուրջ է վերաբերվում արագ AI նախատիպերին, հետո ամրացնում է իրական շահագործման համակարգերի։ Կապված. [մարտական AI գործակալներ](/arm/blog/production-ai-agents-for-business), [մարդու վերահսկման կետեր](/arm/blog/human-approval-gates-for-ai-agents)։
 
 ## FAQ
 
-### Vibe coding-ն անօգտակա՞ր է։
-Ոչ։ Վտանգավոր է, եթե համարում են ավարտված production։
+### Արագ AI նախատիպն անպե՞տք է։
+Ոչ։ Դա արագ ճանապարհ է աշխատանքային մակերեսի համար։ Վտանգավոր է միայն երբ այն ընդունում են որպես պատրաստ իրական շահագործում։
+
+### Ամեն ինչ վերագրմո՞ւմ եք։
+Ոչ միշտ։ Երբեմն ամրացնում ենք։ Երբեմն մեկուսացնում և վերակառուցում ենք կրիտիկական ուղին։
+
+### Ինչո՞ւ ոչ «մեկ prompt-ում ամեն ինչ»։
+Որովհետև ձախողումն անթափանց է. չգիտեք՝ UI-ն է կոտրվել, API-ն, թե մոդելի հրահանգը։ Քայլերը տալիս են ախտորոշում։
