@@ -16,6 +16,7 @@ RootLayout
 │   │       ├── Header (Framer blur/fade)
 │   │       └── Card (Framer scale/y + entrance)
 │   │           └── HeroProductMock  light multi-page tour (Agents→Home→Pipeline→Inbox)
+│   │               └── Agents: HeroAgentsOrgFlow (@xyflow real nodes + edges)
 │   ├── Projects #projects
 │   │   └── ProjectShowcase
 │   ├── AgentSolutions #agent-solutions
@@ -25,7 +26,7 @@ RootLayout
 │   │   ├── Framer clip-path curtain (enter/exit)
 │   │   ├── CSS enter (data-entered)
 │   │   └── Framer mock loops (createMockPlayer)
-│   └── About #about          light
+│   └── About #about          light (team + GEO builds, #what-dali-builds)
 └── Footer
 ```
 
@@ -50,6 +51,7 @@ Do not reintroduce `gsap` under `src/Components/Home` or on the homepage render 
 |---------|--------|--------|
 | Hero scroll track / mock / title | Framer `useScroll` | `ui/container-scroll-animation.tsx` |
 | Hero product mock page tour | Framer + IO (`useLiveStage`-style beats) | `HeroProductMock.tsx` + `.module.css` |
+| Hero agents org graph | `@xyflow/react` nodes/edges + handoff timeline | `HeroAgentsOrgFlow.tsx` + mock CSS `.rf*` |
 | Logo hand-draw | rAF frame replay (`daliReplay.json`) | `DaliAnimation.tsx` |
 | Logo flight hero → nav | rAF + DOM styles; progress from Framer | `FlyingBrandLogo.tsx` |
 | Shared timing constants | constants only | `heroEntrance.ts` |

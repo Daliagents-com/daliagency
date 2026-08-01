@@ -1,23 +1,28 @@
 // Purpose: Animated light Dali Agents product mock for homepage hero.
-// Scope: Replaces static PNG. Attio shell + Paperclip org idea. Framer only.
+// Scope: Product shell tour. Agents view = real @xyflow org (HeroAgentsOrgFlow).
 "use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MockAvatar } from "@/Components/ui/MockAvatar";
+import HeroAgentsOrgFlow, {
+  AGENTS_VIEW_MS,
+} from "@/Components/Home/HeroAgentsOrgFlow";
 import styles from "./HeroProductMock.module.css";
 
 type ViewId = "agents" | "home" | "pipeline" | "inbox";
 
 /** Story order: who → how you command → human-in-loop outcome → CRM moves. */
 const TOUR: readonly ViewId[] = ["agents", "home", "inbox", "pipeline"];
-/** Hold each product page long enough to read the micro-story. Home needs more for chat stream. */
+/**
+ * Tab dwell times. Agents is owned by AGENTS_VIEW_MS (one handoff cycle + settle).
+ * Other views: long enough to read, shorter so the loop returns to the graph.
+ */
 const VIEW_MS: Record<ViewId, number> = {
-  /** Handoff chain (~6.5s) with Framer Motion phases. */
-  agents: 7200,
-  home: 8200,
-  inbox: 5800,
-  pipeline: 5600,
+  agents: AGENTS_VIEW_MS,
+  home: 7400,
+  inbox: 5200,
+  pipeline: 5000,
 };
 
 type NavIconName =
@@ -245,670 +250,6 @@ function NavIcon({ name }: { name: NavIconName }) {
   }
 }
 
-type AgentId = "orch" | "lead" | "know" | "inbox" | "voice" | "ops";
-type AgentPhase = "idle" | "receive" | "work" | "pass" | "done";
-
-/**
- * Linear handoff chain (command baton):
- * Orchestrator → Lead → Knowledge → Inbox → Voice → Ops
- *
- * Each agent (except orch start / ops end):
- *   receive (accept glow) → work → pass (send to next)
- * Orch starts at work; Ops ends at work (no pass).
- */
-const HANDOFF_CHAIN: readonly {
-  id: AgentId;
-  name: string;
-  seed: string;
-  role: string;
-  crown?: boolean;
-  workTask: string;
-  passTask: string;
-  receiveTask: string;
-  bannerWork: string;
-  bannerPass: string;
-  bannerReceive: string;
-  feed: { t: string; agent: string; text: string };
-  /** Which connector lights during pass from this agent */
-  passLink: "mid" | "bottom" | null;
-  /** Horizontal target on the branch bar while packet travels */
-  passToSlot: "center" | "left" | "right" | null;
-}[] = [
-  {
-    id: "orch",
-    name: "Orchestrator",
-    seed: "Orchestrator",
-    role: "Route · assign · review",
-    crown: true,
-    workTask: "Routing GreenLeaf…",
-    passTask: "Sending → Lead",
-    receiveTask: "",
-    bannerWork: "Orchestrator opens the GreenLeaf run",
-    bannerPass: "Command → Lead Response",
-    bannerReceive: "",
-    feed: { t: "now", agent: "Orch", text: "Routed GreenLeaf → Lead" },
-    passLink: "mid",
-    passToSlot: "left",
-  },
-  {
-    id: "lead",
-    name: "Lead Response",
-    seed: "Lead Response",
-    role: "Qualify · draft · book",
-    workTask: "Scoring ICP · HubSpot",
-    passTask: "Requesting cite → Knowledge",
-    receiveTask: "Accepted from Orchestrator",
-    bannerWork: "Lead Response qualifies the deal",
-    bannerPass: "Lead → Knowledge",
-    bannerReceive: "Lead Response accepts the command",
-    feed: { t: "1m", agent: "Lead", text: "Qualified · score 92" },
-    passLink: "bottom",
-    passToSlot: "left",
-  },
-  {
-    id: "know",
-    name: "Knowledge",
-    seed: "Knowledge Agent",
-    role: "SOPs · cite",
-    workTask: "Citing annual pricing SOP",
-    passTask: "Cite ready → Inbox",
-    receiveTask: "Accepted from Lead",
-    bannerWork: "Knowledge cites pricing SOP",
-    bannerPass: "Knowledge → Inbox",
-    bannerReceive: "Knowledge accepts the request",
-    feed: { t: "2m", agent: "Know", text: "Cited annual pricing SOP" },
-    passLink: "mid",
-    passToSlot: "center",
-  },
-  {
-    id: "inbox",
-    name: "Client Inbox",
-    seed: "Client Inbox",
-    role: "Replies · handoff",
-    workTask: "Drafting Annie reply",
-    passTask: "Draft ready → Voice",
-    receiveTask: "Accepted from Knowledge",
-    bannerWork: "Inbox drafts the client reply",
-    bannerPass: "Inbox → Voice",
-    bannerReceive: "Inbox accepts the handoff",
-    feed: { t: "3m", agent: "Inbox", text: "Draft ready for Annie Zhang" },
-    passLink: "mid",
-    passToSlot: "right",
-  },
-  {
-    id: "voice",
-    name: "Voice",
-    seed: "Voice Agent",
-    role: "Calls · slots",
-    workTask: "Holding 2 demo slots",
-    passTask: "Slots held → Operations",
-    receiveTask: "Accepted from Inbox",
-    bannerWork: "Voice holds demo slots",
-    bannerPass: "Voice → Operations",
-    bannerReceive: "Voice accepts the handoff",
-    feed: { t: "5m", agent: "Voice", text: "2 demo slots held this week" },
-    passLink: "bottom",
-    passToSlot: "right",
-  },
-  {
-    id: "ops",
-    name: "Operations",
-    seed: "Operations Agent",
-    role: "Docs · fields",
-    workTask: "Syncing HubSpot fields",
-    passTask: "",
-    receiveTask: "Accepted from Voice",
-    bannerWork: "Operations syncs CRM · run complete",
-    bannerPass: "",
-    bannerReceive: "Operations accepts the handoff",
-    feed: { t: "7m", agent: "Ops", text: "Synced CRM fields · HubSpot" },
-    passLink: null,
-    passToSlot: null,
-  },
-] as const;
-
-/** Timeline: receive → work → pass (ms). Snappy with Framer Motion. */
-const PHASE_MS = {
-  receive: 280,
-  work: 520,
-  pass: 340,
-} as const;
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
-const SPRING_SNAP = { type: "spring" as const, stiffness: 480, damping: 34, mass: 0.55 };
-
-/** Build flat timeline beats for the whole chain. */
-function buildHandoffTimeline() {
-  const beats: {
-    focus: AgentId;
-    phase: AgentPhase;
-    banner: string;
-    /** phase label on the focused card */
-    focusTask: string;
-    /** completed agents keep a short done line */
-    doneTasks: Partial<Record<AgentId, string>>;
-    live: AgentId[];
-    feedCount: number;
-    /** packet travels on this link during pass */
-    packetLink: "mid" | "bottom" | null;
-    packetSlot: "center" | "left" | "right" | null;
-    runs: number;
-    review: number;
-  }[] = [];
-
-  const doneTasks: Partial<Record<AgentId, string>> = {};
-
-  HANDOFF_CHAIN.forEach((agent, index) => {
-    const live = HANDOFF_CHAIN.slice(0, index + 1).map((a) => a.id);
-    // Feed only grows after work completes (not on receive).
-    const feedBefore = index;
-    const feedAfter = index + 1;
-    const runs = 8 + index;
-    const review = Math.max(2, 6 - Math.floor(index / 2));
-
-    if (index > 0) {
-      beats.push({
-        focus: agent.id,
-        phase: "receive",
-        banner: agent.bannerReceive,
-        focusTask: agent.receiveTask,
-        doneTasks: { ...doneTasks },
-        live,
-        feedCount: feedBefore,
-        packetLink: null,
-        packetSlot: null,
-        runs,
-        review,
-      });
-    }
-
-    beats.push({
-      focus: agent.id,
-      phase: "work",
-      banner: agent.bannerWork,
-      focusTask: agent.workTask,
-      doneTasks: { ...doneTasks },
-      live,
-      feedCount: feedAfter,
-      packetLink: null,
-      packetSlot: null,
-      runs: runs + (index > 0 ? 0 : 1),
-      review,
-    });
-
-    // Mark work result for completed agents
-    const resultLine =
-      agent.id === "orch"
-        ? "Run open · watching"
-        : agent.id === "lead"
-          ? "Qualified · score 92"
-          : agent.id === "know"
-            ? "SOP cited"
-            : agent.id === "inbox"
-              ? "Draft ready"
-              : agent.id === "voice"
-                ? "Slots held"
-                : "Synced · done";
-    doneTasks[agent.id] = resultLine;
-
-    if (agent.passLink && index < HANDOFF_CHAIN.length - 1) {
-      beats.push({
-        focus: agent.id,
-        phase: "pass",
-        banner: agent.bannerPass,
-        focusTask: agent.passTask,
-        doneTasks: { ...doneTasks },
-        live,
-        feedCount: feedAfter,
-        packetLink: agent.passLink,
-        packetSlot: agent.passToSlot,
-        runs: runs + 1,
-        review: Math.max(2, review - 1),
-      });
-    }
-  });
-
-  return beats;
-}
-
-const HANDOFF_TIMELINE = buildHandoffTimeline();
-
-const ORG_ACTIVITY = HANDOFF_CHAIN.map((a) => ({
-  ...a.feed,
-  agentId: a.id,
-}));
-
-function phaseOf(
-  id: AgentId,
-  beat: (typeof HANDOFF_TIMELINE)[number],
-): AgentPhase {
-  if (beat.focus === id) return beat.phase;
-  if (beat.live.includes(id)) return "done";
-  return "idle";
-}
-
-function taskFor(
-  id: AgentId,
-  beat: (typeof HANDOFF_TIMELINE)[number],
-): string | undefined {
-  if (beat.focus === id) return beat.focusTask;
-  return beat.doneTasks[id];
-}
-
-const cardVariants = {
-  idle: {
-    scale: 1,
-    y: 0,
-    borderColor: "rgba(17, 19, 18, 0.1)",
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    boxShadow: "0 1px 0 rgba(17, 24, 39, 0.03), 0 8px 18px rgba(17, 24, 39, 0.04)",
-  },
-  receive: {
-    scale: 1.035,
-    y: -1,
-    borderColor: "rgba(11, 159, 110, 0.55)",
-    backgroundColor: "rgba(236, 253, 245, 0.98)",
-    boxShadow:
-      "0 0 0 3px rgba(11, 159, 110, 0.16), 0 10px 22px rgba(11, 159, 110, 0.12)",
-  },
-  work: {
-    scale: 1.02,
-    y: -1,
-    borderColor: "rgba(30, 58, 138, 0.5)",
-    backgroundColor: "rgba(243, 245, 255, 1)",
-    boxShadow:
-      "0 0 0 2px rgba(30, 58, 138, 0.1), 0 10px 20px rgba(30, 58, 138, 0.1)",
-  },
-  pass: {
-    scale: 1.01,
-    y: 0,
-    borderColor: "rgba(30, 58, 138, 0.4)",
-    backgroundColor: "rgba(248, 249, 255, 1)",
-    boxShadow:
-      "0 0 0 2px rgba(30, 58, 138, 0.08), 0 0 16px rgba(30, 58, 138, 0.12)",
-  },
-  done: {
-    scale: 1,
-    y: 0,
-    borderColor: "rgba(11, 159, 110, 0.22)",
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    boxShadow: "0 0 0 1px rgba(11, 159, 110, 0.08), 0 6px 14px rgba(17, 24, 39, 0.03)",
-  },
-} as const;
-
-/** Final x as % (same unit type as start "-50%") so Framer keyframes stay consistent. */
-const SLOT_X: Record<"left" | "center" | "right", string> = {
-  left: "-88%",
-  center: "-50%",
-  right: "-12%",
-};
-
-function AgentCard({
-  seed,
-  name,
-  role,
-  phase,
-  crown,
-  task,
-}: {
-  seed: string;
-  name: string;
-  role: string;
-  phase: AgentPhase;
-  crown?: boolean;
-  task?: string;
-}) {
-  const reduce = useReducedMotion();
-  const status =
-    phase === "receive"
-      ? "Accepted"
-      : phase === "work"
-        ? "Working"
-        : phase === "pass"
-          ? "Passing"
-          : phase === "done"
-            ? "Done"
-            : "Idle";
-
-  return (
-    <motion.div
-      className={styles.agentCard}
-      data-phase={phase}
-      initial={false}
-      animate={reduce ? "idle" : phase}
-      variants={cardVariants}
-      transition={
-        reduce
-          ? { duration: 0 }
-          : phase === "receive"
-            ? { ...SPRING_SNAP, stiffness: 560 }
-            : SPRING_SNAP
-      }
-    >
-      <AnimatePresence>
-        {phase === "receive" && !reduce ? (
-          <motion.span
-            key="flash"
-            className={styles.agentAcceptFlash}
-            aria-hidden
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: [0, 1, 0], scale: [0.92, 1, 1.06] }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.32, ease: EASE_OUT, times: [0, 0.35, 1] }}
-          />
-        ) : null}
-      </AnimatePresence>
-
-      <div className={styles.agentTop}>
-        <MockAvatar
-          seed={seed}
-          alt={name}
-          className={`${styles.agentAvatar} ${crown ? styles.agentAvatarCrown : ""} ${
-            phase === "work" || phase === "receive" || phase === "pass"
-              ? styles.agentAvatarActive
-              : ""
-          }`}
-          size={18}
-        />
-        <span className={styles.agentName}>{name}</span>
-      </div>
-      <span className={styles.agentRole}>{role}</span>
-      <span className={styles.agentTask} data-empty={task ? "false" : "true"}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={task || "empty"}
-            initial={reduce ? false : { opacity: 0, y: 3 }}
-            animate={{ opacity: task ? 1 : 0, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -2 }}
-            transition={{ duration: 0.18, ease: EASE_OUT }}
-            className={styles.agentTaskInner}
-          >
-            {task || "\u00a0"}
-          </motion.span>
-        </AnimatePresence>
-      </span>
-      <span
-        className={`${styles.agentStatus} ${
-          phase === "idle" ? "" : styles.agentStatusLive
-        } ${
-          phase === "work" || phase === "receive" || phase === "pass"
-            ? styles.agentStatusActive
-            : ""
-        }`}
-      >
-        <motion.span
-          className={styles.agentStatusDot}
-          animate={
-            reduce || phase === "idle"
-              ? { scale: 1, opacity: 0.55 }
-              : phase === "receive"
-                ? { scale: [0.7, 1.35, 1], opacity: [0.4, 1, 1] }
-                : { scale: [1, 0.85, 1], opacity: [1, 0.5, 1] }
-          }
-          transition={
-            phase === "receive"
-              ? { duration: 0.28, ease: EASE_OUT }
-              : phase === "idle"
-                ? { duration: 0.2 }
-                : { duration: 0.9, repeat: Infinity, ease: "easeInOut" }
-          }
-        />
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={status}
-            initial={reduce ? false : { opacity: 0, y: 2 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.14 }}
-          >
-            {status}
-          </motion.span>
-        </AnimatePresence>
-      </span>
-    </motion.div>
-  );
-}
-
-function HandoffPacket({
-  slot,
-  beatKey,
-}: {
-  slot: "left" | "center" | "right";
-  beatKey: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return null;
-
-  // Every keyframed property must use the same value type and array length.
-  // (Mixing "%" with "calc(...)" or 3 vs 4 frames throws: "All keyframes must be of the same type")
-  const endX = SLOT_X[slot];
-
-  return (
-    <motion.span
-      key={beatKey}
-      className={styles.orgPacket}
-      initial={{ top: "0%", x: "-50%", opacity: 0, scale: 0.55 }}
-      animate={{
-        top: ["0%", "42%", "82%", "88%"],
-        x: ["-50%", "-50%", endX, endX],
-        opacity: [0, 1, 1, 0],
-        scale: [0.55, 1.05, 1, 0.75],
-      }}
-      transition={{
-        duration: 0.32,
-        times: [0, 0.18, 0.72, 1],
-        ease: "easeInOut",
-      }}
-    />
-  );
-}
-
-function AgentsView() {
-  const reduce = useReducedMotion();
-  const [beatIndex, setBeatIndex] = useState(0);
-
-  useEffect(() => {
-    if (reduce) {
-      setBeatIndex(HANDOFF_TIMELINE.length - 1);
-      return;
-    }
-
-    setBeatIndex(0);
-    let i = 0;
-    let timer = 0;
-
-    const schedule = () => {
-      const beat = HANDOFF_TIMELINE[i];
-      const ms =
-        beat.phase === "receive"
-          ? PHASE_MS.receive
-          : beat.phase === "pass"
-            ? PHASE_MS.pass
-            : PHASE_MS.work;
-      timer = window.setTimeout(() => {
-        i = (i + 1) % HANDOFF_TIMELINE.length;
-        setBeatIndex(i);
-        schedule();
-      }, ms);
-    };
-
-    schedule();
-    return () => window.clearTimeout(timer);
-  }, [reduce]);
-
-  const beat = HANDOFF_TIMELINE[beatIndex] ?? HANDOFF_TIMELINE[0];
-  const liveAgents = beat.live.length;
-  const visibleActivity = Math.min(ORG_ACTIVITY.length, beat.feedCount);
-
-  const card = (id: AgentId) => {
-    const meta = HANDOFF_CHAIN.find((a) => a.id === id)!;
-    return (
-      <AgentCard
-        seed={meta.seed}
-        name={meta.name}
-        role={meta.role}
-        crown={meta.crown}
-        phase={phaseOf(id, beat)}
-        task={taskFor(id, beat)}
-      />
-    );
-  };
-
-  const midPacket = beat.packetLink === "mid";
-  const bottomPacket = beat.packetLink === "bottom";
-  const midOn =
-    beat.live.includes("lead") ||
-    beat.live.includes("inbox") ||
-    beat.live.includes("voice");
-  const bottomOn = beat.live.includes("know") || beat.live.includes("ops");
-
-  return (
-    <div
-      className={styles.orgCanvas}
-      data-org-phase={beat.phase}
-      data-org-focus={beat.focus}
-    >
-      <div className={styles.orgStats}>
-        <div className={`${styles.orgStat} ${styles.orgStatHot}`}>
-          <motion.strong
-            key={liveAgents}
-            initial={reduce ? false : { opacity: 0.4, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: EASE_OUT }}
-          >
-            {liveAgents}
-          </motion.strong>
-          <span>live agents</span>
-        </div>
-        <div className={styles.orgStat}>
-          <motion.strong
-            key={`runs-${beat.runs}`}
-            initial={reduce ? false : { opacity: 0.4, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: EASE_OUT }}
-          >
-            {beat.runs}
-          </motion.strong>
-          <span>open runs</span>
-        </div>
-        <div className={styles.orgStat}>
-          <strong>{beat.review}</strong>
-          <span>need review</span>
-        </div>
-        <div className={styles.orgStat}>
-          <strong>6</strong>
-          <span>integrations</span>
-        </div>
-      </div>
-
-      <div className={styles.orgBanner}>
-        <i className={styles.orgBannerDot} data-phase={beat.phase} />
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={beat.banner}
-            className={styles.orgBannerText}
-            initial={reduce ? false : { opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -3 }}
-            transition={{ duration: 0.18, ease: EASE_OUT }}
-          >
-            {beat.banner}
-          </motion.span>
-        </AnimatePresence>
-      </div>
-
-      <div className={styles.orgBody}>
-        <div className={styles.orgTree}>
-          <div className={`${styles.orgRow} ${styles.orgRowTop}`}>{card("orch")}</div>
-
-          <div
-            className={`${styles.orgConnector} ${midPacket ? styles.orgConnectorHot : ""}`}
-            data-active={midOn || midPacket ? "true" : "false"}
-            data-packet={midPacket ? "true" : "false"}
-          >
-            <span className={styles.orgConnectorRail} />
-            <span
-              className={`${styles.orgConnectorBar} ${
-                midOn ? styles.orgConnectorBarOn : ""
-              }`}
-            />
-            {midPacket ? (
-              <HandoffPacket
-                beatKey={beatIndex}
-                slot={beat.packetSlot ?? "center"}
-              />
-            ) : null}
-          </div>
-
-          <div className={`${styles.orgRow} ${styles.orgRowMid}`}>
-            {card("lead")}
-            {card("inbox")}
-            {card("voice")}
-          </div>
-
-          <div
-            className={`${styles.orgConnector} ${styles.orgConnectorShort} ${
-              bottomPacket ? styles.orgConnectorHot : ""
-            }`}
-            data-active={bottomOn || bottomPacket ? "true" : "false"}
-            data-packet={bottomPacket ? "true" : "false"}
-          >
-            <span className={styles.orgConnectorRail} />
-            <span
-              className={`${styles.orgConnectorBar} ${styles.orgConnectorBarNarrow} ${
-                bottomOn ? styles.orgConnectorBarOn : ""
-              }`}
-            />
-            {bottomPacket ? (
-              <HandoffPacket
-                beatKey={beatIndex}
-                slot={beat.packetSlot ?? "center"}
-              />
-            ) : null}
-          </div>
-
-          <div className={`${styles.orgRow} ${styles.orgRowBottom}`}>
-            {card("know")}
-            {card("ops")}
-          </div>
-        </div>
-
-        <aside className={styles.orgFeed}>
-          <div className={styles.orgFeedTitle}>Live activity</div>
-          <div className={styles.orgFeedList}>
-            <AnimatePresence initial={false}>
-              {ORG_ACTIVITY.slice(0, visibleActivity).map((row) => {
-                const hot = row.agentId === beat.focus;
-                return (
-                  <motion.div
-                    key={`${row.t}-${row.text}`}
-                    className={`${styles.orgFeedRow} ${hot ? styles.orgFeedRowHot : ""}`}
-                    initial={reduce ? false : { opacity: 0, y: 6, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={reduce ? undefined : { opacity: 0, y: -4 }}
-                    transition={{ duration: 0.22, ease: EASE_OUT }}
-                    layout={!reduce}
-                  >
-                    <span className={styles.orgFeedTime}>{row.t}</span>
-                    <div className={styles.orgFeedBody}>
-                      <span className={styles.orgFeedAgent}>{row.agent}</span>
-                      <span className={styles.orgFeedText}>{row.text}</span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-        </aside>
-      </div>
-    </div>
-  );
-}
-
-/**
- * Mission chat timeline (ms from view mount) - feels like a real assistant,
- * not a staged dump of full cards.
- */
 const CHAT_T = {
   typeStart: 180,
   typeEnd: 1600,
@@ -993,7 +334,13 @@ function HomeView({ live }: { live: boolean }) {
         {thinking ? (
           <div className={styles.thinkingRow}>
             <span className={styles.thinkingAvatar} aria-hidden="true">
-              <MockAvatar seed="Dali Agent" size={18} />
+              <img
+                src="/favicon.svg"
+                alt=""
+                width={18}
+                height={18}
+                draggable={false}
+              />
             </span>
             <div className={styles.thinkingCard}>
               <span className={styles.thinkingLabel}>Thinking</span>
@@ -1035,7 +382,15 @@ function HomeView({ live }: { live: boolean }) {
             transition={{ duration: 0.25 }}
           >
             <div className={styles.agentReplyHead}>
-              <MockAvatar seed="Dali Agent" className={styles.agentReplyAvatar} size={18} />
+              <span className={styles.agentReplyAvatar} aria-hidden="true">
+                <img
+                  src="/favicon.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                  draggable={false}
+                />
+              </span>
               <div>
                 <strong>Dali</strong>
                 <small>Orchestrator · Auto</small>
@@ -1532,13 +887,31 @@ export default function HeroProductMock() {
           <i />
           <i />
         </span>
-        <span className={styles.chromeTitle}>Dali Agents · GreenLeaf mission</span>
+        <span className={styles.chromeTitle}>
+          <img
+            className={styles.chromeFavicon}
+            src="/favicon.svg"
+            alt=""
+            width={12}
+            height={12}
+            draggable={false}
+          />
+          Dali Agents · GreenLeaf mission
+        </span>
       </div>
 
       <div className={styles.app}>
         <aside className={styles.sidebar}>
           <div className={styles.workspace}>
-            <span className={styles.workspaceMark}>D</span>
+            <span className={styles.workspaceMark}>
+              <img
+                src="/favicon.svg"
+                alt=""
+                width={16}
+                height={16}
+                draggable={false}
+              />
+            </span>
             <span className={styles.workspaceName}>Dali Agents</span>
             <span className={styles.workspaceChevron} aria-hidden="true">
               ▾
@@ -1622,12 +995,12 @@ export default function HeroProductMock() {
               <motion.div
                 key={view}
                 className={styles.view}
-                initial={reduce ? false : { opacity: 0, y: 8 }}
+                initial={reduce ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -6 }}
-                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                exit={reduce ? undefined : { opacity: 0, y: -8 }}
+                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
               >
-                {view === "agents" ? <AgentsView /> : null}
+                {view === "agents" ? <HeroAgentsOrgFlow /> : null}
                 {view === "home" ? <HomeView live={chatLive} /> : null}
                 {view === "pipeline" ? <PipelineView beat={beat} /> : null}
                 {view === "inbox" ? <InboxView beat={beat} /> : null}
