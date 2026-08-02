@@ -37,12 +37,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/internal/", "/api/"],
+        disallow: ["/api/"],
       },
       ...namedBots.map((userAgent) => ({
         userAgent,
         allow: "/",
-        disallow: ["/internal/", "/api/"],
+        disallow: ["/api/"],
       })),
     ],
     sitemap: absoluteUrl("/sitemap.xml"),

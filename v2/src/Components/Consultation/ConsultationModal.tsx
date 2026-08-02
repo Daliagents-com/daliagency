@@ -27,7 +27,12 @@ const INTERESTS: ConsultationInterest[] = [
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function ConsultationModal() {
-  const { isOpen, source, closeConsultation } = useConsultation();
+  const {
+    isOpen,
+    source,
+    interest: prefillInterest,
+    closeConsultation,
+  } = useConsultation();
   const pathname = usePathname() ?? "/";
   const locale = localeFromPathname(pathname);
   const copy = consultationCopy[locale];
@@ -50,6 +55,7 @@ export default function ConsultationModal() {
     if (!isOpen) return;
     setStatus("idle");
     setError("");
+    if (prefillInterest) setInterest(prefillInterest);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
@@ -60,7 +66,7 @@ export default function ConsultationModal() {
       document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
-  }, [isOpen, closeConsultation]);
+  }, [isOpen, prefillInterest, closeConsultation]);
 
   const resetAndClose = () => {
     closeConsultation();
@@ -109,20 +115,20 @@ export default function ConsultationModal() {
         setError(data.error || copy.error);
         trackClientEvent(
           AnalyticsEvent.ConsultationError,
-          { interest, stage: "response" },
-          { source, locale },
+          { interest, stage: "response", locale },
+          { source },
         );
         return;
       }
       setStatus("success");
-      // Server already records consultation_submit; client only tracks UX success path noise-free.
+      // Server records consultation_submit in PostHog.
     } catch {
       setStatus("error");
       setError(copy.error);
       trackClientEvent(
         AnalyticsEvent.ConsultationError,
-        { interest, stage: "network" },
-        { source, locale },
+        { interest, stage: "network", locale },
+        { source },
       );
     }
   };

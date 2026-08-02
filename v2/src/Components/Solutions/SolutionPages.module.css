@@ -259,6 +259,7 @@
   border-color: var(--solution-accent);
   background: var(--solution-accent);
   color: #fff;
+  cursor: pointer;
 }
 
 .secondaryCta,

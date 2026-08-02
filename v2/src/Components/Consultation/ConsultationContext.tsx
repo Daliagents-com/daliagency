@@ -12,11 +12,16 @@ import {
 } from "react";
 import { AnalyticsEvent } from "@/lib/analytics/events";
 import { trackClientEvent } from "@/lib/analytics/trackClient";
+import {
+  isConsultationInterest,
+  type ConsultationInterest,
+} from "@/lib/consultation";
 
 type ConsultationContextValue = {
   isOpen: boolean;
   source: string;
-  openConsultation: (source?: string) => void;
+  interest: ConsultationInterest | null;
+  openConsultation: (source?: string, interest?: ConsultationInterest) => void;
   closeConsultation: () => void;
 };
 
@@ -27,23 +32,39 @@ const ConsultationContext = createContext<ConsultationContextValue | null>(
 export function ConsultationProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [source, setSource] = useState("site");
+  const [interest, setInterest] = useState<ConsultationInterest | null>(null);
 
-  const openConsultation = useCallback((nextSource = "site") => {
-    setSource(nextSource);
-    setIsOpen((wasOpen) => {
-      // Track only the transition closed -> open (avoid hash + CTA double fire).
-      if (!wasOpen) {
-        trackClientEvent(AnalyticsEvent.ConsultationOpen, {
-          source: nextSource,
-        }, { source: nextSource });
-      }
-      return true;
-    });
-  }, []);
+  const openConsultation = useCallback(
+    (nextSource = "site", nextInterest?: ConsultationInterest) => {
+      setSource(nextSource);
+      setInterest(nextInterest ?? null);
+      setIsOpen((wasOpen) => {
+        // Track only the transition closed -> open (avoid hash + CTA double fire).
+        if (!wasOpen) {
+          trackClientEvent(
+            AnalyticsEvent.ConsultationOpen,
+            { source: nextSource },
+            { source: nextSource },
+          );
+        }
+        return true;
+      });
+    },
+    [],
+  );
 
   const closeConsultation = useCallback(() => {
     setIsOpen(false);
   }, []);
+
+  // Session replay is disabled at posthog.init (cost + INP on cheap devices);
+  // record only high-intent sessions, starting when the modal first opens.
+  useEffect(() => {
+    if (!isOpen) return;
+    void import("posthog-js")
+      .then(({ default: posthog }) => posthog.startSessionRecording())
+      .catch(() => {});
+  }, [isOpen]);
 
   // Deep-link support: /#consultation or /#book
   useEffect(() => {
@@ -61,16 +82,22 @@ export function ConsultationProvider({ children }: { children: ReactNode }) {
   // Global custom event for non-React links
   useEffect(() => {
     const onOpen = (event: Event) => {
-      const detail = (event as CustomEvent<{ source?: string }>).detail;
-      openConsultation(detail?.source ?? "event");
+      const detail = (
+        event as CustomEvent<{ source?: string; interest?: string }>
+      ).detail;
+      const eventInterest =
+        detail?.interest && isConsultationInterest(detail.interest)
+          ? detail.interest
+          : undefined;
+      openConsultation(detail?.source ?? "event", eventInterest);
     };
     window.addEventListener("dali:open-consultation", onOpen);
     return () => window.removeEventListener("dali:open-consultation", onOpen);
   }, [openConsultation]);
 
   const value = useMemo(
-    () => ({ isOpen, source, openConsultation, closeConsultation }),
-    [isOpen, source, openConsultation, closeConsultation],
+    () => ({ isOpen, source, interest, openConsultation, closeConsultation }),
+    [isOpen, source, interest, openConsultation, closeConsultation],
   );
 
   return (

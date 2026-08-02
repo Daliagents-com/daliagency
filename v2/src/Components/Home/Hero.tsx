@@ -39,6 +39,10 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
         {copy.lead}
       </p>
 
+      <p className="mx-auto max-w-[34rem] text-body5 text-[var(--muted)]">
+        {copy.icp}
+      </p>
+
       <div className="flex flex-wrap items-center justify-center gap-12">
         <ConsultationTrigger
           source="hero-consultation"
@@ -47,12 +51,16 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
           {navigationCopy.startAudit}
         </ConsultationTrigger>
         <a
-          href="#projects"
+          href={localizePath("/solutions", locale)}
           className="inline-flex items-center justify-center rounded-8 border border-black/15 bg-[var(--page-bg-color)] px-20 py-12 text-body5 uppercase transition-colors hover:bg-black hover:text-white"
         >
-          {navigationCopy.home[0]}
+          {copy.secondaryCta}
         </a>
       </div>
+
+      <p className="mx-auto max-w-[34rem] text-body6 uppercase tracking-[0.06em] text-[var(--muted)]">
+        {copy.promise}
+      </p>
     </div>
   );
 

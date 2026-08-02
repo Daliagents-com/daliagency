@@ -22,6 +22,10 @@ function shouldEnableShader(): boolean {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return false;
   }
+  // Perf: no WebGL shader on mobile widths (matches Tailwind md=768).
+  if (window.matchMedia("(max-width: 767px)").matches) {
+    return false;
+  }
   const connection = (
     navigator as Navigator & {
       connection?: { saveData?: boolean };
@@ -108,10 +112,15 @@ export function PaperDesignBackground({
 
   useEffect(() => {
     setShaderOn(shouldEnableShader());
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const widthMq = window.matchMedia("(max-width: 767px)");
     const onChange = () => setShaderOn(shouldEnableShader());
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
+    motionMq.addEventListener("change", onChange);
+    widthMq.addEventListener("change", onChange);
+    return () => {
+      motionMq.removeEventListener("change", onChange);
+      widthMq.removeEventListener("change", onChange);
+    };
   }, []);
 
   useEffect(() => {

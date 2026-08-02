@@ -2,7 +2,7 @@
 slug: "ai-agent-agency-vs-in-house"
 title: "AI agent agency vs building in-house: how to choose"
 description: "A practical decision framework for production AI agents: when an agency wins, when in-house wins, and the failure modes of each path."
-date: "2026-07-31"
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "ai-agent-agency-vs-in-house"
 keywords: [AI agent agency, build AI agents in-house, production AI agents, AI automation agency]
@@ -29,6 +29,30 @@ Most teams fail between those poles: they hire a freelancer for a demo chatbot, 
 | Control and approvals | Good when gates are designed up front | Best when security owns the stack |
 | Cost shape | Project + optional retainers | Salaries + infra + management load |
 | Differentiation | Best for ops leverage, not unique IP | Best when agents *are* the product |
+| Hiring reality | No agent-eng hiring needed | Senior agent engineers are scarce and contested |
+| LLM cost ownership | Vendor estimates, you hold the keys | You own budgets, caps, and optimization |
+| Evals and regression | Should ship with the pilot | You must build the discipline yourself |
+| Incident response | Defined in the retainer, or absent | Your on-call rotation, your pager |
+
+## What each path really costs
+
+The honest comparison is total first-year cost, not the pilot invoice against a salary line.
+
+**Agency path:** project fees plus an optional retainer plus LLM usage. Typical market ranges: audits around $2,000-15,000, single-workflow pilots $10,000-50,000, ops retainers $1,500-10,000 per month. These are typical market ranges, not Dali quotes.
+
+**In-house path:** salaries plus management time plus infrastructure plus LLM usage plus on-call. A minimal credible team is one senior engineer with real agent experience plus a fraction of a product owner. In most markets that is a significant six-figure annual commitment before any model spend.
+
+**On both paths:** LLM call costs are a permanent budget line, not a launch cost. Estimate per workflow at real volume, hold your own API keys, and set caps so a retry loop cannot surprise finance.
+
+## The 12-month view
+
+| Period | Agency path | In-house path |
+| --- | --- | --- |
+| Months 1-3 | Audit, pilot, first gated workflow in production | Hiring, tool selection, first prototypes |
+| Months 4-6 | Second workflow, retainer ops, team training | First production path, if hiring landed |
+| Months 7-12 | Handoff to an internal owner, or steady retainer | Eval discipline, on-call rotation, roadmap |
+
+The agency path buys speed and transfers risk early. The in-house path buys ownership but pays for it in calendar time and hiring risk.
 
 ## When an agency is the right call
 
@@ -47,11 +71,24 @@ Dali approaches this as an agent systems studio: process discovery first, then i
 
 Even then, short agency sprints for discovery or architecture reviews can reduce expensive rework.
 
+## The hybrid path most teams should consider
+
+For most mid-size companies the strongest pattern is sequential, not either-or:
+
+1. An agency runs discovery and ships the first gated workflow to production.
+2. Your team operates it during a defined support window, with the agency on call.
+3. An internal owner takes over the runbook, eval set, and gate rules.
+4. The agency exits to advisory, or ships the next workflow while your owner runs the first.
+
+Write the exit criteria into the first contract: which artifacts transfer, who gets trained, and when the retainer can end without penalty. A vendor who resists defined exit criteria is selling dependency, not capability.
+
+<!-- [DAVID: a real anonymized example of a handoff Dali has run - what transferred and in which month - would make this section concrete] -->
+
 ## Failure modes (both sides)
 
-**Agency path fails when** the engagement skips workflow mapping, ships chat UI without tool integrations, or never defines who approves irreversible actions.
+**Agency path fails when** the engagement skips workflow mapping, ships chat UI without tool integrations, or never defines who approves irreversible actions. It also fails quietly when the vendor holds all context and every change becomes a ticket.
 
-**In-house path fails when** leadership funds models and prompts but not ownership, evals, or change management. Tool sprawl grows; nobody maintains the agent after the pilot.
+**In-house path fails when** leadership funds models and prompts but not ownership, evals, or change management. Tool sprawl grows; nobody maintains the agent after the pilot; the one engineer who understood the system leaves.
 
 ## A practical sequence
 
@@ -75,3 +112,9 @@ Yes for narrow scripts. For multi-tool ops with approvals, you need product and 
 
 ### What about GEO and SEO while we build agents?
 Visibility is a parallel system. Content and entity signals do not replace product work, but they determine whether the right buyers find you.
+
+### Who should pay the LLM API bill?
+Hold your own API keys on either path. Vendors should provide usage estimates and caps per workflow; opaque vendor-held billing makes both costs and switching harder.
+
+### How big should we be before going in-house?
+Headcount is the wrong trigger. The real trigger is durable ownership: a senior person whose actual job is agents, plus eval and on-call discipline. Without that, in-house means an unmaintained pilot.

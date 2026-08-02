@@ -1,0 +1,100 @@
+import Container from "@/Components/Container/Container";
+import HeroImage from "./assets/screenshot.jpg";
+import "./page.styles.css";
+import { condensedHeadings, monoText, serifText } from "@/assets/fonts";
+import { Metadata } from "next";
+import ProjectsSelect from "@/Components/ProjectsSelect/ProjectsSelect";
+import PhoneFrame from "@/Components/PhoneFrame/PhoneFrame";
+import { getProjectAlternates } from "@/i18n/projects";
+import { absoluteUrl } from "@/lib/seo/site";
+
+const title = "Saint King Tamari";
+const description = "Daily companion of Christian saints' wisdom";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: getProjectAlternates("tamari"),
+  openGraph: {
+    title,
+    description,
+    url: absoluteUrl("/project/tamari"),
+    siteName: "Dali",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+export default function TamariPage() {
+  return (
+    <Container id="tamari-page" className="overflow-hidden">
+      <section
+        id="project-header"
+        className="flex flex-col gap-36 py-80 uppercase"
+      >
+        <h1 className={`${condensedHeadings.className} text-page-title`}>
+          Daily wisdom of the saints, in your pocket.
+        </h1>
+        <ul className={`${monoText.className} flex gap-36 text-body5 font-normal`}>
+          {projectData.tags.map((tag, idx) => (
+            <li key={idx}>
+              <span className="mb-36">/</span> <span>{tag}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={`${monoText.className} flex text-body5 font-normal md:text-body4`}>
+          <span
+            className="origin-top-left"
+            style={{ transform: "rotate(90deg) translate(4px,-100%)" }}
+          >
+            {projectData.year}
+          </span>{" "}
+          <span>client &mdash; {projectData.client}</span>
+        </p>
+      </section>
+
+      <section className={`${serifText.className} py-40 md:py-80`}>
+        <h2
+          className={`${condensedHeadings.className} mb-24 text-section-title uppercase md:mb-40`}
+        >
+          About the project
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48 items-start">
+          <div className="flex justify-center md:justify-start">
+            <div className="w-full max-w-[260px]">
+              <PhoneFrame
+                src={HeroImage}
+                alt="Saint King Tamari app"
+                placeholder="blur"
+                priority
+                sizes="(max-width: 768px) 70vw, 260px"
+              />
+            </div>
+          </div>
+          <p className="text-body4 md:text-body1">
+            Saint King Tamari is a mobile app for daily spiritual practice — each day surfaces a saint, along with their teachings and stories for reflection. The brand and product came together in our studio: reverent yet contemporary, designed to honor the depth of the tradition while feeling natural in everyday use.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-80">
+        <h2
+          className={`${condensedHeadings.className} mb-24 text-section-title uppercase`}
+        >
+          OTHER PROJECTS
+        </h2>
+        <ProjectsSelect excludeProjects={["tamari"]} />
+      </section>
+    </Container>
+  );
+}
+
+const projectData = {
+  tags: ["mobile", "brand", "spiritual"],
+  client: "LLC Tamari",
+  year: "2025",
+};

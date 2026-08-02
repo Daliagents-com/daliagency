@@ -10,8 +10,10 @@ import { blogCopy } from "@/i18n/blog";
 import BlogMarkdown from "./BlogMarkdown";
 import BlogFaq from "./BlogFaq";
 import BlogRelated from "./BlogRelated";
+import ChecklistMagnet from "@/Components/LeadMagnet/ChecklistMagnet";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { parseBlogBody } from "@/lib/blog/parseFaq";
-import { getGeneralAuditHref } from "@/lib/contact";
+import { checklistPackSlugs } from "@/lib/checklist";
 
 type BlogPostViewProps = {
   locale: Locale;
@@ -20,7 +22,6 @@ type BlogPostViewProps = {
 
 export default function BlogPostView({ locale, post }: BlogPostViewProps) {
   const copy = blogCopy[locale];
-  const auditHref = getGeneralAuditHref(locale);
   const { body, faq, faqTitle } = parseBlogBody(post.content);
 
   return (
@@ -108,6 +109,15 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                 <BlogFaq title={faqTitle || "FAQ"} items={faq} />
               ) : null}
 
+              {(checklistPackSlugs as readonly string[]).includes(
+                post.slug,
+              ) ? (
+                <ChecklistMagnet
+                  locale={locale}
+                  source="blog-checklist-magnet"
+                />
+              ) : null}
+
               <aside className="mt-48 border border-black/10 bg-white/50 px-20 py-24 md:px-28">
                 <h2
                   className={`${syneText.className} text-body4 font-medium uppercase tracking-[0.08em]`}
@@ -120,13 +130,12 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                   {copy.ctaBody}
                 </p>
                 <div className="mt-20 flex flex-wrap gap-12">
-                  <a
-                    href={auditHref}
-                    data-cta="blog-audit"
-                    className={`${syneText.className} inline-flex items-center justify-center border border-black/10 bg-primary px-16 py-10 text-body6 uppercase text-white transition-colors hover:bg-primary-700`}
+                  <ConsultationTrigger
+                    source="blog-audit"
+                    className={`${syneText.className} inline-flex cursor-pointer items-center justify-center border border-black/10 bg-primary px-16 py-10 text-body6 uppercase text-white transition-colors hover:bg-primary-700`}
                   >
                     {copy.ctaButton}
-                  </a>
+                  </ConsultationTrigger>
                   <Link
                     href={localizePath("/solutions", locale)}
                     className={`${syneText.className} inline-flex items-center justify-center border border-black/15 px-16 py-10 text-body6 uppercase transition-opacity hover:opacity-70`}

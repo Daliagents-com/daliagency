@@ -23,18 +23,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       localizePath(`/project/${slug}`, locale),
     ),
   ]);
-  const blogPostRoutes = locales.flatMap((locale) =>
-    getPublishedPosts(locale).map((post) => blogPath(locale, post.slug)),
+  const blogPostEntries = locales.flatMap((locale) =>
+    getPublishedPosts(locale).map((post) => ({
+      url: absoluteUrl(blogPath(locale, post.slug)),
+      ...(post.date ? { lastModified: post.date } : {}),
+    })),
   );
   const routes = [
     "",
+    "/about",
+    "/hire",
+    "/in-house-vs-agency-vs-freelancers",
     ...localizedHomeRoutes,
     ...contentRoutes,
     ...projectRoutes,
-    ...blogPostRoutes,
   ];
 
-  return routes.map((route) => ({
-    url: absoluteUrl(route || "/"),
-  }));
+  return [
+    ...routes.map((route) => ({
+      url: absoluteUrl(route || "/"),
+    })),
+    ...blogPostEntries,
+  ];
 }

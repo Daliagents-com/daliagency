@@ -2,13 +2,13 @@ import type { Locale } from "./config";
 
 export const projectSlugs = [
   "kora",
+  "agentsge",
+  "uimix",
+  "muqta",
   "muqtad",
   "deliverysetup",
-  "uimix",
-  "masuro",
-  "agentsge",
   "tamari",
-  "muqta",
+  "masuro",
 ] as const;
 
 export type ProjectSlug = (typeof projectSlugs)[number];

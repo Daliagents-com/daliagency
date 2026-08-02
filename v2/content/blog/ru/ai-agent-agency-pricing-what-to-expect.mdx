@@ -1,8 +1,8 @@
 ---
 slug: "ai-agent-agency-pricing-what-to-expect"
 title: "Цены AI agent agency: чего ждать (и сколько стоит «дешево»)"
-description: "Как обычно устроено pricing AI agent agency: audits, fixed pilots, retainers и скрытая цена demo-grade builds."
-date: "2026-07-31"
+description: "Как обычно устроен pricing AI agent agency: audits, fixed pilots, retainers и скрытая цена demo-grade builds."
+date: "2026-08-02"
 locale: "ru"
 hreflangGroup: "ai-agent-agency-pricing-what-to-expect"
 keywords: ["цены AI agent agency", "стоимость AI automation agency", "сколько стоит внедрение AI agent"]
@@ -13,35 +13,121 @@ type: "article"
 
 ## Прямой ответ
 
-Ожидайте paid discovery или audit, затем fixed-price pilot на один workflow. Дешёвые unlimited-пакеты «agents everywhere» обычно означают thin demos без gates и ownership.
+Ожидайте сначала paid discovery или audit, затем fixed-price pilot на один workflow, затем опциональный monthly retainer, когда agent уже в production. Типичные рыночные диапазоны в 2026: audits примерно $2,000-15,000, pilots на один workflow $10,000-50,000, ops retainers $1,500-10,000 в месяц. Дешёвые unlimited-пакеты «agents everywhere» обычно означают тонкие demos без gates, logging и ownership.
 
-## Типичные коммерческие формы
+## Трёхэтапная коммерческая форма
 
-Hourly consulting. Fixed pilot milestones. Monthly ops retainers после launch. Platform licenses сверху, если продукт обязателен - лучше использовать tools, за которые вы уже платите.
+Большинство серьёзных agent-агентств строят цену в три этапа.
+
+1. **Discovery или audit.** Платный, короткий, фиксированная цена. Результат: карта workflow, список рисков и предложение pilot с письменным acceptance test.
+2. **Fixed-scope pilot.** Один workflow, один acceptance test, названные tools, human gates на рискованных действиях. Фиксированные цена и срок.
+3. **Ops retainer.** Опционально. Monitoring, evals, итерации и поддержка после запуска agent.
+
+Всё остальное, что вы встретите - hourly consulting, platform licenses, outcome fees - вариации этих трёх.
+
+## Сравнение pricing-моделей
+
+| Модель | Что оптимизирует | Где ломается |
+| --- | --- | --- |
+| Hourly consulting | Гибкость при неясном scope | Счётчик крутится, пока scope дрейфует |
+| Fixed-price pilot | Ясный scope, разделённый риск | Запас «на всякий случай» при расплывчатом brief |
+| Monthly retainer | Постоянные ops и итерации | Standby-биллинг без определённого SLA |
+| Per-agent или per-seat license | Предсказуемая выручка вендора | Вы платите за платформу, которая вам может не быть нужна |
+| Outcome или revenue share | Выровненные стимулы на бумаге | Споры об атрибуции, сложные контракты |
+
+Предпочитайте fixed pilot для build и retainer с определённым scope для operations. Предпочитайте внедрение в tools, за которые уже платите, вместо новых platform licenses - если только новый tool не является самим продуктом.
+
+## Типичные рыночные диапазоны
+
+Это типичные рыночные диапазоны, а не котировки Dali. Они сильно зависят от региона, seniority вендора и того, сколько integration-работы прячется в scope. Воспринимайте их как ориентир, а не оферту.
+
+| Статья | Типичный рыночный диапазон |
+| --- | --- |
+| Paid discovery или audit | $2,000-15,000, обычно 1-3 недели |
+| Fixed-scope pilot, один workflow | $10,000-50,000, обычно 3-8 недель |
+| Ops retainer после запуска | $1,500-10,000 в месяц |
+| Hourly consulting | $100-300 в час |
+| LLM usage, один workflow среднего объёма | От десятков до нескольких сотен долларов в месяц, растёт с объёмом |
+
+Quote сильно ниже этих диапазонов - не обязательно обман. Обычно это значит, что чего-то не хватает: discovery, gates, logging, документации или кого-то on-call после запуска.
+
+<!-- [DAVID: if you want to publish Dali's actual audit and pilot price ranges, add them here as a separate paragraph clearly labeled as Dali pricing] -->
+
+## Категории costs, о которых забывают покупатели
+
+Build - не весь счёт. Закладывайте в бюджет с первого дня:
+
+- **LLM call costs.** Каждый запуск agent сжигает токены. Спросите, кто платит по API-счёту, как ограничивается usage и что происходит, когда retry-цикл выходит из-под контроля. Получите месячную оценку на workflow при вашем реальном объёме.
+- **Поддержка evals.** Модели меняются, prompts дрейфуют. Eval-сеты нужно поддерживать, иначе качество деградирует незаметно.
+- **Monitoring и logging.** Кто-то должен читать traces, когда agent делает что-то странное.
+- **Incident response.** Кто on-call, с каким временем реакции и за какие деньги.
+- **Change management.** Обучение команды, обновление runbooks, расширение или сужение gates по мере роста доверия.
+- **Окно поддержки после запуска.** Pilot без периода поддержки - это demo с инвойсом.
 
 ## Что должно быть в pilot quote
 
-Карта workflow, integrations in scope, acceptance test, gate rules, logging, handoff package, явные exclusions.
+Production-grade pilot quote расписывает по пунктам:
 
-## Скрытые costs underpriced work
+- Карту workflow с точными шагами в scope
+- Названные integrations и кто даёт доступы
+- Письменный acceptance test: входы, ожидаемые выходы, порог прохождения
+- Правила gates: какие действия требуют human approval и кто утверждает
+- Logging и где живут traces
+- Handoff-пакет: документация, runbook, план по credentials
+- Оценку LLM costs и кто их платит
+- Окно поддержки после go-live
+- Явные exclusions
 
-Rewrites после утечки secrets. Никого on-call. Knowledge уходит с contractor. CRM pollution от плохой automation.
+Если трёх и более пунктов нет - перед вами demo quote, переодетый в pilot.
 
-## Как сравнивать quotes честно
+## Red flags в quote
 
-Нормализуйте scope. Спросите, что происходит, когда agent ошибается. Спросите, кто платит за production hardening.
+| Что написано в quote | Что это обычно значит |
+| --- | --- |
+| «Unlimited agents» за flat fee | Тонкие шаблоны, без discovery на workflow |
+| Нет acceptance test | Успех определят задним числом, и определит вендор |
+| Ни слова про human approvals | Автономия по умолчанию, инциденты позже |
+| Бесплатный pilot на production scope | Discovery пропущен; цена вернётся как rework |
+| Platform license до любого discovery | Вы покупаете их продукт, а не свой результат |
+| Нет списка exclusions | Споры о scope, оплаченные вперёд |
+
+## Скрытые costs заниженной цены
+
+Underpriced agent-работа не остаётся дешёвой. Типичные счета вдогонку:
+
+- Rewrites после того, как secrets оказались в client-side коде или логах
+- CRM pollution от automation, которая массово пишет плохие записи без присмотра
+- Никого on-call, когда agent срабатывает не так в пятницу вечером
+- Знание уходит вместе с contractor, и каждое изменение начинается с нуля
+- Второй вендор, которому платят за reverse-engineering системы первого
+
+Цена одного неверного автономного действия - плохой батч refunds, неправильное письмо по клиентской базе, испорченный pipeline - регулярно превышает разницу между дешёвым bid и серьёзным.
+
+## Как честно сравнивать quotes
+
+1. **Нормализуйте scope.** Поставьте все quotes против одного workflow, tools, объёма и acceptance test. Если вендоры поняли brief по-разному - почините brief и спросите заново.
+2. **Спросите, что происходит, когда agent ошибается.** Gates, rollback, путь эскалации, on-call. Вендор без ответа котирует demo.
+3. **Спросите, кто платит за production hardening.** Logging, evals, security review: внутри цены или change request потом?
+4. **Сравнивайте полную стоимость первого года.** Цена build плюс retainer плюс LLM usage плюс время вашей команды, а не одну строку pilot.
+5. **Взвешивайте ownership.** Чуть более дорогой вендор, который документирует систему и обучает команду, к шестому месяцу обычно оказывается дешевле.
 
 ## Как помогает Dali
 
-Dali котирует fixed-scope pilots после audit, который задаёт acceptance bar. Смотрите [solutions](/ru/solutions).
+Dali котирует fixed-scope pilots после audit, который задаёт acceptance bar, с gates, logging и handoff внутри цены, а не как change requests. Смотрите [solutions](/ru/solutions).
 
 ## FAQ
 
 ### Free pilot - хороший знак?
-Редко для production-систем. Free work часто пропускает discovery и gates.
+Для production-систем редко. Бесплатная работа обычно пропускает discovery, acceptance tests и gates - то, что делает agent безопасным. Вы заплатите за это позже как за rework.
 
 ### Должен ли pricing включать tools?
-Предпочитайте внедрение внутри tools, которыми вы уже владеете, если только новый tool не является продуктом.
+Предпочитайте внедрение внутри tools, которыми уже владеете, если только новый tool не является продуктом. Quote, который начинается с platform license до любого discovery, продаёт платформу, а не ваш результат.
 
 ### Когда оправдан retainer?
-Когда agents live и нужны monitoring, evals и iteration.
+Когда agents в production и нужны monitoring, evals и итерации. Retainer без определённого scope и времени реакции - это standby-биллинг.
+
+### Кто должен платить по LLM API-счёту?
+Обычно вы, через собственные API keys, а вендор даёт оценку usage и caps. Ключи у вендора делают costs непрозрачными, а смену вендора - тяжелее.
+
+### Как заложить бюджет первого года?
+Сложите четыре строки: audit, pilot, retainer на месяцы после запуска и LLM usage при реальном объёме. Типичные рыночные диапазоны выше дают стартовый конверт; ваши integrations и профиль риска двигают его вверх или вниз.

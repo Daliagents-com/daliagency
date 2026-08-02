@@ -2,7 +2,7 @@
 slug: "how-to-hire-an-ai-agent-agency"
 title: "How to hire an AI agent agency without buying a demo"
 description: "Step-by-step hiring process for an AI agent agency: brief, shortlist, pilot boundary, acceptance test, and ownership transfer."
-date: "2026-07-31"
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "how-to-hire-an-ai-agent-agency"
 keywords: ["hire AI agent agency", "how to hire AI automation agency", "AI agent vendor selection"]
@@ -13,35 +13,122 @@ type: "tutorial"
 
 ## Direct answer
 
-Hire an AI agent agency with a written pilot: one workflow, one acceptance test, named tools, and human gates. Do not start from a free-floating chatbot demo.
+Hire an AI agent agency with a written pilot: one workflow, one acceptance test, named tools, and human gates on risky actions. Run a short sequence - one-page brief, shortlist of three, two discovery calls per finalist, fixed-scope pilot contract - instead of starting from a free-floating chatbot demo. Expand only after the acceptance test passes under production conditions.
+
+## The hiring sequence
+
+1. Write a one-page brief. One day of work, saves weeks.
+2. Longlist 5-8 agencies from referrals, comparisons, and your own research.
+3. Shortlist 3 on process evidence, not pitch decks.
+4. Run two discovery calls with each finalist.
+5. Buy a fixed-scope pilot from one.
+6. Judge the pilot against the written acceptance test, nothing else.
+7. Expand, renegotiate, or exit.
+
+This takes two to four weeks of calendar time for most teams. Anything slower usually means the brief was never written.
 
 ## Write a one-page brief
 
-Name the recurring work, tools, weekly volume, non-negotiable exceptions, and what must never be automated without review.
+The brief is a checklist, not an essay:
+
+- The recurring work, step by step, as it happens today
+- Tools involved: inbox, CRM, sheets, ticketing, chat
+- Weekly volume and peak volume
+- Exceptions that must always go to a human
+- Actions that must never run without review: refunds, sends to customers, deletions
+- What "working" means: a measurable acceptance test
+- Constraints: data residency, access rules, compliance
+- Budget envelope and decision date
+
+A vendor who starts proposing before reading this brief is selling a template.
 
 ## Shortlist on process, not pitch decks
 
-Ask how they map workflows, where they put gates, and what a 30-day pilot includes and excludes.
+Ask every candidate the same questions and compare answers side by side.
+
+**Process:**
+- How do you map a workflow before writing code?
+- What did your last discovery output look like, structurally?
+- What does a 30-day pilot include and exclude?
+
+**Safety and gates:**
+- Which actions in our workflow would you gate behind human approval?
+- What happens when the agent is wrong? Rollback, escalation, on-call?
+- Where do logs and traces live, and who can read them?
+
+**Costs:**
+- What will LLM calls cost at our volume, and who pays that bill?
+- What is inside the fixed price, and what becomes a change request?
+
+**Ownership and support:**
+- What is in the handoff package: docs, runbook, eval set?
+- Who owns the code, prompts, and eval sets?
+- What support window follows go-live, with what response time?
+- If we part ways in six months, what do we keep?
+
+## Red flags during hiring
+
+| What you hear | What it usually means |
+| --- | --- |
+| "Let us show you a demo first" | Selling before understanding your workflow |
+| "Unlimited agents" | Templates, no discovery per workflow |
+| "Our agents are reliable, approvals slow things down" | Incidents become your problem later |
+| "LLM costs are hard to estimate" | Nobody has run this at real volume |
+| "Documentation comes after full rollout" | Knowledge stays with the vendor |
+| Vague or missing exclusions | Scope disputes, prepaid |
 
 ## Buy a pilot, not a program
 
-Fixed scope and price for one path. Expand only after the acceptance test passes.
+Fixed scope, fixed price, one workflow path to production. The pilot contract should name:
+
+- The acceptance test: inputs, expected outputs, pass threshold, and who judges
+- Gate rules: which actions require approval and who approves
+- Logging requirements and who has access
+- LLM cost responsibility and usage caps
+- Explicit exclusions
+- Handoff package contents
+- Post-launch support window and response times
+- Ownership of code, prompts, and eval sets
+
+Expand to a second workflow only after the first one passes its test with real traffic, not staged inputs.
+
+<!-- [DAVID: a real anonymized acceptance-test example from a Dali pilot - inputs, threshold, who judged - would fit here] -->
+
+## Judge the pilot like an operator
+
+During the pilot, watch the process, not just the output. Four things predict how the system will behave after the agency leaves:
+
+- **Gate behavior under load.** Do approvals actually queue to the right person, and how fast does a human clear them at real volume?
+- **Failure handling.** Trigger an exception on purpose. Does the agent escalate cleanly, or fail silently and keep going?
+- **Cost tracking.** Ask for the LLM usage report halfway through. If nobody can produce one, nobody is watching spend.
+- **Documentation as it happens.** Runbooks written during the build are accurate. Runbooks written the week before handoff are fiction.
+
+A pilot that passes its acceptance test but fails these checks is a demo that happened to work.
 
 ## Define ownership before kickoff
 
-Who approves sensitive actions? Who owns the system after launch? What is documented?
+Settle four questions in writing before any build starts: who approves sensitive actions, who operates the system after launch, what gets documented, and who on your team gets trained. If the answer to all four is "the vendor," you are renting a system, not buying one.
 
 ## How Dali fits
 
-Use Dali's [solutions pilots](/solutions) as a pattern for fixed boundaries, or request an audit.
+Use Dali's [solutions pilots](/solutions) as a pattern for fixed boundaries, or request an audit. Dali pilots ship with the acceptance test, gate rules, and handoff package defined before kickoff.
 
 ## FAQ
 
 ### Do we need an RFP?
-Only for formal procurement. Many teams succeed with a structured brief and two discovery calls.
+Only for formal procurement. Many teams succeed with a structured brief and two discovery calls per finalist. An RFP without a good brief just collects polished fiction.
 
 ### Should we hire the cheapest bid?
-No. Compare cost of failure and rework, not day rates alone.
+No. Compare cost of failure and rework, not day rates alone. One wrong autonomous action in your CRM or inbox costs more than the spread between bids.
 
 ### What if we already have freelancers?
-Keep them for narrow slices after architecture and gates are clear.
+Keep them for narrow slices after architecture and gates are clear. The agency defines boundaries; freelancers can build inside them.
+
+### How long should hiring take?
+Two to four weeks from brief to signed pilot is realistic. Longer usually means the brief is missing, not that vendors are slow.
+
+### How many vendors should we talk to?
+Longlist 5-8, shortlist 3, buy from 1. More burns your calendar; fewer skips real comparison.
+
+### What should the acceptance test look like?
+A written set of real inputs, expected outputs, and a pass threshold, judged by your team on production-like traffic. If the vendor proposes "you'll see it working" as the test, that is a demo, not an acceptance test.

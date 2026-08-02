@@ -198,37 +198,22 @@ export default function Footer() {
                     {solutionsLabel}
                   </Link>
                 </li>
+                <li>
+                  <Link href="/about" className="hover:underline">
+                    About
+                  </Link>
+                </li>
               </ul>
               <p className="text-body3 uppercase mt-32">{copy.socials}</p>
               <ul className="text-body3 mt-16 flex flex-col gap-12 uppercase">
                 <li>
                   <a
-                    href="https://t.me/aisceptic0"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:underline"
-                  >
-                    Telegram
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/davidhakobyan/"
+                    href="https://www.linkedin.com/company/dali-agents"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:underline"
                   >
                     LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://x.com/larseen66"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:underline"
-                  >
-                    X
                   </a>
                 </li>
               </ul>

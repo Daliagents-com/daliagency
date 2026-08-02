@@ -34,6 +34,9 @@ export type HomeCopy = {
   hero: {
     lines: string[][];
     lead: string;
+    icp: string;
+    promise: string;
+    secondaryCta: string;
     scroll: string;
   };
   projects: {
@@ -89,6 +92,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         ["business"],
       ],
       lead: "Production AI agents in the tools your team already uses.",
+      icp: "For service businesses with real inbound volume - and founders with AI-built MVPs that need production hardening.",
+      promise: "One workflow · One acceptance test · Fixed price · You own the code",
+      secondaryCta: "See solutions",
       scroll: "Scroll",
     },
     projects: {
@@ -108,7 +114,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     services: {
       heading: "From process discovery to production agent systems",
       body: "We map how your company works, pick high-value agent paths, and define tools plus human controls before we build.",
-      contact: "Book a free consultation",
+      contact: "Start a free audit",
       cards: [
         {
           title: "Conversation control",
@@ -200,6 +206,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         ["бизнеса"],
       ],
       lead: "Рабочие ИИ-агенты в инструментах, которыми команда уже пользуется.",
+      icp: "Для сервисных бизнесов с потоком входящих - и фаундеров с AI-собранными MVP, которым нужен продакшен.",
+      promise: "Один процесс · Один приёмочный тест · Фиксированная цена · Код ваш",
+      secondaryCta: "Смотреть решения",
       scroll: "Листайте",
     },
     projects: {
@@ -219,7 +228,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     services: {
       heading: "От изучения процессов до рабочих агентских систем",
       body: "Изучаем процессы, выбираем ценные пути для агентов и заранее задаём инструменты и точки человеческого контроля.",
-      contact: "Записаться на бесплатную консультацию",
+      contact: "Начать бесплатный аудит",
       cards: [
         {
           title: "Управление перепиской",
@@ -311,6 +320,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         ["ბიზნესისთვის"],
       ],
       lead: "სამუშაო AI აგენტები იმ ხელსაწყოებში, რომლებსაც გუნდი უკვე იყენებს.",
+      icp: "სერვისული ბიზნესებისთვის დიდი შემომავალი ნაკადით - და დამფუძნებლებისთვის, რომელთა AI-ით აწყობილ MVP-ს პროდაქშენი სჭირდება.",
+      promise: "ერთი პროცესი · ერთი მიღების ტესტი · ფიქსირებული ფასი · კოდი თქვენია",
+      secondaryCta: "იხილეთ გადაწყვეტები",
       scroll: "გადაახვიეთ",
     },
     projects: {
@@ -330,7 +342,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     services: {
       heading: "პროცესების კვლევიდან production აგენტურ სისტემებამდე",
       body: "ვიკვლევთ, როგორ მუშაობს თქვენი კომპანია, ვირჩევთ მაღალი ღირებულების აგენტურ გზებს და წინასწარ ვადგენთ ხელსაწყოებსა და ადამიანის კონტროლის წერტილებს.",
-      contact: "დაჯავშნეთ უფასო კონსულტაცია",
+      contact: "დაიწყეთ უფასო აუდიტი",
       cards: [
         {
           title: "მორგებული აგენტური სისტემები",
@@ -420,6 +432,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         ["բիզնեսի", "համար"],
       ],
       lead: "Արտադրական AI գործակալներ՝ թիմի արդեն օգտագործվող գործիքներում։",
+      icp: "Սերվիսային բիզնեսների համար՝ մեծ մուտքային հոսքով, և հիմնադիրների համար, որոնց AI-ով հավաքած MVP-ն արտադրական ամրացման կարիք ունի։",
+      promise: "Մեկ գործընթաց · Մեկ ընդունման թեստ · Ֆիքսված գին · Կոդը ձերն է",
+      secondaryCta: "Դիտել լուծումները",
       scroll: "Ոլորեք",
     },
     projects: {
@@ -439,7 +454,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     services: {
       heading: "Գործընթացների ուսումնասիրությունից մինչև production գործակալային համակարգեր",
       body: "Քարտեզագրում ենք, թե ինչպես է աշխատում ձեր ընկերությունը, ընտրում բարձրարժեք գործակալային ուղիներ և նախապես սահմանում գործիքներն ու մարդու վերահսկման կետերը։",
-      contact: "Ամրագրել անվճար խորհրդատվություն",
+      contact: "Սկսել անվճար աուդիտ",
       cards: [
         {
           title: "Անհատական գործակալային համակարգեր",

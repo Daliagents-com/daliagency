@@ -1,15 +1,12 @@
-// Purpose: Defer heavy home sections (agents + services) off first-load JS.
+// Purpose: Defer heavy home sections (services) off first-load JS.
 // Scope: Client-only mount after idle or near-viewport. Placeholder ids keep anchors.
+// AgentSolutions moved to eager SSR in page.tsx (position 01 sells the offer).
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Locale } from "@/i18n/config";
 
-const AgentSolutions = dynamic(
-  () => import("@/Components/Home/AgentSolutions"),
-  { ssr: false },
-);
 const DesignSprints = dynamic(
   () => import("@/Components/Home/DesignSprints"),
   { ssr: false },
@@ -74,12 +71,7 @@ export default function HomeDeferredSections({
   if (!ready) {
     return (
       <div ref={anchorRef}>
-        {/* Anchor targets for nav / hash while chunks are deferred. */}
-        <section
-          id="agent-solutions"
-          className="relative min-h-[70vh]"
-          aria-hidden="true"
-        />
+        {/* Anchor target for nav / hash while the chunk is deferred. */}
         <section
           id="services"
           className="relative min-h-[70vh]"
@@ -89,10 +81,5 @@ export default function HomeDeferredSections({
     );
   }
 
-  return (
-    <>
-      <AgentSolutions locale={locale} />
-      <DesignSprints locale={locale} />
-    </>
-  );
+  return <DesignSprints locale={locale} />;
 }

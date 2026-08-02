@@ -5,22 +5,22 @@ const IBMPlexMonoFont = localFont({
   variable: "--font-ibm-plex-mono",
   src: [
     {
-      path: "./IBMPlexMono-Light.ttf",
+      path: "./IBMPlexMono-Light.woff2",
       weight: "300",
       style: "normal",
     },
     {
-      path: "./IBMPlexMono-LightItalic.ttf",
+      path: "./IBMPlexMono-LightItalic.woff2",
       weight: "300",
       style: "italic",
     },
     {
-      path: "./IBMPlexMono-Regular.ttf",
+      path: "./IBMPlexMono-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./IBMPlexMono-Italic.ttf",
+      path: "./IBMPlexMono-Italic.woff2",
       weight: "400",
       style: "italic",
     },

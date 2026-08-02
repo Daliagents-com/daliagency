@@ -514,7 +514,7 @@ export default function AttioTableShowcase({ solution, labels }: ShowcaseProps) 
           </div>
 
           <div className={styles.trial}>
-            <span className={sansText.className}>Pilot boundary</span>
+            <span className={sansText.className}>Package boundary</span>
             <span className={`${sansText.className} ${styles.trialButton}`}>
               Active
             </span>

@@ -10,7 +10,6 @@ import {
 import {
   allSolutions,
   buildPublicContactBody,
-  buildPublicContactHref,
   getSolutionHref,
   siteUrl,
   type SolutionContent,
@@ -26,9 +25,20 @@ import {
   localizePath,
 } from "@/i18n/config";
 import CopyBriefButton from "./CopyBriefButton";
+import ChecklistMagnet from "@/Components/LeadMagnet/ChecklistMagnet";
+import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
+import type { ConsultationInterest } from "@/lib/consultation";
 import PilotProductPreview from "./visuals/PilotProductPreview";
 import AttioTableShowcase from "./visuals/AttioTableShowcase";
 import styles from "./SolutionPages.module.css";
+
+// Solution slugs and consultation interest ids diverge on voice ("voice-agents" vs "voice").
+const interestBySolutionSlug: Record<string, ConsultationInterest> = {
+  "conversation-control": "conversation-control",
+  "ops-knowledge": "ops-knowledge",
+  "voice-agents": "voice",
+  "vibe-code-rescue": "vibe-code-rescue",
+};
 
 function serializeJsonLd(data: object) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
@@ -141,13 +151,13 @@ function renderCta(
 
   return (
     <>
-      <a
-        href={buildPublicContactHref(solution, locale)}
-        data-cta={`solution-audit-${solution.slug}`}
+      <ConsultationTrigger
+        source={`solution-audit-${solution.slug}`}
+        interest={interestBySolutionSlug[solution.slug] ?? "not-sure"}
         className={styles.primaryCta}
       >
         {solution.cta.publicLabel}
-      </a>
+      </ConsultationTrigger>
       <CopyBriefButton
         text={buildPublicContactBody(solution, locale)}
         label={labels.copyDetailedBrief}
@@ -178,7 +188,7 @@ export function SolutionsIndex() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Dali solution pilots",
+    name: "Dali solutions",
     itemListElement: allSolutions.map((solution, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -201,13 +211,13 @@ export function SolutionsIndex() {
             <div className={styles.indexHero}>
               <div className={styles.indexHeroCopy}>
                 <p className={`${monoText.className} ${styles.eyebrow}`}>
-                  Solution pilots
+                  Solutions
                 </p>
                 <h1
                   id="solutions-title"
                   className={`${sansText.className} ${styles.title}`}
                 >
-                  Three product families. Fixed pilot lanes inside.
+                  Three product families. Fixed lanes inside.
                 </h1>
                 <p className={`${sansText.className} ${styles.lead}`}>
                   These pages are for teams that want a narrow, production-grade
@@ -257,7 +267,7 @@ export function SolutionsIndex() {
                 Start where the repetition is already obvious.
               </h2>
               <p className={`${sansText.className} ${styles.sectionLead}`}>
-                The best first pilot is the workflow your team already repeats
+                The best first package is the workflow your team already repeats
                 often enough to rehearse, approve, and own.
               </p>
             </div>
@@ -817,6 +827,12 @@ export function SolutionLanding({
                 </p>
               </article>
             </div>
+            {variant === "public" && solution.slug === "vibe-code-rescue" ? (
+              <ChecklistMagnet
+                locale={locale}
+                source="solution-checklist-magnet"
+              />
+            ) : null}
           </div>
         </Container>
       </section>

@@ -3,6 +3,7 @@ import nextDynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
+import AgentSolutions from "@/Components/Home/AgentSolutions";
 import HomeDeferredSections from "@/Components/Home/HomeDeferredSections";
 import {
   isLocale,
@@ -109,6 +110,7 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
   return (
     <main>
       <Hero locale={locale} />
+      <AgentSolutions locale={locale} />
       <Projects locale={locale} />
       <HomeDeferredSections locale={locale} />
       <About locale={locale} />

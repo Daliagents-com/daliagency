@@ -176,19 +176,19 @@ export type PilotSourceContent = SolutionBody & {
 export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
   "lead-response": {
     slug: "lead-response",
-    name: "Lead Response Pilot",
+    name: "Lead Response",
     summary:
-      "A packaged pilot for teams that lose momentum between inquiry, qualification, and booked next step.",
+      "A packaged solution for teams that lose momentum between inquiry, qualification, and booked next step.",
     accent: "#1E3A8A",
     accentSoft: "#E9EDFF",
     tint: "#fff5ef",
     metadata: {
-      title: "Lead Response Pilot | Dali",
+      title: "Lead Response | Dali",
       description:
-        "Packaged pilot to qualify inbound leads, send approved first replies, and keep CRM follow-up moving without pretending sales can be fully automated.",
+        "Packaged solution to qualify inbound leads, send approved first replies, and keep CRM follow-up moving without pretending sales can be fully automated.",
     },
     hero: {
-      eyebrow: "Packaged pilot",
+      eyebrow: "Packaged solution",
       title: "Stop losing qualified leads between the first message and the CRM.",
       lead:
         "Dali packages one inbound workflow into a supervised AI system that sends the first reply, qualifies against your rules, updates the pipeline, books the next step or follow-up, and routes sensitive cases to a person with full logs.",
@@ -198,7 +198,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     workflow: {
       label: "Workflow diagram",
       intake: ["Forms", "Email", "WhatsApp or Telegram"],
-      agentLabel: "Lead response pilot",
+      agentLabel: "Lead response agent",
       review: ["Custom pricing", "Enterprise edge cases", "Low-confidence leads"],
       outcomes: ["First reply", "Qualification notes", "CRM update or booked call"],
     },
@@ -217,7 +217,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
     },
     pilot: {
-      label: "Exact fixed pilot boundary",
+      label: "Exact fixed scope boundary",
       fixedOutcome:
         "One or two inbound channels, one CRM, one qualification policy, one booking or follow-up route, and one human escalation queue, live with deduplication, do-not-contact logic, and logs.",
       includes: [
@@ -235,7 +235,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     integrations: {
       label: "Integrations and examples",
       intro:
-        "Typical stack combinations for this pilot include the tools already used by the sales or founder team.",
+        "Typical stack combinations for this package include the tools already used by the sales or founder team.",
       items: [
         "HubSpot, Pipedrive, or a structured Google Sheet",
         "Gmail, Outlook, WhatsApp, or Telegram inboxes",
@@ -266,13 +266,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
         "Human review rate by reason",
       ],
       commercialModel:
-        "The audit defines the boundary. If it is viable, Dali sends a fixed-scope, fixed-price pilot milestone. Build starts only after approval, and any wider rollout is a separate decision.",
+        "The audit defines the boundary. If it is viable, Dali sends a fixed-scope, fixed-price milestone. Build starts only after approval, and any wider rollout is a separate decision.",
     },
     delivery: [
       {
         title: "Map the response path",
         body:
-          "We review the real inbox flow, qualification questions, and CRM handoff so the pilot is anchored in how leads arrive today, not in a hypothetical funnel.",
+          "We review the real inbox flow, qualification questions, and CRM handoff so the package is anchored in how leads arrive today, not in a hypothetical funnel.",
       },
       {
         title: "Rehearse on real examples",
@@ -280,9 +280,9 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
           "We replay recent inbound threads, refine the decision rules, and lock the exact approval points before anything answers live.",
       },
       {
-        title: "Launch the packaged pilot",
+        title: "Launch the packaged solution",
         body:
-          "The pilot goes live on the agreed queue with monitoring, exception handling, and a narrow scope that is practical to own.",
+          "The package goes live on the agreed queue with monitoring, exception handling, and a narrow scope that is practical to own.",
       },
     ],
     fit: {
@@ -301,7 +301,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "Will this close deals on its own?",
         answer:
-          "No. This pilot is for faster intake, consistent qualification, and cleaner follow-up. Closing judgment stays with the human seller.",
+          "No. This package is for faster intake, consistent qualification, and cleaner follow-up. Closing judgment stays with the human seller.",
       },
       {
         question: "Can it send replies automatically?",
@@ -311,13 +311,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "What if our lead flow changes a lot week to week?",
         answer:
-          "That is workable if the first-pass questions are still stable. If every inquiry changes the rules, the pilot scope should narrow before launch.",
+          "That is workable if the first-pass questions are still stable. If every inquiry changes the rules, the package scope should narrow before launch.",
       },
     ],
     cta: {
       publicLabel: "Start the lead response audit",
       publicBody:
-        "If this matches the workflow you want fixed first, send the intake details and Dali will reply with a pilot outline, approval map, and boundary assumptions.",
+        "If this matches the workflow you want fixed first, send the intake details and Dali will reply with a scope outline, approval map, and boundary assumptions.",
       intakeFields: [
         "Lead sources and approximate weekly volume",
         "Current first-response and qualification path",
@@ -326,24 +326,24 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with your lead sources, current response path, and CRM. Dali will answer with the fixed pilot boundary for this exact workflow.",
+        "Reply in Upwork with your lead sources, current response path, and CRM. Dali will answer with the fixed scope boundary for this exact workflow.",
     },
   },
   "client-inbox": {
     slug: "client-inbox",
-    name: "Client Inbox Pilot",
+    name: "Client Inbox",
     summary:
-      "A packaged pilot for teams that need faster, grounded customer replies without giving an agent permission to improvise sensitive actions.",
+      "A packaged solution for teams that need faster, grounded customer replies without giving an agent permission to improvise sensitive actions.",
     accent: "#1E3A8A",
     accentSoft: "#E9EDFF",
     tint: "#fff6f0",
     metadata: {
-      title: "Client Inbox Pilot | Dali",
+      title: "Client Inbox | Dali",
       description:
-        "Packaged pilot for one customer chat or email workflow with grounded replies, CRM history, approved actions, and human escalation.",
+        "Packaged solution for one customer chat or email workflow with grounded replies, CRM history, approved actions, and human escalation.",
     },
     hero: {
-      eyebrow: "Packaged pilot",
+      eyebrow: "Packaged solution",
       title: "Turn the shared inbox into one controlled response path.",
       lead:
         "Dali designs one fixed-scope customer inbox workflow that reads the approved context, drafts or sends routine replies, logs the conversation in CRM, and pauses files, media, or sensitive actions for human review.",
@@ -353,7 +353,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     workflow: {
       label: "Workflow diagram",
       intake: ["Chat or email", "Files and media", "CRM context"],
-      agentLabel: "Client inbox pilot",
+      agentLabel: "Client inbox agent",
       review: ["Sensitive actions", "Unsupported answers", "Policy exceptions"],
       outcomes: ["Grounded reply", "CRM history", "Human handoff"],
     },
@@ -372,7 +372,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
     },
     pilot: {
-      label: "Exact fixed pilot boundary",
+      label: "Exact fixed scope boundary",
       fixedOutcome:
         "One customer channel, one answer and action policy, one CRM history path, live with a human escalation queue.",
       includes: [
@@ -390,7 +390,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     integrations: {
       label: "Integrations and examples",
       intro:
-        "The pilot connects the channel where customer requests arrive to the context and history the team already trusts.",
+        "The package connects the channel where customer requests arrive to the context and history the team already trusts.",
       items: [
         "Email, website chat, CRM open lines, WhatsApp, or Telegram",
         "HubSpot, Bitrix24, Kommo, GoHighLevel, or another case-history system",
@@ -419,7 +419,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
         "Correct escalation and unauthorized-action rate",
       ],
       commercialModel:
-        "The audit fixes one channel, source set, action policy, and CRM path. Dali then quotes a fixed-scope, fixed-price pilot. Build starts only after approval.",
+        "The audit fixes one channel, source set, action policy, and CRM path. Dali then quotes a fixed-scope, fixed-price package. Build starts only after approval.",
     },
     delivery: [
       {
@@ -435,7 +435,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         title: "Launch with visible ownership",
         body:
-          "The chosen queue goes live with CRM history, monitoring, and a named handoff path for anything outside the pilot boundary.",
+          "The chosen queue goes live with CRM history, monitoring, and a named handoff path for anything outside the package boundary.",
       },
     ],
     fit: {
@@ -454,12 +454,12 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "Can it answer across chat and email?",
         answer:
-          "Yes, but the first pilot stays on one channel or a tightly related pair. Additional channels are a separate expansion after the response and logging path works.",
+          "Yes, but the first package stays on one channel or a tightly related pair. Additional channels are a separate expansion after the response and logging path works.",
       },
       {
         question: "Can it send files, media, or perform CRM actions?",
         answer:
-          "Only the exact approved actions inside the pilot boundary. Sensitive media, account changes, promises, and uncertain requests can remain approval-only.",
+          "Only the exact approved actions inside the package boundary. Sensitive media, account changes, promises, and uncertain requests can remain approval-only.",
       },
       {
         question: "What happens when the knowledge is incomplete?",
@@ -470,7 +470,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     cta: {
       publicLabel: "Start the client inbox audit",
       publicBody:
-        "Send one representative customer thread, the primary channel, and the CRM or case-history system. Dali will reply with the replay set, approval map, and fixed pilot boundary.",
+        "Send one representative customer thread, the primary channel, and the CRM or case-history system. Dali will reply with the replay set, approval map, and fixed scope boundary.",
       intakeFields: [
         "Primary customer channel and approximate weekly volume",
         "One representative routine conversation",
@@ -479,24 +479,24 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with the primary customer channel, CRM, and one representative thread. Dali will answer with the fixed pilot boundary and approval assumptions.",
+        "Reply in Upwork with the primary customer channel, CRM, and one representative thread. Dali will answer with the fixed scope boundary and approval assumptions.",
     },
   },
   "operations-docs": {
     slug: "operations-docs",
-    name: "Documents-to-Actions Pilot",
+    name: "Documents-to-Actions",
     summary:
-      "A packaged pilot that turns one recurring email, PDF, form, or spreadsheet flow into validated records and downstream actions.",
+      "A packaged solution that turns one recurring email, PDF, form, or spreadsheet flow into validated records and downstream actions.",
     accent: "#1E3A8A",
     accentSoft: "#E9EDFF",
     tint: "#fff8f3",
     metadata: {
-      title: "Documents-to-Actions Pilot | Dali",
+      title: "Documents-to-Actions | Dali",
       description:
-        "Packaged pilot to extract and validate operational data, route exceptions for approval, and update the system your team already uses.",
+        "Packaged solution to extract and validate operational data, route exceptions for approval, and update the system your team already uses.",
     },
     hero: {
-      eyebrow: "Packaged pilot",
+      eyebrow: "Packaged solution",
       title: "Turn recurring documents into validated actions.",
       lead:
         "Dali designs one fixed-scope intake-to-system workflow that reads emails, PDFs, forms, screenshots, or spreadsheets, validates the required fields, routes exceptions for approval, and writes the approved result into the system your team already uses.",
@@ -506,7 +506,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     workflow: {
       label: "Workflow diagram",
       intake: ["Email or PDF", "Form or screenshot", "Spreadsheet row"],
-      agentLabel: "Operations workflow pilot",
+      agentLabel: "Operations workflow agent",
       review: ["Missing fields", "Duplicate records", "Rule exceptions"],
       outcomes: ["Validated record", "Routed task", "CRM or ERP update"],
     },
@@ -525,7 +525,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
     },
     pilot: {
-      label: "Exact fixed pilot boundary",
+      label: "Exact fixed scope boundary",
       fixedOutcome:
         "One intake source, one extraction schema, one destination system, and one approval rule, live with an exception queue.",
       includes: [
@@ -537,13 +537,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       excludes: [
         "Automating every document and operating process at once",
         "Guessing missing values or approving ambiguous records",
-        "Replacing the source or destination system in the first pilot",
+        "Replacing the source or destination system in the first package",
       ],
     },
     integrations: {
       label: "Integrations and examples",
       intro:
-        "This pilot sits between the channel where operational data arrives and the system where a checked record or task needs to exist.",
+        "This package sits between the channel where operational data arrives and the system where a checked record or task needs to exist.",
       items: [
         "Gmail, Outlook, Google Drive, forms, uploads, or watched folders",
         "PDFs, screenshots, spreadsheets, order emails, invoices, or application packets",
@@ -595,7 +595,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       fit: [
         "The same type of operational input arrives often enough to rehearse against real examples.",
         "The destination fields and business rules can be written down.",
-        "A named operator can review exceptions during the pilot.",
+        "A named operator can review exceptions during the engagement.",
       ],
       notFit: [
         "Every input has a different structure and no stable downstream action.",
@@ -607,12 +607,12 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "What happens when extraction is uncertain?",
         answer:
-          "The record stops in the exception queue with the source attached. The pilot does not guess through a missing field or low-confidence value.",
+          "The record stops in the exception queue with the source attached. The package does not guess through a missing field or low-confidence value.",
       },
       {
         question: "Can it write directly to our CRM or ERP?",
         answer:
-          "Yes, after the record passes the agreed validation and approval rules. Higher-risk cases can remain draft-only throughout the pilot.",
+          "Yes, after the record passes the agreed validation and approval rules. Higher-risk cases can remain draft-only throughout the engagement.",
       },
       {
         question: "Do we have to replace our current tools?",
@@ -623,7 +623,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     cta: {
       publicLabel: "Start the document workflow audit",
       publicBody:
-        "Send one representative input, the fields you need extracted, and the destination system. Dali will reply with a narrow acceptance test and the fixed pilot boundary.",
+        "Send one representative input, the fields you need extracted, and the destination system. Dali will reply with a narrow acceptance test and the fixed scope boundary.",
       intakeFields: [
         "One representative email, document, form, or row",
         "Fields and validation rules required in the output",
@@ -637,19 +637,19 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
   },
   "knowledge-assistant": {
     slug: "knowledge-assistant",
-    name: "Knowledge Assistant Pilot",
+    name: "Knowledge Assistant",
     summary:
-      "A packaged pilot for teams that need a reliable first answer from their internal knowledge, without inventing certainty where the docs are weak.",
+      "A packaged solution for teams that need a reliable first answer from their internal knowledge, without inventing certainty where the docs are weak.",
     accent: "#1E3A8A",
     accentSoft: "#E9EDFF",
     tint: "#fff6f5",
     metadata: {
-      title: "Knowledge Assistant Pilot | Dali",
+      title: "Knowledge Assistant | Dali",
       description:
-        "Packaged pilot to search internal docs, cite the right source, draft answers, and abstain safely when knowledge is incomplete or conflicting.",
+        "Packaged solution to search internal docs, cite the right source, draft answers, and abstain safely when knowledge is incomplete or conflicting.",
     },
     hero: {
-      eyebrow: "Packaged pilot",
+      eyebrow: "Packaged solution",
       title: "Give the team answers it can verify.",
       lead:
         "Dali packages one permission-aware knowledge workflow across the documents and tools the team already trusts, with citations for factual answers and a clear refusal path when the evidence is weak.",
@@ -659,7 +659,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     workflow: {
       label: "Workflow diagram",
       intake: ["Docs", "Past answers", "Policy notes"],
-      agentLabel: "Knowledge assistant pilot",
+      agentLabel: "Knowledge assistant agent",
       review: ["Missing sources", "Conflicting guidance", "Sensitive requests"],
       outcomes: ["Cited answer", "Suggested next step", "Escalation brief"],
     },
@@ -678,7 +678,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
     },
     pilot: {
-      label: "Exact fixed pilot boundary",
+      label: "Exact fixed scope boundary",
       fixedOutcome:
         "One team or source bundle, one permission model, one answer surface, citations for every factual response, and refusal behavior when evidence is missing.",
       includes: [
@@ -696,7 +696,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     integrations: {
       label: "Integrations and examples",
       intro:
-        "The pilot works best when the source material already exists, even if it is imperfect, and the team knows which repository should count as approved.",
+        "The package works best when the source material already exists, even if it is imperfect, and the team knows which repository should count as approved.",
       items: [
         "Notion, Google Drive, Confluence, or an internal docs folder",
         "Slack or chat intake for internal questions",
@@ -726,13 +726,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
         "Recurring unanswered question themes",
       ],
       commercialModel:
-        "The audit fixes the source set, audience, and evaluation questions. Dali then quotes one fixed-scope, fixed-price pilot. Build begins only after the boundary is approved.",
+        "The audit fixes the source set, audience, and evaluation questions. Dali then quotes one fixed-scope, fixed-price package. Build begins only after the boundary is approved.",
     },
     delivery: [
       {
         title: "Curate the approved source set",
         body:
-          "We choose the documents that count, remove obvious noise, and define the audience so the pilot solves a bounded knowledge problem instead of a vague one.",
+          "We choose the documents that count, remove obvious noise, and define the audience so the package solves a bounded knowledge problem instead of a vague one.",
       },
       {
         title: "Test grounded answers",
@@ -766,18 +766,18 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "What makes this different from a generic chatbot?",
         answer:
-          "The pilot is scoped around an approved source set, explicit abstention, and operational escalation. It is meant to be dependable, not just conversational.",
+          "The package is scoped around an approved source set, explicit abstention, and operational escalation. It is meant to be dependable, not just conversational.",
       },
       {
         question: "Do we need perfect docs first?",
         answer:
-          "No. The source set needs to be good enough for one audience and one use case. The pilot should expose the remaining gaps instead of hiding them.",
+          "No. The source set needs to be good enough for one audience and one use case. The package should expose the remaining gaps instead of hiding them.",
       },
     ],
     cta: {
       publicLabel: "Start the knowledge workflow audit",
       publicBody:
-        "If your team keeps losing time to repeat questions, send the source systems and the user group. Dali will reply with the smallest pilot that can answer safely.",
+        "If your team keeps losing time to repeat questions, send the source systems and the user group. Dali will reply with the smallest package that can answer safely.",
       intakeFields: [
         "Approved document repository or source set",
         "User group that needs the first-answer layer",
@@ -786,27 +786,27 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with the source repository, audience, and escalation owner. Dali will answer with the fixed pilot boundary for the assistant.",
+        "Reply in Upwork with the source repository, audience, and escalation owner. Dali will answer with the fixed scope boundary for the assistant.",
     },
   },
   "voice-agents": {
     slug: "voice-agents",
-    name: "Voice Design-Partner Pilot",
+    name: "Voice Design-Partner",
     summary:
-      "A design-partner research pilot for one repeatable call lane, used to validate disclosure, routing, latency, and human handoff before a broader build.",
+      "A design-partner research package for one repeatable call lane, used to validate disclosure, routing, latency, and human handoff before a broader build.",
     accent: "#1E3A8A",
     accentSoft: "#E9EDFF",
     tint: "#fff7f2",
     metadata: {
-      title: "Voice Design-Partner Pilot | Dali",
+      title: "Voice Design-Partner | Dali",
       description:
-        "Design-partner research pilot for one routine call lane with explicit disclosure, routing, latency, summaries, and human takeover tests.",
+        "Design-partner research package for one routine call lane with explicit disclosure, routing, latency, summaries, and human takeover tests.",
     },
     hero: {
-      eyebrow: "Design-partner research pilot",
+      eyebrow: "Design-partner research package",
       title: "Test one repeatable call flow before you buy a voice agent.",
       lead:
-        "Dali scopes one supervised call lane for a single call type, measures disclosure, routing, summaries, latency, and transfer behavior, and uses that evidence to decide whether a paid voice pilot is justified.",
+        "Dali scopes one supervised call lane for a single call type, measures disclosure, routing, summaries, latency, and transfer behavior, and uses that evidence to decide whether a paid voice package is justified.",
       supportLine:
         "Best fit for booking, qualification, status updates, and overflow coverage where speed matters but high-stakes judgment still belongs to people.",
     },
@@ -844,13 +844,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       excludes: [
         "Payment collection over the phone",
         "Complex sales negotiation or medical, legal, or crisis advice",
-        "Multi-language expansion inside the first pilot",
+        "Multi-language expansion inside the first package",
       ],
     },
     integrations: {
       label: "Integrations and examples",
       intro:
-        "This pilot fits best when the routing path after the call is already defined and the business mainly needs faster coverage and cleaner summaries.",
+        "This package fits best when the routing path after the call is already defined and the business mainly needs faster coverage and cleaner summaries.",
       items: [
         "Twilio, SIP routing, or an existing cloud telephony provider",
         "Calendly, booking software, or a structured intake sheet",
@@ -861,7 +861,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     guardrails: {
       label: "Guardrails and approval",
       intro:
-        "Voice is high trust, so the pilot starts narrow and explicit. The system should be clear about what it is and where it stops.",
+        "Voice is high trust, so the package starts narrow and explicit. The system should be clear about what it is and where it stops.",
       items: [
         "Callers are told they are speaking with an automated assistant.",
         "Anything outside the approved call path routes to human follow-up.",
@@ -879,13 +879,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
         "Summary accuracy on reviewed calls",
       ],
       commercialModel:
-        "The audit fixes one call lane, provider, handoff, and evaluation set. Dali quotes a build only if the design-partner evidence supports a viable paid pilot.",
+        "The audit fixes one call lane, provider, handoff, and evaluation set. Dali quotes a build only if the design-partner evidence supports a viable paid package.",
     },
     delivery: [
       {
         title: "Choose the narrow call lane",
         body:
-          "We select one call type with enough repetition to matter and enough structure to be handled safely inside a packaged pilot.",
+          "We select one call type with enough repetition to matter and enough structure to be handled safely inside a packaged solution.",
       },
       {
         title: "Rehearse transfers and edge cases",
@@ -914,23 +914,23 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "Will callers know it is automated?",
         answer:
-          "Yes. The pilot assumes explicit disclosure. Hidden automation is the wrong trust model for a voice workflow like this.",
+          "Yes. The package assumes explicit disclosure. Hidden automation is the wrong trust model for a voice workflow like this.",
       },
       {
         question: "Can it transfer to a person?",
         answer:
-          "That is usually a core requirement. The pilot is built around a narrow call path plus clean transfer or callback logic for everything else.",
+          "That is usually a core requirement. The package is built around a narrow call path plus clean transfer or callback logic for everything else.",
       },
       {
         question: "Is this for full contact-center replacement?",
         answer:
-          "No. This is a fixed pilot for one call lane. If it works, broader expansion should be a separate decision with new boundaries.",
+          "No. This is a fixed package for one call lane. If it works, broader expansion should be a separate decision with new boundaries.",
       },
     ],
     cta: {
       publicLabel: "Apply for a voice design-partner audit",
       publicBody:
-        "Send one representative call script, current routing path, and required final action. Dali will reply with the audit scope, test matrix, and design-partner pilot boundary.",
+        "Send one representative call script, current routing path, and required final action. Dali will reply with the audit scope, test matrix, and design-partner package boundary.",
       intakeFields: [
         "One routine inbound call type",
         "Current telephony and routing provider",
@@ -944,19 +944,19 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
   },
   "vibe-code-rescue": {
     slug: "vibe-code-rescue",
-    name: "Vibe-code Rescue Pilot",
+    name: "Vibe-code Rescue",
     summary:
-      "A fixed-scope pilot that triages secrets, payments, and admin paths on an AI-built MVP, decides patch vs rewrite per critical path, and leaves gates, a stop-switch, and a clean handoff package.",
+      "A fixed-scope package that triages secrets, payments, and admin paths on an AI-built MVP, decides patch vs rewrite per critical path, and leaves gates, a stop-switch, and a clean handoff package.",
     accent: "#0B3A4A",
     accentSoft: "#E4F0F3",
     tint: "#f4f9fa",
     metadata: {
-      title: "Vibe-code Rescue Pilot | Dali",
+      title: "Vibe-code Rescue | Dali",
       description:
-        "Fixed-scope production hardening pilot for vibe-coded MVPs: triage secrets, payments, and admin, decide patch vs rewrite, add gates and a stop-switch, then hand off a package the team can own.",
+        "Fixed-scope production hardening package for vibe-coded MVPs: triage secrets, payments, and admin, decide patch vs rewrite, add gates and a stop-switch, then hand off a package the team can own.",
     },
     hero: {
-      eyebrow: "Packaged pilot",
+      eyebrow: "Packaged solution",
       title: "Harden the AI-built MVP before it costs you trust or money.",
       lead:
         "Dali runs a fixed-scope rescue on one product surface: find the bleeding paths (secrets, payments, admin, outbound actions), stop the worst risks, decide patch vs rewrite for each critical path, and ship gates, monitoring, and a stop-switch with a handoff the team can run.",
@@ -966,7 +966,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
     workflow: {
       label: "Workflow diagram",
       intake: ["Repo or preview", "Payment & admin paths", "Secret surfaces"],
-      agentLabel: "Rescue and harden pilot",
+      agentLabel: "Rescue and harden package",
       review: ["Critical severity", "Patch vs rewrite", "Owner sign-off"],
       outcomes: ["Risk triage map", "Hardened paths", "Handoff package"],
     },
@@ -985,7 +985,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
     },
     pilot: {
-      label: "Exact fixed pilot boundary",
+      label: "Exact fixed scope boundary",
       fixedOutcome:
         "One product surface, triage of high-risk paths, patch or rewrite decisions for those paths, production gates and a stop-switch, and a handoff package with owners and residual risks.",
       includes: [
@@ -998,14 +998,14 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       excludes: [
         "Full rewrite of every feature or screen",
         "Open-ended product redesign or rebrand",
-        "Multi-product portfolio rescue inside one pilot",
+        "Multi-product portfolio rescue inside one package",
         "Shaming the team for using AI builders",
       ],
     },
     integrations: {
       label: "Integrations and examples",
       intro:
-        "The pilot works on the stack you already shipped. We meet the product where it is: builder output, custom code, payments, and host - then harden the paths that can actually hurt you.",
+        "The package works on the stack you already shipped. We meet the product where it is: builder output, custom code, payments, and host - then harden the paths that can actually hurt you.",
       items: [
         "Lovable, v0, Cursor, Bolt, or mixed AI-assisted codebases",
         "Vercel, Netlify, Cloudflare, or similar preview-to-prod hosts",
@@ -1021,7 +1021,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       items: [
         "Secrets and payment paths are treated as stop-the-bleeding work before cosmetic cleanup.",
         "Every critical path gets an explicit patch or rewrite call with a reason, not a vibe.",
-        "A stop-switch and human gate stay in place for high-impact actions after the pilot.",
+        "A stop-switch and human gate stay in place for high-impact actions after the package.",
         "Residual risks that remain out of scope are written down with owners, not buried in chat.",
       ],
     },
@@ -1035,13 +1035,13 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
         "Handoff completeness: residual risks, owners, next steps",
       ],
       commercialModel:
-        "The audit fixes the product surface, risk priorities, and acceptance bar. Dali then quotes one fixed-scope, fixed-price rescue pilot. Broader rewrite or multi-surface work is a separate decision after handoff.",
+        "The audit fixes the product surface, risk priorities, and acceptance bar. Dali then quotes one fixed-scope, fixed-price rescue package. Broader rewrite or multi-surface work is a separate decision after handoff.",
     },
     delivery: [
       {
         title: "Triage the bleeding paths",
         body:
-          "We map secrets, payments, admin, and outbound action surfaces, rank severity, and freeze the pilot boundary so work starts where damage is real.",
+          "We map secrets, payments, admin, and outbound action surfaces, rank severity, and freeze the package boundary so work starts where damage is real.",
       },
       {
         title: "Patch, rewrite, and gate",
@@ -1075,12 +1075,12 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       {
         question: "Is this a full security audit?",
         answer:
-          "It is a production-hardening pilot with a security-minded triage, not an enterprise pen-test theater. We focus on secrets, payments, admin, and high-impact actions first. Deeper audit notes live in security-audit-for-vibe-coded-websites and the vibe-coded-site-hardening-checklist on the blog.",
+          "It is a production-hardening package with a security-minded triage, not an enterprise pen-test theater. We focus on secrets, payments, admin, and high-impact actions first. Deeper audit notes live in security-audit-for-vibe-coded-websites and the vibe-coded-site-hardening-checklist on the blog.",
       },
       {
         question: "Will you shame us for shipping with AI tools?",
         answer:
-          "No. Speed was rational. The pilot assumes builders helped you learn; the job now is production honesty. Our process notes are public in how-we-rescue-vibe-coded-mvps.",
+          "No. Speed was rational. The package assumes builders helped you learn; the job now is production honesty. Our process notes are public in how-we-rescue-vibe-coded-mvps.",
       },
       {
         question: "What do we get at the end?",
@@ -1100,7 +1100,7 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with the product surface, payment or admin paths, and the owner for risk decisions. Dali will answer with the fixed rescue pilot boundary and triage order.",
+        "Reply in Upwork with the product surface, payment or admin paths, and the owner for risk decisions. Dali will answer with the fixed rescue package boundary and triage order.",
     },
   },
 };
@@ -1199,12 +1199,15 @@ export function buildLocalizedPublicMetadata(
 ): Metadata {
   const pathname = localizePath(getSolutionHref(solution.slug), locale);
   const url = `${siteUrl}${pathname}`;
-  const languageAlternates = Object.fromEntries(
-    locales.map((alternateLocale) => [
-      htmlLanguages[alternateLocale],
-      localizePath(getSolutionHref(solution.slug), alternateLocale),
-    ]),
-  );
+  const languageAlternates = {
+    ...Object.fromEntries(
+      locales.map((alternateLocale) => [
+        htmlLanguages[alternateLocale],
+        localizePath(getSolutionHref(solution.slug), alternateLocale),
+      ]),
+    ),
+    "x-default": getSolutionHref(solution.slug),
+  };
 
   return {
     title: solution.metadata.title,

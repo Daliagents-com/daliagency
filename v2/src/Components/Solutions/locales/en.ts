@@ -15,7 +15,7 @@ export const englishSolutionsBundle = {
       lead:
         "Dali maps one high-cost workflow, builds a production AI agent inside the tools the client already uses, and launches it with human review, monitoring, and full ownership.",
       primaryCta: "Start a workflow audit",
-      secondaryCta: "See packaged pilots",
+      secondaryCta: "See packaged solutions",
       supportLine:
         "One workflow. One acceptance test. No platform migration.",
     },
@@ -46,7 +46,7 @@ export const englishSolutionsBundle = {
         "Humans review only what actually needs judgment.",
         "The workflow becomes visible, measurable, and owned.",
       ],
-      packagedPilot: "Packaged pilot",
+      packagedPilot: "Packaged solution",
       researchLane: "Research lane",
       viewPilot: "View family",
       viewResearch: "View research lane",
@@ -86,7 +86,7 @@ export const englishSolutionsBundle = {
           ],
         },
         "voice-agents": {
-          title: "Voice Design-Partner Pilot",
+          title: "Voice Design-Partner",
           summary:
             "Prove one repeatable call flow before widening the system.",
           tasks: [
@@ -96,7 +96,7 @@ export const englishSolutionsBundle = {
           ],
         },
         "vibe-code-rescue": {
-          title: "Vibe-code Rescue Pilot",
+          title: "Vibe-code Rescue",
           summary:
             "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
           tasks: [

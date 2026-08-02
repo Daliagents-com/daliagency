@@ -11,14 +11,15 @@ import {
   projectCaseCopy,
   projectSlugs,
 } from "@/i18n/projects";
-import "@/app/project/kora/page.styles.css";
-import "@/app/project/muqtad/page.styles.css";
-import "@/app/project/deliverysetup/page.styles.css";
-import "@/app/project/uimix/page.styles.css";
-import "@/app/project/masuro/page.styles.css";
-import "@/app/project/agentsge/page.styles.css";
-import "@/app/project/tamari/page.styles.css";
-import "@/app/project/muqta/page.styles.css";
+import { absoluteUrl } from "@/lib/seo/site";
+import "@/app/(en)/project/kora/page.styles.css";
+import "@/app/(en)/project/muqtad/page.styles.css";
+import "@/app/(en)/project/deliverysetup/page.styles.css";
+import "@/app/(en)/project/uimix/page.styles.css";
+import "@/app/(en)/project/masuro/page.styles.css";
+import "@/app/(en)/project/agentsge/page.styles.css";
+import "@/app/(en)/project/tamari/page.styles.css";
+import "@/app/(en)/project/muqta/page.styles.css";
 
 type LocalizedProjectRouteProps = {
   params: Promise<{
@@ -55,6 +56,18 @@ export async function generateMetadata({
         ka: `/ge/project/${slug}`,
         hy: `/arm/project/${slug}`,
       },
+    },
+    openGraph: {
+      title: copy.title,
+      description: copy.description,
+      url: absoluteUrl(localizePath(`/project/${slug}`, locale)),
+      siteName: "Dali",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: copy.title,
+      description: copy.description,
     },
   };
 }

@@ -2,16 +2,19 @@
 "use client";
 
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ConsultationInterest } from "@/lib/consultation";
 import { useConsultationOptional } from "./ConsultationContext";
 
 type Props = {
   source?: string;
+  interest?: ConsultationInterest;
   className?: string;
   children: ReactNode;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type" | "className">;
 
 export default function ConsultationTrigger({
   source = "cta",
+  interest,
   className,
   children,
   onClick,
@@ -28,13 +31,13 @@ export default function ConsultationTrigger({
         onClick?.(event);
         if (event.defaultPrevented) return;
         if (consultation) {
-          consultation.openConsultation(source);
+          consultation.openConsultation(source, interest);
           return;
         }
         window.location.hash = "consultation";
         window.dispatchEvent(
           new CustomEvent("dali:open-consultation", {
-            detail: { source },
+            detail: { source, interest },
           }),
         );
       }}

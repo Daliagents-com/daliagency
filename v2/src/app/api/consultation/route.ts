@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 import {
   daliContactEmail,
+  formatConsultationAutoReply,
   formatConsultationEmail,
   validateConsultationPayload,
   type ConsultationPayload,
@@ -12,53 +13,62 @@ import { trackServerEvent } from "@/lib/analytics/trackServer";
 
 export const runtime = "nodejs";
 
+// Channels fall through on failure - a broken or misconfigured channel must
+// never cost a lead (e.g. Resend key without a verified sender rejects sends
+// to anyone but the account owner; that lead still has to reach the inbox).
 async function deliverLead(payload: ConsultationPayload) {
   const mail = formatConsultationEmail(payload);
   const webhook = process.env.CONSULTATION_WEBHOOK_URL;
   const resendKey = process.env.RESEND_API_KEY;
 
   if (webhook) {
-    const res = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...payload,
-        subject: mail.subject,
-        text: mail.text,
-        to: daliContactEmail,
-      }),
-    });
-    if (!res.ok) {
-      throw new Error(`Webhook failed: ${res.status}`);
+    try {
+      const res = await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          subject: mail.subject,
+          text: mail.text,
+          to: daliContactEmail,
+        }),
+      });
+      if (!res.ok) throw new Error(`Webhook failed: ${res.status}`);
+      return "webhook" as const;
+    } catch (error) {
+      console.error("[consultation] webhook channel failed", error);
     }
-    return "webhook" as const;
   }
 
   if (resendKey) {
-    const from =
-      process.env.CONSULTATION_FROM_EMAIL ?? "Dali <onboarding@resend.dev>";
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${resendKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [daliContactEmail],
-        reply_to: payload.email,
-        subject: mail.subject,
-        text: mail.text,
-      }),
-    });
-    if (!res.ok) {
-      const detail = await res.text();
-      throw new Error(`Resend failed: ${res.status} ${detail}`);
+    try {
+      const from =
+        process.env.CONSULTATION_FROM_EMAIL ?? "Dali <onboarding@resend.dev>";
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from,
+          to: [daliContactEmail],
+          reply_to: payload.email,
+          subject: mail.subject,
+          text: mail.text,
+        }),
+      });
+      if (!res.ok) {
+        const detail = await res.text();
+        throw new Error(`Resend failed: ${res.status} ${detail}`);
+      }
+      return "resend" as const;
+    } catch (error) {
+      console.error("[consultation] resend channel failed", error);
     }
-    return "resend" as const;
   }
 
-  // Zero-config path: FormSubmit (first submission may require inbox confirmation).
+  // Last-resort path: FormSubmit (first submission may require inbox confirmation).
   const res = await fetch(
     `https://formsubmit.co/ajax/${encodeURIComponent(daliContactEmail)}`,
     {
@@ -95,6 +105,41 @@ async function deliverLead(payload: ConsultationPayload) {
   return "formsubmit" as const;
 }
 
+// Confirmation to the lead with 3 intake questions. Requires Resend plus a
+// CONSULTATION_FROM_EMAIL on a verified domain (the resend.dev default can
+// only deliver to the account owner). Failure never blocks the lead.
+async function sendAutoReply(payload: ConsultationPayload) {
+  const resendKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONSULTATION_FROM_EMAIL;
+  if (!resendKey || !from) return "skipped" as const;
+
+  try {
+    const mail = formatConsultationAutoReply(payload);
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: [payload.email],
+        reply_to: daliContactEmail,
+        subject: mail.subject,
+        text: mail.text,
+      }),
+    });
+    if (!res.ok) {
+      console.error("[consultation] auto-reply failed", res.status);
+      return "failed" as const;
+    }
+    return "sent" as const;
+  } catch (error) {
+    console.error("[consultation] auto-reply error", error);
+    return "failed" as const;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const raw = await request.json();
@@ -104,24 +149,20 @@ export async function POST(request: Request) {
     }
 
     const channel = await deliverLead(parsed.data);
+    const autoReply = await sendAutoReply(parsed.data);
 
     // Conversion event: no PII - only funnel dims (interest, source, locale, channel).
-    await trackServerEvent(
-      {
-        name: AnalyticsEvent.ConsultationSubmit,
-        path: request.headers.get("referer") ?? "",
-        locale: parsed.data.locale,
-        source: parsed.data.source,
-        props: {
-          interest: parsed.data.interest,
-          channel,
-        },
+    await trackServerEvent({
+      name: AnalyticsEvent.ConsultationSubmit,
+      path: request.headers.get("referer") ?? "",
+      locale: parsed.data.locale,
+      source: parsed.data.source,
+      props: {
+        interest: parsed.data.interest,
+        channel,
+        auto_reply: autoReply,
       },
-      {
-        referrer: request.headers.get("referer") ?? "",
-        userAgent: request.headers.get("user-agent") ?? "",
-      },
-    );
+    });
 
     return NextResponse.json({ ok: true, channel });
   } catch (error) {

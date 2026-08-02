@@ -42,6 +42,17 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      // /for/upwork has no index page; Upwork profiles may link the bare path.
+      {
+        source: "/for/upwork",
+        destination: "/solutions",
+        permanent: false,
+      },
+      {
+        source: "/for",
+        destination: "/solutions",
+        permanent: false,
+      },
       ...uniqueLegacy,
     ];
   },

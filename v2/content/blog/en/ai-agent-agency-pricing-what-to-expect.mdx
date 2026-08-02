@@ -2,7 +2,7 @@
 slug: "ai-agent-agency-pricing-what-to-expect"
 title: "AI agent agency pricing: what to expect (and what 'cheap' costs)"
 description: "How AI agent agency pricing usually works: audits, fixed pilots, retainers, and the hidden cost of demo-grade builds."
-date: "2026-07-31"
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "ai-agent-agency-pricing-what-to-expect"
 keywords: ["AI agent agency pricing", "AI automation agency cost", "how much does AI agent implementation cost"]
@@ -13,35 +13,121 @@ type: "article"
 
 ## Direct answer
 
-Expect a paid discovery or audit, then a fixed-price pilot for one workflow. Cheap unlimited 'agents everywhere' packages usually mean thin demos without gates or ownership.
+Expect a paid discovery or audit first, then a fixed-price pilot for one workflow, then an optional monthly retainer once the agent is live. Typical market ranges in 2026: audits from roughly $2,000-15,000, single-workflow pilots from $10,000-50,000, and ops retainers from $1,500-10,000 per month. Cheap unlimited "agents everywhere" packages usually mean thin demos without gates, logging, or ownership.
 
-## Common commercial shapes
+## The three-stage commercial shape
 
-Hourly consulting. Fixed pilot milestones. Monthly ops retainers after launch. Platform licenses on top if a product is required - prefer using tools you already pay for.
+Most credible agent agencies price in three stages.
+
+1. **Discovery or audit.** Paid, short, fixed price. Output: a workflow map, a risk list, and a pilot proposal with a written acceptance test.
+2. **Fixed-scope pilot.** One workflow, one acceptance test, named tools, human gates on risky actions. Fixed price, fixed timeline.
+3. **Ops retainer.** Optional. Monitoring, evals, iteration, and support after the agent is live.
+
+Everything else you will see - hourly consulting, platform licenses, outcome fees - is a variation on these three.
+
+## Pricing models compared
+
+| Model | What it optimizes | Where it backfires |
+| --- | --- | --- |
+| Hourly consulting | Flexibility when scope is unclear | The meter runs while scope drifts |
+| Fixed-price pilot | Clear scope, shared risk | Padding when the brief is vague |
+| Monthly retainer | Ongoing ops and iteration | Standby billing with no defined SLA |
+| Per-agent or per-seat license | Predictable vendor revenue | You pay for a platform you may not need |
+| Outcome or revenue share | Aligned incentives on paper | Attribution disputes, complex contracts |
+
+Prefer a fixed pilot for the build and a defined-scope retainer for operations. Prefer implementing inside tools you already pay for over new platform licenses, unless a new tool genuinely is the product.
+
+## Typical market ranges
+
+These are typical market ranges, not Dali quotes. They vary widely by region, vendor seniority, and how much integration work the scope hides. Treat them as orientation, not offers.
+
+| Line item | Typical market range |
+| --- | --- |
+| Paid discovery or audit | $2,000-15,000, usually 1-3 weeks |
+| Fixed-scope pilot, one workflow | $10,000-50,000, usually 3-8 weeks |
+| Ops retainer after launch | $1,500-10,000 per month |
+| Hourly consulting | $100-300 per hour |
+| LLM usage, one moderate-volume workflow | Tens to low hundreds of dollars per month, scaling with volume |
+
+A quote far below these ranges is not automatically a scam. It usually means something is missing: discovery, gates, logging, documentation, or anyone on call after launch.
+
+<!-- [DAVID: if you want to publish Dali's actual audit and pilot price ranges, add them here as a separate paragraph clearly labeled as Dali pricing] -->
+
+## Cost categories buyers forget
+
+The build is not the whole bill. Budget for these from day one.
+
+- **LLM call costs.** Every agent run consumes tokens. Ask who pays the API bill, how usage is capped, and what happens when a retry loop misbehaves. Get a monthly estimate per workflow at your real volume.
+- **Evaluation upkeep.** Models change and prompts drift. Eval sets need maintenance or quality degrades silently.
+- **Monitoring and logging.** Someone has to read traces when the agent does something strange.
+- **Incident response.** Who is on call, with what response time, at what price.
+- **Change management.** Training the team, updating runbooks, widening or tightening gates as trust builds.
+- **Post-launch support window.** A pilot without a support period is a demo with an invoice.
 
 ## What should be in a pilot quote
 
-Workflow map, integrations in scope, acceptance test, gate rules, logging, handoff package, explicit exclusions.
+A production-grade pilot quote itemizes:
+
+- The workflow map with the exact steps in scope
+- Named integrations and who provides access
+- A written acceptance test: inputs, expected outputs, pass threshold
+- Gate rules: which actions need human approval, and who approves
+- Logging and where traces live
+- The handoff package: docs, runbook, credentials plan
+- An LLM cost estimate and who pays it
+- The support window after go-live
+- Explicit exclusions
+
+If three or more of these are missing, you are looking at a demo quote dressed as a pilot.
+
+## Red flags in a quote
+
+| What the quote says | What it usually means |
+| --- | --- |
+| "Unlimited agents" for a flat fee | Thin templates, no per-workflow discovery |
+| No acceptance test | Success gets defined after the fact, by the vendor |
+| No mention of human approvals | Autonomy by default, incidents later |
+| Free pilot for production scope | Discovery skipped; the cost returns as rework |
+| Platform license required before discovery | You are buying their product, not your outcome |
+| No exclusions listed | Scope disputes, prepaid |
 
 ## Hidden costs of underpriced work
 
-Rewrites after secrets leak. No one on-call. Knowledge leaves with the contractor. CRM pollution from bad automation.
+Underpriced agent work does not stay cheap. Typical follow-on bills:
+
+- Rewrites after secrets end up in client-side code or logs
+- CRM pollution from unattended automation writing bad records at scale
+- Nobody on call when the agent misfires on a Friday night
+- Knowledge leaving with the contractor, so every change starts from zero
+- A second vendor paid to reverse-engineer the first vendor's system
+
+The cost of one wrong autonomous action - a bad refund batch, a wrong email to a customer list, a corrupted pipeline - routinely exceeds the price gap between the cheap bid and the credible one.
 
 ## How to compare quotes fairly
 
-Normalize scope. Ask what happens when the agent is wrong. Ask who pays for production hardening.
+1. **Normalize scope.** Put every quote against the same workflow, tools, volume, and acceptance test. If vendors interpreted your brief differently, fix the brief and re-ask.
+2. **Ask what happens when the agent is wrong.** Gates, rollback, escalation path, on-call. A vendor without an answer is quoting a demo.
+3. **Ask who pays for production hardening.** Logging, evals, security review: inside the price, or a change request later?
+4. **Compare total first-year cost.** Build price plus retainer plus LLM usage plus your team's time, not the pilot line alone.
+5. **Weight ownership.** A slightly pricier vendor that documents the system and trains your team is usually the cheaper one by month six.
 
 ## How Dali fits
 
-Dali quotes fixed-scope pilots after an audit defines the acceptance bar. See [solutions](/solutions).
+Dali quotes fixed-scope pilots after an audit defines the acceptance bar, with gates, logging, and handoff inside the price rather than as change requests. See [solutions](/solutions).
 
 ## FAQ
 
 ### Is a free pilot a good sign?
-Rarely for production systems. Free work often skips discovery and gates.
+Rarely for production systems. Free work usually skips discovery, acceptance tests, and gates - the parts that make an agent safe to run. You pay for them later as rework.
 
 ### Should pricing include tools?
-Prefer implementing inside tools you already own unless a new tool is the product.
+Prefer implementing inside tools you already own unless a new tool is the product. A quote that starts with a platform license before any discovery is selling the platform, not your outcome.
 
 ### When is a retainer justified?
-When agents are live and need monitoring, evals, and iteration.
+When agents are live and need monitoring, evals, and iteration. A retainer without a defined scope and response time is standby billing.
+
+### Who should pay the LLM API bill?
+Usually you, through your own API keys, with the vendor providing a usage estimate and caps. Vendor-held keys make costs opaque and make switching vendors harder.
+
+### How do I budget the first year?
+Add four lines: audit, pilot, retainer for the months after launch, and LLM usage at your real volume. The typical market ranges above give a starting envelope; your integrations and risk profile move it up or down.

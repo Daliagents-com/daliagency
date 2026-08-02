@@ -849,13 +849,11 @@ export default function HeroProductMock() {
   const mobile = useIsMobile();
   const [viewIndex, setViewIndex] = useState(0);
 
-  // Mobile: freeze on Agents org. Reduced motion: freeze on final tour frame.
+  // Mobile / reduced motion: freeze on the inline pipeline view so the
+  // HeroAgentsOrgFlow dynamic chunk (@xyflow) never loads there.
   const tourLive = inView && !reduce && !mobile;
-  const view: ViewId = reduce
-    ? "pipeline"
-    : mobile
-      ? "agents"
-      : TOUR[viewIndex % TOUR.length];
+  const view: ViewId =
+    reduce || mobile ? "pipeline" : TOUR[viewIndex % TOUR.length];
 
   useEffect(() => {
     if (!tourLive) return;

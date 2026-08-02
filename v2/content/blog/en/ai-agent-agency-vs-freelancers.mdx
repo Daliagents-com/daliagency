@@ -2,7 +2,7 @@
 slug: "ai-agent-agency-vs-freelancers"
 title: "AI agent agency vs freelancers: who should build your agents"
 description: "When freelancers are enough for scripts and demos, and when an agent agency is the safer path for production workflows."
-date: "2026-07-31"
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "ai-agent-agency-vs-freelancers"
 keywords: ['AI agent agency vs freelancers', 'hire AI freelancers', 'production AI agents']
@@ -16,9 +16,7 @@ ogImage: "/blog/ai-agent-agency-vs-freelancers/og.jpg"
 
 ## Direct answer
 
-Hire **freelancers** for narrow scripts, prototypes, and one-off integrations you can own after delivery. Choose an **AI agent agency** when agents must run multi-step work across real tools, with approval gates, ops handoff, and ongoing failure modes.
-
-The expensive mistake is treating a production agent system like a weekend chatbot gig.
+Hire **freelancers** for narrow scripts, prototypes, and one-off integrations you can own after delivery. Choose an **AI agent agency** when agents must run multi-step work across real tools, with approval gates, ops handoff, and ongoing failure modes. The expensive mistake is treating a production agent system like a weekend chatbot gig.
 
 ## What freelancers are good at
 
@@ -27,19 +25,27 @@ The expensive mistake is treating a production agent system like a weekend chatb
 - Short engagements with a clear acceptance test
 - Extending an already-owned internal system
 
+For this kind of work a freelancer is often the better buy: less overhead, faster start, and you keep full ownership because the system was yours to begin with.
+
 ## Where freelancers usually break
 
 - No one maps the full workflow before coding
 - No human approval model for irreversible actions
 - Knowledge leaves when the contract ends
 - "It works on my laptop" never becomes monitored production
+- Nobody budgets LLM call costs, so the first real invoice is a surprise
+- No support window: the contract ends at delivery, incidents start after it
+
+None of this is about talent. Plenty of freelancers write better code than agencies. It is about scope: production agent systems need process discovery, gate design, monitoring, and someone reachable after go-live. That is an operations commitment, not a coding task.
 
 ## What an agency should own
 
 - Process discovery before build
 - Tool boundaries, rules, and review queues
+- Approval gates on risky actions, designed with your team
 - Documentation your team can operate
-- A path from pilot to steady-state ownership
+- Evals you can rerun after every model or prompt change
+- A path from pilot to steady-state ownership, including a support window
 
 ## Decision table
 
@@ -49,10 +55,57 @@ The expensive mistake is treating a production agent system like a weekend chatb
 | Risk | Low if it fails | High if wrong action ships |
 | Ops | You maintain it | Shared handoff + training |
 | Time | Days to weeks | Weeks with discovery |
+| Auth surface | One tool, one key | Multi-tool credentials and scoping |
+| Compliance | Light or none | Access rules, logs, audit trail |
+| On-call | Ends with the contract | Defined in the retainer |
+| Documentation | Optional, often skipped | Part of the deliverable |
+
+## The cost-of-failure math
+
+Day rates make freelancers look cheap. Price the downside instead:
+
+1. List the actions the agent can take: send, write, update, refund, delete.
+2. For each action, estimate the cost of one wrong execution - a bad email to a customer list, a corrupted CRM field at scale, an incorrect refund batch.
+3. Multiply by how often that action runs per week.
+4. Compare that exposure with the price gap between the freelancer bid and the agency bid.
+
+For a read-only reporting agent, exposure is near zero and a freelancer is the rational choice. For an agent that writes to customer-facing systems, the exposure usually dwarfs the fee difference within the first month.
+
+## Questions to ask a freelancer before agent work
+
+1. Who maps the workflow before coding, and in what artifact?
+2. Which actions will require human approval, and how is the review queue built?
+3. Where do logs and traces live after you leave?
+4. What is the eval set, and how do we rerun it after a model update?
+5. How are secrets and API keys stored?
+6. What will LLM calls cost at our volume, and who pays?
+7. What exactly is in the handoff package?
+8. What support do you offer after delivery, at what rate and response time?
+9. What happens if you are unavailable for two weeks?
+10. Who owns the code, prompts, and eval sets?
+
+A senior freelancer answers these easily. Silence on three or more means you are buying a demo, whatever the proposal says.
+
+## What a transferable delivery package contains
+
+Whoever builds - freelancer or agency - a production system ships with:
+
+- Repository access with a README your team can actually follow
+- A runbook: how to start, stop, and recover the agent
+- A gate map: which actions are gated and who approves them
+- An eval set with pass thresholds and instructions to rerun it
+- A credentials plan: where secrets live and how to rotate them
+- Known limitations and exclusions, in writing
+
+If a bid does not include this package, add the cost of producing it later - usually by a different person reverse-engineering the system.
+
+<!-- [DAVID: if Dali has rebuilt a freelancer-built agent, one anonymized sentence on what was missing would land well here] -->
 
 ## Practical rule
 
 If losing the builder for two weeks would freeze the system, you do not have a freelancer task - you have an ownership problem. Either staff in-house or hire a studio that designs for transfer.
+
+The combination also works: an agency defines architecture and gates, then freelancers own thin, well-bounded slices inside those boundaries. That keeps day rates where they help and ownership where it belongs.
 
 ## How Dali approaches this
 
@@ -61,10 +114,16 @@ Dali is an agent systems studio: engineering plus operations. We map workflows, 
 ## FAQ
 
 ### Can freelancers and an agency work together?
-Yes. Freelancers can own thin slices after the architecture and gates are clear.
+Yes. Freelancers can own thin slices after the architecture and gates are clear. The failure mode is the reverse order: freelance build first, architecture never.
 
 ### Is price the right primary filter?
-No. Compare total cost of failure, rework, and ownership - not day rates alone.
+No. Compare total cost of failure, rework, and ownership - not day rates alone. Typical market ranges put freelance agent work around $50-150 per hour depending on region and seniority, while agencies quote fixed pilots; the numbers are not comparable without the risk math.
 
 ### When should we stay fully in-house?
 When agents are core product IP and you already have platform eng, evals, and on-call.
+
+### How do we verify a freelancer's production claims?
+Ask for a sanitized runbook and eval set from a past delivery. Builders who ship production systems have these artifacts on hand; demo builders do not.
+
+### What should the contract say about handoff?
+Name the delivery package contents explicitly: repo, runbook, gate map, eval set, credentials plan, exclusions. Tie the final payment to that package, not to a working demo.

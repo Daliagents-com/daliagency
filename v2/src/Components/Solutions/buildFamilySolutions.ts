@@ -140,7 +140,7 @@ function mergeConversation(
     },
     validation: {
       acceptanceTest:
-        "Pick one lane. Rehearse 20 real threads for that lane. The pilot passes only if every event is logged, sensitive cases stop for human review, and the CRM or case history stays accurate.",
+        "Pick one lane. Rehearse 20 real threads for that lane. The package passes only if every event is logged, sensitive cases stop for human review, and the CRM or case history stays accurate.",
       measures: uniqueStrings([
         ...lead.validation.measures,
         ...inbox.validation.measures,
@@ -242,7 +242,7 @@ function mergeOpsKnowledge(
     },
     validation: {
       acceptanceTest:
-        "Pick one lane. Rehearse a fixed sample set. The pilot passes only if outputs are validated, exceptions route to a human, and every write or answer is auditable.",
+        "Pick one lane. Rehearse a fixed sample set. The package passes only if outputs are validated, exceptions route to a human, and every write or answer is auditable.",
       measures: uniqueStrings([
         ...ops.validation.measures,
         ...knowledge.validation.measures,
@@ -316,7 +316,7 @@ export const englishFamilyShells: FamilyShells = {
     },
     hero: {
       eyebrow: "Product family · two fixed lanes",
-      title: "One conversation system. Two fixed pilot lanes.",
+      title: "One conversation system. Two fixed lanes.",
       lead:
         "Dali packages a supervised AI conversation system for the inbox you already run. Start with inbound leads or existing client support, keep approvals visible, and expand only after one lane passes.",
       supportLine:
@@ -329,7 +329,7 @@ export const englishFamilyShells: FamilyShells = {
     cta: {
       publicLabel: "Start the conversation audit",
       publicBody:
-        "Tell us whether the first pain is inbound leads or existing client threads. Dali will reply with the lane boundary, approval map, and pilot outline.",
+        "Tell us whether the first pain is inbound leads or existing client threads. Dali will reply with the lane boundary, approval map, and scope outline.",
       intakeFields: [
         "Starting lane: inbound leads or client support",
         "Channels and approximate weekly volume",
@@ -338,7 +338,7 @@ export const englishFamilyShells: FamilyShells = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with the starting lane (leads or client support), channels, and CRM. Dali will answer with the fixed pilot boundary for that lane.",
+        "Reply in Upwork with the starting lane (leads or client support), channels, and CRM. Dali will answer with the fixed scope boundary for that lane.",
     },
   },
   opsKnowledge: {
@@ -374,7 +374,7 @@ export const englishFamilyShells: FamilyShells = {
       ],
       upworkLabel: "See what to send in Upwork",
       upworkBody:
-        "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed pilot boundary for that lane.",
+        "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed scope boundary for that lane.",
     },
   },
 };

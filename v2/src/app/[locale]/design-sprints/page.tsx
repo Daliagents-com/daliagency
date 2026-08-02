@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import DesignSprints from "@/app/design-sprints/page";
+import DesignSprints from "@/app/(en)/design-sprints/page";
 import {
   isLocale,
   localizedLocales,

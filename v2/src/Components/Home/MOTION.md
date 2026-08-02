@@ -36,7 +36,8 @@ Same order on `app/page.tsx` and `app/[locale]/page.tsx`.
 
 | Surface | Engine | Forbidden |
 |---------|--------|-----------|
-| **Hero** (track, title, product mock tour, logo flight, logo hand-draw) | Framer + DOM rAF | **No GSAP** |
+| **Hero** (track, title, logo flight, logo hand-draw) | DOM/rAF scroll + CSS entrance | **No GSAP**, no framer on scroll track |
+| **Hero product mock tour** | Framer (dynamic chunk) | **No GSAP** |
 | **Projects** | rAF / CSS (showcase) | **No GSAP** |
 | **Agent solutions** | Framer + IO | **No GSAP** |
 | **Services shell** (enter, card hover) | CSS + IO | **No GSAP** |
@@ -49,7 +50,7 @@ Do not reintroduce `gsap` under `src/Components/Home` or on the homepage render 
 
 | Surface | Owner | Files |
 |---------|--------|--------|
-| Hero scroll track / mock / title | Framer `useScroll` | `ui/container-scroll-animation.tsx` |
+| Hero scroll track / mock / title | DOM/rAF + CSS entrance | `ui/container-scroll-animation.tsx` |
 | Hero product mock page tour | Framer + IO (`useLiveStage`-style beats) | `HeroProductMock.tsx` + `.module.css` |
 | Hero agents org graph | `@xyflow/react` nodes/edges + handoff timeline | `HeroAgentsOrgFlow.tsx` + mock CSS `.rf*` |
 | Logo hand-draw | rAF frame replay (`daliReplay.json`) | `DaliAnimation.tsx` |

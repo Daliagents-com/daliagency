@@ -27,12 +27,10 @@ const buildsCopy: Record<
   en: {
     heading: "What Dali builds",
     body:
-      "Dali is an AI agent systems studio. We design production AI agents and workflow automation inside tools teams already use: conversation control for leads and client support, ops and knowledge systems, and voice design-partner pilots. We also harden vibe-coded MVPs, place human approval gates, and build GEO and SEO visibility systems so the business is findable in classic search and AI answers.",
+      "Dali is an AI agent systems studio. We design production AI agents and workflow automation inside tools teams already use: conversation control for leads and client support, ops and knowledge systems, and voice design-partner tracks. We also harden vibe-coded MVPs and place human approval gates so agents ship to production safely.",
     services: [
       "Custom AI agent systems with tools, rules, and approval boundaries",
       "Agent-first products where agents do core work, not only chat",
-      "AI consulting, workflow mapping, and production rollouts",
-      "AI visibility systems: GEO, SEO, citable content, multi-language surfaces",
       "Vibe-code rescue: secrets, payments, admin, patch vs rewrite",
     ],
     explore: "Explore",
@@ -44,18 +42,15 @@ const buildsCopy: Record<
         label: "Conversation control",
       },
       { href: "/blog", label: "Guides and process posts" },
-      { href: "/blog/geo-seo-for-ai-agencies", label: "GEO and SEO for AI agencies" },
     ],
   },
   ru: {
     heading: "Что делает Dali",
     body:
-      "Dali - студия production AI-агентов и автоматизации workflow внутри инструментов, которые команда уже использует: управление перепиской (лиды и support), ops и знания, voice-пилоты. Мы также hardening vibe-coded MVP, ставим human approval gates и строим GEO/SEO-видимость для классического поиска и AI-ответов.",
+      "Dali - студия production AI-агентов и автоматизации workflow внутри инструментов, которые команда уже использует: управление перепиской (лиды и support), ops и знания, voice-пакеты. Мы также укрепляем vibe-coded MVP и ставим human approval gates, чтобы агенты безопасно выходили в продакшен.",
     services: [
       "Кастомные AI agent systems: tools, rules, approval boundaries",
       "Agent-first продукты, где агент делает работу, а не только чат",
-      "AI-консалтинг, карта процессов и production rollout",
-      "AI visibility: GEO, SEO, цитируемый контент, мультиязык",
       "Vibe-code rescue: secrets, payments, admin, patch vs rewrite",
     ],
     explore: "Смотреть",
@@ -67,21 +62,15 @@ const buildsCopy: Record<
         label: "Управление перепиской",
       },
       { href: "/ru/blog", label: "Гайды" },
-      {
-        href: "/ru/blog/geo-seo-for-ai-agencies",
-        label: "GEO и SEO для AI-агентств",
-      },
     ],
   },
   ge: {
     heading: "რას აკეთებს Dali",
     body:
-      "Dali არის AI agent systems სტუდია. ვქმნით production AI აგენტებს და workflow ავტომატიზაციას არსებულ ინსტრუმენტებში: conversation control, ops & knowledge და voice პილოტები. ასევე ვამაგრებთ vibe-coded MVP-ებს, ვაყენებთ human approval gates-ს და ვაშენებთ GEO/SEO ხილვადობას.",
+      "Dali არის AI agent systems სტუდია. ვქმნით production AI აგენტებს და workflow ავტომატიზაციას არსებულ ინსტრუმენტებში: conversation control, ops & knowledge და voice პაკეტები. ასევე ვამაგრებთ vibe-coded MVP-ებს და ვაყენებთ human approval gates-ს, რომ აგენტები უსაფრთხოდ გავიდნენ პროდაქშენში.",
     services: [
       "Custom AI agent systems - tools, rules, approvals",
       "Agent-first products",
-      "AI consulting და production rollout",
-      "GEO / SEO visibility systems",
       "Vibe-code rescue და hardening",
     ],
     explore: "გადასვლა",
@@ -93,21 +82,15 @@ const buildsCopy: Record<
         label: "Conversation control",
       },
       { href: "/ge/blog", label: "ბლოგი" },
-      {
-        href: "/ge/blog/geo-seo-for-ai-agencies",
-        label: "GEO და SEO",
-      },
     ],
   },
   arm: {
     heading: "Ինչ է անում Dali-ն",
     body:
-      "Dali-ն AI agent systems ստուդիա է։ Մենք կառուցում ենք production AI գործակալներ և workflow ավտոմատացում արդեն օգտագործվող գործիքներում՝ conversation control, ops & knowledge և voice փորձնականներ։ Նաև harden ենք անում vibe-coded MVP-ները, դնում human approval gates և կառուցում GEO/SEO տեսանելիություն։",
+      "Dali-ն AI agent systems ստուդիա է։ Մենք կառուցում ենք production AI գործակալներ և workflow ավտոմատացում արդեն օգտագործվող գործիքներում՝ conversation control, ops & knowledge և voice փորձնականներ։ Նաև ամրացնում ենք vibe-coded MVP-ները և դնում human approval gates, որ գործակալները անվտանգ դուրս գան արտադրություն։",
     services: [
       "Custom AI agent systems",
       "Agent-first products",
-      "AI consulting և production rollout",
-      "GEO / SEO visibility",
       "Vibe-code rescue",
     ],
     explore: "Բացել",
@@ -119,10 +102,6 @@ const buildsCopy: Record<
         label: "Conversation control",
       },
       { href: "/arm/blog", label: "Բլոգ" },
-      {
-        href: "/arm/blog/geo-seo-for-ai-agencies",
-        label: "GEO և SEO",
-      },
     ],
   },
 };

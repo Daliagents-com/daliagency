@@ -10,8 +10,7 @@
     "verify:blog": "npx --yes tsx scripts/verify-blog-loader.mjs",
     "verify:blog-inventory": "npx --yes tsx scripts/verify-blog-inventory.mjs",
     "verify:org-schema": "node scripts/verify-org-schema.mjs",
-    "verify:geo-surfaces": "node scripts/verify-geo-surfaces.mjs",
-    "setup:clickhouse": "node scripts/setup-clickhouse.mjs"
+    "verify:geo-surfaces": "node scripts/verify-geo-surfaces.mjs"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.78",

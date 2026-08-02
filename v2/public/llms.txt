@@ -1,0 +1,21 @@
+# Dali
+
+> Production AI agents and workflow automation built inside the business tools your team already uses, from intake and operations to support and internal knowledge work.
+
+Dali is based in Tbilisi, Georgia. Canonical site: https://daliagents.com
+
+## Solutions
+
+- [Conversation Control System](https://daliagents.com/solutions/conversation-control): Supervised inbox system for inbound leads and client support, with fixed lanes and human gates.
+- [Ops & Knowledge System](https://daliagents.com/solutions/ops-knowledge): Turn recurring documents into actions or answer internal questions from approved sources.
+- [Voice Design-Partner](https://daliagents.com/solutions/voice-agents): Prove one repeatable call flow before widening the system.
+- [Vibe-code Rescue](https://daliagents.com/solutions/vibe-code-rescue): Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.
+
+## Company
+
+- [About](https://daliagents.com/about)
+- [Blog](https://daliagents.com/blog)
+
+## Contact
+
+- Email: hello@dali.agents.ge

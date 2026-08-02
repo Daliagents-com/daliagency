@@ -214,6 +214,8 @@ export default function ProjectsSelect({
   const [showColorsPanel, setShowColorsPanel] = useState(false);
 
   useEffect(() => {
+    // Dev-only tuning panel; in prod the handler would hijack Ctrl+P (print).
+    if (process.env.NODE_ENV !== "development") return;
     const handler = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key.toLowerCase() === "p") {
         e.preventDefault();
@@ -265,7 +267,7 @@ export default function ProjectsSelect({
   };
   return (
     <LayoutGroup>
-      {showColorsPanel && (
+      {process.env.NODE_ENV === "development" && showColorsPanel && (
         <ColorsPanel
           overrides={colorOverrides}
           setOverride={setOverride}

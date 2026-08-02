@@ -43,7 +43,7 @@ export type ConsultationCopy = {
 
 export const consultationCopy: Record<Locale, ConsultationCopy> = {
   en: {
-    title: "Book a free consultation",
+    title: "Start a free workflow audit",
     subtitle:
       "Tell us about one workflow. We’ll reply with next steps — no external booking link.",
     name: "Name",
@@ -72,7 +72,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     },
   },
   ru: {
-    title: "Бесплатная консультация",
+    title: "Бесплатный аудит процесса",
     subtitle:
       "Опишите один процесс. Ответим со следующими шагами — без внешних ссылок.",
     name: "Имя",
@@ -101,7 +101,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     },
   },
   ge: {
-    title: "უფასო კონსულტაცია",
+    title: "უფასო სამუშაო პროცესის აუდიტი",
     subtitle:
       "აღწერეთ ერთი პროცესი. გიპასუხებთ შემდეგი ნაბიჯებით — გარე ბმულების გარეშე.",
     name: "სახელი",
@@ -130,7 +130,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     },
   },
   arm: {
-    title: "Անվճար խորհրդատվություն",
+    title: "Աշխատանքային գործընթացի անվճար աուդիտ",
     subtitle:
       "Նկարագրեք մեկ գործընթաց։ Կպատասխանենք հաջորդ քայլերով՝ առանց արտաքին հղումների։",
     name: "Անուն",
@@ -238,6 +238,87 @@ export function formatConsultationEmail(data: ConsultationPayload) {
     ]
       .filter(Boolean)
       .join("\n"),
+  };
+}
+
+type AutoReplyCopy = {
+  subject: string;
+  greeting: (name: string) => string;
+  body: string;
+  questionsIntro: string;
+  questions: string[];
+  signoff: string;
+};
+
+const autoReplyCopy: Record<Locale, AutoReplyCopy> = {
+  en: {
+    subject: "Dali - your request is in",
+    greeting: (name) => `Hi ${name},`,
+    body: "Thanks for the note. A real person (David) reads every request; you will get a reply within one business day.",
+    questionsIntro:
+      "To skip a round-trip, reply to this email with three quick facts:",
+    questions: [
+      "Which tools does this workflow touch today (CRM, inbox, spreadsheets)?",
+      "Roughly how many items per week does it handle?",
+      "What must always stay human-approved?",
+    ],
+    signoff: "David Hakobyan\nDali - daliagents.com",
+  },
+  ru: {
+    subject: "Dali - заявка получена",
+    greeting: (name) => `Здравствуйте, ${name}!`,
+    body: "Спасибо за заявку. Каждый запрос читает живой человек (David); ответим в течение одного рабочего дня.",
+    questionsIntro:
+      "Чтобы сэкономить круг переписки, ответьте на это письмо тремя фактами:",
+    questions: [
+      "Какие инструменты сейчас задействованы в процессе (CRM, почта, таблицы)?",
+      "Примерно сколько заявок/задач в неделю он обрабатывает?",
+      "Что должно всегда оставаться на ручном одобрении?",
+    ],
+    signoff: "Давид Акопян\nDali - daliagents.com",
+  },
+  ge: {
+    subject: "Dali - მოთხოვნა მიღებულია",
+    greeting: (name) => `გამარჯობა, ${name},`,
+    body: "მადლობა შეტყობინებისთვის. ყველა მოთხოვნას ნამდვილი ადამიანი (David) კითხულობს; გიპასუხებთ ერთი სამუშაო დღის განმავლობაში.",
+    questionsIntro:
+      "დროის დასაზოგად, უპასუხეთ ამ წერილს სამი ფაქტით:",
+    questions: [
+      "რომელ ინსტრუმენტებს ეხება ეს პროცესი დღეს (CRM, ფოსტა, ცხრილები)?",
+      "დაახლოებით რამდენ ერთეულს ამუშავებს კვირაში?",
+      "რა უნდა დარჩეს ყოველთვის ადამიანის დასტურზე?",
+    ],
+    signoff: "David Hakobyan\nDali - daliagents.com",
+  },
+  arm: {
+    subject: "Dali - հայտն ընդունված է",
+    greeting: (name) => `Բարև, ${name},`,
+    body: "Շնորհակալություն հայտի համար: Յուրաքանչյուր հարցում կարդում է իրական մարդ (David); կպատասխանենք մեկ աշխատանքային օրվա ընթացքում:",
+    questionsIntro:
+      "Նամակագրության շրջանը խնայելու համար պատասխանեք այս նամակին երեք փաստով.",
+    questions: [
+      "Այսօր ի՞նչ գործիքների է առնչվում այս գործընթացը (CRM, փոստ, աղյուսակներ):",
+      "Մոտավորապես քանի՞ միավոր է այն մշակում շաբաթական:",
+      "Ի՞նչը պետք է միշտ մնա մարդու հաստատման ներքո:",
+    ],
+    signoff: "David Hakobyan\nDali - daliagents.com",
+  },
+};
+
+export function formatConsultationAutoReply(data: ConsultationPayload) {
+  const copy = autoReplyCopy[data.locale ?? "en"] ?? autoReplyCopy.en;
+  return {
+    subject: copy.subject,
+    text: [
+      copy.greeting(data.name),
+      "",
+      copy.body,
+      "",
+      copy.questionsIntro,
+      ...copy.questions.map((q, i) => `${i + 1}. ${q}`),
+      "",
+      copy.signoff,
+    ].join("\n"),
   };
 }
 

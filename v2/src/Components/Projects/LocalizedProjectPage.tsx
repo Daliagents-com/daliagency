@@ -2,19 +2,18 @@ import Image, { type StaticImageData } from "next/image";
 import Container from "@/Components/Container/Container";
 import ProjectsSelect from "@/Components/ProjectsSelect/ProjectsSelect";
 import PhoneFrame from "@/Components/PhoneFrame/PhoneFrame";
-import FadeIn from "@/app/project/Components/FadeIn";
 import { condensedHeadings, monoText, serifText } from "@/assets/fonts";
-import KoraImage from "@/app/project/kora/assets/screenshot.png";
-import MuqtadImage from "@/app/project/muqtad/assets/screenshot.png";
-import DeliverySetupImage from "@/app/project/deliverysetup/assets/screenshot.png";
-import UIMixImage from "@/app/project/uimix/assets/screenshot.png";
-import MasuroImage from "@/app/project/masuro/assets/screenshot.png";
-import AgentsGeImage from "@/app/project/agentsge/assets/screenshot.png";
-import TamariImage from "@/app/project/tamari/assets/screenshot.jpg";
-import MuqtaImage from "@/app/project/muqta/assets/screenshot.webp";
-import MuqtaPhoto2 from "@/app/project/muqta/assets/photo-2.webp";
-import MuqtaPhoto3 from "@/app/project/muqta/assets/photo-3.webp";
-import MuqtaPhoto4 from "@/app/project/muqta/assets/photo-4.webp";
+import KoraImage from "@/app/(en)/project/kora/assets/screenshot.png";
+import MuqtadImage from "@/app/(en)/project/muqtad/assets/screenshot.png";
+import DeliverySetupImage from "@/app/(en)/project/deliverysetup/assets/screenshot.png";
+import UIMixImage from "@/app/(en)/project/uimix/assets/screenshot.png";
+import MasuroImage from "@/app/(en)/project/masuro/assets/screenshot.png";
+import AgentsGeImage from "@/app/(en)/project/agentsge/assets/screenshot.png";
+import TamariImage from "@/app/(en)/project/tamari/assets/screenshot.jpg";
+import MuqtaImage from "@/app/(en)/project/muqta/assets/screenshot.webp";
+import MuqtaPhoto2 from "@/app/(en)/project/muqta/assets/photo-2.webp";
+import MuqtaPhoto3 from "@/app/(en)/project/muqta/assets/photo-3.webp";
+import MuqtaPhoto4 from "@/app/(en)/project/muqta/assets/photo-4.webp";
 import type { Locale } from "@/i18n/config";
 import { homeCopy } from "@/i18n/home";
 import {
@@ -88,93 +87,91 @@ export default function LocalizedProjectPage({
   const tags = homeCopy[locale].projectCards[slug].tags;
 
   return (
-    <FadeIn>
-      <Container id={`${slug}-page`} className="overflow-hidden">
-        <section
-          id="project-header"
-          className="flex flex-col gap-36 py-80 uppercase"
-        >
-          <h1 className={`${condensedHeadings.className} text-page-title`}>
-            {copy.headline}
-          </h1>
-          <ul className={`${monoText.className} flex flex-wrap gap-16 text-body5 font-normal md:gap-36`}>
-            {tags.map((tag) => (
-              <li key={tag}>
-                <span className="mb-36">/</span> <span>{tag}</span>
-              </li>
-            ))}
-          </ul>
-          <p className={`${monoText.className} flex text-body5 font-normal md:text-body4`}>
-            <span
-              className="origin-top-left"
-              style={{ transform: "rotate(90deg) translate(4px,-100%)" }}
-            >
-              {visual.year}
-            </span>{" "}
-            <span>
-              {labels.client} - {visual.client}
-            </span>
-          </p>
-        </section>
-
-        <section className={`${serifText.className} py-40 md:py-80`}>
-          <h2
-            className={`${condensedHeadings.className} mb-24 text-section-title uppercase md:mb-40`}
+    <Container id={`${slug}-page`} className="overflow-hidden">
+      <section
+        id="project-header"
+        className="flex flex-col gap-36 py-80 uppercase"
+      >
+        <h1 className={`${condensedHeadings.className} text-page-title`}>
+          {copy.headline}
+        </h1>
+        <ul className={`${monoText.className} flex flex-wrap gap-16 text-body5 font-normal md:gap-36`}>
+          {tags.map((tag) => (
+            <li key={tag}>
+              <span className="mb-36">/</span> <span>{tag}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={`${monoText.className} flex text-body5 font-normal md:text-body4`}>
+          <span
+            className="origin-top-left"
+            style={{ transform: "rotate(90deg) translate(4px,-100%)" }}
           >
-            {labels.about}
-          </h2>
-          <div className="grid grid-cols-1 items-start gap-32 md:grid-cols-2 md:gap-48">
-            {visual.phone ? (
-              <div className="flex justify-center md:justify-start">
-                <div className="w-full max-w-[260px]">
-                  <PhoneFrame
-                    src={visual.image}
-                    alt={copy.imageAlt}
-                    placeholder="blur"
-                    priority
-                    sizes="(max-width: 768px) 70vw, 260px"
-                  />
-                </div>
+            {visual.year}
+          </span>{" "}
+          <span>
+            {labels.client} - {visual.client}
+          </span>
+        </p>
+      </section>
+
+      <section className={`${serifText.className} py-40 md:py-80`}>
+        <h2
+          className={`${condensedHeadings.className} mb-24 text-section-title uppercase md:mb-40`}
+        >
+          {labels.about}
+        </h2>
+        <div className="grid grid-cols-1 items-start gap-32 md:grid-cols-2 md:gap-48">
+          {visual.phone ? (
+            <div className="flex justify-center md:justify-start">
+              <div className="w-full max-w-[260px]">
+                <PhoneFrame
+                  src={visual.image}
+                  alt={copy.imageAlt}
+                  placeholder="blur"
+                  priority
+                  sizes="(max-width: 768px) 70vw, 260px"
+                />
               </div>
-            ) : (
-              <Image
-                src={visual.image}
-                alt={copy.imageAlt}
-                className="w-full"
+            </div>
+          ) : (
+            <Image
+              src={visual.image}
+              alt={copy.imageAlt}
+              className="w-full"
+              placeholder="blur"
+              priority
+            />
+          )}
+          <p className="text-body4 md:text-body1">{copy.description}</p>
+        </div>
+      </section>
+
+      {slug === "muqta" ? (
+        <section className="py-40 md:py-80">
+          <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-24 md:grid-cols-3 md:gap-40">
+            {[MuqtaPhoto2, MuqtaPhoto3, MuqtaPhoto4].map((image, index) => (
+              <PhoneFrame
+                key={image.src}
+                src={image}
+                alt={`${copy.title} ${labels.screen} ${index + 1}`}
                 placeholder="blur"
-                priority
               />
-            )}
-            <p className="text-body4 md:text-body1">{copy.description}</p>
+            ))}
           </div>
         </section>
+      ) : (
+        <></>
+      )}
 
-        {slug === "muqta" ? (
-          <section className="py-40 md:py-80">
-            <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-24 md:grid-cols-3 md:gap-40">
-              {[MuqtaPhoto2, MuqtaPhoto3, MuqtaPhoto4].map((image, index) => (
-                <PhoneFrame
-                  key={image.src}
-                  src={image}
-                  alt={`${copy.title} ${labels.screen} ${index + 1}`}
-                  placeholder="blur"
-                />
-              ))}
-            </div>
-          </section>
-        ) : (
-          <></>
-        )}
-
-        <section className="py-80">
-          <h2
-            className={`${condensedHeadings.className} mb-24 text-section-title uppercase`}
-          >
-            {labels.otherProjects}
-          </h2>
-          <ProjectsSelect excludeProjects={[slug]} locale={locale} />
-        </section>
-      </Container>
-    </FadeIn>
+      <section className="py-80">
+        <h2
+          className={`${condensedHeadings.className} mb-24 text-section-title uppercase`}
+        >
+          {labels.otherProjects}
+        </h2>
+        <ProjectsSelect excludeProjects={[slug]} locale={locale} />
+      </section>
+    </Container>
   );
 }
