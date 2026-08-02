@@ -129,4 +129,4 @@ Exact SHAs may sit on `main`; re-check with `git log --oneline --grep=vibe`.
 
 - Solution content: `v2/src/Components/Solutions/solutionContent.ts` (`vibe-code-rescue` block)  
 - Blog process: https://dali.agents.ge/blog/how-we-rescue-vibe-coded-mvps  
-- SEO pack index: [README.md](./README.md)  
+- SEO pack index: [README.md](../README.md)  

@@ -173,7 +173,7 @@ python3 -c "import json;d=json.load(open('home.json'));print({k:round(v['score']
 
 ## Related
 
-- [status.md](./status.md)  
-- [blockers.md](./blockers.md)  
-- [audit-independent.md](./audit-independent.md)  
-- [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md)  
+- [status.md](../ops/status.md)  
+- [blockers.md](../ops/blockers.md)  
+- [audit-independent.md](./audit-independent-2026-07-31.md)  
+- [how-seo-geo-aeo-works.md](../playbook/how-seo-geo-aeo-works.md)  

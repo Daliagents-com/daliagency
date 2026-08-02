@@ -5,7 +5,7 @@
 **Scope:** Tactics **not** already shipped or fully covered in this pack.  
 **Out of scope here:** GSC verify, LinkedIn Company, Clutch, Bing, domain park, sameAs fill, more generic blog volume.
 
-Read first: [status.md](./status.md), [blockers.md](./blockers.md), [lifehacks-current.md](./lifehacks-current.md).
+Read first: [status.md](./status.md), [blockers.md](./blockers.md), [lifehacks-current.md](../playbook/lifehacks-current.md).
 
 ---
 
@@ -33,8 +33,8 @@ It is:
 | 52 posts × 4 locales, Direct answer, FAQ UI, related | live site |
 | Organization / WebSite / BlogPosting, robots, sitemap | live site |
 | GSC, .com park, Vercel Git | [blockers.md](./blockers.md) |
-| LinkedIn Company, Clutch, Bing, directories, GBP decision | blockers + [platforms-publish.md](./platforms-publish.md) |
-| Classic lifehacks (internal links, author, rewrite 11–20) | [lifehacks-current.md](./lifehacks-current.md) |
+| LinkedIn Company, Clutch, Bing, directories, GBP decision | blockers + [platforms-publish.md](../distribution/platforms-publish.md) |
+| Classic lifehacks (internal links, author, rewrite 11–20) | [lifehacks-current.md](../playbook/lifehacks-current.md) |
 | llms.txt as ranking strategy | deprioritized (correct) |
 
 ---
@@ -165,7 +165,10 @@ Optional paid Brand Radar / similar later - only after 4 weeks of manual logs.
 
 ### B1 - Explicit AI crawler policy
 
-**Now:** `User-agent: *` Allow `/` (fine for crawl). No `llms.txt` (404).
+**Status 2026-08-02:** **SHIPPED (robots part)** - explicit allow для 10 AI-ботов в `robots.ts`, проверено live на daliagents.com/robots.txt.
+`llms.txt` всё ещё 404 на проде; создаётся в текущей волне (wave 1), появится в следующем деплое.
+
+**Was (2026-07-31):** `User-agent: *` Allow `/` (fine for crawl). No `llms.txt` (404).
 
 **2026 nuance:** separate training crawlers (e.g. GPTBot, ClaudeBot, Google-Extended) from search/retrieval crawlers (e.g. OAI-SearchBot, Claude-SearchBot, PerplexityBot).
 
@@ -332,6 +335,6 @@ Treat vendor “+40% GEO” claims with skepticism.
 
 - [status.md](./status.md)
 - [blockers.md](./blockers.md)
-- [playbook-summary.md](./playbook-summary.md)
-- [lifehacks-current.md](./lifehacks-current.md)
-- [platforms-publish.md](./platforms-publish.md)
+- [playbook-summary.md](../playbook/playbook-summary.md)
+- [lifehacks-current.md](../playbook/lifehacks-current.md)
+- [platforms-publish.md](../distribution/platforms-publish.md)

@@ -4,7 +4,7 @@ Competitive intelligence database of **233 AI agent and automation companies**, 
 
 ## What's Inside
 
-### Dataset: `research.csv`
+### Dataset: `agencies-dataset-233-2026-04.csv`
 
 A structured research database with 233 companies and 39 columns covering:
 
@@ -91,7 +91,7 @@ Each company goes through a 5-round pipeline:
 - Read the first-offer report for packaging and pricing guidance
 
 **If you're doing competitive research:**
-- Filter `research.csv` by Type, Target Market, or Geography
+- Filter `agencies-dataset-233-2026-04.csv` by Type, Target Market, or Geography
 - Compare pricing models and ranges across similar companies
 - Study marketing language patterns in the Marketing Words/Angle columns
 

@@ -5,7 +5,10 @@ GSC Generative AI report covers Google only.
 This sheet covers ChatGPT / Perplexity (and optional Claude).
 
 **Cadence:** once as baseline, then 15–30 min weekly.  
-**Brand strings to watch:** `Dali`, `Dali Agents`, `dali.agents.ge`.
+**Brand strings to watch:** `Dali`, `Dali Agents`, `daliagents.com`, `dali.agents.ge`.
+
+**Note (2026-08-02):** baseline от 2026-08-01 ссылался на dali.agents.ge.
+После cutover на daliagents.com требуется перезапуск всех промптов.
 
 ---
 
@@ -67,6 +70,9 @@ Do not seed the brand name unless the prompt is in the Branded family.
 | 2026-08-01 | perplexity | C1 | no | - | AgentForge, Powered_by, Klevere, DestiLabs, Intuz | SMB production agents; Dali not listed |
 | 2026-08-01 | perplexity | P1 | no | - | generic triage advice | Vibe MVP rescue; no studio named |
 | 2026-08-01 | perplexity | C2 | no | - | mid-market agency lists | Category studio rec still competitor-dominated |
+| 2026-08-02 | google-websearch | B1 | no | - | DALI Prolog framework, x.com/DALI_Agency, dali-agency.com | Brand query "Dali Agents": выигрывают чужие сущности, daliagents.com отсутствует |
+| 2026-08-02 | google-websearch | C-tbilisi | no | - | Sortlist / TechBehemoths / Clutch листинги + конкуренты | Category query "AI agent agency Tbilisi": Dali отсутствует |
+| 2026-08-02 | google-websearch | P1 | no | - | Azumo, Octave, Solutyics, mev.com | Query "vibe code rescue": Dali отсутствует |
 
 ---
 
@@ -108,5 +114,5 @@ Branded + problem-process alignment is the early win.
 
 ## Related
 
-- [opportunities-next.md](./opportunities-next.md) A5, A3
-- [blockers.md](./blockers.md) B-P0-01 GSC
+- [opportunities-next.md](../ops/opportunities-next.md) A5, A3
+- [blockers.md](../ops/blockers.md) B-P0-01 GSC

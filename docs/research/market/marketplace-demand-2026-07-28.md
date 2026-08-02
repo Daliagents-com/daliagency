@@ -22,8 +22,8 @@ They do not prove market size, product-market fit, selection, payment, repeatabi
 
 ## Durable artifacts
 
-- [Combined marketplace workbook](../../../outputs/marketplace-158-2026-07-28/marketplace-158-cards-2026-07-28.xlsx) contains all 158 cards, a unified category taxonomy, descending overall match for David, match bands, short briefs, why-fit notes, risks and source URLs.
-- [Upwork workbook](../../../outputs/upwork-100-2026-07-28/upwork-100-cards-2026-07-28.xlsx) contains all 100 cards, Russian briefs, categories, technical match, risks, source URLs, evidence text, and summary tables.
+- [Combined marketplace workbook](../upwork-marketplace/data/marketplace-158-cards-2026-07-28.xlsx) contains all 158 cards, a unified category taxonomy, descending overall match for David, match bands, short briefs, why-fit notes, risks and source URLs.
+- [Upwork workbook](../upwork-marketplace/data/upwork-100-cards-2026-07-28.xlsx) contains all 100 cards, Russian briefs, categories, technical match, risks, source URLs, evidence text, and summary tables.
 - [FL.ru corpus](./fl-ru-ai-corpus-2026-07-28.csv) contains all 58 visible cards, short Russian briefs, category, availability status, response count, technical match, and source URL.
 
 No card received 100 percent in the combined overall-match catalog.

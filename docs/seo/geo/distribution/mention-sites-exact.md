@@ -242,10 +242,10 @@ date | site | url_live | type(list|post|comment) | blog_linked(y/n) | sameAs(y/n
 ## Related
 
 - [platforms-publish.md](./platforms-publish.md) (shorter matrix)  
-- [blockers.md](./blockers.md)  
-- [ai-citation-baseline.md](./ai-citation-baseline.md)  
-- [youtube-scripts-batch1.md](./youtube-scripts-batch1.md)  
-- [opportunities-next.md](./opportunities-next.md)  
+- [blockers.md](../ops/blockers.md)  
+- [ai-citation-baseline.md](../audits/ai-citation-baseline-2026-07-31.md)  
+- [youtube-scripts-batch1.md](../content/youtube-scripts-batch1.md)  
+- [opportunities-next.md](../ops/opportunities-next.md)  
 
 ---
 

@@ -101,5 +101,5 @@ Internal links localized (`/ru|ge|arm/blog/...`, `/ru|ge|arm/solutions...`).
 ## Related
 
 - Existing inventory was 52 process/tutorial posts  
-- [lighthouse-audit-2026-07-31.md](./lighthouse-audit-2026-07-31.md)  
-- [video-iT7kq-R3Gjc-transcript.md](./video-iT7kq-R3Gjc-transcript.md) (AEO question-mining aligns with this batch)  
+- [lighthouse-audit-2026-07-31.md](../audits/lighthouse-audit-2026-07-31.md)  
+- [video-iT7kq-R3Gjc-transcript.md](../learn/video-iT7kq-R3Gjc-transcript.md) (AEO question-mining aligns with this batch)  

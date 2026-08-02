@@ -6,7 +6,7 @@
 **Extracted:** 2026-07-31 via yt-dlp EN captions  
 **Quality:** Caption-derived; expect ASR typos (LMS→LLMs, Chad GBT→ChatGPT, Jadypt→ChatGPT).
 
-**Related:** [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) (Matt Canyon/Surfer), [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md)
+**Related:** [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md) (Matt Canyon/Surfer), [how-seo-geo-aeo-works.md](../playbook/how-seo-geo-aeo-works.md)
 
 ---
 
@@ -304,6 +304,6 @@ You can find all past episodes or learn more about the show at lennispodcast.com
 
 ## Related Dali docs
 
-- [lighthouse-audit-2026-07-31.md](./lighthouse-audit-2026-07-31.md)  
-- [mention-sites-exact.md](./mention-sites-exact.md)  
-- [blog-batch-buyer-faq-30.md](./blog-batch-buyer-faq-30.md)  
+- [lighthouse-audit-2026-07-31.md](../audits/lighthouse-audit-2026-07-31.md)  
+- [mention-sites-exact.md](../distribution/mention-sites-exact.md)  
+- [blog-batch-buyer-faq-30.md](../content/blog-batch-buyer-faq-30.md)  

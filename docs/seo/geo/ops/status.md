@@ -1,12 +1,12 @@
 # SEO/GEO status
 
-**Updated:** 2026-08-01 (domain cutover to daliagents.com)
+**Updated:** 2026-08-02 (post-cutover live audit)
 
 ## Сейчас актуально (live + git)
 
 | Слой | Статус |
 | --- | --- |
-| Код + 52 статьи (en/ru/ge/arm) | **Да** - GitHub `Daliagents-com/daliagency` |
+| Код + 107 статей x 4 локали (en/ru/ge/arm) | **Да** - GitHub `Daliagents-com/daliagency`; live sitemap 492 URL, из них 428 blog; батчи +30 buyer FAQ и +25 GPT gaps отгружены |
 | Prod **`daliagents.com`** | **Canonical** - apex primary; www + `dali.agents.ge` → 308 apex |
 | Legacy `dali.agents.ge` | **Redirect only** - not a content host |
 | Schema Organization/WebSite + BlogPosting | **Да** (LI company + Clutch + phone + Tbilisi) |
@@ -14,6 +14,7 @@
 | Footer → Blog / Solutions / hello@ | **Да** |
 | Author E-E-A-T block on posts | **Да** |
 | Docs pack `docs/seo/geo/*` | **Да** |
+| `llms.txt` + `/about` | **In progress (wave 1)** - создаются другими агентами, не задеплоено; `llms.txt` на проде 404 |
 | SEO workspace (локально) | **Да**, не git |
 
 ---
@@ -42,7 +43,7 @@
 | --- | --- |
 | Site + content foundation | **92%** |
 | Operator SEO/GEO docs | **95%** |
-| Index / Search Console | **~55%** (property + sitemap live; coverage still “processing”; need ongoing URL inspect + query data) |
+| Index / Search Console | **~0% для канонического хоста daliagents.com** (property не создана; вся GSC-работа спринта была на `sc-domain:dali.agents.ge`) |
 | Entity / off-site GEO | **~55%** (company LI + Clutch + GoodFirms + Crunchbase; not personal-LI-only) |
 | Analytics + rewrite loop | **~15%** (no weekly query rewrite yet) |
 | Domain strategy | **решено**, cutover later |
@@ -52,9 +53,9 @@
 ## Что осталось (коротко)
 
 ### P0 - open
-1. GSC: finish Request indexing for remaining pillar URLs (property already verified)
-2. Optional park `daliagents.com` (B-P0-02)
-3. Confirm every `main` push auto-aliases `dali.agents.ge` (B-P0-03) - CLI alias still used when lag
+1. GSC: создать property для `daliagents.com`, отправить sitemap, сделать Change of Address с `sc-domain:dali.agents.ge` (B-P0-04); .ge-inspects имеют смысл только до Change of Address
+2. ~~Optional park `daliagents.com` (B-P0-02)~~ **DONE** - куплен 2026-08-01, сразу стал prod-хостом
+3. Confirm every `main` push auto-aliases production `daliagents.com` (B-P0-03) - CLI alias still used when lag
 
 ### P1 - open
 4. Clutch **real client review** (profile shell exists)
@@ -82,9 +83,9 @@
 
 ## Sprint artifacts
 
-- [audit-independent.md](./audit-independent.md)
-- [playbook-seo-geo.html](./playbook-seo-geo.html)
-- [ai-citation-baseline.md](./ai-citation-baseline.md) - 6 Perplexity rows 2026-08-01
+- [audit-independent.md](../audits/audit-independent-2026-07-31.md)
+- [playbook-seo-geo.html](../playbook/playbook-seo-geo.html)
+- [ai-citation-baseline.md](../audits/ai-citation-baseline-2026-07-31.md) - 6 Perplexity rows 2026-08-01 + 3 google-websearch rows 2026-08-02
 - [sprint-closeout-2026-08-01.md](./sprint-closeout-2026-08-01.md)
 - [setup-2026-08-01.md](./setup-2026-08-01.md)
 - [goal-8h-2026-08-01.md](./goal-8h-2026-08-01.md)
@@ -93,15 +94,17 @@
 
 ## Next 7 days (David)
 
-1. GSC remaining URL inspect + Request indexing (15-30 min)
-2. X company OTP when SMS arrives
-3. Clutch real review request
-4. AI Agents Directory after free login
-5. Optional: buy `daliagents.com` park only
+1. GSC: property для `daliagents.com` + sitemap + Change of Address с `sc-domain:dali.agents.ge` (B-P0-04)
+2. Directories: website URL на daliagents.com в LinkedIn / Clutch / GoodFirms / Crunchbase
+3. X company OTP when SMS arrives
+4. Clutch real review request
+5. AI Agents Directory after free login
 
 ---
 
 ## Итог
 
-Foundation + off-site entity shells + brand email **shipped**.
-Главный remaining gap: **index coverage maturity** (GSC data lag + ongoing inspect) and **human OTP/reviews**, not “no company entity at all”.
+Foundation + off-site entity shells + brand email **shipped**; `daliagents.com` куплен 2026-08-01 (RDAP Verisign 2026-08-01T10:20Z) и в тот же день стал prod-хостом - домену 1 день.
+Главный remaining gap: **GSC для daliagents.com отсутствует** (property не создана, Change of Address не сделан) и **нулевая видимость в Google** - брендовый запрос "Dali Agents" сайт не возвращает, категорийные выигрывают листинги и конкуренты (см. ai-citation-baseline 2026-08-02).
+Контент тонкий: медиана EN-поста 227 слов (min 176, max 676), все посты датированы 2026-07-31/08-01.
+Email на сайте всё ещё `hello@dali.agents.ge`.

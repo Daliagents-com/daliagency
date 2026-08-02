@@ -204,9 +204,9 @@ It is **index + entity + distribution**, while on-site foundation is already ahe
 
 ## Related docs
 
-- [status.md](./status.md)  
-- [blockers.md](./blockers.md)  
-- [opportunities-next.md](./opportunities-next.md)  
+- [status.md](../ops/status.md)  
+- [blockers.md](../ops/blockers.md)  
+- [opportunities-next.md](../ops/opportunities-next.md)  
 - [lifehacks-current.md](./lifehacks-current.md)  
-- [agent-parallel-work.md](./agent-parallel-work.md)  
-- [ai-citation-baseline.md](./ai-citation-baseline.md)  
+- [agent-parallel-work.md](../ops/agent-parallel-work.md)  
+- [ai-citation-baseline.md](../audits/ai-citation-baseline-2026-07-31.md)  

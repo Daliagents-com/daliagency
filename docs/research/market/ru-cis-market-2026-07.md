@@ -131,9 +131,9 @@ Use the same playbook for recruiting and e-commerce once the lead-ops offer has 
 
 <amendment_2026_07_29>
 
-Отдельная проверка buyer-authored проектов по странам опубликована в [research/40-cis-demand-2026-07-29.md](./40-cis-demand-2026-07-29.md).
+Отдельная проверка buyer-authored проектов по странам опубликована в [research/40-cis-demand-2026-07-29.md](./cis-demand-2026-07-29.md).
 
-Машиночитаемый список сохраненных карточек находится в [action/40-cis-candidate-ledger.csv](../action/40-cis-candidate-ledger.csv).
+Машиночитаемый список сохраненных карточек находится в [action/40-cis-candidate-ledger.csv](./cis-candidate-ledger-2026-07.csv).
 
 Пробел по конкретным проектам частично закрыт, но СНГ нельзя объединять в одну однородную когорту.
 

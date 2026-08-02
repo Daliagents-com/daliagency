@@ -8,10 +8,10 @@ What coding agents can ship **without** GSC / LinkedIn / Clutch logins.
 | --- | --- | --- |
 | FAQPage JSON-LD on blog posts | `v2/src/lib/blog/jsonLd.ts` + post pages | Real FAQs only, from MDX |
 | Explicit AI crawler allow list | `v2/src/app/robots.ts` | Policy documented; still allow-all |
-| AI citation baseline prompts | [ai-citation-baseline.md](./ai-citation-baseline.md) | You run 30 min; no login for agent |
-| YouTube batch 1 scripts | [youtube-scripts-batch1.md](./youtube-scripts-batch1.md) | You film; agent wrote scripts |
+| AI citation baseline prompts | [ai-citation-baseline.md](../audits/ai-citation-baseline-2026-07-31.md) | You run 30 min; no login for agent |
+| YouTube batch 1 scripts | [youtube-scripts-batch1.md](../content/youtube-scripts-batch1.md) | You film; agent wrote scripts |
 | Next opportunities research | [opportunities-next.md](./opportunities-next.md) | Strategy |
-| How SEO/GEO/AEO works | [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md) | Mental model + ranking levers |
+| How SEO/GEO/AEO works | [how-seo-geo-aeo-works.md](../playbook/how-seo-geo-aeo-works.md) | Mental model + ranking levers |
 | Topical Related rail | `v2/src/lib/blog/relatedPosts.ts` | Keywords/type/title score, not “6 newest” |
 | BreadcrumbList + Person author | `v2/src/lib/blog/jsonLd.ts` | E-E-A-T / structure schema |
 

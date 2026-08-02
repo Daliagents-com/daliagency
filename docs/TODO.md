@@ -32,23 +32,23 @@ P0 = блокирует продажи/деньги, P1 = сильно влия�
 - [ ] P0 · 2026-08-02 · Переупаковать Kora в флагманский AI-кейс: проблема, стек, метрики запусков/экономии, скриншоты агентных прогонов, честная плашка "our own product" · (аудит кейсов)
 - [ ] P0 · 2026-08-02 · hub21: пустой шаблон отдаёт 200 без noindex на /project/hub21 (пустые title и h1). Снести роут или noindex как у stayandwork · (аудит кейсов)
 - [ ] P0 · 2026-08-02 · Сделать 1-2 кейса по формату "проблема клиента -> решение -> до/после в цифрах -> срок -> цитата". Если клиентских AI-проектов нет, оформить внутренние автоматизации агентства с реальными замерами. Сейчас таких кейсов 0 из 8 · (аудит кейсов)
-- [ ] P1 · 2026-08-02 · Дизайн-кейсы (muqta, muqtad, tamari, masuro, deliverysetup): переписать подписи в `v2/src/i18n/projectWork.ts` под угол автоматизации или скрыть по схеме stayandwork; tamari и masuro - первые кандидаты на скрытие · (аудит кейсов)
+- [ ] P1 · 2026-08-02 · Дизайн-кейсы: решение David 2026-08-02 - не скрывать и не переписывать, а переместить в конец витрины; AI-кейсы (Kora, agents.ge, uimix) наверх. Переписывание подписей `projectWork.ts` - опционально позже · (аудит кейсов + решение David)
 - [ ] P2 · 2026-08-02 · ColorsPanel dev-панель в прод-бандле перехватывает Ctrl+P на страницах с каруселью (`v2/src/Components/ProjectsSelect/ProjectsSelect.tsx`). Убрать из прода · (аудит кейсов)
 
 ## Маркетинг / конверсия (аудит 2026-08-02)
 
-- [ ] P0 · 2026-08-02 · Проверить prod env: задан ли CONSULTATION_WEBHOOK_URL или RESEND_API_KEY. Если нет - лиды идут через formsubmit.co fallback, где неподтверждённый inbox = тихая потеря 100% заявок при success-экране у пользователя (`v2/src/app/api/consultation/route.ts`) · (аудит конверсии)
+- [ ] P0 · 2026-08-02 · ПОДТВЕРЖДЕНО 2026-08-02 (vercel env ls production): в prod только NEXT_PUBLIC_POSTHOG_KEY/HOST, CONSULTATION_WEBHOOK_URL и RESEND_API_KEY НЕ заданы - все лиды идут через formsubmit.co fallback с риском тихой потери. ДЕЙСТВИЕ DAVID: создать Resend API key (+ верифицировать домен отправки) и `vercel env add RESEND_API_KEY production`, либо задать webhook. Код готов к обоим каналам · (аудит конверсии, проверено)
 - [ ] P0 · 2026-08-02 · /for/upwork отдаёт 404: есть только [slug]-страницы, индекса нет. Сделать индекс или redirect на /solutions - это заявленный канал продаж · (аудит конверсии)
 - [ ] P0 · 2026-08-02 · Заменить mailto на модалку консультации на всех /solutions/[slug] и в блоге, с предзаполненным interest по slug. mailto умирает в in-app браузерах LinkedIn/Facebook - основной источник трафика (`SolutionPages.tsx:142-150`, `BlogPostView.tsx:23`) · (аудит конверсии)
 - [ ] P1 · 2026-08-02 · Главная: поднять AgentSolutions на позицию 01, убрать бренд-портфолио с первого экрана после hero; вторичную CTA hero "Projects" заменить на "See solutions" (`v2/src/app/page.tsx:49-52`, `Hero.tsx:49-54`) · (аудит конверсии)
 - [ ] P1 · 2026-08-02 · Назвать ICP в hero: "For service businesses drowning in inbound messages and founders with AI-built MVPs" вместо абстрактного "your business"; вытащить дифференциацию (one workflow, one acceptance test, client owns IP, human gates) из глубины /solutions на главную · (аудит маркетинга)
-- [ ] P1 · 2026-08-02 · Ценовой якорь: "pilot from $X, 30 days, one acceptance test" на solution-страницах + вопрос про бюджет/объём в форме. Сейчас "fixed-price" повторяется 6 раз без единой цифры · (аудит конверсии)
+- [ ] P1 · 2026-08-02 · ВАЖНО (отмечено David 2026-08-02, решение за ним): ценовой якорь "pilot from $X, 30 days, one acceptance test" на solution-страницах + вопрос про бюджет/объём в форме. Сейчас "fixed-price" повторяется 6 раз без единой цифры. Блокер: выбрать диапазон ($3k / $5k / другой) · (аудит конверсии)
 - [ ] P1 · 2026-08-02 · Lead magnet: vibe-code security checklist как PDF за email - второй шаг для не готовых к заявке (сейчас newsletter/subscribe/download = 0 на сайте) · (аудит конверсии)
 - [ ] P1 · 2026-08-02 · Почта hello@daliagents.com вместо hello@dali.agents.ge (`v2/src/lib/contact.ts:6`) - домен почты должен совпадать с доменом сайта · (аудит маркетинга)
 - [ ] P1 · 2026-08-02 · Авто-письмо лиду после submit (подтверждение + 2-3 уточняющих вопроса через Resend) и/или "book a 15-min slot" на success-экране. Сейчас лид не получает ничего, ответ обещан за сутки - для Upwork-темпа вечность · (аудит конверсии)
 - [ ] P2 · 2026-08-02 · Сузить публичный список услуг с 5 линий до 2 якорей (agent systems + vibe-code rescue); GEO/SEO-услуги убрать из About (`About.tsx:31-37`) · (аудит маркетинга)
 - [ ] P2 · 2026-08-02 · Единая CTA-лексика: сейчас "Start audit" / "Start a workflow audit" / "Book a free consultation" вперемешку · (аудит конверсии)
-- [ ] P2 · 2026-08-02 · Футер: личные хендлы t.me/aisceptic0 и x.com/larseen66 заменить на брендовые ("aisceptic" у AI-агентства - антисигнал) (`Footer.tsx:206-226`) · (аудит маркетинга)
+- [x] P2 · 2026-08-02 · Футер: личные хендлы убраны, оставлен LinkedIn company (dali-agents); личный LinkedIn David остался на /about. Вернуть Telegram/X в футер, когда появятся брендовые хендлы (X ждёт SMS OTP) · закрыто 2026-08-02
 - [ ] P2 · 2026-08-02 · Опечатка в продающем абзаце: "fixed-scope, fixed-price fixed-scope milestone" (`solutionContent.ts:269`); client-only deferred секции главной дают "дыру" 70vh на медленном мобильном (`HomeDeferredSections.tsx`) · (аудит конверсии)
 
 ## SEO / GEO

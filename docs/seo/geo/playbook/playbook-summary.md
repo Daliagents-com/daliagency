@@ -47,6 +47,6 @@ Primary source: https://developers.google.com/search/docs/fundamentals/ai-optimi
 
 ## Operator files
 
-- Blockers: [blockers.md](./blockers.md)
-- Audit: [audit-independent.md](./audit-independent.md)
+- Blockers: [blockers.md](../ops/blockers.md)
+- Audit: [audit-independent.md](../audits/audit-independent-2026-07-31.md)
 - Lifehacks: [lifehacks-current.md](./lifehacks-current.md)

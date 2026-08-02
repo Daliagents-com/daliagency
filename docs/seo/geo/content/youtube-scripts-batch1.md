@@ -188,5 +188,5 @@ Article: https://dali.agents.ge/blog/geo-seo-for-ai-agencies
 
 ## Related
 
-- [opportunities-next.md](./opportunities-next.md) A1
-- [social-linkedin-plan.md](./social-linkedin-plan.md) (repurpose clips as LI posts)
+- [opportunities-next.md](../ops/opportunities-next.md) A1
+- [social-linkedin-plan.md](../distribution/social-linkedin-plan.md) (repurpose clips as LI posts)

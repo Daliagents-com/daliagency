@@ -189,4 +189,4 @@ date | country(GE|AM) | site | url_live | type(list|press|comment|event) | local
 
 - [mention-sites-exact.md](./mention-sites-exact.md) (global EN/RU/Reddit/X)  
 - [platforms-publish.md](./platforms-publish.md)  
-- [blockers.md](./blockers.md) B-P1-05 GBP, B-P1-07 GE/AM  
+- [blockers.md](../ops/blockers.md) B-P1-05 GBP, B-P1-07 GE/AM  

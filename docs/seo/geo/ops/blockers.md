@@ -37,6 +37,7 @@ Agent work continues without waiting.
 ## B-P0-02 - Buy and park `daliagents.com` (optional this week)
 
 **Priority:** P0 (brand) / P1 (SEO timing)  
+**Status 2026-08-02:** **DONE** - куплен 2026-08-01 (RDAP Verisign: 2026-08-01T10:20Z) и в тот же день стал production-хостом, а не park.  
 **Why:** Primary global host for later cutover; prevents squatting.
 
 **Steps:**
@@ -61,6 +62,27 @@ Agent work continues without waiting.
 3. Confirm latest deployment after `f3debf8` / newer commits
 
 **Done when:** A push to `main` auto-deploys production aliased to `dali.agents.ge`.
+
+---
+
+## B-P0-04 - GSC property + sitemap + Change of Address для daliagents.com
+
+**Priority:** P0  
+**Status 2026-08-02:** **open** - property существует только для `sc-domain:dali.agents.ge`; для `daliagents.com` property не создана; Change of Address не сделан.
+
+**Why SEO/GEO:** Канонический хост без GSC = нет coverage/query данных и нет переноса equity с .ge.
+Вся GSC-работа спринта была на legacy-хосте.
+
+**Steps (из [domain-cutover-daliagents-com.md](./domain-cutover-daliagents-com.md), пункты 6-9):**
+1. GSC: добавить domain property `daliagents.com`, отправить sitemap
+2. GSC legacy `sc-domain:dali.agents.ge`: Change of Address / мониторить 308
+3. Bing Webmaster: добавить `https://daliagents.com/`, отправить sitemap
+4. Директории: обновить website URL на daliagents.com в LinkedIn / Clutch / GoodFirms / Crunchbase
+
+**Note (от координатора, 2026-08-02):** ценовой якорь для пилота David отметил как ВАЖНЫЙ, но отложенный пункт.
+Решение о диапазоне цен остаётся за David (human-only); диапазон не выдумывать и не публиковать до его решения.
+
+**Done when:** .com property verified + sitemap submitted + Change of Address запущен + website URL в директориях обновлён.
 
 ---
 
@@ -206,8 +228,9 @@ Optional later: Google Workspace / `@daliagents.com` after .com buy; keep person
 | ID | Status |
 | --- | --- |
 | B-P0-01 GSC | **MOSTLY DONE** 2026-08-01 - property + sitemap + 11 URL inspects; coverage still processing; ongoing Request indexing ops |
-| B-P0-02 .com buy | open |
+| B-P0-02 .com buy | **DONE** 2026-08-01 - куплен (RDAP 2026-08-01T10:20Z) и стал prod-хостом daliagents.com |
 | B-P0-03 Vercel Git | **PARTIAL** 2026-08-01 - CLI prod deploy + alias `dali.agents.ge`; still confirm Git auto-deploy on every push |
+| B-P0-04 GSC .com + Change of Address | **open P0** 2026-08-02 - property для daliagents.com не создана; CoA не сделан; директории всё ещё на .ge |
 | B-P1-01 LinkedIn Co | **DONE** 2026-08-01 - public company + Premium + gen posts + sameAs |
 | B-P1-02 LinkedIn Pro | **PARTIAL** - Company Premium purchased; bulk invites not done |
 | B-P1-03 Clutch | **SHELL DONE** 2026-08-01 - hello@ + profile under review; real client review still open |

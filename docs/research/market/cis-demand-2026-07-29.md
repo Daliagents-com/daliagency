@@ -6,9 +6,9 @@
 
 Цель: найти конкретные публичные задачи из стран СНГ и соседних русскоязычных рынков, отделить живые коммерческие маршруты от вакансий и исторических сигналов, а затем оценить технический match с Давидом и повторно используемыми механизмами Kora.
 
-Это дополнение к [основному каталогу из 158 карточек](../../../outputs/marketplace-158-2026-07-28/marketplace-158-cards-2026-07-28.xlsx), а не замена ему.
+Это дополнение к [основному каталогу из 158 карточек](../upwork-marketplace/data/marketplace-158-cards-2026-07-28.xlsx), а не замена ему.
 
-Строгая FL.ru-когорта из [десяти слотов](../action/30-cohort-slot-ledger.csv) остается неизменной.
+Строгая FL.ru-когорта из [десяти слотов](./cohort-slot-ledger-2026-07.csv) остается неизменной.
 
 </research-target>
 
@@ -82,7 +82,7 @@ Seller-first услуги не считаются buyer-authored спросом.
 | 3 | Специализированная финансовая интеграция | Казахстан | [Реестр инструментов и market-data API](https://www.fl.ru/projects/5513000/napolnenie-bazyi-fondovyih-instrumentov-kazahstana---freedom-broker-i-podklyuchenie-market-data-api.html) | Собрать справочник инструментов KASE, AIX и брокерских источников, нормализовать идентификаторы и подключить текущие и исторические данные. | 74% | Возможный freelance-cash lane только при доказанном finance-data опыте, не первый Kora pilot. |
 | 4 | Исторический high-stakes AI-продукт | Узбекистан | [Персональный AI-консультант](https://freelancehunt.com/en/project/assistant-uzbekistan/1589430.html) | Мобильный и Telegram-консультант с RAG для права, налогов, отчетности и взаимодействия с государством. | 70% | Истекшая и высокорисковая карточка, только evidence. |
 
-Полная машиночитаемая версия находится в [CIS candidate ledger](../action/40-cis-candidate-ledger.csv).
+Полная машиночитаемая версия находится в [CIS candidate ledger](./cis-candidate-ledger-2026-07.csv).
 
 ## Почему нет 100 процентов
 

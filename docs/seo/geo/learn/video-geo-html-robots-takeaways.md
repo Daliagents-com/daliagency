@@ -109,6 +109,6 @@ Schema does not guarantee AI citation; it helps machines classify the page.
 
 ## Related
 
-- [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md)  
-- [opportunities-next.md](./opportunities-next.md)  
-- [blockers.md](./blockers.md) B-P1-08 Bing  
+- [how-seo-geo-aeo-works.md](../playbook/how-seo-geo-aeo-works.md)  
+- [opportunities-next.md](../ops/opportunities-next.md)  
+- [blockers.md](../ops/blockers.md) B-P1-08 Bing  

@@ -96,5 +96,5 @@ And if you want to continue leveling up your SEO knowledge, subscribe to the Sur
 ## Related
 
 - [video-geo-html-robots-takeaways.md](./video-geo-html-robots-takeaways.md)  
-- [how-seo-geo-aeo-works.md](./how-seo-geo-aeo-works.md)  
-- [opportunities-next.md](./opportunities-next.md)  
+- [how-seo-geo-aeo-works.md](../playbook/how-seo-geo-aeo-works.md)  
+- [opportunities-next.md](../ops/opportunities-next.md)  
