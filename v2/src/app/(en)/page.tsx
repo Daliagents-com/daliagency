@@ -3,12 +3,13 @@ import nextDynamic from "next/dynamic";
 import Hero from "../../Components/Home/Hero";
 import About from "../../Components/Home/About";
 import AgentSolutions from "../../Components/Home/AgentSolutions";
+import HomeDeferredSections from "../../Components/Home/HomeDeferredSections";
 import { absoluteUrl } from "@/lib/seo/site";
 
 // Prerender + CDN-friendly HTML (no headers()/cookies in this tree).
 export const dynamic = "force-static";
 
-// Projects still SSR for crawlable case grid.
+// Projects still SSR for crawlable case grid; services load after idle/IO.
 // AgentSolutions is eager + SSR: it is the selling section, position 01.
 const Projects = nextDynamic(() => import("../../Components/Home/Projects"), {
   ssr: true,
@@ -67,6 +68,7 @@ export default function Home() {
       <Hero locale="en" />
       <AgentSolutions locale="en" />
       <Projects locale="en" />
+      <HomeDeferredSections locale="en" />
       <About locale="en" />
     </main>
   );

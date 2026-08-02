@@ -166,7 +166,7 @@ function BrandMark() {
 export default function About({ locale = "en" }: { locale?: Locale }) {
   const copy = homeCopy[locale].about;
   // home nav: Projects, Solutions, Blog, About - About is last.
-  const aboutLabel = homeCopy[locale].navigation.home[3];
+  const aboutLabel = homeCopy[locale].navigation.home[4];
   const builds = buildsCopy[locale] ?? buildsCopy.en;
 
   return (
@@ -179,7 +179,7 @@ export default function About({ locale = "en" }: { locale?: Locale }) {
         <div className={styles.inner}>
           <header className={styles.header}>
             <h2 id="about-title" className="section-label">
-              {sectionTitle(3, aboutLabel)}
+              {sectionTitle(4, aboutLabel)}
             </h2>
           </header>
 

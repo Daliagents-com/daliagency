@@ -43,6 +43,7 @@ const homeHrefs = [
   "/#projects",
   "/#agent-solutions",
   "/blog",
+  "/#services",
   "/#about",
 ] as const;
 
