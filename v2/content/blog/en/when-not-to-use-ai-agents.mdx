@@ -1,8 +1,8 @@
 ---
 slug: "when-not-to-use-ai-agents"
 title: "When not to use AI agents (yet)"
-description: "Clear stop conditions: when AI agents will create risk or waste instead of leverage."
-date: "2026-07-31"
+description: "Honest stop conditions for AI agents: when they create risk or waste instead of leverage, what to use instead, and when to revisit the decision."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "when-not-to-use-ai-agents"
 keywords: ["when not to use AI agents", "AI agents not ready"]
@@ -16,29 +16,82 @@ ogImage: "/blog/when-not-to-use-ai-agents/og.jpg"
 
 ## Direct answer
 
-Do not deploy agents when the process is unknown, data is untrusted, irreversible actions lack owners, or success cannot be defined. Automating confusion multiplies confusion.
+Do not deploy AI agents when the process is unknown or unstable, the data feeding it is untrusted, irreversible actions have no owner, success cannot be written down as a metric, or the volume is too low to repay the build. Automating confusion multiplies confusion, at machine speed and API prices. Most "failed AI projects" were not model failures; they were projects that should have been stopped at this checklist. An honest vendor will tell you no. This page is the checklist we use to say it.
+
+## The eight stop conditions
+
+Any single one of these is a "not yet":
+
+1. **Nobody can draw the process.** If two people who run the workflow describe it differently, an agent will automate the disagreement.
+2. **The process changes monthly.** Agents encode a process; a moving target means permanent rework. Stabilize first.
+3. **Success has no written metric.** "Make it smarter" is not an acceptance test. If you cannot define finished work quality, you cannot evaluate the agent, and neither can the vendor.
+4. **The input data is untrusted.** Stale CRM fields, duplicate records, tribal-knowledge spreadsheets. An agent acting on bad data produces confident, fast, wrong actions.
+5. **Irreversible actions have no owner.** If no named person will approve sends, payments, or record changes during the gated phase, the gate is theater.
+6. **A deterministic rule already solves it.** If the logic is "when X, do Y" with no judgment involved, a workflow tool is cheaper, faster, and easier to debug than an agent.
+7. **The volume is too small.** A task that consumes an hour or two per week will not repay a production build for years. Rough rule of thumb: if the workflow does not consume meaningful weekly hours or carry meaningful error cost, leave it manual.
+8. **Nobody inside will own it.** After handoff, someone on your side works the review queue and watches the metrics. No candidate for that job means no project.
+
+## What to use instead
+
+| Symptom | Wrong move | Right move |
+| --- | --- | --- |
+| Process undocumented | Agent pilot | Write the SOP; run it manually for a month |
+| Pure if-then logic | "AI-powered" workflow | Zapier/Make/n8n or a script |
+| One text step (summarize, draft, classify) | Full agent build | A single LLM call inside the existing tool |
+| Dirty data everywhere | Agent that "cleans as it goes" | A data cleanup project with an owner |
+| Low volume, high judgment | Automation of any kind | A person with a checklist |
+| Pressure to "do AI" | Visible pilot with no metric | One scoped workflow with an acceptance test, or nothing |
+
+The middle rows matter most. A large share of what gets pitched as agent work is a deterministic integration or a single model call wearing an agent costume - see [Zapier/Make/n8n vs production agents](/blog/zapier-make-n8n-vs-production-agents) for where that line runs.
+
+## The automation ladder
+
+Climb one rung at a time, and only when the current rung is saturated:
+
+1. Manual work with a written SOP
+2. Deterministic automation for the rule-based steps
+3. A single LLM call where one step needs language or judgment
+4. A production agent when multi-step judgment across tools is the bottleneck
+
+Each rung teaches you what the next one must handle: the SOP surfaces exceptions, the deterministic layer exposes data problems, the single LLM call reveals quality expectations. Teams that jump from rung one to rung four pay for that skipped learning during the pilot, at agency rates.
 
 ## What good looks like
 
-- Workflow map exists before build
-- Irreversible actions have owners and gates
-- Tools of record are explicit
-- Success is defined as finished work quality, not model verbosity
+- A workflow map exists before anything is built, exceptions included
+- Irreversible actions have named owners and approval gates
+- Tools of record are explicit, so the agent has one source of truth to act in
+- Success is defined as finished work quality with a written acceptance test, not model verbosity
+- The volume and error cost justify the build in arithmetic anyone can check
 
 ## What bad looks like
 
-- Demo theater without production path
-- Unowned automations
+- Demo theater without a production path or acceptance test
+- Unowned automations acting on live data with nobody watching the queue
 - Invented metrics instead of operational evidence
+- An agent built to satisfy a board slide rather than a workflow
+- "We will clean the data later" while the agent already acts on it
+
+## When to revisit
+
+"Not yet" has an expiry date. Re-run the checklist when volume grows past a few hours a day of repetitive work, when the process has been stable for a quarter, when the data source gets an owner and a cleanup, or when a person doing the workflow becomes the bottleneck for revenue. The stop conditions are gates, not verdicts; most workflows that fail the checklist today pass it within a year of deliberate preparation, and the preparation itself - SOPs, clean data, deterministic steps - pays off even if no agent is ever built.
 
 ## How Dali helps
 
-Dali designs and implements agent systems with engineering and operations together - from discovery to production paths and AI visibility. See [solutions](/solutions) and related posts on [production agents](/blog/production-ai-agents-for-business).
+Dali runs discovery before build, and discovery sometimes ends with "do not build an agent here yet" plus the cheaper path that fits. When the checklist passes, we design and implement the production system with gates, evals, and handoff. See [solutions](/solutions) and the companion piece on [production agents](/blog/production-ai-agents-for-business).
 
 ## FAQ
 
 ### Can we skip discovery if we already bought tools?
-No. Tools without a workflow map still fail.
+No. Tools without a workflow map still fail, just with a larger sunk cost attached. The platform license does not answer which workflow, which exceptions, which gated actions, or what "done well" means - and those answers are the project. Discovery on top of already-bought tools is usually faster, but it is never optional.
 
 ### What should we measure first?
-Cycle time, rework, and error/incident rate on one path.
+Cycle time, rework rate, and error or incident rate on one workflow path, measured for the manual process before the agent exists. That baseline is what makes the pilot provable later; without it, every result is an anecdote. Add cost per completed unit of work once the agent runs, including LLM usage.
+
+### Is low volume always a disqualifier?
+Not when error cost is high. A workflow that runs weekly but where one mistake costs a client or a compliance incident can justify an agent as a checking layer, heavily gated. What low volume disqualifies is the standard efficiency case; the risk-reduction case has its own arithmetic.
+
+### Our data is messy. Fix data first or build the agent anyway?
+Fix the data first, scoped to the one workflow you care about. You do not need an enterprise data program; you need the fields this workflow reads to be trustworthy. An agent built on messy data spends its budget generating exceptions, and gate reviewers burn out approving corrections.
+
+### What if leadership wants AI now?
+Give them one scoped workflow that passes the checklist, with a baseline and an acceptance test, and be candid that everything else is staged behind it. One provable pilot satisfies "AI now" better than three stalled experiments, and the checklist gives you defensible language for why the rest waits.

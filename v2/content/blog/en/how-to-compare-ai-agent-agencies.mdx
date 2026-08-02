@@ -1,8 +1,8 @@
 ---
 slug: "how-to-compare-ai-agent-agencies"
 title: "How to compare AI agent agencies side by side"
-description: "A comparison scorecard for AI agent agencies: discovery, gates, security, pilot design, commercial clarity, and handoff."
-date: "2026-07-31"
+description: "A weighted scorecard for comparing AI agent agencies: discovery quality, gate design, security, pilot boundaries, pricing clarity, and ownership transfer."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "how-to-compare-ai-agent-agencies"
 keywords: ["compare AI agent agencies", "AI agency comparison", "AI automation vendor comparison"]
@@ -13,35 +13,91 @@ type: "comparison"
 
 ## Direct answer
 
-Compare AI agent agencies on a shared scorecard: discovery quality, gate design, security, pilot boundary, commercial clarity, and ownership transfer. Ignore vanity awards.
+Compare AI agent agencies on a shared, written scorecard: discovery quality, gate design, security posture, pilot boundary, commercial clarity, and ownership transfer. Send every candidate the same brief, require a written pilot plan with an acceptance test, and score the plans against each other rather than the sales decks. Ignore vanity awards and logo walls; they predict marketing budgets, not production outcomes.
 
-## Scorecard dimensions
+## Why most comparisons fail
 
-Process questions asked. Gate model. Security answers. Pilot template. Price transparency. Docs quality. Team who actually delivers.
+Buyers usually compare the wrong artifacts: three sales decks side by side, and decks are optimized to look alike. The differences that matter - who designs the approval gates, who writes the acceptance test, what happens when the agent is wrong at 2 a.m. - never appear on a slide.
 
-## How to run bake-offs
+Compare written pilot plans instead. A pilot plan forces each agency to commit to scope, gates, metrics, and exclusions on paper; strong vendors produce plans you could hand to a different team and still get the system built.
 
-Same brief to all. Paid discovery if needed. Compare written pilot plans, not slide aesthetics.
+## The scorecard
 
-## Weighting
+Score each agency 1-5 on every dimension. Use the weights as a starting point and adjust for your risk profile.
 
-For production risk, gates and security outrank brand glitter.
+| Dimension | Weight | What a 5 looks like | What a 1 looks like |
+| --- | --- | --- | --- |
+| Discovery quality | 20% | Asks about volumes, exceptions, and failure cost before quoting | Quotes from a one-line brief |
+| Gate design | 20% | Names which actions need human approval and who approves | "The agent is fully autonomous" |
+| Security posture | 15% | Concrete answers on secrets, PII handling, and access scoping | "We take security seriously" |
+| Pilot boundary | 15% | One workflow, written acceptance test, explicit exclusions | "Phase 1" that touches five systems |
+| Commercial clarity | 10% | Fixed pilot price, itemized retainer, LLM cost estimate | Hourly open-ended, tools billed vaguely |
+| Ownership transfer | 15% | Docs, runbook, credentials plan, training in the base price | Handoff sold as a future change request |
+| Delivery team | 5% | You meet the people who will build it | You meet only the closer |
 
-## Output
+Score from written evidence, not from how the call felt, and cap the weight of price: a cheap bid that scores 1 on gates and security is the most expensive option on the table, as the [red flags list](/blog/red-flags-when-hiring-ai-agent-company) spells out.
 
-Pick one partner for pilot one. Do not split one workflow across three vendors.
+## How to run the bake-off
+
+1. **Write one brief and freeze it.** One workflow, real volumes, the tools involved, and the cost of a wrong action. Every vendor gets the identical document.
+2. **Ask for a written pilot plan, not a proposal deck.** Require: scope, acceptance test with pass threshold, gate rules, logging plan, LLM cost estimate, support window, and exclusions.
+3. **Pay for discovery when the workflow is messy.** A short paid discovery from your top two candidates beats three free guesses, and the discovery output itself is an audition.
+4. **Interrogate the acceptance test.** Ask each vendor: what inputs, what expected outputs, what pass rate, who runs it, and what happens on failure. Vendors who improvise here will improvise in production.
+5. **Ask the incident question.** "The agent sends a wrong email to 200 customers on a Friday night. Walk me through the next hour." Score the specificity: rollback, escalation path, on-call, postmortem.
+6. **Check evals and observability.** Ask how they test prompt changes before rollout, where traces live, and how they detect quality drift after a model update. Agencies without an eval habit ship regressions silently.
+
+## Normalizing quotes before you compare
+
+Quotes are only comparable when scope is identical. Before scoring commercial clarity, normalize:
+
+- Same workflow, same tools, same volume assumptions
+- Same acceptance test attached to every quote
+- LLM usage estimated at your real volume, as its own line item, with a clear answer on who holds the API keys
+- Support window and retainer scope stated, not implied
+- Exclusions listed explicitly
+
+Then compare total first-year cost: pilot plus retainer months plus LLM usage plus your team's time. A pilot that looks 30% cheaper often becomes the expensive one once hardening, handoff, and support return as change requests.
+
+## Weighting for your situation
+
+The default weights assume a production system touching customers or money. Adjust deliberately:
+
+- **High-risk actions (refunds, outbound email, records at scale):** raise gate design and security to half the total weight.
+- **No internal technical owner:** raise ownership transfer; a system nobody can operate is a liability with a subscription.
+- **Internal drafting tool, low blast radius:** relax gates somewhat and weight speed and price higher.
+- **Regulated data:** security becomes a pass-fail filter before scoring starts, not a weighted dimension.
+
+## Common comparison traps
+
+- **Scoring chemistry as competence.** A pleasant call is not a gate model.
+- **Letting vendors define the metric.** "Engagement" and "sessions" are vendor-friendly numbers. Insist on cycle time, error rate, and override rate.
+- **Splitting one workflow across vendors to hedge.** You get two half-systems and an integration seam nobody owns. Pick one partner for pilot one.
+- **Treating the biggest team as the safest.** Ask who exactly will work on your system; a senior duo often outperforms a rotating bench.
+
+For the deeper criteria behind each dimension, see [how to evaluate the best AI agent agencies](/blog/best-ai-agent-agencies-how-to-evaluate).
 
 ## How Dali fits
 
-Use Dali's public process writing as diligence material, then [audit](/solutions).
+Dali's process writing - gates, acceptance tests, pilot boundaries, handoff - is public precisely so you can use it as diligence material against any vendor, including us. Put us in the bake-off and start with an [audit](/solutions).
 
 ## FAQ
 
 ### Should price be 50% of the score?
-No. Cap price weight; underpriced risk is expensive.
+
+No. Cap price at roughly 10-15% of the total weight. Underpriced agent work is where gates, logging, and handoff quietly disappear, and the follow-on bill for one wrong autonomous action routinely exceeds the gap between the cheap bid and the credible one. Compare total first-year cost instead of pilot price alone.
 
 ### What if scores tie?
-Choose clearer ownership and chemistry with the workflow owner.
 
-### Related
-[Best AI agent agencies: how to evaluate](/blog/best-ai-agent-agencies-how-to-evaluate).
+Break ties on ownership transfer and on chemistry with the actual workflow owner, in that order. A vendor who documents the system and trains your team is cheaper by month six even at the same price. If both still tie, run a short paid discovery with each and compare the outputs.
+
+### How many agencies should be in the comparison?
+
+Three to five at the brief stage, two at the paid-discovery stage. Fewer than three gives you no calibration; more than five means your brief was too cheap to answer and you will get templated responses.
+
+### Can I skip the scorecard for a small pilot?
+
+Shrink it, do not skip it. Keep the three questions that predict outcomes: what is the acceptance test, which actions need human approval, and what do we own at handoff. A vendor who cannot answer those in writing is quoting a demo.
+
+### Should I weight industry experience in my vertical?
+
+Lightly. Workflow mechanics transfer across industries, and gate discipline does not appear just because a vendor knows your jargon. Score vertical experience as a bonus point and verify it with process questions, not logos.

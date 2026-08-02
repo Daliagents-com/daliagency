@@ -8,6 +8,26 @@ import { syneText } from "@/assets/fonts";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import HeroMotion from "@/Components/Home/HeroMotion";
 
+// Desktop H1 is a single nowrap line, so the size must fit the longest
+// localized string: measured at 3.8vw/1440px the line is 1005px (en),
+// 1590px (ru, Unbounded), 1211px (ge), 1460px (arm). Coefficients and
+// floors keep every locale inside the viewport down to the md breakpoint.
+const desktopTitleSize: Record<Locale, string> = {
+  en: "clamp(40px, 3.8vw, 80px)",
+  ru: "clamp(24px, 2.9vw, 60px)",
+  ge: "clamp(32px, 3.8vw, 80px)",
+  arm: "clamp(26px, 3.15vw, 66px)",
+};
+
+// Mobile lines are non-breaking as well; widest line at 40px is 322px (en),
+// 565px (ru), 423px (ge), 622px (arm) against 358px of content at 390px.
+const mobileTitleSize: Record<Locale, string> = {
+  en: "clamp(40px, 10vw, 48px)",
+  ru: "clamp(20px, 6.4vw, 31px)",
+  ge: "clamp(26px, 8.5vw, 41px)",
+  arm: "clamp(16px, 5.7vw, 27px)",
+};
+
 export default function Hero({ locale = "en" }: { locale?: Locale }) {
   const copy = homeCopy[locale].hero;
   const navigationCopy = homeCopy[locale].navigation;
@@ -22,11 +42,14 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
       >
         <span
           className="hidden whitespace-nowrap md:inline-block"
-          style={{ fontSize: "clamp(40px, 3.8vw, 80px)" }}
+          style={{ fontSize: desktopTitleSize[locale] }}
         >
           {words.join("\u00a0")}
         </span>
-        <span className="block text-[clamp(40px,10vw,48px)] leading-[0.94] md:hidden">
+        <span
+          className="block leading-[0.94] md:hidden"
+          style={{ fontSize: mobileTitleSize[locale] }}
+        >
           {copy.lines.map((line, lineIndex) => (
             <span key={`${locale}-m-${lineIndex}`} className="block">
               {line.join("\u00a0")}

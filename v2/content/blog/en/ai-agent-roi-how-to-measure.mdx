@@ -1,8 +1,8 @@
 ---
 slug: "ai-agent-roi-how-to-measure"
 title: "AI agent ROI: how to measure without fantasy numbers"
-description: "A practical measurement model for AI agent ROI: time saved, error rates, cycle time, exception load, and incident cost."
-date: "2026-07-31"
+description: "A measurement model for AI agent ROI: baselines, a cost side that includes LLM usage and review time, pilot metrics, and expand-or-kill decision rules."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "ai-agent-roi-how-to-measure"
 keywords: ["AI agent ROI", "measure AI automation ROI", "AI agent KPIs"]
@@ -13,35 +13,104 @@ type: "tutorial"
 
 ## Direct answer
 
-Measure AI agent ROI with baseline cycle time, exception rate, rework, and incident cost - not with invented revenue multipliers. If you cannot measure the workflow today, you cannot claim ROI tomorrow.
+Measure AI agent ROI as value minus full cost: time saved at loaded rates plus error reduction, against build cost, retainer, LLM usage, human review time, and incident cost. The prerequisite is a baseline captured before the build - cycle time, exception rate, rework, volume. If you cannot measure the workflow today, you cannot claim ROI tomorrow.
 
-## Baseline first
+## Baseline first, always
 
-Time per case, handoffs, error/rework rate, volume, cost of a bad action.
+The most common failure is starting the build before capturing what "before" looked like. A week or two of light logging is enough; directional numbers beat no numbers.
 
-## Pilot metrics
+| Baseline metric | How to capture it cheaply | Why it matters later |
+| --- | --- | --- |
+| Time per case | Time 20-30 real cases end to end | The core of the savings claim |
+| Volume | Count cases per week from the source system | Converts per-case savings to totals |
+| Handoffs | Count people and tools each case touches | Shows where the agent removes waiting, not just work |
+| Error and rework rate | Tag reworked cases for two weeks | Error reduction is often worth more than time saved |
+| Cost of a bad action | Agree on a number per failure type | Prices risk into the ROI, not just upside |
 
-Time to first response, cases auto-completed safely, exception queue size, human override rate.
+Freeze the baseline in a dated shared document; six months later, nobody remembers honestly.
 
-## False ROI
+## The ROI formula that survives scrutiny
 
-Vanity chat sessions. Token spend without outcome. 'Hours saved' with no baseline.
+Value per period:
 
-## Decision rule
+- **Time saved** = (baseline time per case - new human time per case, including review time) x volume x loaded hourly rate
+- **Error reduction** = (baseline error rate - new error rate) x volume x cost per error
+- **Cycle-time value** = only where speed provably moves an outcome, such as lead response; otherwise leave it out
 
-Expand only when metrics beat baseline without raising incident severity.
+Cost per period:
+
+- Amortized build cost (spread the pilot over 12-24 months, not over infinity)
+- Retainer or internal maintenance time: monitoring, prompt updates, eval upkeep
+- **LLM usage** as its own line: token costs at real volume, on your own API keys so they stay visible
+- Human review time at the gates - the most commonly hidden cost, because approval minutes are real minutes
+- Exception handling time for the queue the agent escalates
+- Expected incident cost: small probability times large cost still belongs in the model
+
+ROI = (value - cost) / cost. If it only turns positive after adding a soft line like "employee happiness", it is negative.
+
+## Pilot metrics that matter
+
+Track a small set weekly. More dashboards do not mean more truth.
+
+| Metric | Definition | Healthy direction |
+| --- | --- | --- |
+| Safe auto-completion rate | Cases finished without human touch or later correction | Rises as gates widen |
+| Human override rate | Approvals where the reviewer changed the output | Falls toward low single digits per case type |
+| Exception queue size | Cases escalated to humans, and their aging | Stable or falling at constant volume |
+| Time to first response | For customer-facing flows | Drops immediately and stays down |
+| Rework rate | Agent-handled cases reopened or corrected later | At or below the human baseline |
+| Cost per completed case | All costs above divided by completed cases | Falls below the baseline human cost |
+
+Watch auto-completion against override rate: high auto-completion with high overrides is not automation; it is a human doing the job with extra steps.
+
+## False ROI patterns
+
+- **Vanity activity.** Sessions, messages, and "agent interactions" measure usage, not value. Ten thousand chats that resolve nothing are a cost line.
+- **Hours saved with no baseline.** If nobody timed the workflow before, "saves 30 hours a week" is a guess wearing a suit.
+- **Revenue multipliers.** Keep revenue claims out unless the causal link is direct and measured; attribution discipline is rare.
+- **Token spend as progress.** A rising API bill proves activity, not outcomes. Watch cost per completed case instead.
+
+## Measurement plumbing
+
+ROI numbers are only as good as the traces behind them; build the pilot measurable:
+
+- **Logging on every run**: inputs, actions, outcome, human intervention - the source of override and rework rates.
+- **An eval set**: 30-50 representative cases with expected outputs, run before every prompt or model change; they catch drift before the monthly numbers do and double as the acceptance test at go-live.
+- **Gate telemetry**: approvals and rejections tagged by case type, showing which slices are ready for wider autonomy.
+- **A weekly one-pager**: the pilot metrics against baseline, owned by the workflow owner. If measurement lives only in the vendor's dashboard, you have outsourced the truth.
+
+Post-pilot operations are covered in [measuring AI agent ops](/blog/measuring-ai-agent-ops), the token side in [LLM cost and model choice](/blog/llm-cost-and-model-choice-for-agents).
+
+## Decision rules
+
+Agree on thresholds in writing before the pilot starts, so the expand-or-kill call is mechanical, not political:
+
+1. **Expand** when metrics beat baseline for two consecutive review periods without raising incident severity: widen gates on the best case types first, then add volume, then the next workflow.
+2. **Hold and tune** when value is positive but override or exception rates are stuck: fix the top exception categories first.
+3. **Kill or rescope** when cost per completed case stays above the human baseline after honest tuning, or when one incident class proves too expensive to gate affordably. Killing a pilot on evidence is a cheap outcome, not a failure.
 
 ## How Dali fits
 
-Dali pilots define acceptance measures up front. See [solutions](/solutions).
+Dali pilots define the acceptance test and metric set up front, with logging from day one, so the expand-or-kill decision runs on your numbers, not our slides. See [solutions](/solutions).
 
 ## FAQ
 
 ### Do we need perfect data?
-No. Directional baselines beat no measurement.
+
+No. A one-week sample of timed cases and a tagged error count beat a quarter of instrumentation planning. Directional baselines are enough for honest expand-or-kill decisions; what you cannot do is reconstruct a baseline from memory after launch, because memory always flatters the project.
 
 ### Who owns metrics?
-The workflow owner, not only the vendor.
+
+The workflow owner on your side, not only the vendor. The vendor builds the logging and hands over queries; the one-pager is produced and read internally. When the vendor is the sole source of numbers, every review meeting is a sales meeting.
 
 ### Can ROI be negative?
-Yes - when incidents and rework exceed time saved.
+
+Yes: incidents, review time, and exception handling can exceed the time saved, especially when an agent runs half-trusted so humans re-check everything anyway. A falling override rate may justify more tuning; flat metrics justify killing the pilot.
+
+### How long before ROI is measurable?
+
+Time-based metrics move within two to four weeks of a live gated pilot at realistic volume; error-rate improvements need more cases, often a full quarter. Commit to a first honest read at 30 days and a decision-grade read at 90. Anyone promising provable ROI in week one is measuring activity.
+
+### How do we count LLM costs in ROI?
+
+As a standing line item on your own API keys: cost per completed case at real volume, with caps and alerts for runaway retry loops. Vendor-held billing hides the number you most need. Routing routine steps to cheaper models often cuts the token line without moving quality metrics.

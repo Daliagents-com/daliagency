@@ -1,8 +1,8 @@
 ---
 slug: "what-is-a-production-ai-agent"
 title: "Что такое production AI agent?"
-description: "Определение production AI-агента versus demos: tools, permissions, gates, evaluation, monitoring и ownership."
-date: "2026-07-31"
+description: "Чем production AI agent отличается от demo: tool contracts, permissions, approval gates, evals, observability, rollout и ownership после handoff."
+date: "2026-08-02"
 locale: "ru"
 hreflangGroup: "what-is-a-production-ai-agent"
 keywords: ["что такое production AI agent", "определение production AI agents", "AI agent vs chatbot"]
@@ -13,35 +13,81 @@ type: "pillar"
 
 ## Прямой ответ
 
-**Production AI agent** - это система, которая выполняет multi-step work с tools под permissions, human gates, logging и ownership. Это не chat-окно, которое только разговаривает.
+Production AI agent - это система, которая выполняет multi-step работу внутри ваших бизнес-tools, под scoped permissions, с human approval gates на рискованных действиях, eval-сетом, ловящим регрессии, observability, которую вы можете читать, и именованным владельцем после ухода вендора. Модель - лишь один компонент; определение живёт во всём, что обёрнуто вокруг неё. Chat-окно, которое только разговаривает, каким бы впечатляющим оно ни было, - это demo. Слово «production» зарабатывается тем, что происходит, когда вход искажён, API падает по timeout или клиент зол, - а не тем, что происходит на happy path.
 
-## Черты demo agent
+## Пять свойств, определяющих «production»
 
-Только happy path. Нет модели реальных credentials. Нет exception queue. Нет stop-switch.
+1. **Действует через tools, под permissions.** Agent читает и пишет в вашем CRM, inbox, таблицах или тикетах через scoped credentials, с принудительным least privilege. Он работает внутри ваших tools, а не рядом с ними.
+2. **Закрыт gates там, где это важно.** Необратимые действия - отправка, оплата, изменение записей, закрытие тикетов - идут через human approval, пока доказательства не оправдают ослабление. Gates проектируются, а не прикручиваются потом.
+3. **Оценивается непрерывно.** Eval-сет кодирует, как выглядит хороший выход; regression-проверки прогоняются перед любым изменением prompt или модели. Без этого качество дрейфует незаметно.
+4. **Наблюдаем.** Logs и traces показывают, что agent видел, решил и сделал, - и читаются вашей командой без вендора на звонке. Инциденты диагностируются за минуты, а не восстанавливаются по памяти.
+5. **Имеет владельца.** Именованный человек ведёт review queue, смотрит метрики и может нажать stop switch. Софт без владельца деградирует в источник рисков.
 
-## Черты production agent
+Уберите любое из пяти - и у вас нечто слабее production: многообещающий прототип, рискованная автоматизация или ничейная обуза.
 
-Определённые inputs/outputs. Tool contracts. Approvals. Eval set. Monitoring. On-call story. Handoff docs.
+## Demo agent vs production agent
 
-## Surfaces
+| Измерение | Demo agent | Production agent |
+| --- | --- | --- |
+| Входы | Отобранные, чистые | Реальные, искажённые, adversarial |
+| Путь отказа | Нет; он просто останавливается | Exception queue с человеком-владельцем |
+| Credentials | API key основателя | Scoped service accounts, least privilege |
+| Рискованные действия | Выполняются свободно | Под gate, требуют approval |
+| Контроль качества | «Выглядит хорошо» на звонке | Eval-сет плюс regression-проверки |
+| Видимость | Вывод в консоль | Logs, traces, dashboards |
+| Rollout | Сразу на всех | Shadow mode, затем canary, затем масштаб |
+| После запуска | Ничья работа | Именованный владелец, runbook, on-call story |
 
-Chat, email, tickets, voice, background jobs - surface не является system.
+Колонка demo не является неправильной для demo. Она становится неправильной в момент, когда через систему текут реальные данные клиентов или реальные деньги.
 
-## Org implication
+## Анатомия wrapper
 
-Кто-то владеет quality после того, как vendor ушёл.
+Внимание достаётся модели; работу делает wrapper. Production build включает:
+
+- **Tool contracts.** Явные определения того, что может делать каждый tool call, с валидацией входов и выходов.
+- **Scoping permissions.** Service accounts на каждую integration, минимальные scopes, план ротации, secrets в менеджере, а не в коде.
+- **Approval gates и review queue.** Определённый список gated-действий, queue, с которой люди реально работают, и критерии ослабления gates со временем.
+- **Обработка исключений.** Timeouts, retries с idempotency и dead-letter путь, чтобы упавшая работа была видимой, а не потерянной.
+- **Eval-сет.** Репрезентативные кейсы, включая граничные и отказные, с порогами прохождения, привязанными к acceptance tests.
+- **Tracing и monitoring.** Каждый запуск реконструируем от начала до конца; алерты на error rate, latency и cost.
+- **Versioning и rollout.** Prompts и конфиги версионируются как код; shadow mode и canary перед полным трафиком.
+- **Stop switch и runbook.** Одно задокументированное действие ставит agent на паузу; runbook говорит, кто что делает, когда срабатывают алерты.
+- **Handoff-пакет.** Документация, план по credentials, обучение и условия выхода, чтобы знание пережило отношения с вендором.
+
+## Surfaces - это не система
+
+Chat, email, тикеты, voice, WhatsApp, background jobs - это точки входа, а не архитектура. Одно и то же production-ядро может обслуживать несколько surfaces, а красивый chat UI может сидеть поверх пустоты. Когда вендор показывает surface, спросите, что под ним: карта gates, eval-сет, хранилище traces. Surface - последние 10 процентов; покупатели, оценивающие surfaces, покупают demos.
+
+## Как строится production agent
+
+Путь, который надёжно производит свойства выше: сначала discovery и карта workflow, включая исключения; acceptance tests, письменно согласованные до build; pilot, построенный с включёнными gates с первого дня; evals, прогнанные против acceptance tests; shadow mode на реальном трафике без действий; canary на маленьком срезе с gates; затем масштаб, где решения об ослаблении gates принимаются на доказательствах. Команды, прыгающие из build сразу в полный трафик, - источник большинства agent-страшилок; разница разобрана в [demo vs production](/ru/blog/ai-agent-demo-vs-production-difference).
+
+## Что это значит для вашей организации
+
+Production agent меняет работу людей, а не только tooling. Кто-то на вашей стороне владеет качеством после ухода вендора: ведёт review queue, читает недельные метрики, решает, когда ослаблять gates, и оплачивает строку LLM usage, которая теперь сидит в вашем бюджете. Если до старта build внутри компании нельзя назвать никого на эту роль, вы не готовы покупать production agent - вы готовы купить demo, а разочароваться можно и дешевле.
+
+В проектах Dali большая часть инженерии - это не вызов модели: основное усилие уходит на approval gates, интеграции, evals и мониторинг.
 
 ## Как помогает Dali
 
-Dali строит production paths в первую очередь: [solutions](/ru/solutions).
+Dali строит production-путь с самого начала: discovery, gates, evals, observability и handoff внутри scope pilot, поверх chat-, email- и background-job-поверхностей. Смотрите [solutions](/ru/solutions) о том, как устроен pilot.
 
 ## FAQ
 
 ### Copilots - это production agents?
-Могут быть, если выполняют controlled actions с gates.
+Могут быть. Copilot, который готовит драфты, пока человек утверждает каждое действие, - фактически полностью gated agent, и это легитимный production-паттерн, часто правильная первая стадия. Он становится production agent в полном смысле, когда выполняет контролируемые действия через tool contracts с остальным wrapper вокруг - evals, traces, владелец.
 
-### Нужны ли multi-agent graphs?
-Нет. Один well-designed agent path достаточно, чтобы начать.
+### Нужны ли production agents multi-agent графы?
+Нет. Один хорошо спроектированный agent-путь с чистыми tool contracts и gates бьёт оркестрированный рой без них - и его несравнимо легче оценивать, трейсить и отлаживать. Multi-agent-дизайны зарабатывают свою сложность, только когда один путь доказуемо не тянет workflow. Не доверяйте вендорам, которые начинают с диаграммы графа.
 
-### Related
-[Production AI agents for business](/ru/blog/production-ai-agents-for-business).
+### RAG-чатбот - это production agent?
+Сам по себе нет. Retrieval заземляет то, что система говорит; production agents определяются тем, что они делают. RAG-ассистент, который только отвечает на вопросы, - это поверхность знаний. Добавьте tool-действия, permissions, gates и ownership - и та же система пересекает границу на agent-территорию.
+
+### Сколько обычно занимает путь до production?
+Для одного scoped workflow на существующих tools типичные рыночные сроки - от нескольких недель до пары месяцев; главные драйверы - доступ к integrations, качество данных и скорость, с которой ваша сторона ревьюит gated-выход. Тот, кто обещает production за дни, переопределяет слово «production».
+
+### Нужен ли fine-tuning для production?
+Обычно не для старта. Большинство бизнес-workflows достигают порогов acceptance сильным prompting, retrieval и дизайном tools на frontier-моделях. Fine-tuning - более поздняя оптимизация для узких высокообъёмных паттернов, оправданная данными evals, а не интуицией.
+
+### Смежные материалы
+О бизнес-стороне этих систем - что они меняют операционно и как задать scope первого pilot - смотрите [production AI agents для бизнеса](/ru/blog/production-ai-agents-for-business).

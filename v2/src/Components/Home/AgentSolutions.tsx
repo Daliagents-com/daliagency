@@ -15,7 +15,7 @@ import Container from "@/Components/Container/Container";
 import { sansText } from "@/assets/fonts";
 import { homeCopy } from "@/i18n/home";
 import { localizePath, type Locale } from "@/i18n/config";
-import { solutionsBundles } from "@/Components/Solutions/locales";
+import type { SolutionsOverviewCopy } from "@/Components/Solutions/locales/types";
 import { sectionTitle } from "@/lib/sectionTitle";
 import AgentUxPreview, {
   type AgentUxKind,
@@ -146,12 +146,15 @@ function PanelBlock({
   );
 }
 
+// overview arrives as a server-passed prop so the client chunk does not
+// bundle all four locale string files (they are server-only data now).
 export default function AgentSolutions({
   locale = "en",
+  overview,
 }: {
   locale?: Locale;
+  overview: SolutionsOverviewCopy;
 }) {
-  const overview = solutionsBundles[locale].overview;
   const copy = overview.solutions;
   const solutionsLabel = homeCopy[locale].navigation.home[1];
   const reduce = useReducedMotion();

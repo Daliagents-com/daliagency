@@ -1,8 +1,8 @@
 ---
 slug: "should-i-buy-ai-agent-platform-or-custom"
 title: "Գնե՞լ AI agent platform, թե՞ կառուցել custom"
-description: "Որոշման framework. packaged AI agent platform-ներ versus custom agent-ներ՝ implement արված ձեր առկա stack-ում։"
-date: "2026-07-31"
+description: "Որոշման framework packaged AI agent platform-ների և ձեր առկա stack-ում custom agent-ների միջև. ազդանշաններ, ամբողջ արժեք, lock-in և բացառությունների թեստ։"
+date: "2026-08-02"
 locale: "arm"
 hreflangGroup: "should-i-buy-ai-agent-platform-or-custom"
 keywords: ["AI agent platform vs custom", "build vs buy AI agents", "custom AI agents"]
@@ -13,35 +13,96 @@ type: "comparison"
 
 ## Ուղիղ պատասխան
 
-Գնեք platform, երբ այն համընկնում է ձեր workflow-ին և compliance needs-ին։ Կառուցեք custom (կամ agency-built), երբ ձեր tools-ը, rules-ը և բացառությունները product են - և package-ը կստիպեր awkward workarounds։
+Գնեք platform, երբ ձեր workflow-ն իսկապես ստանդարտ է, վենդորի security դիրքը ծածկում է ձեզ, և ձեր թիմը կաշխատեցնի product-ը։ Կառուցեք custom - սովորաբար agency-built ձեր առկա stack-ի ներսում - երբ ձեր tools-ը, կանոնները և բացառություններն են իրական product-ը, և package-ը ամեն քայլում կստիպեր workaround-ներ։ Ազնիվ թեստը feature matrix-ը չէ, այլ թե ով է մշակում ձեր բացառությունները. հենց այնտեղ են agent նախագծերն ապրում կամ մահանում։
+
+## Իրական հարցը. ով է սեփականում բացառությունները
+
+Ամեն workflow ունի happy path և բացառությունների երկար պոչ. բացակայող դաշտը, շեմից բարձր refund-ը։ Platform-ները կառուցված են միջին հաճախորդի happy path-ի համար. ձեր բացառությունները կամ տեղավորվում են նրանց configuration մակերեսի մեջ, կամ ոչ։
+
+- Եթե ձեր case-երի մոտ 90%-ը տեղավորվում է platform-ի մոդելի մեջ, իսկ մնացածը մաքուր էսկալացվում է human queue, գնելը ռացիոնալ է։
+- Եթե բացառությունները ծավալի մեծ մասն են, կամ էսկալացիան պահանջում է custom լոգիկա ձեր tools-ի միջով, platform-ը ծռելը ավելի թանկ է, քան workflow-ն ուղիղ կառուցելը։
+
+Խնդրեք ցանկացած platform վենդորի live անցկացնել ձեր տասը ամենատգեղ իրական case-երը իրենց product-ով. demo-ն ձեր տվյալներով գերազանցում է feature matrix-ին։
+
+## Որոշման scorecard
+
+Գնահատեք ամեն ազդանշան. սյունը, որտեղ ավելի շատ նշում կա, ասում է, թե որ ուղին նախ գնահատել գնով։
+
+| Ազդանշան | Խոսում է platform-ի օգտին | Խոսում է custom-ի օգտին |
+| --- | --- | --- |
+| Process-ի ձև | Ստանդարտ, տարածված ձեր ինդուստրիայում | Ձեր կանոններն ու բացառություններն են ձեր moat-ը |
+| Tool-երի ծածկույթ | Ապրում է հիմնականում մեկ համակարգում, որի հետ platform-ը լավ ինտեգրվում է | Orchestrate է անում CRM-ի, inbox-ի, փաստաթղթերի, ներքին API-ների միջով |
+| Approval gates | Վենդորի built-in approval-ները տեղավորվում են ձեր ռիսկի կանոնների մեջ | Ձեզ պետք են custom gates ամեն գործողության տեսակի և դերի համար |
+| Compliance | Վենդորի սերտիֆիկացիաները ծածկում են ձեր պարտավորությունները | Data residency կամ audit կանոններ, որոնց վենդորը չի կարող համապատասխանել |
+| Exit | Մաքուր export, portable configuration | Ուզում եք ամբողջովին սեփականել prompt-ները, evals-ը և լոգիկան |
+
+Խառը score-երը նորմալ են. տարածված առողջ արդյունքը hybrid-ն է. platform commodity հատվածի համար, custom agent-ներ այն workflow-ի համար, որը ձեզ տարբերակում է։
+
+## Ամբողջ արժեքը, համեմատված ազնիվ
+
+Sticker գները մոլորեցնում են երկու ուղղությամբ։ Համեմատեք առաջին տարվա ամբողջ արժեքը ամեն ուղու համար։ Ստորև թվերը տիպիկ շուկայական միջակայքեր են, ոչ Dali-ի quote-եր, և խիստ տարբերվում են ըստ վենդորի և scope-ի։
+
+| Ծախսային կատեգորիա | Platform ուղի | Custom ուղի |
+| --- | --- | --- |
+| Մուտք | Per-seat կամ per-agent license, հաճախ $50-500 մեկ seat-ի համար ամսական | Fixed pilot, սովորաբար $10,000-50,000 մեկ workflow-ի համար |
+| Setup | Configuration, երբեմն վճարովի onboarding | Ներառված է ճիշտ scope արված pilot-ում |
+| LLM usage | Սովորաբար bundled, capped կամ markup-ով license-ի մեջ | Ձեր սեփական API key-երը. տասնյակից մինչև ցածր հարյուրավոր դոլար ամսական միջին ծավալի workflow-ի համար |
+| Ընթացիկ | License ընդմիշտ, per seat, վերագնահատվում է renewal-ի ժամանակ | Ընտրովի սահմանված scope-ով retainer monitoring-ի և իտերացիայի համար |
+| Փոփոխություններ | Սպասեք վենդորի roadmap-ին կամ վճարեք workaround-ների համար | Scoped փոփոխություններ համակարգում, որը ձերն է |
+| Exit | Միգրացիայի նախագիծ, հնարավոր տվյալների և prompt-ների կորուստ | Պահում եք կոդը, prompt-ները, evals-ը և փաստաթղթերը |
+
+Երկու ծախս մոռացվում է։ Platform գնորդները մոռանում են product-ը operate անելու և այն ամենի ներքին աշխատուժը, ինչ այն չի կարող անել։ Custom գնորդները մոռանում են շարունակական ownership-ը. monitoring, eval-ների պահպանում, prompt-ների update-ներ, երբ մոդելները փոխվում են. դրա համար բյուջե դրեք retainer կամ ներքին ժամանակ։
 
 ## Գնեք platform, երբ
 
-Standard process, ուժեղ vendor security, clear exit, թիմը կաշխատեցնի product-ը։
+- Workflow-ը commodity է, և արագությունն ավելի կարևոր է, քան fit-ը։
+- Վենդորի security դիրքը գերազանցում է նրան, ինչ դուք կկառուցեիք. SSO, audit log-եր, սերտիֆիկացիաներ։
+- Ձեր բացառությունները մաքուր տեղավորվում են platform-ի էսկալացիայի մոդելի մեջ։
+- Exit-ը մաքուր է. տվյալները export են արվում և վերակառուցվում այլ տեղ առանց պատանդային բանակցության։
+- Ունեք operator. platform-ը առանց ներքին owner-ի դառնում է shelfware։
 
-## Custom, երբ
+## Կառուցեք custom, երբ
 
-Cross-tool orchestration, special gates, embedded առկա CRM/inbox/docs-ում, unique IP։
+- Agent-ը orchestrate է անում համակարգերի միջով, որոնք արդեն աշխատեցնում եք. CRM, inbox, փաստաթղթեր, ներքին ծառայություններ։
+- Approval gates-ը կոնկրետ են. ով է հաստատում որ գործողությունը ինչ շեմով, audit trail-ով ձեր ֆորմատում։
+- Workflow-ը պետք է անտեսանելի լինի առկա tools-ի ներսում, ոչ թե ևս մեկ tab, որը ձեր թիմը պետք է ընդունի։
+- Լոգիկան ինտելեկտուալ սեփականություն է, որը ուզում եք սեփականել, version անել և թեստավորել ձեր սեփական evals-ով։
+- Compliance-ը պահանջում է վերահսկողություն, որ multi-tenant product-ը չի կարող տալ. data residency, retention կանոններ, մոդելի ընտրություն։
 
-## Agency role երկուսում էլ
+Custom-ը չի նշանակում զրոյից. վստահելի build-երը հավաքվում են ապացուցված կոմպոնենտներից - orchestration framework-ներ, ձեր առկա tools-ը, managed model API-ներ։ [Build vs buy վերլուծությունը](/arm/blog/build-vs-buy-ai-automation) ծածկում է, թե որտեղ են այդ սպեկտրում տեղավորվում Zapier դասի tools-ը։
 
-Configuration և change management platform-ների համար։ Full systems design custom path-երի համար։
+## Թակարդը. platform գնել process-ի աշխատանքից խուսափելու համար
 
-## Trap
+Ամենատարածված ձախողումը սխալ վենդոր ընտրելը չէ. դա platform գնելն է process-ը սահմանելը բաց թողնելու համար։ Չսահմանված process-ը նորից հայտնվում է որպես անմարդ exception queue, spreadsheet workaround-ներ և renewal հանդիպում, որտեղ usage թվերը բոլորին ամաչեցնում են։ Որ ուղին էլ ընտրեք, հաջորդականությունը նույնն է. քարտեզագրեք workflow-ը, սահմանեք gates-ը, գրեք acceptance test-ը, հետո ընտրեք tooling-ը։
 
-Platform գնել process work-ից խուսափելու համար։ Process-ը դեռ հայտնվում է որպես exceptions։
+## Ինչ է անում գործակալությունը ամեն ուղու վրա
+
+- **Platform ուղի.** workflow-ի քարտեզագրում գնումից առաջ, configuration, gates product-ի սահմանների ներսում, acceptance testing, change management։
+- **Custom ուղի.** ամբողջական systems design - orchestration, integrations, gates, logging, evals - գումարած փաստաթղթավորված handoff, որ արդյունքը ձերը լինի։
+- **Ցանկացած ուղի.** ազնիվ առաջարկությունը երբեմն պետք է լինի «գնեք platform-ը». գործակալությունը, որը միշտ պատասխանում է միայն «custom», վաճառում է capacity, ոչ դատողություն։
 
 ## Ինչպես է Dali-ն տեղավորվում
 
-Համեմատեք options audit-ում. [solutions](/arm/solutions)։
+Dali-ն համեմատում է երկու ուղիները վճարովի audit-ի ներսում ձեր իրական case-երի դիմաց և fixed pilot quote է անում միայն այն ուղու համար, որը փաստերն են հաստատում։ Երբ custom-ն է հաղթում, նախընտրում ենք implement անել այն tools-ի ներսում, որոնք արդեն աշխատեցնում եք։ Սկսեք [audit-ից](/arm/solutions)։
 
 ## FAQ
 
-### Open source երրո՞րդ path է։
-Այո, ավելի բարձր ownership cost-ով։ Բյուջե արեք engineering time։
+### Open source-ը երրո՞րդ ուղի է։
 
-### Կարո՞ղ ենք սկսել custom և տեղափոխվել platform։
-Երբեմն։ Պահեք configs և prompts portable։
+Այո, և իրականում դա custom է ավելի ցածր license հաշվով և ավելի բարձր ownership հաշվով. խուսափում եք per-seat գնագոյացումից, բայց ստանձնում եք hosting-ը, upgrade-ները, security patching-ը և upstream debugging-ը։ Այն հարմար է թիմերին իրական engineering capacity-ով. մնացած բոլորի համար դառնում է abandonware, եթե ժամանակը ազնիվ բյուջե չի դրված։
+
+### Կարո՞ղ ենք սկսել custom-ից և հետո տեղափոխվել platform։
+
+Երբեմն, և հակառակ միգրացիան առնվազն նույնքան տարածված է. թիմերը դուրս են աճում platform-ի exception handling-ից և հիմնական workflow-ը վերակառուցում են custom։ Երկու դռներն էլ բաց պահեք. version արեք prompt-ները, gate կանոնները և eval case-երը ֆայլերում և պահեք ձեր սեփական API key-երը։
 
 ### Ի՞նչ է նախընտրում Dali-ն։
-Implement անել tools-ում, որոնք արդեն աշխատեցնում եք, երբ հնարավոր է։
+
+Implement անել այն tools-ի ներսում, որոնք արդեն աշխատեցնում եք, երբ հնարավոր է. գնել platform, երբ workflow-ը commodity է, և վենդորը security-ն ծածկում է ավելի լավ, քան custom build-ը կաներ։ Կանոնը. ամենափոքր համակարգը, որն անցնում է ձեր acceptance test-ը, ոչ թե որևէ ուղի default-ով։
+
+### Ինչպե՞ս է lock-in-ը իրականում դրսևորվում։
+
+Հազվադեպ որպես պայմանագրի կետ. սովորաբար որպես ձգողություն։ Prompt-ները, լոգիկան և պատմությունն ապրում են վենդորի ֆորմատում, և per-seat գինը բարձրանում է, երբ փոխարինումը ցավոտ է դառնում։ Թեստավորեք exit-ը մուտքից առաջ. trial-ի ընթացքում export արեք ձեր տվյալները և հարցրեք, թե ինչն է ձեզ հետ դուրս գալիս բաց ֆորմատներով։
+
+### Platform-ները security-ն ինձ համար լուծու՞մ են։
+
+Նրանք լուծում են իրենց շերտը. ինֆրաստրուկտուրա, access control, սերտիֆիկացիաներ։ Նրանք չեն լուծում ձերը. ինչ permissions ունեն agent-ի account-ները, որ գործողություններն են ստանում gates, ինչ տվյալներ եք ներս տալիս, ով է վերանայում audit log-ը։ Gate design-ը մնում է ձեր գործը ցանկացած ուղու վրա։

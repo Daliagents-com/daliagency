@@ -3,7 +3,9 @@
 import type { Locale } from "@/i18n/config";
 
 /** Public business inbox (ImprovMX → founder Gmail). Do not use personal Gmail on CTAs. */
-export const daliContactEmail = "hello@dali.agents.ge";
+// Brand inbox on the canonical domain (privateemail.com hosting).
+// Requires the hello@ alias to exist in the privateemail panel before deploy.
+export const daliContactEmail = "hello@daliagents.com";
 
 export function buildMailtoHref(subject: string, body: string) {
   return `mailto:${daliContactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

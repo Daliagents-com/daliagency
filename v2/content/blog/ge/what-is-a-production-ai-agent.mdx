@@ -1,8 +1,8 @@
 ---
 slug: "what-is-a-production-ai-agent"
 title: "რა არის production AI აგენტი?"
-description: "Production AI აგენტის განმარტება demos-ის წინააღმდეგ: tools, permissions, gates, evaluation, monitoring და ownership."
-date: "2026-07-31"
+description: "რა არის production AI agent demo-სთან შედარებით: tool contracts, permissions, approval gates, evals, observability, rollout და ownership handoff-ის შემდეგ."
+date: "2026-08-02"
 locale: "ge"
 hreflangGroup: "what-is-a-production-ai-agent"
 keywords: ["რა არის production AI აგენტი", "production AI აგენტების განმარტება", "AI agent vs chatbot"]
@@ -13,35 +13,81 @@ type: "pillar"
 
 ## პირდაპირი პასუხი
 
-Production AI აგენტი არის სისტემა, რომელიც ასრულებს multi-step სამუშაოს tools-ით permissions-ის, human gates-ის, logging-ისა და ownership-ის ქვეშ - არა chat ფანჯარა, რომელიც მხოლოდ ლაპარაკობს.
+Production AI agent არის სისტემა, რომელიც ასრულებს multi-step სამუშაოს თქვენი ბიზნეს tools-ის შიგნით, scoped permissions-ის ქვეშ, human approval gates-ით რისკიან მოქმედებებზე, eval set-ით, რომელიც რეგრესიებს იჭერს, observability-ით, რომელსაც წაიკითხავთ, და დასახელებული owner-ით ვენდორის წასვლის შემდეგ. მოდელი ერთი კომპონენტია; განმარტება ცხოვრობს ყველაფერში, რაც მის გარშემოა შემოხვეული. Chat ფანჯარა, რომელიც მხოლოდ ლაპარაკობს, რაც არ უნდა შთამბეჭდავი იყოს, demo-ა. სიტყვა "production" გამომუშავებულია იმით, რაც ხდება, როცა input დეფორმირებულია, API-ს timeout მოსდის ან მომხმარებელი გაბრაზებულია - და არა იმით, რაც happy path-ზე ხდება.
 
-## Demo agent თვისებები
+## ხუთი თვისება, რომელიც "production"-ს განსაზღვრავს
 
-მხოლოდ happy path. რეალური credentials მოდელი არ არის. Exception queue არ არის. Stop-switch არ არის.
+1. **მოქმედებს tools-ის გავლით, permissions-ის ქვეშ.** Agent კითხულობს და წერს თქვენს CRM-ში, inbox-ში, sheets-სა თუ ticketing-ში scoped credentials-ით, least privilege-ის დაცვით. ის თქვენი tools-ის შიგნით მუშაობს და არა მათ გვერდით.
+2. **Gated იქ, სადაც ეს მნიშვნელოვანია.** შეუქცევადი მოქმედებები - გაგზავნა, გადახდა, ჩანაწერების შეცვლა, ticket-ების დახურვა - human approval-ის გავლით მიდის, სანამ მტკიცებულება მოდუნებას არ გაამართლებს. Gates დაპროექტებულია და არა შემდეგ მიკერებული.
+3. **მუდმივად ფასდება.** Eval set აკოდირებს, როგორ გამოიყურება კარგი output; regression შემოწმებები ეშვება ყოველი prompt-ის ან მოდელის ცვლილების გაშვებამდე. ამის გარეშე ხარისხი ჩუმად დრეიფობს.
+4. **Observable.** Logs და traces აჩვენებს, რა დაინახა, რა გადაწყვიტა და რა გააკეთა agent-მა, წაკითხვადი თქვენი გუნდისთვის ვენდორის ზარზე დასწრების გარეშე. ინციდენტები წუთებში დიაგნოსტირდება და არა მეხსიერებიდან რეკონსტრუირდება.
+5. **Owned.** დასახელებული ადამიანი ამუშავებს review queue-ს, აკვირდება მეტრიკებს და შეუძლია stop switch-ზე დაჭერა. Software owner-ის გარეშე ვალდებულებად დეგრადირდება.
 
-## Production agent თვისებები
+მოაშორეთ ხუთიდან ნებისმიერი ერთი და გექნებათ რაღაც production-ზე სუსტი: პერსპექტიული პროტოტიპი, რისკიანი automation ან უპატრონო ვალდებულება.
 
-განსაზღვრული inputs/outputs. Tool contracts. Approvals. Eval set. Monitoring. On-call story. Handoff docs.
+## Demo agent vs production agent
 
-## Surfaces
+| განზომილება | Demo agent | Production agent |
+| --- | --- | --- |
+| Inputs | შერჩეული, სუფთა | რეალური, დეფორმირებული, adversarial |
+| Failure path | არ არის; უბრალოდ ჩერდება | Exception queue human owner-ით |
+| Credentials | დამფუძნებლის API key | Scoped service account-ები, least privilege |
+| რისკიანი მოქმედებები | თავისუფლად სრულდება | Gated approval-ისთვის |
+| ხარისხის კონტროლი | "კარგად გამოიყურება" ზარზე | Eval set პლუს regression შემოწმებები |
+| ხილვადობა | Console output | Logs, traces, dashboard-ები |
+| Rollout | პირდაპირ ყველასთან | Shadow mode, შემდეგ canary, შემდეგ მასშტაბი |
+| გაშვების შემდეგ | არავის საქმე | დასახელებული owner, runbook, on-call ისტორია |
 
-Chat, email, tickets, voice, background jobs - surface არ არის სისტემა.
+Demo სვეტი demo-სთვის მცდარი არ არის. ის მცდარი ხდება იმ მომენტში, როცა მასში რეალური მომხმარებლის მონაცემები ან რეალური ფული გაედინება.
 
-## ორგანიზაციული შედეგი
+## Wrapper-ის ანატომია
 
-ვიღაც ფლობს quality-ს vendor-ის წასვლის შემდეგ.
+ყურადღება მოდელს ხვდება; სამუშაოს wrapper აკეთებს. Production build მოიცავს:
+
+- **Tool contracts.** ცალსახა განმარტებები, რისი უფლება აქვს თითოეულ tool call-ს, inputs-ისა და outputs-ის ვალიდაციით.
+- **Permission scoping.** Service account-ები თითო integration-ზე, მინიმალური scopes, rotation გეგმა, secrets მენეჯერში და არა კოდში.
+- **Approval gates და review queue.** Gated მოქმედებების განსაზღვრული სია, queue, რომელსაც ადამიანები რეალურად ამუშავებენ, და დროთა განმავლობაში gates-ის მოდუნების კრიტერიუმები.
+- **Exception handling.** Timeout-ები, retry-ები idempotency-ით და dead-letter გზა, რათა ჩავარდნილი სამუშაო ხილული იყოს და არა დაკარგული.
+- **Eval set.** წარმომადგენლობითი cases, edge და failure cases-ის ჩათვლით, acceptance test-ებზე მიბმული pass ზღვრებით.
+- **Tracing და monitoring.** ყოველი run ბოლომდე აღდგენადი; alert-ები error rate-ზე, latency-სა და cost-ზე.
+- **Versioning და rollout.** Prompt-ები და config-ები ვერსიონირებული როგორც კოდი; shadow mode და canary სრულ traffic-მდე.
+- **Stop switch და runbook.** ერთი დოკუმენტირებული მოქმედება agent-ს აჩერებს; runbook ამბობს, ვინ რას აკეთებს, როცა alert-ები ირთვება.
+- **Handoff პაკეტი.** Docs, credentials გეგმა, ტრენინგი და exit პირობები, რათა ცოდნა ვენდორთან ურთიერთობის დასრულების შემდეგაც შენარჩუნდეს.
+
+## Surface-ები სისტემა არ არის
+
+Chat, email, tickets, voice, WhatsApp, background jobs - ეს შესასვლელი წერტილებია და არა არქიტექტურა. ერთსა და იმავე production core-ს შეუძლია რამდენიმე surface მოემსახუროს, ლამაზი chat UI კი შეიძლება არაფერზე იჯდეს. როცა ვენდორი surface-ის demo-ს გაჩვენებთ, იკითხეთ, რა არის ქვემოთ: gate map, eval set, trace store. Surface ბოლო 10 პროცენტია; მყიდველები, რომლებიც surface-ებს აფასებენ, demo-ებს ყიდულობენ.
+
+## როგორ შენდება production agent
+
+გზა, რომელიც ზემოთ ჩამოთვლილ თვისებებს საიმედოდ აწარმოებს: ჯერ discovery და workflow mapping, exceptions-ის ჩათვლით; acceptance test-ები, წერილობით შეთანხმებული build-ამდე; pilot, აშენებული პირველივე დღიდან ჩართული gates-ით; evals, გაშვებული acceptance test-ების წინააღმდეგ; shadow mode რეალურ traffic-ზე მოქმედების გარეშე; canary მცირე ნაწილზე gates-ით; შემდეგ მასშტაბირება, სადაც gate-ის მოდუნების გადაწყვეტილებები მტკიცებულებაზე დაყრდნობით მიიღება. გუნდები, რომლებიც build-იდან პირდაპირ სრულ traffic-ზე ხტებიან, agent-ების საშინელებათა ისტორიების უმეტესობის წყაროა - სხვაობა ნაბიჯ-ნაბიჯ არის გავლილი სტატიაში [demo vs production](/ge/blog/ai-agent-demo-vs-production-difference).
+
+## რას ნიშნავს ეს თქვენი ორგანიზაციისთვის
+
+Production agent ცვლის სამუშაო როლებს და არა მხოლოდ tooling-ს. თქვენს მხარეს ვიღაც ფლობს ხარისხს ვენდორის წასვლის შემდეგ: აკომპლექტებს review queue-ს, კითხულობს ყოველკვირეულ მეტრიკებს, წყვეტს, როდის მოდუნდეს gates, და იხდის LLM usage ხაზს, რომელიც ახლა თქვენს ბიუჯეტში ზის. თუ build-ის დაწყებამდე კომპანიის შიგნით ამისთვის ვერავინ დასახელდება, თქვენ agent-ის ყიდვისთვის მზად არ ხართ - მზად ხართ demo-ს ყიდვისთვის, იმედგაცრუებისთვის კი უფრო იაფი გზები არსებობს.
+
+Dali-ის პროექტებში ინჟინერიის დიდი ნაწილი მოდელის გამოძახება არ არის: ძირითადი ძალისხმევა მიდის approval gates-ზე, ინტეგრაციებზე, evals-სა და მონიტორინგზე.
 
 ## როგორ ჯდება Dali
 
-Dali ჯერ production path-ებს აშენებს: [გადაწყვეტები](/ge/solutions).
+Dali ჯერ production გზას აშენებს: discovery, gates, evals, observability და handoff pilot-ის scope-ის შიგნით, chat, email და background-job surface-ების მასშტაბით. იხილეთ [გადაწყვეტები](/ge/solutions), თუ როგორ არის pilot აწყობილი.
 
 ## FAQ
 
-### Copilot-ები production აგენტებია?
-შეიძლება იყვნენ, თუ კონტროლირებად მოქმედებებს იღებენ gates-ით.
+### Copilot-ები production agent-ებია?
+შეიძლება იყვნენ. Copilot, რომელიც draft-ებს წერს, ხოლო ადამიანი ყოველ მოქმედებას ამტკიცებს, ფაქტობრივად სრულად gated agent-ია, და ეს ლეგიტიმური production პატერნია, ხშირად სწორი პირველი ეტაპი. ის სრული გაგებით production agent ხდება, როცა კონტროლირებად მოქმედებებს იღებს tool contracts-ის გავლით, wrapper-ის დანარჩენი ნაწილით - evals, traces, owner - გარშემო.
 
-### Production აგენტებს სჭირდებათ multi-agent graphs?
-არა. ერთი კარგად დაპროექტებული agent path საკმარისია დასაწყისად.
+### Production agent-ებს multi-agent graph-ები სჭირდებათ?
+არა. ერთი კარგად დაპროექტებული agent გზა სუფთა tool contracts-ითა და gates-ით ჯობია ორკესტრირებულ swarm-ს მათ გარეშე, და მისი შეფასება, tracing და debug ბევრად უფრო ადვილია. Multi-agent დიზაინები თავიანთ სირთულეს მხოლოდ მაშინ იმსახურებენ, როცა ერთი გზა workflow-ს დემონსტრირებულად ვერ უმკლავდება. ნუ ენდობით ვენდორებს, რომლებიც graph დიაგრამით იწყებენ.
+
+### RAG chatbot production agent-ია?
+თავისთავად არა. Retrieval ამყარებს იმას, რასაც სისტემა ამბობს; production agent-ები განისაზღვრება იმით, რასაც აკეთებენ. RAG ასისტენტი, რომელიც მხოლოდ კითხვებს პასუხობს, knowledge surface-ია. დაამატეთ tool მოქმედებები, permissions, gates და ownership, და იგივე სისტემა agent-ის ტერიტორიაზე გადადის.
+
+### რამდენ ხანს გრძელდება ჩვეულებრივ production-მდე მისვლა?
+ერთი scoped workflow-სთვის არსებულ tools-ზე ტიპური საბაზრო ვადები რამდენიმე კვირიდან რამდენიმე თვემდეა, ძირითადად განპირობებული integration წვდომით, მონაცემების ხარისხითა და იმით, რამდენად სწრაფად განიხილავს თქვენი მხარე gated output-ს. ნებისმიერი, ვინც production-ს დღეებში გპირდებათ, სიტყვა "production"-ს თავიდან განმარტავს.
+
+### გვჭირდება fine-tuning production-ისთვის?
+დასაწყისისთვის ჩვეულებრივ არა. ბიზნეს workflow-ების უმეტესობა acceptance ზღვრებს აღწევს ძლიერი prompting-ით, retrieval-ითა და tool დიზაინით frontier მოდელებზე. Fine-tuning გვიანდელი ოპტიმიზაციაა ვიწრო, მაღალმოცულობიანი პატერნებისთვის, გამართლებული eval მონაცემებით და არა ინსტინქტით.
 
 ### დაკავშირებული
-[Production AI აგენტები ბიზნესისთვის](/ge/blog/production-ai-agents-for-business).
+ამ სისტემების ბიზნეს-ქეისისთვის - რას ცვლიან ისინი ოპერაციულად და როგორ დაისახოს პირველი pilot-ის scope - იხილეთ [production AI agent-ები ბიზნესისთვის](/ge/blog/production-ai-agents-for-business).

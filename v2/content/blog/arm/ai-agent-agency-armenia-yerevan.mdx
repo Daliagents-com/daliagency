@@ -1,8 +1,8 @@
 ---
 slug: "ai-agent-agency-armenia-yerevan"
 title: "AI agent գործակալություն Հայաստանում (Երևան). գնորդի checklist"
-description: "Checklist AI agent կամ automation partner վարձելու համար Հայաստանում / Երևանում. production criteria, language և pilot design։"
-date: "2026-07-31"
+description: "Checklist AI agent partner վարձելու համար Հայաստանում / Երևանում. production չափանիշներ, time zone-ներ, տիպիկ շուկայական rate-եր, պայմանագրեր և pilot design։"
+date: "2026-08-02"
 locale: "arm"
 hreflangGroup: "ai-agent-agency-armenia-yerevan"
 keywords: ["AI agent agency Հայաստան", "AI automation Երևան", "AI agency Armenia"]
@@ -13,35 +13,80 @@ type: "article"
 
 ## Ուղիղ պատասխան
 
-Հայաստանի (Երևան) համար օգտագործեք նույն production checklist-ը, ինչ global buyers-ը. մեկ workflow pilot, human gates, security basics և clear handoff - հետո վավերացրեք language և collaboration fit։
+AI agent partner վարձելը Հայաստանում (Երևան) հետևում է նույն production checklist-ին, ինչ վարձելը ցանկացած այլ տեղ. մեկ scoped workflow pilot, human gates ռիսկային գործողությունների վրա, security հիմունքներ, evals և հստակ handoff։ Երևանին հատուկ շերտը fit-ի մասին է, ոչ այլ ստանդարտների. հաստատեք time-zone overlap-ը (Հայաստանն ամբողջ տարին UTC+4 է), ամեն delivery artifact-ի լեզուն, պայմանագրային entity-ն և այն, որ թիմի engineering խորությունը հասնում է մինչև operations կարգապահություն, որովհետև agent-ները, որոնք գործում են ձեր tools-ում, ձախողվում են ops-ի, ոչ ալգորիթմների վրա։
+
+## Ինչ է տալիս Երևանի շուկան
+
+Հայաստանն ունի տարածաշրջանի ամենախոր engineering ավանդույթներից մեկը. ուժեղ համալսարանական pipeline-ներ մաթեմատիկայում և CS-ում, կայացած IT ոլորտ՝ գլոբալ ընկերություններով, որոնք Երևանում engineering գրասենյակներ են վարում, և պետական աջակցությամբ խթաններ, որոնք ոլորտը պահել են աճի մեջ։ Գնորդի համար դա նշանակում է իրական senior engineering կարողություն՝ արևմտյան շուկաներից ցածր rate-երով։
+
+Caveat-ը հատուկ է agent-ներին։ Դասական software ուժը ավտոմատ չի ներառում օպերացիոն սովորությունները, որոնք agent-ներին պետք են. approval gates, eval set-եր, tracing, ինցիդենտների ուղիներ։ Երևանի շատ ուժեղ թիմեր դրանք ունեն. ստուգեք, մի ենթադրեք, ճիշտ այնպես, ինչպես կանեիք Բեռլինում կամ Օսթինում։
 
 ## Ուժեղ ազդանշաններ
 
-Concrete pilot-եր։ Integration honesty։ Security hygiene։ References, որոնք կարող եք verify անել առանց fake metrics-ի։
+- **Կոնկրետ pilot-ներ։** Մեկ workflow, գրավոր scope, acceptance test-եր՝ համաձայնեցված build-ից առաջ։ Ոչ platform pitch։
+- **Integration ազնվություն։** Նրանք ասում են, թե ձեր որ tools-ի ներսում կարող են գործել, որոնց ներսում՝ ոչ, և ինչպես է scope-վելու auth-ը։ «Մենք ինտեգրվում ենք ամեն ինչի հետ»-ը red flag է, ոչ feature։
+- **Security հիգիենա։** Secrets management, least-privilege credentials և ուղիղ պատասխան, թե որտեղ են ապրում log-երը և trace-երը։
+- **Ստուգելի references։** Անվանված process artifact-ներ - sanitized discovery output, gate map, eval կառուցվածք - չստուգվող metric-ների փոխարեն։ Reference-ը, որը կարող է նկարագրել, թե ինչպես են վարվել ինցիդենտները, հաղթում է logo-ների պատին։
+- **Ops կարգապահություն։** Նրանց կողմից ինչ-որ մեկը տիրապետում է որակին go-live-ից հետո, և նրանք կարող են նկարագրել review queue-ն և stop switch-ը։
 
-## Collaboration
+## Համագործակցության լոգիստիկա
 
-Overlap hours, documentation language, escalation path։
+Հայաստանն աշխատում է UTC+4-ով՝ առանց daylight saving տեղաշարժերի, նույն ժամացույցով, ինչ Վրաստանը և Gulf-ը։
 
-## Ecosystem
+| Ձեր թիմը | Տարբերությունը Երևանից | Գործնական overlap |
+| --- | --- | --- |
+| Արևմտյան Եվրոպա (CET) | 2-3 ժամ հետ | Աշխատանքային օրվա մեծ մասը |
+| Մեծ Բրիտանիա | 3-4 ժամ հետ | Երևանի կեսօրը = Լոնդոնի առավոտ |
+| Gulf (UAE, KSA) | 0-1 ժամ | Ամբողջ օրվա overlap |
+| ԱՄՆ Արևելյան ափ | 8-9 ժամ հետ | Երևանի երեկոն = ԱՄՆ առավոտ |
 
-Հայաստանն ունի խոր engineering talent. դեռ վավերացրեք ops discipline agent-ների համար, որոնք գործում են։
+Ժամացույցից բացի՝ գրավոր ամրագրեք երեք բան. հանձնառու sync ժամեր, փաստաթղթերի լեզուն ամեն artifact դասի համար (EN-ը ստանդարտ է ops փաստաթղթերի համար. RU-ն և HY-ն տարածված աշխատանքային լեզուներ են) և անվանված էսկալացիայի ուղի՝ արձագանքման ակնկալիքներով։ Մշուշոտ համագործակցության պայմաններն են այն տեղը, որտեղ offshore engagement-ներն իրականում ձախողվում են։
 
-## Dali
+## Rate-եր և պայմանագրեր
 
-Multi-locale content և production agents focus. գնահատեք մեզ ինչպես ցանկացած vendor։
+Միայն որպես տիպիկ շուկայական միջակայքեր, ոչ quote-ներ Dali-ից կամ որևէ մեկից. blended agency rate-երը AI և automation աշխատանքի համար Երևանում սովորաբար ընկնում են $25-60 ժամում գոտին՝ ընդդեմ $100-250-ի համադրելի seniority-ի համար ԱՄՆ-ում և Արևմտյան Եվրոպայում։ Դատեք առաջին տարվա ամբողջ արժեքով - build, retainer, LLM usage ձեր ծավալով և ձեր սեփական թիմի ժամանակը - ոչ ժամավճարի պիտակով։
+
+Թղթի վրա. հայկական LLC-ները միջազգային պայմանագրեր կնքում են ռուտին կարգով, անգլալեզու պայմանագրերը՝ բացահայտ IP assignment-ով, ստանդարտ են, և IT ոլորտի հարկային խթանները պատմականորեն աջակցել են լոկալ ծախսային բազաներին (պայմանները փոխվում են, ուստի ընթացիկ կանոնները ճշտեք իրավաբանի հետ)։ Եթե GDPR-ի կամ նման ռեժիմների տակ եք, համաձայնեցրեք տվյալների location-ը և ստորագրեք DPA՝ մինչ production տվյալները հոսելը։ Հայաստանի EAEU անդամությունը կարևոր է որոշ procurement թիմերի համար. բարձրացրեք հարցը վաղ, եթե ձերին դա հետաքրքրում է։
+
+## Pilot design, որը պաշտպանում է ձեզ
+
+1. **Նախ discovery։** Ընթացիկ գործընթացի գրավոր workflow քարտեզ՝ ներառյալ բացառությունները։
+2. **Gates առաջին օրվանից։** Անշրջելի գործողությունները - ուղարկումներ, վճարումներ, record-ների փոփոխություններ - պահանջում են human approval, մինչև ապացույցներն արդարացնեն թուլացումը։
+3. **Acceptance test-եր։** Pass/fail չափանիշներ ավարտված աշխատանքի որակի վրա՝ համաձայնեցված build-ը սկսվելուց առաջ։
+4. **Evals և regression check-եր։** Որպեսզի մոդելի կամ prompt-ի փոփոխությունները չկարողանան լուռ դեգրադացնել output-ը։
+5. **Observability։** Log-եր և trace-եր, որոնք ձեր թիմը կարող է կարդալ առանց վենդորի ներկայության զանգին։
+6. **Handoff package։** Փաստաթղթեր, runbook, credentials պլան, ուսուցում և սահմանված exit terms։
+
+Վենդորը, որը դիմադրում է այս վեցից որևէ մեկին, ձեզ ասում է, թե ինչ տեսք է ունենալու կյանքը launch-ից հետո։
+
+## Anti-pattern-ներ, որոնցից հեռանալ
+
+- Demo՝ նշանակված մինչ մեկ discovery հարց տալը
+- «Unlimited automations» pricing՝ առանց LLM usage-ի ծախսային մոդելի
+- References, որոնք ամբողջովին logo-ներ ու ածականներ են, առանց process մանրամասների
+- Ձեր աշխատանքային ժամերի ներսում անվանված delivery lead չկա
+- Փաստաթղթեր՝ խոստացված «ամբողջական rollout-ից հետո»
 
 ## Ինչպես է Dali-ն տեղավորվում
 
-Սկսեք scoped audit-ից. [solutions](/arm/solutions)։
+Dali-ն բազավորված է Թբիլիսիում և աշխատում է գլոբալ՝ Երևանի հետ նույն UTC+4 ժամացույցի վրա, multi-locale delivery-ով EN/RU/KA/HY մակերեսներով։ Գնահատեք Dali-ն ինչպես այս էջի ցանկացած վենդորի. խնդրեք gate map-ը, eval կառուցվածքը և handoff-ի բովանդակությունը։ Scoped audit-ը ամենացածր ռիսկով սկիզբն է - տես [solutions](/arm/solutions)։
 
 ## FAQ
 
-### Remote international vendor-ները OK ե՞ն։
-Այո, եթե time zone-ները և data rules-ը աշխատում են։
+### Remote միջազգային վենդորները OK ե՞ն։
+Այո, եթե time zone-ները և տվյալների կանոնները ձեզ համար աշխատում են։ Agent delivery-ն իր բնույթով remote-friendly է. discovery զանգերը, gated release-ները և շաբաթական demo-ները գրասենյակի այց չեն պահանջում։ Երկու բանը, որոնց վրա աշխարհագրությունն իրոք ազդում է, synchronous overlap-ն է ակտիվ build-ի համար (նպատակադրեք օրական չորս ժամ) և տվյալների jurisdiction-ը, որը լուծում եք DPA-ով և բացահայտ hosting պայմաններով։
 
 ### Նախընտրե՞նք local legal entity։
-Procurement որոշում է, technical diligence-ի փոխարինող չէ։
+Դա procurement որոշում է, ոչ տեխնիկական diligence-ի փոխարինող։ Local entity-ն կարող է հեշտացնել invoicing-ը, արժույթը և վեճերի վարումը հայաստանյան գնորդների համար, և որոշ enterprise-ներ դա պահանջում են։ Այն ոչինչ չի ասում այն մասին, թե արդյոք թիմը ship է անում gated production համակարգեր, ուստի նույն artifact ստուգումները վարեք ամեն դեպքում։
+
+### Ի՞նչ են սովորաբար գանձում Երևանի թիմերը agent աշխատանքի համար։
+Որպես տիպիկ շուկայական միջակայքեր. blended rate-եր մոտ $25-60 ժամում, scoped pilot-ները՝ գնագոյացված այդ բազայից։ Շուկայի ներսում spread-ը լայն է, և էժան ծայրը հաճախ բացառում է evals-ը, gates-ը և observability-ն։ Bid-երը համեմատեք նույնական scope-ի վրա՝ այդ կետերը բացահայտ անվանված, այլապես տարբեր product-ներ եք համեմատում։
+
+### Ինչպե՞ս ստուգել references-ը առանց fake metric-ների։
+Reference-ներին հարցրեք process-ի, ոչ արդյունքների մասին. ինչպես անցավ discovery-ն, ինչը gate-վեց, ինչպես վարվեց առաջին ինցիդենտը, ինչ էր պարունակում handoff-ը։ Հորինված պատմությունները փլուզվում են process հարցերի տակ։ Զուգակցեք դա վենդորի sanitized artifact-ների հետ - redacted gate map-ը ավելին է ապացուցում, քան ցանկացած տոկոսային պնդում։
+
+### Ինչպե՞ս է Հայաստանի engineering համբավը վերաբերում agent-ներին։
+Այն ձեզ տալիս է ուժեղ builder-ներ. այն չի երաշխավորում agent operations հասունություն։ Համբավն ընկալեք որպես shortlist-ում ներառելու պատճառ, իսկ վերևի pilot design-ի վեց ստուգումները՝ որպես ստորագրելու պատճառ։
 
 ### Related locale hub
-[/arm](/arm) և ARM blog routes, երբ relevant է։
+Հայալեզու էջերի և locale-specific route-ների համար տես [/arm](/arm) hub-ը։ Եթե agent աշխատանքի կողքին պլանավորում եք բազմալեզու տեսանելիություն, [multi-language SEO Վրաստանի և Հայաստանի համար](/arm/blog/multi-language-seo-georgia-armenia) ծածկում է hreflang-ը և locale կառուցվածքը։

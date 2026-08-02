@@ -1,8 +1,8 @@
 ---
 slug: "what-is-a-production-ai-agent"
 title: "Ի՞նչ է production AI agent-ը։"
-description: "Production AI agent-ի սահմանում versus demo-ներ. tools, permissions, gates, evaluation, monitoring և ownership։"
-date: "2026-07-31"
+description: "Ինչ է production AI agent-ը demo-ի դիմաց. tool contract-ներ, permissions, approval gates, evals, observability, rollout և ownership handoff-ից հետո։"
+date: "2026-08-02"
 locale: "arm"
 hreflangGroup: "what-is-a-production-ai-agent"
 keywords: ["ինչ է production AI agent", "production AI agents սահմանում", "AI agent vs chatbot"]
@@ -13,35 +13,81 @@ type: "pillar"
 
 ## Ուղիղ պատասխան
 
-Production AI agent-ը համակարգ է, որը կատարում է multi-step աշխատանք tools-ով՝ permissions-ի, human gates-ի, logging-ի և ownership-ի ներքո - ոչ chat window, որը միայն խոսում է։
+Production AI agent-ը համակարգ է, որը կատարում է multi-step աշխատանք ձեր business tools-ի ներսում՝ scoped permissions-ի ներքո, human approval gates-ով ռիսկային գործողությունների վրա, eval set-ով, որը բռնում է ռեգրեսիաները, observability-ով, որը կարող եք կարդալ, և անվանված owner-ով վենդորի հեռանալուց հետո։ Մոդելը մեկ բաղադրիչ է. սահմանումն ապրում է այն ամենի մեջ, ինչ փաթաթված է դրա շուրջ։ Chat պատուհանը, որը միայն խոսում է, որքան էլ տպավորիչ, demo է։ «Production» բառը վաստակվում է նրանով, թե ինչ է լինում, երբ input-ը malformed է, API-ն timeout է լինում կամ հաճախորդը զայրացած է - ոչ նրանով, թե ինչ է լինում happy path-ի վրա։
 
-## Demo agent traits
+## Հինգ հատկությունները, որոնք սահմանում են «production»-ը
 
-Միայն happy path։ Real credentials model չկա։ Exception queue չկա։ Stop-switch չկա։
+1. **Գործում է tools-ի միջոցով, permissions-ի ներքո։** Agent-ը կարդում և գրում է ձեր CRM-ում, inbox-ում, sheet-երում կամ ticketing-ում scoped credentials-ով, least privilege-ը կիրառված։ Այն աշխատում է ձեր tools-ի ներսում, ոչ դրանց կողքին։
+2. **Gated այնտեղ, որտեղ կարևոր է։** Անշրջելի գործողությունները - ուղարկել, վճարել, record-ներ փոխել, ticket-ներ փակել - անցնում են human approval-ով, մինչև ապացույցներն արդարացնեն թուլացումը։ Gates-ը նախագծվում են, ոչ կպցվում հետո։
+3. **Գնահատվում է շարունակաբար։** Eval set-ը կոդավորում է, թե ինչ տեսք ունի լավ output-ը. regression check-երը վազում են մինչ որևէ prompt-ի կամ մոդելի փոփոխության ship-ը։ Առանց սրա որակը լուռ drift է անում։
+4. **Observable է։** Log-երը և trace-երը ցույց են տալիս, թե ինչ է agent-ը տեսել, որոշել և արել՝ ընթեռնելի ձեր թիմի կողմից առանց վենդորի ներկայության զանգին։ Ինցիդենտներն ախտորոշվում են րոպեներով, ոչ վերակառուցվում հիշողությունից։
+5. **Owned է։** Անվանված մարդը վարում է review queue-ն, հետևում է metric-ներին և կարող է սեղմել stop switch-ը։ Software-ն առանց owner-ի դեգրադացվում է liability-ի։
 
-## Production agent traits
+Հանեք հինգից որևէ մեկը, և կունենաք production-ից թույլ բան. խոստումնալից prototype, ռիսկային automation կամ ոչ մեկին չպատկանող liability։
 
-Defined inputs/outputs։ Tool contracts։ Approvals։ Eval set։ Monitoring։ On-call story։ Handoff docs։
+## Demo agent vs production agent
 
-## Surfaces
+| Չափում | Demo agent | Production agent |
+| --- | --- | --- |
+| Input-ներ | Ընտրված, մաքուր | Իրական, malformed, adversarial |
+| Ձախողման ուղի | Չկա. պարզապես կանգնում է | Exception queue՝ human owner-ով |
+| Credentials | Հիմնադրի API key-ը | Scoped service account-ներ, least privilege |
+| Ռիսկային գործողություններ | Կատարվում են ազատ | Gated՝ approval-ի համար |
+| Որակի հսկողություն | «Լավ է երևում» զանգի ժամանակ | Eval set գումարած regression check-եր |
+| Տեսանելիություն | Console output | Log-եր, trace-եր, dashboard-ներ |
+| Rollout | Ուղիղ բոլորին | Shadow mode, հետո canary, հետո scale |
+| Launch-ից հետո | Ոչ մեկի գործը | Անվանված owner, runbook, on-call պատմություն |
 
-Chat, email, tickets, voice, background jobs - surface-ը համակարգը չէ։
+Demo սյունը սխալ չէ demo-ի համար։ Այն սխալ է դառնում այն պահին, երբ դրա միջով հոսում է իրական հաճախորդի տվյալ կամ իրական փող։
 
-## Org implication
+## Wrapper-ի անատոմիան
 
-Ինչ-որ մեկը տիրապետում է quality-ին vendor-ի հեռանալուց հետո։
+Ուշադրությունը ստանում է մոդելը. աշխատանքն անում է wrapper-ը։ Production build-ը ներառում է.
+
+- **Tool contract-ներ։** Բացահայտ սահմանումներ, թե ինչ կարող է անել ամեն tool call, input-ների և output-ների validation-ով։
+- **Permission scoping։** Service account-ներ ամեն integration-ի համար, մինիմալ scope-եր, rotation պլան, secrets-ը manager-ում, ոչ կոդում։
+- **Approval gates և review queue։** Gated գործողությունների սահմանված ցուցակ, queue, որը մարդիկ իրականում աշխատում են, և ժամանակի ընթացքում gates-ը թուլացնելու չափանիշներ։
+- **Exception handling։** Timeout-ներ, retry-ներ idempotency-ով և dead-letter ուղի, որ ձախողված աշխատանքը լինի տեսանելի, ոչ կորած։
+- **Eval set։** Ներկայացուցչական case-եր՝ ներառյալ edge և failure case-երը, pass շեմերով՝ կապված acceptance test-երին։
+- **Tracing և monitoring։** Ամեն run վերակառուցելի է ծայրից ծայր. alert-ներ error rate-ի, latency-ի և cost-ի վրա։
+- **Versioning և rollout։** Prompt-ները և config-երը version-վում են ինչպես կոդ. shadow mode և canary մինչ ամբողջ traffic-ը։
+- **Stop switch և runbook։** Մեկ փաստաթղթավորված գործողություն դադարեցնում է agent-ը. runbook-ն ասում է, թե ով ինչ է անում, երբ alert-ները վառվում են։
+- **Handoff package։** Փաստաթղթեր, credentials պլան, ուսուցում և exit terms, որ գիտելիքը վերապրի վենդորի հետ հարաբերությունը։
+
+## Surface-ները համակարգը չեն
+
+Chat, email, ticket-ներ, voice, WhatsApp, background job-եր - սրանք մուտքի կետեր են, ոչ ճարտարապետություն։ Նույն production core-ը կարող է սպասարկել մի քանի surface, և գեղեցիկ chat UI-ը կարող է նստած լինել ոչնչի վրա։ Երբ վենդորը demo է անում surface, հարցրեք, թե ինչ կա տակը. gate map-ը, eval set-ը, trace store-ը։ Surface-ը վերջին 10 տոկոսն է. գնորդները, որոնք գնահատում են surface-ները, գնում են demo-ներ։
+
+## Ինչպես է կառուցվում production agent-ը
+
+Ուղին, որը հուսալիորեն արտադրում է վերևի հատկությունները. նախ discovery և workflow mapping՝ ներառյալ բացառությունները. acceptance test-եր՝ գրավոր համաձայնեցված build-ից առաջ. pilot-ը կառուցված gates-ը միացրած առաջին օրվանից. evals՝ վազեցված acceptance test-երի դիմաց. shadow mode իրական traffic-ի վրա՝ առանց գործելու. canary փոքր կտորի վրա gates-ով. հետո scale՝ gate-թուլացման որոշումները կայացված ապացույցների վրա։ Թիմերը, որոնք build-ից ցատկում են ուղիղ ամբողջ traffic-ի, agent սարսափ պատմությունների մեծ մասի աղբյուրն են - տարբերությունը քայլ առ քայլ բացված է [demo vs production](/arm/blog/ai-agent-demo-vs-production-difference) նյութում։
+
+## Ինչ է դա նշանակում ձեր կազմակերպության համար
+
+Production agent-ը փոխում է job-երը, ոչ միայն tooling-ը։ Ձեր կողմից ինչ-որ մեկը տիրապետում է որակին վենդորի հեռանալուց հետո. staff-ավորում է review queue-ն, կարդում է շաբաթական metric-ները, որոշում է, թե երբ են gates-ը թուլանում, և վճարում է LLM usage տողը, որը հիմա նստած է ձեր բյուջեում։ Եթե մինչ build-ի սկիզբը ընկերության ներսում ոչ ոք չի կարող անվանվել դրա համար, դուք պատրաստ չեք գնել այն - պատրաստ եք գնել demo, և հիասթափվելու ավելի էժան եղանակներ կան։
+
+Dali-ի նախագծերում ինժեներիայի մեծ մասը մոդելի կանչը չէ. հիմնական ջանքը գնում է approval gates-ի, ինտեգրացիաների, evals-ի և մոնիտորինգի վրա:
 
 ## Ինչպես է Dali-ն տեղավորվում
 
-Dali-ն նախ կառուցում է production path-եր. [solutions](/arm/solutions)։
+Dali-ն նախ կառուցում է production ուղին. discovery, gates, evals, observability և handoff pilot-ի scope-ի ներսում՝ chat, email և background-job surface-ներով։ Տես [solutions](/arm/solutions)՝ ինչպես է կառուցվում pilot-ը։
 
 ## FAQ
 
 ### Copilot-ները production agent-նե՞ր են։
-Կարող են լինել, եթե վերցնում են controlled actions gates-ով։
+Կարող են լինել։ Copilot-ը, որը draft է անում, մինչ մարդը հաստատում է ամեն գործողություն, փաստացի ամբողջովին gated agent է, և դա լեգիտիմ production pattern է, հաճախ՝ ճիշտ առաջին փուլ։ Այն դառնում է production agent լիարժեք իմաստով, երբ վերցնում է controlled գործողություններ tool contract-ների միջոցով՝ wrapper-ի մնացած մասով - evals, trace-եր, owner - իր շուրջ։
 
-### Պե՞տք են production agent-ներին multi-agent graphs։
-Ոչ։ Մեկ well-designed agent path-ը բավական է սկսելու համար։
+### Production agent-ներին multi-agent graph-ներ պե՞տք են։
+Ոչ։ Մեկ լավ նախագծված agent ուղին մաքուր tool contract-ներով և gates-ով հաղթում է orchestrated swarm-ին առանց դրանց, և այն շատ ավելի հեշտ է գնահատել, trace անել և debug անել։ Multi-agent design-երը վաստակում են իրենց բարդությունը միայն, երբ մեկ ուղին ապացուցելիորեն չի կարող վարել workflow-ն։ Անվստահ եղեք վենդորներին, որոնք սկսում են graph դիագրամից։
+
+### RAG chatbot-ը production agent է՞։
+Ինքնին ոչ։ Retrieval-ը հիմնավորում է, թե ինչ է ասում համակարգը. production agent-ները սահմանվում են նրանով, թե ինչ են անում։ RAG assistant-ը, որը միայն հարցերի է պատասխանում, գիտելիքի surface է։ Ավելացրեք tool գործողություններ, permissions, gates և ownership, և նույն համակարգը անցնում է գիծը դեպի agent տարածք։
+
+### Որքա՞ն է սովորաբար տևում production հասնելը։
+Մեկ scoped workflow-ի համար գոյություն ունեցող tools-ով տիպիկ շուկայական ժամկետները մի քանի շաբաթից մինչև մի քանի ամիս են՝ հիմնականում պայմանավորված integration access-ով, տվյալների որակով և նրանով, թե որքան արագ է ձեր կողմը review անում gated output-ը։ Ցանկացած մեկը, ով խոստանում է production օրերով, վերասահմանում է «production» բառը։
+
+### Fine-tuning պե՞տք է production-ի համար։
+Սկսելու համար սովորաբար ոչ։ Business workflow-ների մեծ մասը acceptance շեմերին հասնում է ուժեղ prompting-ով, retrieval-ով և tool design-ով frontier մոդելների վրա։ Fine-tuning-ը ավելի ուշ optimization է նեղ, high-volume pattern-ների համար՝ արդարացված eval տվյալներով, ոչ ինտուիցիայով։
 
 ### Related
-[Production AI agents for business](/arm/blog/production-ai-agents-for-business)։
+Այս համակարգերի business case-ի համար - ինչ են դրանք փոխում օպերացիոն առումով և ինչպես scope անել առաջին pilot-ը - տես [production AI agent-ներ բիզնեսի համար](/arm/blog/production-ai-agents-for-business)։

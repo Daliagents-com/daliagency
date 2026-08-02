@@ -4,6 +4,7 @@ import Hero from "../../Components/Home/Hero";
 import About from "../../Components/Home/About";
 import AgentSolutions from "../../Components/Home/AgentSolutions";
 import HomeDeferredSections from "../../Components/Home/HomeDeferredSections";
+import { solutionsBundles } from "@/Components/Solutions/locales";
 import { absoluteUrl } from "@/lib/seo/site";
 
 // Prerender + CDN-friendly HTML (no headers()/cookies in this tree).
@@ -66,7 +67,7 @@ export default function Home() {
   return (
     <main>
       <Hero locale="en" />
-      <AgentSolutions locale="en" />
+      <AgentSolutions locale="en" overview={solutionsBundles.en.overview} />
       <Projects locale="en" />
       <HomeDeferredSections locale="en" />
       <About locale="en" />

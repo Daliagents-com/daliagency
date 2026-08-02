@@ -7,6 +7,7 @@ import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { onestText, syneText } from "@/assets/fonts";
 import { absoluteUrl } from "@/lib/seo/site";
 import { DALI_ORG } from "@/lib/seo/organizationIdentity";
+import { allSolutions } from "@/Components/Solutions/solutionContent";
 
 const title = "Hire an AI Agent Agency - Dali";
 const description =
@@ -136,11 +137,20 @@ export default function HirePage() {
 
           <section className="mb-32">
             <h2 className={`${sectionHeadingClass} mb-12`}>Pricing model</h2>
-            {/* [DAVID: pricing anchor goes here once the range is decided - "pilots from $X, 30 days, one acceptance test"] */}
             <p className={bodyTextClass}>
               Every pilot is fixed-scope and fixed-price, quoted after the free
               audit - the audit defines the boundary, so the quote does not
-              move later. For typical market ranges and what drives them, see{" "}
+              move later. Current package anchors:
+            </p>
+            <ul className="mt-12 flex flex-col gap-8">
+              {allSolutions.map((solution) => (
+                <li key={solution.slug} className={bodyTextClass}>
+                  / {solution.name} - from {solution.pricing.from}
+                </li>
+              ))}
+            </ul>
+            <p className={`${bodyTextClass} mt-12`}>
+              For typical market ranges and what drives them, see{" "}
               <Link
                 href="/blog/ai-agent-agency-pricing-what-to-expect"
                 className="underline underline-offset-4"

@@ -1,8 +1,8 @@
 ---
 slug: "what-is-a-production-ai-agent"
 title: "What is a production AI agent?"
-description: "Definition of a production AI agent versus demos: tools, permissions, gates, evaluation, monitoring, and ownership."
-date: "2026-07-31"
+description: "What a production AI agent is versus a demo: tool contracts, permissions, approval gates, evals, observability, rollout, and ownership after handoff."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "what-is-a-production-ai-agent"
 keywords: ["what is a production AI agent", "production AI agents definition", "AI agent vs chatbot"]
@@ -13,35 +13,81 @@ type: "pillar"
 
 ## Direct answer
 
-A production AI agent is a system that performs multi-step work with tools under permissions, human gates, logging, and ownership - not a chat window that only talks.
+A production AI agent is a system that performs multi-step work inside your business tools, under scoped permissions, with human approval gates on risky actions, an eval set that catches regressions, observability you can read, and a named owner after the vendor leaves. The model is one component; the definition lives in everything wrapped around it. A chat window that only talks, however impressive, is a demo. The word "production" is earned by what happens when input is malformed, an API times out, or a customer is angry - not by what happens on the happy path.
 
-## Demo agent traits
+## The five properties that define "production"
 
-Happy path only. No real credentials model. No exception queue. No stop-switch.
+1. **Acts through tools, under permissions.** The agent reads and writes in your CRM, inbox, sheets, or ticketing through scoped credentials, with least privilege enforced. It works inside your tools, not beside them.
+2. **Gated where it matters.** Irreversible actions - sending, paying, changing records, closing tickets - route through human approval until evidence justifies loosening. Gates are designed, not bolted on.
+3. **Evaluated continuously.** An eval set encodes what good output looks like; regression checks run before any prompt or model change ships. Without this, quality drifts silently.
+4. **Observable.** Logs and traces show what the agent saw, decided, and did, readable by your team without the vendor on a call. Incidents get diagnosed in minutes, not reconstructed from memory.
+5. **Owned.** A named person operates the review queue, watches the metrics, and can hit the stop switch. Software without an owner degrades into a liability.
 
-## Production agent traits
+Remove any one of the five and you have something weaker than production: a promising prototype, a risky automation, or an unowned liability.
 
-Defined inputs/outputs. Tool contracts. Approvals. Eval set. Monitoring. On-call story. Handoff docs.
+## Demo agent vs production agent
 
-## Surfaces
+| Dimension | Demo agent | Production agent |
+| --- | --- | --- |
+| Inputs | Curated, clean | Real, malformed, adversarial |
+| Failure path | None; it just stops | Exception queue with a human owner |
+| Credentials | Founder's API key | Scoped service accounts, least privilege |
+| Risky actions | Executed freely | Gated for approval |
+| Quality control | "Looks good" in a call | Eval set plus regression checks |
+| Visibility | Console output | Logs, traces, dashboards |
+| Rollout | Straight to everyone | Shadow mode, then canary, then scale |
+| After launch | Nobody's job | Named owner, runbook, on-call story |
 
-Chat, email, tickets, voice, background jobs - the surface is not the system.
+The demo column is not wrong for a demo. It becomes wrong the moment real customer data or real money flows through it.
 
-## Org implication
+## Anatomy of the wrapper
 
-Someone owns quality after the vendor leaves.
+The model gets the attention; the wrapper does the work. A production build includes:
+
+- **Tool contracts.** Explicit definitions of what each tool call may do, with validation on inputs and outputs.
+- **Permission scoping.** Service accounts per integration, minimal scopes, rotation plan, secrets in a manager rather than code.
+- **Approval gates and review queue.** A defined list of gated actions, a queue humans actually work, and criteria for loosening gates over time.
+- **Exception handling.** Timeouts, retries with idempotency, and a dead-letter path so failed work is visible instead of lost.
+- **Eval set.** Representative cases, including edge and failure cases, with pass thresholds tied to acceptance tests.
+- **Tracing and monitoring.** Every run reconstructable end to end; alerts on error rate, latency, and cost.
+- **Versioning and rollout.** Prompts and configs versioned like code; shadow mode and canary before full traffic.
+- **Stop switch and runbook.** One documented action pauses the agent; the runbook says who does what when alerts fire.
+- **Handoff package.** Docs, credentials plan, training, and exit terms, so knowledge survives the vendor relationship.
+
+## Surfaces are not the system
+
+Chat, email, tickets, voice, WhatsApp, background jobs - these are entry points, not architecture. The same production core can serve several surfaces, and a beautiful chat UI can sit on top of nothing. When a vendor demos a surface, ask what is underneath: the gate map, the eval set, the trace store. The surface is the last 10 percent; buyers who evaluate surfaces buy demos.
+
+## How a production agent gets built
+
+A path that reliably produces the properties above: discovery and workflow mapping first, including exceptions; acceptance tests agreed in writing before build; the pilot built with gates on from day one; evals run against the acceptance tests; shadow mode on real traffic without acting; canary on a small slice with gates; then scale, with gate-loosening decisions made on evidence. Teams that skip straight from build to full traffic are the source of most agent horror stories - the difference is walked through in [demo vs production](/blog/ai-agent-demo-vs-production-difference).
+
+## What it means for your organization
+
+A production agent changes jobs, not just tooling. Someone on your side owns quality after the vendor leaves: staffing the review queue, reading the weekly metrics, deciding when gates loosen, and paying the LLM usage line that now sits in your budget. If no one inside the company can be named for this before the build starts, you are not ready to buy one - you are ready to buy a demo, and there are cheaper ways to be disappointed.
+
+In Dali builds, most of the engineering is not the model call: approval gates, integrations, evals and monitoring are where the effort goes.
 
 ## How Dali fits
 
-Dali builds production paths first: [solutions](/solutions).
+Dali builds the production path first: discovery, gates, evals, observability, and handoff inside the pilot scope, across chat, email, and background-job surfaces. See [solutions](/solutions) for how a pilot is structured.
 
 ## FAQ
 
 ### Are copilots production agents?
-They can be, if they take controlled actions with gates.
+They can be. A copilot that drafts while a human approves every action is effectively a fully gated agent, and that is a legitimate production pattern, often the right first stage. It becomes a production agent in the full sense when it takes controlled actions through tool contracts with the rest of the wrapper - evals, traces, an owner - around it.
 
 ### Do production agents require multi-agent graphs?
-No. One well-designed agent path is enough to start.
+No. One well-designed agent path with clean tool contracts and gates beats an orchestrated swarm without them, and it is far easier to evaluate, trace, and debug. Multi-agent designs earn their complexity only when a single path demonstrably cannot handle the workflow. Distrust vendors who lead with the graph diagram.
+
+### Is a RAG chatbot a production agent?
+Not by itself. Retrieval grounds what the system says; production agents are defined by what they do. A RAG assistant that only answers questions is a knowledge surface. Add tool actions, permissions, gates, and ownership and the same system crosses the line into agent territory.
+
+### How long does reaching production usually take?
+For one scoped workflow with existing tools, typical market timelines run several weeks to a few months, driven mostly by integration access, data quality, and how fast your side reviews gated output. Anyone promising production in days is redefining the word "production".
+
+### Do we need fine-tuning for production?
+Usually not to start. Most business workflows reach acceptance thresholds with strong prompting, retrieval, and tool design on frontier models. Fine-tuning is a later optimization for narrow, high-volume patterns, justified by eval data, not by instinct.
 
 ### Related
-[Production AI agents for business](/blog/production-ai-agents-for-business).
+For the business case around these systems - what they change operationally and how to scope a first pilot - see [production AI agents for business](/blog/production-ai-agents-for-business).

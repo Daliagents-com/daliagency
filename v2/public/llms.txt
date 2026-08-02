@@ -18,4 +18,4 @@ Dali is based in Tbilisi, Georgia. Canonical site: https://daliagents.com
 
 ## Contact
 
-- Email: hello@dali.agents.ge
+- Email: hello@daliagents.com

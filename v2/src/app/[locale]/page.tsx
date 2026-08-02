@@ -5,6 +5,7 @@ import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
 import AgentSolutions from "@/Components/Home/AgentSolutions";
 import HomeDeferredSections from "@/Components/Home/HomeDeferredSections";
+import { solutionsBundles } from "@/Components/Solutions/locales";
 import {
   isLocale,
   localizedLocales,
@@ -110,7 +111,10 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
   return (
     <main>
       <Hero locale={locale} />
-      <AgentSolutions locale={locale} />
+      <AgentSolutions
+        locale={locale}
+        overview={solutionsBundles[locale].overview}
+      />
       <Projects locale={locale} />
       <HomeDeferredSections locale={locale} />
       <About locale={locale} />

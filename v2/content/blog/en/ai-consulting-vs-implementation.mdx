@@ -1,8 +1,8 @@
 ---
 slug: "ai-consulting-vs-implementation"
 title: "AI consulting vs implementation: what you are actually buying"
-description: "How to tell strategy decks from delivery that ships production agent paths."
-date: "2026-07-31"
+description: "AI consulting vs implementation: what each engagement delivers, typical market shapes and ranges, red flags for both, and how to pick the mix for your stage."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "ai-consulting-vs-implementation"
 keywords: ["AI consulting vs implementation", "AI strategy vs delivery"]
@@ -16,29 +16,91 @@ ogImage: "/blog/ai-consulting-vs-implementation/og.jpg"
 
 ## Direct answer
 
-Consulting without implementation can clarify choices. Implementation without discovery ships the wrong automation. Buy the mix your stage needs - and demand artifacts: maps, gates, and a working path.
+Consulting sells decisions: which workflows to automate, in what order, with what risk posture. Implementation sells working systems: gated agent paths inside your tools, with evals and a handoff. Consulting without implementation leaves you with a deck and no leverage; implementation without discovery ships the wrong automation faster. Buy the mix your stage needs, and judge both by artifacts - maps and ranked decisions on one side, a working gated path on the other. The most expensive outcome is paying for strategy twice: once as a deck, then again as the discovery the implementer has to redo.
+
+## What consulting actually delivers
+
+A good consulting engagement produces decisions you could hand to any competent builder:
+
+- A workflow map of current processes, exceptions included
+- A ranked opportunity list with volume, error cost, and feasibility per workflow
+- Build vs buy vs wait calls, with reasoning you can challenge
+- A risk posture: which actions must stay gated, what data can touch which models
+- A vendor shortlist or hiring plan, plus a budget shape for year one
+
+If the deliverable is a maturity model, a slide on industry trends, and a workshop photo, you bought content marketing at consulting rates.
+
+## What implementation actually delivers
+
+A good implementation engagement produces a system your team operates:
+
+- One scoped workflow shipped as a gated agent path inside your tools of record
+- Acceptance tests written before build, then demonstrably passed
+- An eval set with regression checks wired into releases
+- Observability your team can read, plus a stop switch and runbook
+- A handoff package: docs, credentials plan, training, exit terms
+
+If the deliverable is a demo video and a promise that hardening comes after full rollout, you bought a prototype at production rates.
+
+## Which do you need first?
+
+| Your situation | Buy | Why |
+| --- | --- | --- |
+| No idea where AI fits | Short consulting sprint | Ranking workflows is cheap; building the wrong one is not |
+| One painful workflow already known | Implementation with discovery inside | A separate strategy phase adds cost, not clarity |
+| Tools bought, adoption stalled | Implementation, rescue-shaped | The decision was made; the wrapper was never built |
+| Regulated industry, board pressure | Consulting, then a gated pilot | Risk posture must precede any acting system |
+| Prior AI project failed | Discovery first, fresh | Find whether the process, data, or vendor was the failure |
+
+The pattern behind the table: consulting is worth buying separately only when the decision space is genuinely open. Once the workflow is chosen, discovery belongs inside the implementation scope, done by the people who will build.
+
+## Typical market shapes and ranges
+
+As typical market ranges, not Dali quotes: strategy sprints commonly run two to six weeks; scoped pilot builds commonly run four to twelve weeks depending on integration depth; ongoing operation is usually a monthly retainer plus LLM usage billed at cost or capped. Pricing models vary more than prices: time-and-materials, fixed-scope pilots, and outcome-linked retainers all exist. Whatever the shape, insist that LLM usage at your volume appears as an estimated line item; a vendor who cannot estimate it has not operated at scale.
 
 ## What good looks like
 
-- Workflow map exists before build
-- Irreversible actions have owners and gates
-- Tools of record are explicit
-- Success is defined as finished work quality, not model verbosity
+- A workflow map exists before build, and the implementer treats it as input, not ceremony
+- Irreversible actions have owners and gates agreed in the scope document
+- Tools of record are explicit, so strategy and build point at the same systems
+- Success is defined as finished work quality with acceptance tests, not model verbosity
+- Every recommendation in the consulting output names the evidence behind it
 
 ## What bad looks like
 
-- Demo theater without production path
-- Unowned automations
+- Demo theater without a production path
+- Strategy decks that never name a workflow, a tool, or a number
+- Unowned automations shipped without an operating plan
 - Invented metrics instead of operational evidence
+- A consulting phase re-sold as "discovery" by the implementer because the deck answered none of their questions
+
+## Questions that expose the difference
+
+For a consultant: "Show me a sanitized opportunity ranking from a past engagement. Which recommendation did the client reject, and were they right?" For an implementer: "Show me a gate map and eval structure from something you shipped. Who operates it today?" Both questions ask for artifacts rather than claims. A consultant with no rejected recommendations has never made a real call; an implementer with no operating system in production has never finished one.
+
+## The hybrid that usually wins
+
+For most small and mid-size companies the efficient package is one engagement: a short paid discovery that produces the map and the ranked list, flowing directly into a gated pilot on the top-ranked workflow, with acceptance tests written at the seam. You keep the decision artifacts even if you stop after discovery, and the implementer cannot blame a stranger's deck for a wrong build. Split the phases across two vendors only when governance genuinely requires independent advice.
+
+Dali runs a short audit before quoting: the pilot price comes out of a written scope, not a sales call.
 
 ## How Dali helps
 
-Dali designs and implements agent systems with engineering and operations together - from discovery to production paths and AI visibility. See [solutions](/solutions) and related posts on [production agents](/blog/production-ai-agents-for-business).
+Dali sells the hybrid: discovery and implementation as one engagement, from workflow mapping to a gated production path with evals and handoff. Discovery output is yours either way, including when it says "automate less than you planned". See [solutions](/solutions) for scope shapes and [hire](/hire) for how engagements start, plus the companion piece on [production agents](/blog/production-ai-agents-for-business).
 
 ## FAQ
 
 ### Can we skip discovery if we already bought tools?
-No. Tools without a workflow map still fail.
+No. Tools without a workflow map still fail; the license answers "with what" but not "which workflow, which exceptions, which gated actions, or what done means". Discovery over existing tools is faster and should be priced accordingly, but skipping it converts your license cost into sunk cost plus a wrong build.
 
 ### What should we measure first?
-Cycle time, rework, and error/incident rate on one path.
+Cycle time, rework, and error or incident rate on one workflow path, baselined before anything ships. Consulting output should include those baselines per recommended workflow; implementation acceptance tests should be written against them. If neither vendor asks for baseline numbers, neither is planning to be measured.
+
+### Do we need a separate strategy firm before hiring an implementer?
+Usually not. Separate strategy pays off when the decision space is wide open, the spend is large, or governance demands independence. For a first pilot, discovery inside the implementation engagement is cheaper and produces sharper questions, because the authors must build what they map.
+
+### How do we keep a consultant accountable without built output?
+Contract for decision artifacts: the workflow map, the ranked list with reasoning, the risk posture, and named baselines. Then track one number - how much of the deck survives contact with the implementer. If the builder re-asks every question, the consulting failed.
+
+### Is paid discovery a sales trick?
+Sometimes, so buy it with an exit: fixed price, one to three weeks, artifacts you own outright, and no obligation to build with the same vendor. Under those terms it is the cheapest insurance in the project. Free discovery is the trick more often; it is priced into the build and biased toward recommending one.

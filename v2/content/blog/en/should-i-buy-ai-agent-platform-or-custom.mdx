@@ -1,8 +1,8 @@
 ---
 slug: "should-i-buy-ai-agent-platform-or-custom"
 title: "Should you buy an AI agent platform or build custom?"
-description: "Decision framework: packaged AI agent platforms versus custom agents implemented in your existing stack."
-date: "2026-07-31"
+description: "A decision framework for packaged AI agent platforms versus custom agents in your existing stack: signals, total cost, lock-in, and the exceptions test."
+date: "2026-08-02"
 locale: "en"
 hreflangGroup: "should-i-buy-ai-agent-platform-or-custom"
 keywords: ["AI agent platform vs custom", "build vs buy AI agents", "custom AI agents"]
@@ -13,35 +13,96 @@ type: "comparison"
 
 ## Direct answer
 
-Buy a platform when it matches your workflow and compliance needs. Build custom (or agency-built) when your tools, rules, and exceptions are the product - and a package would force awkward workarounds.
+Buy a platform when your workflow is genuinely standard, the vendor's security posture covers you, and your team will operate the product. Build custom - usually agency-built inside your existing stack - when your tools, rules, and exceptions are the actual product and a package would force workarounds at every step. The honest test is not the feature matrix but who handles your exceptions - that is where agent projects live or die.
 
-## Buy platform when
+## The real question: who owns the exceptions
 
-Standard process, strong vendor security, clear exit, team will operate the product.
+Every workflow has a happy path and a long tail of exceptions: the missing field, the refund above threshold. Platforms are built for the median customer's happy path; your exceptions either fit their configuration surface or they do not.
 
-## Custom when
+- If roughly 90% of your cases fit the platform's model and the rest escalate cleanly to a human queue, buying is rational.
+- If exceptions are a large share of volume, or escalation needs custom logic across your tools, bending the platform costs more than building the workflow directly.
 
-Cross-tool orchestration, special gates, embedded in existing CRM/inbox/docs, unique IP.
+Ask any platform vendor to walk your ten ugliest real cases through their product live; a demo with your data beats the feature matrix.
 
-## Agency role in both
+## Decision scorecard
 
-Configuration and change management for platforms. Full systems design for custom paths.
+Score each signal; the column with more marks tells you which path to price first.
 
-## Trap
+| Signal | Points toward platform | Points toward custom |
+| --- | --- | --- |
+| Process shape | Standard, common across your industry | Your rules and exceptions are the moat |
+| Tool footprint | Lives mostly in one system the platform integrates well | Orchestrates across CRM, inbox, docs, internal APIs |
+| Approval gates | Vendor's built-in approvals fit your risk rules | You need custom gates per action type and role |
+| Compliance | Vendor certifications cover your obligations | Data residency or audit rules the vendor cannot meet |
+| Exit | Clean export, portable configuration | You want to own prompts, evals, and logic outright |
 
-Buying a platform to avoid process work. Process still shows up as exceptions.
+Mixed scores are normal; the common healthy outcome is a hybrid: a platform for the commodity slice, custom agents for the workflow that differentiates you.
+
+## Total cost, compared honestly
+
+Sticker prices mislead in both directions. Compare total first-year cost per path. Figures below are typical market ranges, not Dali quotes, and vary widely by vendor and scope.
+
+| Cost category | Platform path | Custom path |
+| --- | --- | --- |
+| Entry | Per-seat or per-agent license, often $50-500 per seat monthly | Fixed pilot, commonly $10,000-50,000 for one workflow |
+| Setup | Configuration, sometimes paid onboarding | Included in a properly scoped pilot |
+| LLM usage | Usually bundled, capped, or marked up in the license | Your own API keys; tens to low hundreds of dollars monthly per moderate-volume workflow |
+| Ongoing | License forever, per seat, repriced at renewal | Optional defined-scope retainer for monitoring and iteration |
+| Changes | Wait for the vendor roadmap or pay for workarounds | Scoped changes to a system you own |
+| Exit | Migration project, possible data and prompt loss | You keep code, prompts, evals, and docs |
+
+Two costs get forgotten. Platform buyers forget the internal labor of operating the product and handling everything it cannot do. Custom buyers forget ongoing ownership: monitoring, eval upkeep, prompt updates when models change - budget a retainer or internal time for it.
+
+## Buy a platform when
+
+- The workflow is a commodity and speed matters more than fit.
+- The vendor's security posture beats what you would build: SSO, audit logs, certifications.
+- Your exceptions map cleanly to the platform's escalation model.
+- The exit is clean: data exports and rebuilds elsewhere without a hostage negotiation.
+- You have an operator: a platform without an internal owner becomes shelfware.
+
+## Build custom when
+
+- The agent orchestrates across systems you already run: CRM, inbox, documents, internal services.
+- Approval gates are specific: who approves which action at what threshold, with an audit trail in your format.
+- The workflow should be invisible inside existing tools rather than another tab your team must adopt.
+- The logic is intellectual property you want to own, version, and test with your own evals.
+- Compliance requires control a multi-tenant product cannot give: data residency, retention rules, model choice.
+
+Custom does not mean from scratch: credible builds assemble proven components - orchestration frameworks, your existing tools, managed model APIs. The [build vs buy analysis](/blog/build-vs-buy-ai-automation) covers where Zapier-class tools fit in that spectrum.
+
+## The trap: buying a platform to avoid process work
+
+The most common failure is not choosing the wrong vendor; it is buying a platform to skip defining the process. The undefined process resurfaces as an unstaffed exception queue, spreadsheet workarounds, and a renewal meeting where usage numbers embarrass everyone. Whichever path you take, the sequence is the same: map the workflow, define the gates, write the acceptance test, then choose the tooling.
+
+## What an agency does on each path
+
+- **Platform path:** workflow mapping before purchase, configuration, gates within the product's limits, acceptance testing, change management.
+- **Custom path:** full systems design - orchestration, integrations, gates, logging, evals - plus documented handoff so you own the result.
+- **Either path:** an honest recommendation should sometimes be "buy the platform"; an agency that only ever answers "custom" is selling capacity, not judgment.
 
 ## How Dali fits
 
-Compare options in an audit: [solutions](/solutions).
+Dali compares both paths inside a paid audit against your real cases and quotes a fixed pilot only for the path the evidence supports. When custom wins, we prefer implementing inside tools you already run. Start with an [audit](/solutions).
 
 ## FAQ
 
 ### Is open source a third path?
-Yes, with higher ownership cost. Budget engineering time.
 
-### Can we start custom and move to a platform?
-Sometimes. Keep configs and prompts portable.
+Yes, and it is really custom with a lower license bill and a higher ownership bill: you avoid per-seat pricing but take on hosting, upgrades, security patching, and upstream debugging. It fits teams with real engineering capacity; for everyone else it becomes abandonware unless the time is budgeted honestly.
+
+### Can we start custom and move to a platform later?
+
+Sometimes, and the reverse migration is at least as common: teams outgrow a platform's exception handling and rebuild the core workflow custom. Keep both doors open: version prompts, gate rules, and eval cases in files, and hold your own API keys.
 
 ### What does Dali prefer?
-Implement inside tools you already run when possible.
+
+Implement inside tools you already run when possible; buy a platform when the workflow is a commodity and the vendor covers security better than a custom build would. The rule: the smallest system that passes your acceptance test, not either path by default.
+
+### How does lock-in actually show up?
+
+Rarely as a contract clause; usually as gravity. Prompts, logic, and history live in the vendor's format, and per-seat pricing rises once switching is painful. Test the exit before entry: export your data on a trial and ask what leaves with you in open formats.
+
+### Do platforms handle security for me?
+
+They handle their layer: infrastructure, access control, certifications. They do not handle yours: the permissions the agent's accounts hold, which actions get gates, what data you feed in, who reviews the audit log. Gate design remains your job on either path.
