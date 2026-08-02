@@ -9,6 +9,10 @@
 /coverage
 /output/
 /.playwright-cli/
+/.verify-out/
+
+# local pipeline artifacts
+/scripts/.blog-i18n/
 
 # next.js
 /.next/
