@@ -21,6 +21,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
   useEdgesState,
+  useNodesInitialized,
   useNodesState,
   useReactFlow,
   type Edge,
@@ -271,6 +272,19 @@ const TOOL_CALLS: Partial<Record<AgentId, readonly ToolCall[]>> = {
   ],
 };
 
+/** Touch devices get a static demo canvas so page scroll is never trapped. */
+function useCoarsePointer() {
+  const [coarse, setCoarse] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const apply = () => setCoarse(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+  return coarse;
+}
+
 function statusFor(
   id: AgentId,
   stage: number,
@@ -352,8 +366,6 @@ function buildInitialNodes(stage: number, copy: Copy): AgentFlowNode[] {
         active: id === focus,
         enterDelay: 160 + index * 65,
       },
-      draggable: true,
-      selectable: true,
     };
   });
 
@@ -368,14 +380,14 @@ function buildInitialNodes(stage: number, copy: Copy): AgentFlowNode[] {
       active: tool.agents.includes(focus),
       enterDelay: 70 + index * 50,
     },
-    draggable: true,
-    selectable: true,
   }));
 
   return [...toolNodes, ...agentNodes];
 }
 
-function buildEdges(stage: number): Edge[] {
+// animateEdges=false keeps dashes static: the infinite dashdraw keyframe
+// repaints the SVG layer every frame, which stutters low-power devices.
+function buildEdges(stage: number, animateEdges: boolean): Edge[] {
   const focus = STAGE_ORDER[stage] ?? "lead";
 
   const ioEdges: Edge[] = TOOLS.flatMap((tool) =>
@@ -389,7 +401,7 @@ function buildEdges(stage: number): Edge[] {
         source,
         target,
         type: "smoothstep",
-        animated: hot,
+        animated: hot && animateEdges,
         style: {
           stroke: hot
             ? isChannel
@@ -413,7 +425,7 @@ function buildEdges(stage: number): Edge[] {
       source: a,
       target: b,
       type: "smoothstep",
-      animated: hot,
+      animated: hot && animateEdges,
       markerEnd: {
         type: MarkerType.ArrowClosed,
         width: 14,
@@ -435,10 +447,13 @@ function buildEdges(stage: number): Edge[] {
 function FlowCanvas({ stage, copy }: { stage: number; copy: Copy }) {
   const { fitView } = useReactFlow();
   const didFit = useRef(false);
+  const coarse = useCoarsePointer();
   const [nodes, setNodes, onNodesChange] = useNodesState(
     buildInitialNodes(stage, copy),
   );
-  const [edges, setEdges, onEdgesChange] = useEdgesState(buildEdges(stage));
+  const [edges, setEdges, onEdgesChange] = useEdgesState(
+    buildEdges(stage, !coarse),
+  );
 
   // Stage loop updates data + edges only - keeps user drag positions.
   useEffect(() => {
@@ -470,31 +485,33 @@ function FlowCanvas({ stage, copy }: { stage: number; copy: Copy }) {
         return node;
       }),
     );
-    setEdges(buildEdges(stage));
-  }, [stage, copy, setNodes, setEdges]);
+    setEdges(buildEdges(stage, !coarse));
+  }, [stage, copy, coarse, setNodes, setEdges]);
 
-  const onInit = useCallback(() => {
-    if (didFit.current) return;
+  // Fit after nodes report real sizes - onInit fires before measurement and
+  // left the outer nodes (Slack/Notion) clipped at the canvas edge.
+  const nodesInitialized = useNodesInitialized();
+  useEffect(() => {
+    if (!nodesInitialized || didFit.current) return;
     didFit.current = true;
     fitView({ padding: 0.12, duration: 0, includeHiddenNodes: true });
-  }, [fitView]);
+  }, [nodesInitialized, fitView]);
 
   return (
     <ReactFlow
-      className={styles.rfCanvas}
+      className={`${styles.rfCanvas}${coarse ? ` ${styles.rfCanvasStatic}` : ""}`}
       nodes={nodes}
       edges={edges}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
-      onInit={onInit}
       nodeTypes={nodeTypes}
-      nodesDraggable
+      nodesDraggable={!coarse}
       nodesConnectable={false}
-      elementsSelectable
-      panOnDrag
+      elementsSelectable={!coarse}
+      panOnDrag={!coarse}
       panOnScroll={false}
-      zoomOnScroll
-      zoomOnPinch
+      zoomOnScroll={!coarse}
+      zoomOnPinch={!coarse}
       zoomOnDoubleClick={false}
       preventScrolling={false}
       selectionOnDrag={false}

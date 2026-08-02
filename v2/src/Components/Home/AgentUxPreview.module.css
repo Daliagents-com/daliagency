@@ -1816,6 +1816,16 @@
   cursor: grab;
 }
 
+/* Touch devices: the canvas is a demo, not an editor. xyflow ships
+   touch-action:none on the pane, which swallows vertical swipes and
+   traps page scroll - restore pan-y so the page keeps scrolling. */
+.rfCanvasStatic,
+.rfCanvasStatic :global(.react-flow__pane),
+.rfCanvasStatic :global(.react-flow__node) {
+  touch-action: pan-y !important;
+  cursor: default;
+}
+
 .rfCanvas :global(.react-flow__node.dragging) {
   cursor: grabbing;
 }

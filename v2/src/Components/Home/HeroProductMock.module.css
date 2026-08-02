@@ -36,6 +36,14 @@
   pointer-events: none;
 }
 
+/* Scrolled past the hero: freeze the infinite pulses/carets so the mock
+   costs nothing off-screen (box-shadow pulses repaint every frame). */
+.root[data-in-view="false"] *,
+.root[data-in-view="false"] *::before,
+.root[data-in-view="false"] *::after {
+  animation-play-state: paused !important;
+}
+
 /* ---- window chrome ---- */
 
 .chrome {

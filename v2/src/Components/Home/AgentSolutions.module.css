@@ -128,6 +128,14 @@
   border-bottom: 0;
 }
 
+/* Off-screen panels: freeze the mocks' infinite keyframes (pulses, waves,
+   edge dashes). Five live demo panels animating at once jank phones. */
+.panel[data-in-view="false"] *,
+.panel[data-in-view="false"] *::before,
+.panel[data-in-view="false"] *::after {
+  animation-play-state: paused !important;
+}
+
 .panelCopy {
   display: grid;
   gap: 0.65rem;
@@ -325,12 +333,9 @@
     overflow: hidden;
     border-right: 0;
     border-bottom: 1px solid var(--scene-border);
-    background: color-mix(
-      in srgb,
-      var(--scene-surface-strong) 92%,
-      transparent
-    );
-    backdrop-filter: blur(0.9rem);
+    /* Solid bg instead of translucent + backdrop blur: re-blurring the
+       scrolling content under a sticky bar janks low-power phone GPUs. */
+    background: var(--scene-surface-strong);
   }
 
   .sidebarInner {

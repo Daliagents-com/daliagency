@@ -885,6 +885,7 @@ export default function HeroProductMock() {
       ref={rootRef}
       className={styles.root}
       data-hero-product-mock=""
+      data-in-view={inView ? "true" : "false"}
       aria-hidden="true"
     >
       <div className={styles.chrome}>
