@@ -7,7 +7,8 @@ export type AgentUxKind =
   | "client-inbox"
   | "operations-docs"
   | "knowledge-assistant"
-  | "voice-agents";
+  | "voice-agents"
+  | "rescue-console";
 
 export type AgentUxPreviewProps = {
   kind: AgentUxKind;
@@ -59,6 +60,11 @@ export type Copy = {
   company: string;
   stage: string;
   next: string;
+  rescueConsole: string;
+  failing: string;
+  stabilized: string;
+  inProgress: string;
+  queued: string;
 };
 
 export const interfaceCopy: Record<Locale, Copy> = {
@@ -95,6 +101,11 @@ export const interfaceCopy: Record<Locale, Copy> = {
     company: "Company",
     stage: "Stage",
     next: "Next",
+    rescueConsole: "Rescue console",
+    failing: "Failing",
+    stabilized: "Stabilized",
+    inProgress: "In progress",
+    queued: "Queued",
   },
   ru: {
     live: "В работе",
@@ -129,6 +140,11 @@ export const interfaceCopy: Record<Locale, Copy> = {
     company: "Компания",
     stage: "Этап",
     next: "Далее",
+    rescueConsole: "Rescue-консоль",
+    failing: "Падает",
+    stabilized: "Стабилизирован",
+    inProgress: "В процессе",
+    queued: "В очереди",
   },
   ge: {
     live: "ცოცხალი",
@@ -163,6 +179,11 @@ export const interfaceCopy: Record<Locale, Copy> = {
     company: "კომპანია",
     stage: "ეტაპი",
     next: "შემდეგი",
+    rescueConsole: "Rescue კონსოლი",
+    failing: "ავარიულია",
+    stabilized: "სტაბილიზებულია",
+    inProgress: "მიმდინარეობს",
+    queued: "რიგშია",
   },
   arm: {
     live: "Ուղիղ",
@@ -197,6 +218,11 @@ export const interfaceCopy: Record<Locale, Copy> = {
     company: "Ընկերություն",
     stage: "Փուլ",
     next: "Հաջորդ",
+    rescueConsole: "Rescue վահանակ",
+    failing: "Ձախողվում է",
+    stabilized: "Կայունացված է",
+    inProgress: "Ընթացքի մեջ",
+    queued: "Հերթում է",
   },
 };
 

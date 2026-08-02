@@ -42,6 +42,10 @@ const VoiceUx = dynamic(
   () => import("./kinds/voice").then((m) => m.VoiceUx),
   { ssr: false, loading: KindFallback },
 );
+const RescueUx = dynamic(
+  () => import("./kinds/rescue").then((m) => m.RescueUx),
+  { ssr: false, loading: KindFallback },
+);
 
 export default function AgentUxPreview({
   inputs,
@@ -79,6 +83,9 @@ export default function AgentUxPreview({
         ) : null}
         {kind === "voice-agents" ? (
           <VoiceUx copy={copy} tasks={tasks} live={isLive} />
+        ) : null}
+        {kind === "rescue-console" ? (
+          <RescueUx copy={copy} tasks={tasks} live={isLive} />
         ) : null}
       </Shell>
     </div>

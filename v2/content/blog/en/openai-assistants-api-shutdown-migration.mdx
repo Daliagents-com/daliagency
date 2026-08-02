@@ -1,0 +1,74 @@
+---
+slug: "openai-assistants-api-shutdown-migration"
+title: "OpenAI Assistants API shutdown Aug 26: what breaks and how to migrate"
+description: "On Aug 26, 2026 OpenAI shuts down /v1/assistants, /v1/threads and /v1/runs. What errors out, why it is not an endpoint swap, and a 1-2 week migration path to the Responses API."
+date: "2026-08-02"
+locale: "en"
+hreflangGroup: "openai-assistants-api-shutdown-migration"
+keywords: ["OpenAI Assistants API shutdown", "Assistants API migration", "migrate Assistants API to Responses API", "Azure OpenAI Assistants retirement"]
+status: "published"
+author: "Dali"
+type: "article"
+---
+
+## Direct answer
+
+On August 26, 2026 OpenAI shuts down the Assistants API: `/v1/assistants`, `/v1/threads`, and `/v1/runs`. After that date those requests return errors. Apps built on them do not degrade - they stop responding. The replacement is the Responses API, and the migration is real engineering work, not a URL change. Realistic effort for a production bot: 1-2 weeks.
+
+## What exactly happens on Aug 26
+
+- Every call to `/v1/assistants`, `/v1/threads`, and `/v1/runs` starts returning errors.
+- There is no read-only or degraded mode. A bot that creates a thread per conversation fails on the first message.
+- OpenAI announced the deprecation with a migration path to the Responses API. The official migration doc is here: [developers.openai.com/api/docs/assistants/migration](https://developers.openai.com/api/docs/assistants/migration).
+- Azure OpenAI Assistants retires in the same window, so the affected population doubles: teams on Azure are not exempt.
+
+## Why it is not an endpoint swap
+
+The Responses API has a different shape, not just a different URL:
+
+- Threads and run state were managed server-side by OpenAI. In the Responses API, conversation state is your app's job: storing history, deciding what goes into each request, trimming context.
+- The cost model changes. You now pay for the context you resend, so a naive "replay the whole thread every turn" port gets expensive.
+- Some Assistants features have no direct parity, so those paths need redesign, not translation.
+- Production apps that create assistants dynamically (one per tenant, per client, per workflow) have no clean equivalent. That architecture has to be rethought.
+
+## What breaks in practice
+
+The typical victims are systems built in 2023-2025 on the then-recommended stack:
+
+- Customer support bots holding threads per user
+- Intake and qualification bots on websites
+- Internal assistants over company docs and tools
+
+Each active conversation errors out on day one. Users see a dead widget; support sees a spike; nobody sees a warning banner first.
+
+## Migration checklist
+
+1. **Map every call.** Inventory each place your code touches `/v1/assistants`, `/v1/threads`, `/v1/runs`, and which features it depends on (file search, code interpreter, function calls, per-tenant assistants).
+2. **Port to the Responses API.** Move state management into your app, rebuild tool wiring, decide a context strategy that keeps cost sane.
+3. **Run evals side by side.** Same inputs through old and new paths, compare outputs before anything switches. Related: [how to evaluate agents before go-live](/blog/how-to-evaluate-ai-agents-before-go-live).
+4. **Zero-downtime cutover.** Route a slice of traffic to the new path, watch it, then flip fully with a rollback ready.
+
+Realistic effort for a production bot: 1-2 weeks. Less if the bot is thin, more if you built per-tenant assistants.
+
+## What to do before Aug 26 even without us
+
+- Freeze changes on flows that touch the Assistants API. Every new feature on the old stack is migration debt.
+- Export your thread data now. Thread history is not retrievable after shutdown. If conversations matter for your business (support context, sales history, compliance), pull them out while the endpoints still answer.
+
+## How Dali handles this
+
+Dali migrates Assistants API workloads to the Responses API in 1-2 weeks, fixed price from $1,900: call mapping, port, before/after eval runs, and zero-downtime cutover. Guarantee: if the acceptance test does not pass, you do not pay. Start with the audit at [solutions](/solutions). Related: [production AI agents](/blog/production-ai-agents-for-business), [frameworks and hosted assistants](/blog/open-frameworks-and-assistants-when-to-use).
+
+## FAQ
+
+### Will my bot really stop working?
+Yes, if it calls `/v1/assistants`, `/v1/threads`, or `/v1/runs`. After August 26, 2026 those requests return errors, so every conversation fails. This is a shutdown, not a slowdown.
+
+### Can I just switch endpoints?
+No. The Responses API does not manage threads or run state for you, prices context differently, and lacks direct parity for some features. The client code, state storage, and cost profile all change.
+
+### What about Azure OpenAI Assistants?
+Azure retires its Assistants API in the same window. Being on Azure does not buy you time; the same migration applies.
+
+### What does migration cost?
+Doing it in-house: roughly 1-2 weeks of an engineer who knows both APIs, plus eval and cutover work. With Dali: fixed price from $1,900 including before/after evals and zero-downtime cutover, and you do not pay if the acceptance test fails.

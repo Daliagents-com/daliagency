@@ -12,6 +12,7 @@ const nextConfig = {
       ["client-inbox", "conversation-control"],
       ["operations-docs", "ops-knowledge"],
       ["knowledge-assistant", "ops-knowledge"],
+      ["vibe-code-rescue", "rescue-and-migration"],
     ];
     const localePrefixes = ["", "/ru", "/ge", "/arm"];
     const legacyRedirects = localePrefixes.flatMap((prefix) =>

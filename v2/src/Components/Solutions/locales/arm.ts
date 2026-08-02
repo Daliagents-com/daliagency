@@ -78,6 +78,57 @@ const familyShells: FamilyShells = {
         "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed scope boundary for that lane.",
     },
   },
+  rescue: {
+    name: "Rescue & Migration",
+    summary:
+      "One recovery shell for AI systems under pressure: rescue an agent that fails in production, migrate off the Assistants API before shutdown, or harden a vibe-coded MVP - each as a fixed lane with its own acceptance bar.",
+    metadata: {
+      title: "Rescue & Migration | Dali",
+      description:
+        "Packaged product family for AI systems that need saving, not selling: agent rescue with evals and guardrails, Assistants API migration before the August 26, 2026 shutdown, and vibe-code MVP hardening.",
+    },
+    hero: {
+      eyebrow: "Product family · three fixed lanes",
+      title: "For the AI system you already have. Especially when it is failing.",
+      lead:
+        "Dali packages three recovery lanes: rescue an agent that stalls in production, migrate off the OpenAI Assistants API before the August 26, 2026 shutdown, or harden a vibe-coded MVP before it costs trust or money. Each lane is fixed scope with a written triage and its own acceptance test.",
+      supportLine:
+        "Best fit for teams that already shipped something with AI - an agent, an integration, an MVP - and need it to survive production, not a pitch to start over.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One system under rescue, one fixed lane, one written triage or call mapping, one acceptance bar, and a handoff the team can own - not an open-ended retainer.",
+    agentLabel: "Rescue & migration",
+    boundary: {
+      includes: [
+        "Start with one lane: agent rescue, Assistants API migration, or vibe-code hardening",
+        "1 system or integration in scope, whoever built it",
+        "A written triage or call mapping before any fix",
+        "An agreed acceptance bar and a rollback path",
+      ],
+      excludes: [
+        "Open-ended rebuilds of everything at once",
+        "New feature development disguised as rescue",
+        "Ongoing retainer work before the first lane passes",
+      ],
+    },
+    acceptanceTest:
+      "Pick one lane. Each lane has its own pass condition: an agreed eval pass rate for agent rescue, a matching side-by-side run with zero-downtime cutover for the migration, closed high-severity findings for vibe-code rescue. The family passes when the chosen lane does.",
+    cta: {
+      publicLabel: "Start the rescue audit",
+      publicBody:
+        "Tell us which system is under pressure: a failing agent, an Assistants API integration, or a vibe-coded MVP. Dali will reply with the lane boundary, the triage plan, and the acceptance bar.",
+      intakeFields: [
+        "Starting lane: agent rescue, Assistants API migration, or vibe-code hardening",
+        "Who built the system and what stack it runs on",
+        "Where it fails or what deadline it faces",
+        "Owner who can approve scope and accept residual risk",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane, the stack, and where it fails or what deadline applies. Dali will answer with the fixed scope boundary for that lane.",
+    },
+  },
 };
 
 
@@ -171,14 +222,14 @@ export const armenianSolutionsBundle = {
             "Transfer hard cases to a person without losing context",
           ],
         },
-        "vibe-code-rescue": {
-          title: "Vibe-code Rescue",
+        "rescue-and-migration": {
+          title: "Rescue & Migration",
           summary:
-            "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
+            "Three fixed lanes for AI systems under pressure: agent rescue, Assistants API migration, and vibe-code hardening.",
           tasks: [
-            "Map high-risk secrets, payments, admin, and outbound paths",
-            "Decide patch vs rewrite for each critical path in scope",
-            "Ship gates, a stop-switch, and an ownership handoff package",
+            "Rescue an agent that fails in production with evals and guardrails",
+            "Migrate off the Assistants API before the August 26, 2026 shutdown",
+            "Harden a vibe-coded MVP with gates, a stop-switch, and a handoff",
           ],
         },
       },
@@ -1272,6 +1323,317 @@ export const armenianSolutionsBundle = {
           "Պատասխանեք Upwork-ում արտադրանքային մակերեսով, payment կամ admin ուղիներով և risk որոշումների owner-ով։ Dali-ը կպատասխանի ֆիքսված rescue լուծումի սահմանով և տրիաժի կարգով։",
       },
     },
+    "agent-rescue": {
+      slug: "agent-rescue",
+      name: "Agent Rescue",
+      summary:
+        "Ֆիքսված լուծում AI գործակալների համար, որոնք անցնում են դեմոն, բայց ընկնում են production-ում՝ իրական failure modes-ի տրիաժ, eval suite իրական խոսակցությունների վրա, guardrails և monitoring, ապա cutover ապացույցներով։",
+      accent: "#0B3A4A",
+      accentSoft: "#E4F0F3",
+      tint: "#f4f9fa",
+      metadata: {
+        title: "Agent Rescue | Dali",
+        description:
+          "Ֆիքսված rescue AI գործակալների համար, որոնք աշխատում են դեմոյում, բայց ընկնում կամ կանգնում են production-ում՝ failure modes-ի տրիաժ, eval suite իրական խոսակցությունների վրա, guardrails, approval gates, monitoring և production cutover 2-4 շաբաթում։",
+      },
+      hero: {
+        eyebrow: "Փաթեթավորված լուծում",
+        title: "Ձեր գործակալը դեմոյում աշխատում էր։ Production-ում կանգնեց։",
+        lead:
+          "Dali-ը վերցնում է գործակալ, որը կառուցել է այլ վենդոր, ֆրիլանսեր կամ ձեր թիմը, տրիաժ է անում իրական failure modes-ը՝ hallucinated actions, լուռ timeouts, drift, ծախսի թռիչքներ, կառուցում է eval suite իրական խոսակցություններից, ավելացնում guardrails և monitoring և cutover է անում production 2-4 շաբաթում։",
+        supportLine:
+          "Լավագույնս համապատասխանում է թիմերին, որոնք արդեն ներդրել են գործակալի մեջ և պետք ունեն production-վստահություն, ոչ թե «նորից սկսենք» pitch։",
+      },
+      workflow: {
+        label: "Աշխատանքային հոսքի դիագրամ",
+        intake: ["Գործող գործակալի կոդ", "Իրական խոսակցությունների լոգեր", "Խափանումների հաշվետվություններ"],
+        agentLabel: "Agent rescue լուծում",
+        review: ["High-risk գործողություններ", "Eval ձախողումներ", "Cutover-ի հաստատում"],
+        outcomes: ["Failure modes-ի քարտեզ", "Անցնող eval suite", "Monitoring-ով production գործակալ"],
+      },
+      contrast: {
+        painTitle: "Ինչ է փոխարինում",
+        painPoints: [
+          "Գործակալ, որ դեմոյում լավ է երևում, բայց իրական օգտատերերի գալուց հետո գործողություններ է հորինում, լուռ ընկնում է timeout-ով կամ drift-վում է։",
+          "Դեբագ անեկդոտներով՝ մեկ վատ տրանսկրիպտը prompt-ի ուղղում է առաջացնում, և ոչ ոք չգիտի՝ նախորդ խափանումն իրոք ուղղվե՞լ է։",
+          "Token-ների ծախս, որ աճում է առանց owner-ի, քանի որ ոչ ոք չի չափում, թե գործակալն ինչ է անում ամեն խոսակցությունում։",
+        ],
+        outcomeTitle: "Ինչ է ստեղծում",
+        outcomePoints: [
+          "Severity-ով դասավորված քարտեզ իրական failure modes-ի՝ production խոսակցություններից, ոչ թե ենթադրություններից։",
+          "Eval suite, որ թիմը վերագործարկում է ամեն փոփոխության ժամանակ, որ ֆիքսը ֆիքս մնա։",
+          "Guardrails, approval gates և monitoring, որոնց հետ գործակալին աշխատող թողնելը անվտանգ է։",
+        ],
+      },
+      pilot: {
+        label: "Scope-ի ճշգրիտ ֆիքսված սահման",
+        fixedOutcome:
+          "Մեկ գործակալ, մեկ production գործընթաց, գրավոր failure modes-ի տրիաժ, eval suite ներկայացուցչական խոսակցությունների վրա, guardrails և approval gates high-risk գործողությունների վրա, monitoring և production cutover 2-4 շաբաթում։",
+        includes: [
+          "1 գործող գործակալ կամ AI փորձնական, ով էլ կառուցած լինի՝ վենդոր, ֆրիլանսեր կամ in-house",
+          "failure modes-ի տրիաժ՝ hallucinated actions, լուռ timeouts, drift, ծախսի թռիչքներ",
+          "eval suite իրական խոսակցություններից՝ համաձայնեցված անցման շեմով",
+          "guardrails, approval gates high-risk գործողությունների համար և production monitoring",
+          "production cutover լոգերով և rollback ուղիով",
+        ],
+        excludes: [
+          "Ամբողջական rebuild զրոյից, երբ գործող գործակալը կարելի է վերանորոգել",
+          "Նոր feature-ների մշակում այն սահմանից դուրս, ինչ rescue-ին ինքնին պետք է",
+          "Բազմագործակալ պորտֆելի rescue մեկ լուծումում",
+        ],
+      },
+      integrations: {
+        label: "Ինտեգրացիաներ և օրինակներ",
+        intro:
+          "Փաթեթը աշխատում է այն stack-ի վրա, որտեղ գործակալն արդեն ապրում է։ Նպատակը production-ում վստահելի գործակալ է, ոչ թե պլատֆորմի միգրացիա։",
+        items: [
+          "Գործակալներ OpenAI, Anthropic, LangChain, LangGraph կամ custom stack-երի վրա",
+          "CRM, helpdesk և ներքին գործիքներ, որոնց գործակալն արդեն դիպչում է",
+          "Tracing և eval գործիքներ ձեր stack-ում, թիմի կողմից վերագործարկելի",
+          "Slack, Telegram կամ email ալերտներ guardrails և monitoring իրադարձությունների համար",
+        ],
+      },
+      guardrails: {
+        label: "Պաշտպանիչներ և հաստատում",
+        intro:
+          "Փրկված գործակալը վստահություն է վաստակում՝ ընկնելով տեսանելի և էժան, մինչև նրան նորից թույլ կտան միայնակ գործել։",
+        items: [
+          "High-risk գործողությունները գնում են approval gates-ի հետևը, մինչև eval suite-ը հակառակը չասի։",
+          "Գործակալի ամեն գործողություն լոգավորվում է այն context-ի հետ, որն այն առաջացրել է։",
+          "Ծախսի և latency բյուջեները հստակ են՝ ալերտներով, երբ գործակալը խախտում է դրանք։",
+          "Հին վարքագիծը մնում է հասանելի rollback-ի համար, մինչև cutover-ի ապացույցը կայուն է։",
+        ],
+      },
+      validation: {
+        acceptanceTest:
+          "Համաձայնեցրեք eval pass rate իրական խոսակցությունների ներկայացուցչական հավաքածուի վրա։ Rescue-ն անցնում է միայն երբ գործակալը հասնում է այդ ցուցանիշին, high-risk գործողությունները կանգնում են approval gates-ում, և monitoring-ը ցույց է տալիս ծախսն ու latency-ն համաձայնեցված բյուջեի սահմաններում։",
+        measures: [
+          "Eval pass rate ներկայացուցչական խոսակցությունների հավաքածուի վրա",
+          "Hallucinated կամ չարտոնված գործողությունների մասնաբաժին",
+          "Լուռ խափանումների և timeout-ների մասնաբաժին",
+          "Խոսակցության արժեքը բյուջեի համեմատ",
+          "Էսկալացիայի և approval gate-ի հաճախականություն",
+        ],
+        commercialModel:
+          "Աուդիտը ֆիքսում է failure modes-ը, eval հավաքածուն և անցման շեմը։ Այնուհետև Dali-ը գնահատում է մեկ fixed-scope, fixed-price rescue։ Աշխատանքը սկսվում է հաստատումից հետո, իսկ գործակալի ավելի լայն roadmap-ը առանձին որոշում է։",
+      },
+      delivery: [
+        {
+          title: "Failure modes-ի տրիաժ",
+          body:
+            "Կարդում ենք իրական production խոսակցություններն ու լոգերը, անվանում ենք իրական failure modes-ը՝ hallucinated actions, լուռ timeouts, drift, ծախսի թռիչքներ, և դասավորում ըստ վնասի։",
+        },
+        {
+          title: "Eval suite-ի կառուցում և ֆիքս",
+          body:
+            "Ներկայացուցչական խոսակցությունները դարձնում ենք վերագործարկելի eval suite, ապա ուղղում ենք guardrails-ը, prompt-ները, գործիքները և state-ի կառավարումը, մինչև suite-ն անցնի համաձայնեցված շեմը։",
+        },
+        {
+          title: "Cutover monitoring-ով",
+          body:
+            "Գործակալը վերադառնում է production approval gates-ի հետևում՝ monitoring-ով, բյուջեներով և rollback ուղիով, մեկնարկից 2-4 շաբաթում։",
+        },
+      ],
+      fit: {
+        fit: [
+          "Գործակալը կամ AI փորձնականն արդեն կա և դեմոյում բավական լավ էր աշխատում, որ արժենա փրկել։",
+          "Ունեք իրական խոսակցություններ կամ լոգեր, որոնցից eval suite կկառուցվի։",
+          "Ձեր կողմից ինչ-որ մեկը կարող է անվանել high-risk գործողությունները և հաստատել անցման շեմը։",
+        ],
+        notFit: [
+          "Աշխատող նախատիպ դեռ չկա. դա կառուցում է, ոչ թե rescue։",
+          "Գործընթացն այնքան է փոխվել, որ գործակալի աշխատանքն այլևս գոյություն չունի։",
+          "Ոչ ոք չի կարող տիրապետել հաստատումներին կամ ընդունել eval շեմը։",
+        ],
+      },
+      faqs: [
+        {
+          question: "Գործակալը կառուցել է այլ վենդոր։ Դա խնդի՞ր է։",
+          answer:
+            "Ոչ։ Rescue-երի մեծ մասը հենց այնտեղից է սկսվում։ Կարդում ենք կոդը և խոսակցությունները, պահում ենք այն, ինչ աշխատում է, և փոխում այն, ինչ ընկնում է։ Մեղավոր փնտրելը փաթեթի մեջ չի մտնում։",
+        },
+        {
+          question: "Ինչո՞ւ eval suite, այլ ոչ պարզապես բագերի ուղղում։",
+          answer:
+            "Որովհետև առանց դրա ամեն ֆիքս անեկդոտ է։ Eval suite-ը «հիմա աշխատում է»-ն դարձնում է չափելի պնդում, որ թիմը կարող է վերստուգել ամեն փոփոխությունից հետո։",
+        },
+        {
+          question: "Զրոյից նորի՞ց կկառուցեք։",
+          answer:
+            "Միայն եթե տրիաժը ցույց տա, որ վերանորոգումն ավելի թանկ է, քան rebuild-ը, և այդ որոշումը գրավոր ֆիքսվում է աշխատանքից առաջ։ Ամբողջական rebuild-ը գիտակցաբար այս լուծումի scope-ից դուրս է։",
+        },
+      ],
+      cta: {
+        publicLabel: "Սկսել agent rescue աուդիտը",
+        publicBody:
+          "Ուղարկեք, թե ինչ պետք է անի գործակալը, որտեղ է ընկնում, և իրական խոսակցությունների նմուշ։ Dali-ը կպատասխանի failure modes-ի տրիաժի պլանով, eval մոտեցմամբ և ֆիքսված rescue սահմանով։",
+        intakeFields: [
+          "Ով է կառուցել գործակալը և ինչ stack-ի վրա է աշխատում",
+          "Ինչ պետք է անի և ինչ է իրականում կատարվում production-ում",
+          "Իրական խոսակցությունների կամ լոգերի նմուշ, խմբագրվածը նույնպես լավ է",
+          "Գործողություններ, որոնք պետք է մնան մարդու հաստատման հետևում",
+        ],
+        upworkLabel: "Տեսնել ինչ ուղարկել Upwork-ում",
+        upworkBody:
+          "Պատասխանեք Upwork-ում գործակալի stack-ով, ամենահաճախ խափանումով և նրանով՝ կարո՞ղ եք կիսվել խոսակցությունների լոգերով։ Dali-ը կպատասխանի տրիաժի պլանով և ֆիքսված rescue սահմանով։",
+      },
+    },
+    "assistants-migration": {
+      slug: "assistants-migration",
+      name: "Assistants API միգրացիա",
+      summary:
+        "Ժամկետով սահմանափակ միգրացիա OpenAI Assistants API-ից մինչև 2026 թ. օգոստոսի 26-ի shutdown-ը՝ բոլոր call-երի mapping, state-ի և threads-ի տեղափոխում, side-by-side evals և cutover առանց downtime-ի։",
+      accent: "#0B3A4A",
+      accentSoft: "#E4F0F3",
+      tint: "#f4f9fa",
+      metadata: {
+        title: "Assistants API միգրացիա | Dali",
+        description:
+          "Միգրացիա OpenAI Assistants API-ից Responses API 2026 թ. օգոստոսի 26-ի shutdown-ից առաջ՝ call mapping, state-ի և threads-ի տեղափոխում, side-by-side eval գործարկումներ, zero-downtime cutover և thread տվյալների արտահանում։",
+      },
+      hero: {
+        eyebrow: "Փաթեթավորված լուծում · ժամկետային",
+        title:
+          "Assistants API-ն անջատվում է 2026 թ. օգոստոսի 26-ին։ Միգրացվեք, մինչև դա վթար դառնա։",
+        lead:
+          "OpenAI-ը փակում է /v1/assistants, /v1/threads և /v1/runs-ը 2026 թ. օգոստոսի 26-ին, և Azure հայելին գնում է նույն պատուհանում։ Dali-ը ձեր ինտեգրացիան Responses API տեղափոխում է 1-2 շաբաթում՝ ամեն call-ի mapping, state-ի և threads-ի տեղափոխում, side-by-side evals և cutover առանց downtime-ի, thread տվյալների արտահանումով shutdown-ից առաջ։",
+        supportLine:
+          "Լավագույնս համապատասխանում է թիմերին, որոնք ունեն աշխատող Assistants API ինտեգրացիա և ուզում են պլանավորված միգրացիա հիմա, ոչ թե վթարային rebuild անջատման կեսին 3-5x գնով։",
+      },
+      workflow: {
+        label: "Աշխատանքային հոսքի դիագրամ",
+        intake: ["Assistants API calls", "Thread և run state", "Prompt-ներ և tool config-ներ"],
+        agentLabel: "Assistants միգրացիա",
+        review: ["Վարքագծի դիֆեր", "Eval ռեգրեսիաներ", "Cutover-ի հաստատում"],
+        outcomes: ["Ինտեգրացիա Responses API-ի վրա", "Side-by-side eval հաշվետվություն", "Արտահանված thread տվյալներ"],
+      },
+      contrast: {
+        painTitle: "Ինչ է փոխարինում",
+        painPoints: [
+          "Production ինտեգրացիա /v1/assistants, /v1/threads և /v1/runs-ի վրա՝ կցված կոշտ անջատման ամսաթվով։",
+          "Ենթադրություն, թե սա endpoint-ների փոխանակում է, երբ փոխվում են state-ի կառավարումը, ծախսի մոդելը և feature-ների պարիտետը։",
+          "Սպասել մինչև վերջնաժամկետը, երբ վթարային rebuild-ը անջատման կեսին 3-5 անգամ ավելի թանկ է պլանավորված միգրացիայից։",
+        ],
+        outcomeTitle: "Ինչ է ստեղծում",
+        outcomePoints: [
+          "Assistants API-ի ամեն call զուգակցված է Responses API համարժեքի հետ, բացերը՝ գրավոր անվանված։",
+          "State-ն ու threads-ը տեղափոխված են գիտակցաբար, ոչ թե կարկատված վթարի ժամանակ։",
+          "Side-by-side eval գործարկում, որ ապացուցում է տեղափոխված վարքագիծը մինչև որևէ բան միացնելը։",
+        ],
+      },
+      pilot: {
+        label: "Scope-ի ճշգրիտ ֆիքսված սահման",
+        fixedOutcome:
+          "Մեկ Assistants API ինտեգրացիա՝ call-by-call mapping, տեղափոխում Responses API, ստուգում side-by-side eval գործարկումներով և cutover առանց downtime-ի, thread տվյալների արտահանումով shutdown-ից առաջ։",
+        includes: [
+          "1 production ինտեգրացիա /v1/assistants, /v1/threads կամ /v1/runs-ի վրա՝ OpenAI կամ Azure",
+          "call-by-call mapping Responses API-ի վրա՝ ներառյալ ուղիղ պարիտետ չունեցող մասերը",
+          "state-ի և threads-ի տեղափոխում ձեր վերահսկողության տակ գտնվող պահոց, որտեղ API-ն այլևս չի պահում դրանք",
+          "side-by-side eval գործարկումներ հին և նոր վարքագծի համեմատության համար իրական դեպքերի վրա",
+          "zero-downtime cutover և thread տվյալների արտահանում shutdown-ից առաջ",
+        ],
+        excludes: [
+          "Նոր feature-ներ այն սահմանից դուրս, ինչ միգրացիան ինքնին պահանջում է",
+          "Շրջապատող codebase-ի հետ չկապված ռեֆակտորինգ",
+          "Ասիստենտի վարքագծի redesign. նախ պարիտետ, բարելավումները՝ հետո",
+        ],
+      },
+      integrations: {
+        label: "Ինտեգրացիաներ և օրինակներ",
+        intro:
+          "Փաթեթը տեղափոխում է այն ինտեգրացիան, որ ունեք, այն stack-ի վրա, որ ունեք։ Վերջնաժամկետը արտաքին է. միգրացիայի պլանը ձերն է։",
+        items: [
+          "OpenAI Assistants API և Azure OpenAI Assistants հայելին",
+          "Responses API որպես թիրախ՝ խոսակցության state-ի տեղափոխումով ձեր պահոց",
+          "Ձեր գործող backend-ը՝ Node, Python կամ ինչ էլ հյուրընկալում է ընթացիկ call-երը",
+          "Eval գործարկումներ իրական խոսակցության դեպքերի վրա տեղափոխումից առաջ և հետո",
+        ],
+      },
+      guardrails: {
+        label: "Պաշտպանիչներ և հաստատում",
+        intro:
+          "Կոշտ արտաքին վերջնաժամկետով միգրացիան վստահություն է վաստակում՝ ապացուցելով պարիտետը միացումից առաջ, ոչ թե հետո։",
+        items: [
+          "Ոչ մի cutover, մինչև side-by-side eval գործարկումը չհամընկնի համաձայնեցված դեպքերի վրա։",
+          "Thread տվյալները արտահանվում և ստուգվում են հին endpoint-ների անհետանալուց առաջ։",
+          "Հին ինտեգրացիան շարունակում է աշխատել, մինչև նորը կայունանա production-ում։",
+          "Ամեն զուգակցված call և հայտնի պարիտետի բաց գրվում է, ոչ թե հայտնաբերվում հետո։",
+        ],
+      },
+      validation: {
+        acceptanceTest:
+          "Անցկացրեք համաձայնեցված դեպքերի հավաքածուն հին և նոր ինտեգրացիաների միջով զուգահեռ։ Միգրացիան անցնում է միայն երբ պատասխանները համընկնում են համաձայնեցված չափանիշներով, state-ը վերապրում է տեղափոխումը, thread տվյալները արտահանված և ստուգված են, և production-ը միանում է առանց downtime-ի։",
+        measures: [
+          "Զուգակցված և տեղափոխված call-երն ընդհանուրի համեմատ",
+          "Side-by-side eval համընկնման մասնաբաժինը համաձայնեցված դեպքերի վրա",
+          "Thread տվյալների արտահանման ամբողջականություն",
+          "Downtime cutover-ի ընթացքում, նպատակը՝ զրո",
+          "Խոսակցության արժեքը միգրացիայից առաջ և հետո",
+        ],
+        commercialModel:
+          "Աուդիտը ֆիքսում է call-երի գույքագրումը, eval դեպքերը և cutover պլանը։ Այնուհետև Dali-ը գնահատում է մեկ fixed-scope, fixed-price միգրացիա։ 1-2 շաբաթվա պատուհանը ուժի մեջ է միայն քանի դեռ սա պլանավորված աշխատանք է. վերջնաժամկետը չի շարժվում։",
+      },
+      delivery: [
+        {
+          title: "Ինտեգրացիայի mapping",
+          body:
+            "Գույքագրում ենք ամեն Assistants API call, thread և run, որ ձեր կոդն անում է, և գրավոր ֆիքսում mapping-ը Responses API-ի վրա՝ ներառյալ այն տեղերը, որտեղ պարիտետ չկա։",
+        },
+        {
+          title: "Տեղափոխում և ապացույց",
+          body:
+            "Տեղափոխում ենք call-երը և state-ի կառավարումը, ապա հին և նոր ինտեգրացիաները զուգահեռ գործարկում ենք իրական դեպքերի վրա, մինչև վարքագիծը համընկնի համաձայնեցված չափանիշներով։",
+        },
+        {
+          title: "Cutover և արտահանում",
+          body:
+            "Production-ը միանում է Responses API-ին առանց downtime-ի, thread տվյալները արտահանված և ստուգված են, իսկ հին ուղին դուրս է գալիս ձեր գրաֆիկով, ոչ թե OpenAI-ի։",
+        },
+      ],
+      fit: {
+        fit: [
+          "Ունեք production ինտեգրացիա Assistants API-ի վրա՝ ուղիղ կամ Azure-ի միջոցով։",
+          "Կարող եք կիսվել այն կոդի ուղիներով, որոնք այն կանչում են, և իրական խոսակցությունների նմուշով։",
+          "Ուզում եք սա փակել, մինչև վերջնաժամկետը ստիպի։",
+        ],
+        notFit: [
+          "Ինտեգրացիան նախատիպ է, որից ոչ ոք կախված չէ. ջնջելը կարող է ավելի էժան լինել։",
+          "Ուզում եք ասիստենտի ամբողջական redesign միգրացիայի պատուհանում։",
+          "Ոչ ոք չի կարող հաստատել eval դեպքերը կամ cutover-ը։",
+        ],
+      },
+      faqs: [
+        {
+          question: "Սա պարզապես endpoint-ների փոխանակո՞ւմ է։",
+          answer:
+            "Ոչ։ Responses API-ն փոխում է խոսակցության state-ի կառավարումը և ծախսի մոդելը, և feature-ների լիարժեք պարիտետ չկա։ Հենց դրա համար պլանավորված միգրացիան տևում է 1-2 շաբաթ, իսկ վթարայինը՝ անջատման կեսին, արժե 3-5x։",
+        },
+        {
+          question: "Ի՞նչ կլինի մեր գործող threads-ի հետ։",
+          answer:
+            "Դրանք արտահանվում և ստուգվում են shutdown-ից առաջ, իսկ խոսակցության state-ը տեղափոխվում է ձեր վերահսկողության տակ գտնվող պահոց։ 2026 թ. օգոստոսի 26-ից հետո /v1/threads-ի տվյալները վերականգնելու վրա խաղադրույք դնել չարժե։",
+        },
+        {
+          question: "Մենք Azure OpenAI-ի վրա ենք։ Վերջնաժամկետը մեզ վերաբերո՞ւմ է։",
+          answer:
+            "Այո։ Azure Assistants հայելին անջատվում է նույն պատուհանում, ուստի միգրացիայի ուղին և վերջնաժամկետի պլանավորումը նույնն են։",
+        },
+      ],
+      cta: {
+        publicLabel: "Սկսել միգրացիայի աուդիտը",
+        publicBody:
+          "Ուղարկեք, թե որտեղ է կանչվում Assistants API-ն, մոտավորապես քանի thread է կենդանի, և ով է կախված ինտեգրացիայից։ Dali-ը կպատասխանի call-երի գույքագրման պլանով, eval մոտեցմամբ և ֆիքսված միգրացիայի սահմանով։",
+        intakeFields: [
+          "Որտեղ է աշխատում ինտեգրացիան՝ OpenAI ուղիղ թե Azure",
+          "Կոդի ուղիները կամ սերվիսները, որոնք կանչում են /v1/assistants, /v1/threads, /v1/runs",
+          "Կենդանի thread-երի մոտավոր ծավալը և ինչն է դրանցից կախված",
+          "Իրական խոսակցությունների նմուշ eval դեպքերի համար",
+        ],
+        upworkLabel: "Տեսնել ինչ ուղարկել Upwork-ում",
+        upworkBody:
+          "Պատասխանեք Upwork-ում stack-ով, Assistants API-ի կանչի տեղերով և thread-երի ծավալով։ Dali-ը կպատասխանի միգրացիայի պլանով և ֆիքսված scope սահմանով։",
+      },
+    },
   } as Record<PilotSourceSlug, PilotSourceContent>, familyShells),
   labels: {
     browseAllPilots: "Տեսնել բոլոր լուծումները",
@@ -1311,8 +1673,18 @@ export const armenianSolutionsBundle = {
       "Dali-ը ձեզ չի խնդրում նախապես գնել լայն ավտոմատացման ծրագիր։ Մենք սահմանում ենք մեկ ընդունման թեստ, առաջարկում մեկ լուծում, կառուցում ենք համաձայնությունից հետո և ընդլայնում ենք շրջանակը միայն այն դեպքում, եթե առաջին աշխատանքային հոսքը անցնում է ստուգումը։",
     workflowAriaSuffix: "աշխատանքային հոսքի դիագրամ",
     chooseLane: "Choose a fixed lane",
-    lanesTitle: "One system shell. Two fixed scopes.",
+    lanesTitle: "One system shell. Fixed lanes inside.",
     laneAcceptance: "Lane acceptance test",
     startWithLane: "Start with this lane",
+    fixedPackage: "Ֆիքսված փաթեթ",
+    priceFrom: "սկսած",
+    priceRange: "Տիպիկ միջակայք",
+    pricingNoteBundle: "Երկու fixed lane-ը` մեկ փաթեթում։",
+    pricingNoteLane: "Մեկ մեկնարկային lane-ի համար։",
+    guarantee: "Եթե ընդունման թեստը չի անցնում, դուք չեք վճարում։",
+    foundingNote:
+      "Founding հաճախորդի սակագին. առաջին 5 հաճախորդը ստանում է 25% զեղչ` մետրիկաներով հրապարակային քեյսի դիմաց։",
+    careHandoff:
+      "Գործարկումից հետո ամեն փաթեթ անցնում է Agent Care-ին. մոնիտորինգ, eval ռեգրեսիաներ և մեկ չափելի բարելավում ամսական։",
   },
 } satisfies LocalizedSolutionsBundle;

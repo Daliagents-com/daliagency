@@ -166,6 +166,7 @@ export default function AgentSolutions({
   const conversation = copy.cards["conversation-control"];
   const opsKnowledge = copy.cards["ops-knowledge"];
   const voice = copy.cards["voice-agents"];
+  const rescue = copy.cards["rescue-and-migration"];
 
   const caseCtaLabel: Record<Locale, string> = {
     en: "Open multi-agent case",
@@ -226,6 +227,19 @@ export default function AgentSolutions({
       cta: {
         href: localizePath("/solutions/voice-agents", locale),
         label: copy.viewResearch,
+      },
+    },
+    {
+      id: "agent-rescue-migration",
+      title: rescue.title,
+      summary: rescue.summary,
+      kind: "rescue-console",
+      tasks: rescue.tasks,
+      // Same "Product family" eyebrow string as the other family panels.
+      eyebrow: copy.responseLane.eyebrow,
+      cta: {
+        href: localizePath("/solutions/rescue-and-migration", locale),
+        label: copy.viewPilot,
       },
     },
   ];

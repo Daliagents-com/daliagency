@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const localizedContentPaths = [
     "/design-sprints",
     "/solutions",
+    "/starter",
+    "/care",
     "/blog",
     ...solutionSlugs.map((slug) => `/solutions/${slug}`),
   ];

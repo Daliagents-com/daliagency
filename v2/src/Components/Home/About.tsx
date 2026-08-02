@@ -36,7 +36,7 @@ const buildsCopy: Record<
     explore: "Explore",
     links: [
       { href: "/solutions", label: "Product families" },
-      { href: "/solutions/vibe-code-rescue", label: "Vibe code rescue" },
+      { href: "/solutions/rescue-and-migration", label: "Rescue & migration" },
       {
         href: "/solutions/conversation-control",
         label: "Conversation control",
@@ -56,7 +56,7 @@ const buildsCopy: Record<
     explore: "Смотреть",
     links: [
       { href: "/ru/solutions", label: "Продуктовые семейства" },
-      { href: "/ru/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/ru/solutions/rescue-and-migration", label: "Rescue и миграции" },
       {
         href: "/ru/solutions/conversation-control",
         label: "Управление перепиской",
@@ -76,7 +76,7 @@ const buildsCopy: Record<
     explore: "გადასვლა",
     links: [
       { href: "/ge/solutions", label: "პროდუქტის ოჯახები" },
-      { href: "/ge/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/ge/solutions/rescue-and-migration", label: "Rescue & migration" },
       {
         href: "/ge/solutions/conversation-control",
         label: "Conversation control",
@@ -96,7 +96,7 @@ const buildsCopy: Record<
     explore: "Բացել",
     links: [
       { href: "/arm/solutions", label: "Արտադրանքի ընտանիքներ" },
-      { href: "/arm/solutions/vibe-code-rescue", label: "Vibe-code rescue" },
+      { href: "/arm/solutions/rescue-and-migration", label: "Rescue & migration" },
       {
         href: "/arm/solutions/conversation-control",
         label: "Conversation control",
@@ -165,8 +165,8 @@ function BrandMark() {
 
 export default function About({ locale = "en" }: { locale?: Locale }) {
   const copy = homeCopy[locale].about;
-  // home nav: Projects, Solutions, Blog, Services, About — About is last.
-  const aboutLabel = homeCopy[locale].navigation.home[4];
+  // home nav: Projects, Solutions, Blog, About - About is last.
+  const aboutLabel = homeCopy[locale].navigation.home[3];
   const builds = buildsCopy[locale] ?? buildsCopy.en;
 
   return (
@@ -179,7 +179,7 @@ export default function About({ locale = "en" }: { locale?: Locale }) {
         <div className={styles.inner}>
           <header className={styles.header}>
             <h2 id="about-title" className="section-label">
-              {sectionTitle(4, aboutLabel)}
+              {sectionTitle(3, aboutLabel)}
             </h2>
           </header>
 

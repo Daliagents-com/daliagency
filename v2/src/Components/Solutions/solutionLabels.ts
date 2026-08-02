@@ -42,9 +42,19 @@ export const englishLabels = {
     "Dali does not ask you to buy a broad automation program upfront. We define one acceptance test, quote one fixed package, build after agreement, and widen scope only if the first workflow passes.",
   workflowAriaSuffix: "workflow diagram",
   chooseLane: "Choose a fixed lane",
-  lanesTitle: "One system shell. Two fixed scopes.",
+  lanesTitle: "One system shell. Fixed lanes inside.",
   laneAcceptance: "Lane acceptance test",
   startWithLane: "Start with this lane",
+  fixedPackage: "Fixed package",
+  priceFrom: "from",
+  priceRange: "Typical range",
+  pricingNoteBundle: "Both fixed lanes in one build.",
+  pricingNoteLane: "Per starting lane.",
+  guarantee: "If the acceptance test does not pass, you do not pay.",
+  foundingNote:
+    "Founding client rate: first 5 clients get 25% off in exchange for a public case study with metrics.",
+  careHandoff:
+    "After launch, every package hands off into Agent Care - monitoring, eval regressions, and one measured improvement per month.",
 };
 
 export type SolutionPageLabels = {

@@ -9,7 +9,7 @@ Dali is based in Tbilisi, Georgia. Canonical site: https://daliagents.com
 - [Conversation Control System](https://daliagents.com/solutions/conversation-control): Supervised inbox system for inbound leads and client support, with fixed lanes and human gates.
 - [Ops & Knowledge System](https://daliagents.com/solutions/ops-knowledge): Turn recurring documents into actions or answer internal questions from approved sources.
 - [Voice Design-Partner](https://daliagents.com/solutions/voice-agents): Prove one repeatable call flow before widening the system.
-- [Vibe-code Rescue](https://daliagents.com/solutions/vibe-code-rescue): Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.
+- [Rescue & Migration](https://daliagents.com/solutions/rescue-and-migration): Three fixed lanes for AI systems under pressure: agent rescue, Assistants API migration before the August 26, 2026 shutdown, and vibe-code hardening.
 
 ## Company
 

@@ -28,6 +28,8 @@
   --amber-soft: #fff6e0;
   --amber-text: #8a5a10;
   --red: #e03131;
+  --red-soft: #fdecec;
+  --red-text: #b42318;
   --r: 8px;
   --r-sm: 6px;
   --r-xs: 4px;
@@ -485,6 +487,12 @@
   border-color: #f5e6b8;
   background: var(--amber-soft);
   color: var(--amber-text);
+}
+
+.tagRed {
+  border-color: #f4c7c3;
+  background: var(--red-soft);
+  color: var(--red-text);
 }
 
 /* inspector / detail panel */
@@ -2458,6 +2466,11 @@
   --story-soft: #fff7ed;
 }
 
+.dashRescue {
+  --story-accent: #b91c1c;
+  --story-soft: #fef2f2;
+}
+
 .processStep[data-variant="ops"][data-state="current"] {
   color: #6d28d9;
 }
@@ -2487,6 +2500,121 @@
   color: var(--amber-text);
   font-size: 0.85rem;
   font-weight: 800;
+}
+
+/* ---- Rescue console chrome ---- */
+
+/* Thin deadline banner under the toolbar (warning tint via data-tone="exception"). */
+.storyBanner.rescueBanner {
+  margin: 0.45rem 0.55rem 0.1rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--r-sm);
+  box-shadow: none;
+}
+
+.rescueBanner .opsExceptionBadge {
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 0.7rem;
+}
+
+.rescueBanner strong {
+  font-size: 0.66rem;
+}
+
+.rescueBanner p {
+  font-size: 0.56rem;
+}
+
+/* Bottom Failing → Stabilized → Live strip. */
+.railBottom {
+  margin-top: auto;
+  border-bottom: 0;
+  border-top: 1px solid var(--line);
+}
+
+.processStep[data-accent="red"][data-state="current"] {
+  color: var(--red-text);
+  background: var(--red-soft);
+  border-color: rgba(180, 35, 24, 0.24);
+}
+
+.processStep[data-accent="amber"][data-state="current"] {
+  color: var(--amber-text);
+  background: var(--amber-soft);
+  border-color: rgba(183, 121, 31, 0.28);
+}
+
+/* Passed rescue steps go muted, not green - "Failing done" must not read as good.
+   Only the Live step keeps the green completion accent. */
+.processStep[data-variant="rescue"][data-state="done"] {
+  color: var(--muted);
+  background: var(--soft);
+  border-color: var(--line);
+}
+
+.processStep[data-variant="rescue"][data-accent="green"][data-state="done"] {
+  color: var(--green-text);
+  background: var(--green-soft);
+  border-color: rgba(11, 159, 110, 0.18);
+}
+
+/* Health metric deltas (61% → 94%). */
+.deltaOld {
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.deltaArrow {
+  margin: 0 0.25rem;
+  color: var(--faint);
+}
+
+.deltaNew {
+  color: var(--green-text);
+}
+
+/* Stop-switch toggle. */
+.switchValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  width: 1.7rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--soft);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.2);
+  transition: transform 0.25s ease;
+}
+
+.switch[data-on="true"] {
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.switch[data-on="true"]::after {
+  transform: translateX(0.72rem);
 }
 
 .nextCard[data-on="true"] {

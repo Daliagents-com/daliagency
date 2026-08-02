@@ -1,12 +1,51 @@
 // Purpose: Merge pilot sources into public product families with fixed lanes.
-// Scope: Conversation (lead+inbox) and Ops Knowledge (docs+RAG); voice/rescue pass through.
+// Scope: Conversation (lead+inbox), Ops Knowledge (docs+RAG), Rescue & Migration
+// (agent rescue + assistants migration + vibe-code); voice passes through.
 import type {
   PilotSourceContent,
   PilotSourceSlug,
   SolutionContent,
   SolutionLane,
+  SolutionPricing,
   SolutionSlug,
 } from "./solutionContent";
+
+/** Approved fixed-price grid per pilot lane. Same numbers in every locale. */
+export const pilotPricing: Record<PilotSourceSlug, SolutionPricing> = {
+  "lead-response": { from: "$1,900", range: "$1,900-3,500" },
+  "client-inbox": { from: "$1,900", range: "$1,900-3,500" },
+  "operations-docs": { from: "$2,500", range: "$2,500-4,500" },
+  "knowledge-assistant": { from: "$2,500", range: "$2,500-4,500" },
+  "voice-agents": { from: "$4,000", range: "$4,000-8,000" },
+  "vibe-code-rescue": { from: "$2,500", range: "$2,500-6,000" },
+  "agent-rescue": { from: "$3,500", range: "$3,500-9,000" },
+  "assistants-migration": { from: "$1,900", range: "$1,900-4,500" },
+};
+
+/** Family-page headline pricing: conversation is a two-lane bundle, ops and rescue are per starting lane. */
+const familyPricing: Record<
+  Extract<
+    SolutionSlug,
+    "conversation-control" | "ops-knowledge" | "rescue-and-migration"
+  >,
+  SolutionPricing
+> = {
+  "conversation-control": {
+    from: "$3,500",
+    range: "$3,500-6,000",
+    note: "bundle",
+  },
+  "ops-knowledge": {
+    from: "$2,500",
+    range: "$2,500-4,500",
+    note: "lane",
+  },
+  "rescue-and-migration": {
+    from: "$1,900",
+    range: "$1,900-9,000",
+    note: "lane",
+  },
+};
 
 export type FamilyShellCopy = {
   name: string;
@@ -22,9 +61,22 @@ export type FamilyShellCopy = {
   cta: SolutionContent["cta"];
 };
 
+/**
+ * Rescue family carries its own localized boundary and acceptance test because
+ * its three lanes are too different to synthesize a family boundary from them.
+ */
+export type RescueFamilyShellCopy = FamilyShellCopy & {
+  boundary: {
+    includes: readonly string[];
+    excludes: readonly string[];
+  };
+  acceptanceTest: string;
+};
+
 export type FamilyShells = {
   conversation: FamilyShellCopy;
   opsKnowledge: FamilyShellCopy;
+  rescue: RescueFamilyShellCopy;
 };
 
 /** Old public routes → new family slugs (SEO + Upwork mirrors). */
@@ -33,6 +85,7 @@ export const legacySolutionRedirects: Record<string, SolutionSlug> = {
   "client-inbox": "conversation-control",
   "operations-docs": "ops-knowledge",
   "knowledge-assistant": "ops-knowledge",
+  "vibe-code-rescue": "rescue-and-migration",
 };
 
 function uniqueStrings(items: readonly string[]): string[] {
@@ -59,6 +112,7 @@ function pilotToLane(
     excludes: pilot.pilot.excludes,
     acceptanceTest: pilot.validation.acceptanceTest,
     sourceSlug: pilot.slug,
+    pricing: pilotPricing[pilot.slug],
   };
 }
 
@@ -158,6 +212,7 @@ function mergeConversation(
     faqs: [...lead.faqs.slice(0, 2), ...inbox.faqs.slice(0, 1)],
     cta: shell.cta,
     previewKind: "lead-response",
+    pricing: familyPricing["conversation-control"],
   };
 }
 
@@ -260,12 +315,131 @@ function mergeOpsKnowledge(
     faqs: [...ops.faqs.slice(0, 2), ...knowledge.faqs.slice(0, 1)],
     cta: shell.cta,
     previewKind: "operations-docs",
+    pricing: familyPricing["ops-knowledge"],
+  };
+}
+
+function mergeRescue(
+  agent: PilotSourceContent,
+  migration: PilotSourceContent,
+  vibe: PilotSourceContent,
+  shell: RescueFamilyShellCopy,
+): SolutionContent {
+  return {
+    slug: "rescue-and-migration",
+    name: shell.name,
+    summary: shell.summary,
+    accent: vibe.accent,
+    accentSoft: vibe.accentSoft,
+    tint: vibe.tint,
+    metadata: shell.metadata,
+    hero: shell.hero,
+    workflow: {
+      label: agent.workflow.label,
+      intake: uniqueStrings([
+        agent.workflow.intake[0],
+        migration.workflow.intake[0],
+        vibe.workflow.intake[0],
+      ]).slice(0, 3) as readonly string[],
+      agentLabel: shell.agentLabel,
+      review: uniqueStrings([
+        agent.workflow.review[0],
+        migration.workflow.review[0],
+        vibe.workflow.review[0],
+      ]).slice(0, 3) as readonly string[],
+      outcomes: uniqueStrings([
+        agent.workflow.outcomes[0],
+        migration.workflow.outcomes[0],
+        vibe.workflow.outcomes[0],
+      ]).slice(0, 3) as readonly string[],
+    },
+    contrast: {
+      painTitle: agent.contrast.painTitle,
+      painPoints: uniqueStrings([
+        agent.contrast.painPoints[0],
+        migration.contrast.painPoints[0],
+        vibe.contrast.painPoints[0],
+      ]).slice(0, 3) as readonly string[],
+      outcomeTitle: agent.contrast.outcomeTitle,
+      outcomePoints: uniqueStrings([
+        agent.contrast.outcomePoints[0],
+        migration.contrast.outcomePoints[0],
+        vibe.contrast.outcomePoints[0],
+      ]).slice(0, 3) as readonly string[],
+    },
+    pilot: {
+      label: shell.pilotLabel,
+      fixedOutcome: shell.fixedOutcome,
+      includes: shell.boundary.includes,
+      excludes: shell.boundary.excludes,
+    },
+    lanes: [
+      pilotToLane(agent, "agent-rescue"),
+      pilotToLane(migration, "assistants-migration"),
+      pilotToLane(vibe, "vibe-code"),
+    ],
+    integrations: {
+      label: agent.integrations.label,
+      intro: shell.summary,
+      items: uniqueStrings([
+        agent.integrations.items[0],
+        migration.integrations.items[0],
+        vibe.integrations.items[0],
+        agent.integrations.items[1],
+        migration.integrations.items[1],
+      ]).slice(0, 5),
+    },
+    guardrails: {
+      label: agent.guardrails.label,
+      intro: agent.guardrails.intro,
+      items: uniqueStrings([
+        agent.guardrails.items[0],
+        migration.guardrails.items[0],
+        vibe.guardrails.items[0],
+        agent.guardrails.items[1],
+      ]).slice(0, 4),
+    },
+    validation: {
+      acceptanceTest: shell.acceptanceTest,
+      measures: uniqueStrings([
+        agent.validation.measures[0],
+        migration.validation.measures[1] ?? migration.validation.measures[0],
+        vibe.validation.measures[0],
+        agent.validation.measures[1],
+        migration.validation.measures[3] ?? migration.validation.measures[0],
+        vibe.validation.measures[2] ?? vibe.validation.measures[0],
+      ]).slice(0, 6),
+      commercialModel: agent.validation.commercialModel,
+    },
+    delivery: agent.delivery,
+    fit: {
+      fit: uniqueStrings([
+        agent.fit.fit[0],
+        migration.fit.fit[0],
+        vibe.fit.fit[0],
+        agent.fit.fit[1],
+      ]).slice(0, 4),
+      notFit: uniqueStrings([
+        agent.fit.notFit[0],
+        migration.fit.notFit[0],
+        vibe.fit.notFit[0],
+        agent.fit.notFit[1],
+      ]).slice(0, 4),
+    },
+    faqs: [
+      ...agent.faqs.slice(0, 1),
+      ...migration.faqs.slice(0, 1),
+      ...vibe.faqs.slice(0, 1),
+    ],
+    cta: shell.cta,
+    previewKind: "operations-docs",
+    pricing: familyPricing["rescue-and-migration"],
   };
 }
 
 function asFamilySolution(
   pilot: PilotSourceContent,
-  slug: Extract<SolutionSlug, "voice-agents" | "vibe-code-rescue">,
+  slug: Extract<SolutionSlug, "voice-agents">,
   previewKind: SolutionContent["previewKind"],
 ): SolutionContent {
   return {
@@ -273,6 +447,7 @@ function asFamilySolution(
     slug,
     lanes: undefined,
     previewKind,
+    pricing: pilotPricing[pilot.slug],
   };
 }
 
@@ -296,10 +471,11 @@ export function buildSolutionsCatalog(
       "voice-agents",
       "voice-agents",
     ),
-    "vibe-code-rescue": asFamilySolution(
+    "rescue-and-migration": mergeRescue(
+      pilots["agent-rescue"],
+      pilots["assistants-migration"],
       pilots["vibe-code-rescue"],
-      "vibe-code-rescue",
-      "operations-docs",
+      shells.rescue,
     ),
   };
 }
@@ -375,6 +551,57 @@ export const englishFamilyShells: FamilyShells = {
       upworkLabel: "See what to send in Upwork",
       upworkBody:
         "Reply in Upwork with the starting lane, sample inputs or docs, and destination system. Dali will answer with the fixed scope boundary for that lane.",
+    },
+  },
+  rescue: {
+    name: "Rescue & Migration",
+    summary:
+      "One recovery shell for AI systems under pressure: rescue an agent that fails in production, migrate off the Assistants API before shutdown, or harden a vibe-coded MVP - each as a fixed lane with its own acceptance bar.",
+    metadata: {
+      title: "Rescue & Migration | Dali",
+      description:
+        "Packaged product family for AI systems that need saving, not selling: agent rescue with evals and guardrails, Assistants API migration before the August 26, 2026 shutdown, and vibe-code MVP hardening.",
+    },
+    hero: {
+      eyebrow: "Product family · three fixed lanes",
+      title: "For the AI system you already have. Especially when it is failing.",
+      lead:
+        "Dali packages three recovery lanes: rescue an agent that stalls in production, migrate off the OpenAI Assistants API before the August 26, 2026 shutdown, or harden a vibe-coded MVP before it costs trust or money. Each lane is fixed scope with a written triage and its own acceptance test.",
+      supportLine:
+        "Best fit for teams that already shipped something with AI - an agent, an integration, an MVP - and need it to survive production, not a pitch to start over.",
+    },
+    pilotLabel: "Family boundary before you pick a lane",
+    fixedOutcome:
+      "One system under rescue, one fixed lane, one written triage or call mapping, one acceptance bar, and a handoff the team can own - not an open-ended retainer.",
+    agentLabel: "Rescue & migration",
+    boundary: {
+      includes: [
+        "Start with one lane: agent rescue, Assistants API migration, or vibe-code hardening",
+        "1 system or integration in scope, whoever built it",
+        "A written triage or call mapping before any fix",
+        "An agreed acceptance bar and a rollback path",
+      ],
+      excludes: [
+        "Open-ended rebuilds of everything at once",
+        "New feature development disguised as rescue",
+        "Ongoing retainer work before the first lane passes",
+      ],
+    },
+    acceptanceTest:
+      "Pick one lane. Each lane has its own pass condition: an agreed eval pass rate for agent rescue, a matching side-by-side run with zero-downtime cutover for the migration, closed high-severity findings for vibe-code rescue. The family passes when the chosen lane does.",
+    cta: {
+      publicLabel: "Start the rescue audit",
+      publicBody:
+        "Tell us which system is under pressure: a failing agent, an Assistants API integration, or a vibe-coded MVP. Dali will reply with the lane boundary, the triage plan, and the acceptance bar.",
+      intakeFields: [
+        "Starting lane: agent rescue, Assistants API migration, or vibe-code hardening",
+        "Who built the system and what stack it runs on",
+        "Where it fails or what deadline it faces",
+        "Owner who can approve scope and accept residual risk",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the starting lane, the stack, and where it fails or what deadline applies. Dali will answer with the fixed scope boundary for that lane.",
     },
   },
 };

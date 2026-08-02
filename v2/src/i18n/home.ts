@@ -64,7 +64,7 @@ export type HomeCopy = {
 export const homeCopy: Record<Locale, HomeCopy> = {
   en: {
     navigation: {
-      home: ["Projects", "Solutions", "Blog", "Services", "About"],
+      home: ["Projects", "Solutions", "Blog", "About"],
       solutions: ["Solutions", "Process", "Blog", "Proof", "About"],
       startAudit: "Start audit",
       openMenu: "Open navigation menu",
@@ -178,7 +178,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   ru: {
     navigation: {
-      home: ["Проекты", "Решения", "Блог", "Услуги", "О нас"],
+      home: ["Проекты", "Решения", "Блог", "О нас"],
       solutions: ["Решения", "Процесс", "Блог", "Кейсы", "О нас"],
       startAudit: "Начать аудит",
       openMenu: "Открыть меню навигации",
@@ -292,7 +292,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   ge: {
     navigation: {
-      home: ["პროექტები", "გადაწყვეტილებები", "ბლოგი", "სერვისები", "ჩვენ შესახებ"],
+      home: ["პროექტები", "გადაწყვეტილებები", "ბლოგი", "ჩვენ შესახებ"],
       solutions: ["გადაწყვეტილებები", "პროცესი", "ბლოგი", "ნამუშევრები", "ჩვენ შესახებ"],
       startAudit: "აუდიტის დაწყება",
       openMenu: "ნავიგაციის მენიუს გახსნა",
@@ -404,7 +404,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
   },
   arm: {
     navigation: {
-      home: ["Նախագծեր", "Լուծումներ", "Բլոգ", "Ծառայություններ", "Մեր մասին"],
+      home: ["Նախագծեր", "Լուծումներ", "Բլոգ", "Մեր մասին"],
       solutions: ["Լուծումներ", "Գործընթաց", "Բլոգ", "Նախագծեր", "Մեր մասին"],
       startAudit: "Սկսել աուդիտը",
       openMenu: "Բացել նավիգացիոն ընտրացանկը",

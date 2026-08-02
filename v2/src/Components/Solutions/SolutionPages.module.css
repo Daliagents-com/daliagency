@@ -102,6 +102,17 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* Three-lane families: narrower cards, so inner include/exclude lists stack. */
+.laneTriGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.laneTriGrid .splitGrid {
+  grid-template-columns: 1fr;
+}
+
 /* Quiet mono labels - same role as .section-label on the home page. */
 .eyebrow,
 .sectionEyebrow,
@@ -446,6 +457,82 @@
   line-height: 1.55;
 }
 
+/* Fixed-package pricing - same visual language as .boundaryOutcome. */
+.pricingBlock {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.9rem 0 1.1rem;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--solution-accent);
+  border-radius: 0 var(--solution-radius) var(--solution-radius) 0;
+  background: color-mix(in srgb, var(--solution-accent-soft) 42%, #fff);
+}
+
+.pricingValue {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.pricingMeta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+.lanePricing {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+.guaranteeLine {
+  margin: 0.65rem 0 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.foundingNote {
+  margin: 1rem 0 0;
+  border-top: 1px solid rgba(23, 17, 15, 0.12);
+  padding-top: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.careHandoff {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.careHandoffLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.2em;
+  transition: color 160ms ease;
+}
+
+.careHandoffLink:hover {
+  color: var(--text);
+}
+
 .listTitle {
   margin: 0 0 0.75rem;
 }
@@ -682,6 +769,7 @@
   .splitGrid,
   .dualGrid,
   .threeGrid,
+  .laneTriGrid,
   .fitGrid,
   .ctaGrid,
   .cardGrid,

@@ -277,5 +277,5 @@ export const pilotWorkflowMotion: Record<SolutionSlug, PilotWorkflowMotion> = {
   "conversation-control": leadResponse,
   "ops-knowledge": operationsDocs,
   "voice-agents": voiceAgents,
-  "vibe-code-rescue": vibeCodeRescue,
+  "rescue-and-migration": vibeCodeRescue,
 };

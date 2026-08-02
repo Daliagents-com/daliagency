@@ -17,7 +17,7 @@ export function Tag({
   tone = "neutral",
 }: {
   children: string;
-  tone?: "neutral" | "blue" | "green" | "amber";
+  tone?: "neutral" | "blue" | "green" | "amber" | "red";
 }) {
   const toneClass =
     tone === "blue"
@@ -26,7 +26,9 @@ export function Tag({
         ? styles.tagGreen
         : tone === "amber"
           ? styles.tagAmber
-          : styles.tagNeutral;
+          : tone === "red"
+            ? styles.tagRed
+            : styles.tagNeutral;
 
   return <span className={`${styles.tag} ${toneClass}`}>{children}</span>;
 }

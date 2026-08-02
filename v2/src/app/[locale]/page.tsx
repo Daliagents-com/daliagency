@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
 import AgentSolutions from "@/Components/Home/AgentSolutions";
-import HomeDeferredSections from "@/Components/Home/HomeDeferredSections";
 import {
   isLocale,
   localizedLocales,
@@ -14,7 +13,7 @@ import {
 // Prerender locale homes (generateStaticParams). No request-time data.
 export const dynamic = "force-static";
 
-// Projects still SSR for crawlable case grid; agents/services load after idle/IO.
+// Projects still SSR for crawlable case grid.
 const Projects = nextDynamic(() => import("@/Components/Home/Projects"), {
   ssr: true,
 });
@@ -112,7 +111,6 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
       <Hero locale={locale} />
       <AgentSolutions locale={locale} />
       <Projects locale={locale} />
-      <HomeDeferredSections locale={locale} />
       <About locale={locale} />
     </main>
   );

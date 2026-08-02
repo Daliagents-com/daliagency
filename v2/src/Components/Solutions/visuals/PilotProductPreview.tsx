@@ -23,8 +23,8 @@ function tasksFor(solution: SolutionContent): readonly string[] {
       return ["Doc or question", "Validated output", "Audit trail"];
     case "voice-agents":
       return ["Book this week", "Two slots offered", "Handoff"];
-    case "vibe-code-rescue":
-      return ["Secret in client JS", "Patch payments path", "Stop-switch on"];
+    case "rescue-and-migration":
+      return ["Triage failure modes", "Eval suite passing", "Cutover with logs"];
     default:
       return solution.workflow.outcomes.map((item) =>
         item.length > 28 ? `${item.slice(0, 26)}…` : item,

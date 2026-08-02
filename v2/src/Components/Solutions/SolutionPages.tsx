@@ -13,6 +13,7 @@ import {
   getSolutionHref,
   siteUrl,
   type SolutionContent,
+  type SolutionPricing,
   type SolutionVariant,
 } from "./solutionContent";
 import {
@@ -37,7 +38,7 @@ const interestBySolutionSlug: Record<string, ConsultationInterest> = {
   "conversation-control": "conversation-control",
   "ops-knowledge": "ops-knowledge",
   "voice-agents": "voice",
-  "vibe-code-rescue": "vibe-code-rescue",
+  "rescue-and-migration": "vibe-code-rescue",
 };
 
 function serializeJsonLd(data: object) {
@@ -83,8 +84,8 @@ function getUpworkWorkflowIntake(solution: SolutionContent) {
       return ["Email, PDF, or docs", "Approved source set", "Destination system"] as const;
     case "voice-agents":
       return ["Call queue", "Scheduling rules", "FAQ docs"] as const;
-    case "vibe-code-rescue":
-      return ["Repo or preview", "Payment & admin paths", "Secret surfaces"] as const;
+    case "rescue-and-migration":
+      return ["Agent, API, or MVP", "Real conversations & logs", "Payment & admin paths"] as const;
   }
 }
 
@@ -111,12 +112,12 @@ function getUpworkIntegrations(solution: SolutionContent) {
         "CRM updates and owner alerts after every call outcome",
         "Team notifications for transfer and callback events",
       ] as const;
-    case "vibe-code-rescue":
+    case "rescue-and-migration":
       return [
+        "Agents on OpenAI, Anthropic, LangChain, LangGraph, or custom stacks",
+        "OpenAI Assistants API and the Azure OpenAI Assistants mirror",
         "Lovable, v0, Cursor, Bolt, or mixed AI-assisted codebases",
-        "Vercel, Netlify, Cloudflare, or similar preview-to-prod hosts",
-        "Stripe, payment webhooks, promo codes, and checkout callbacks",
-        "Supabase, Firebase, custom admin, or shared service-role keys",
+        "Stripe, Supabase, Vercel, and the rest of the shipped stack",
       ] as const;
   }
 }
@@ -174,6 +175,15 @@ function renderCta(
       ) : null}
     </>
   );
+}
+
+function getPricingNote(
+  pricing: SolutionPricing,
+  labels: SolutionPageLabels,
+) {
+  if (pricing.note === "bundle") return labels.pricingNoteBundle;
+  if (pricing.note === "lane") return labels.pricingNoteLane;
+  return null;
 }
 
 function renderProductShowcase(
@@ -511,7 +521,13 @@ export function SolutionLanding({
                 </h2>
               </div>
 
-              <div className={styles.dualGrid}>
+              <div
+                className={
+                  solution.lanes.length === 3
+                    ? styles.laneTriGrid
+                    : styles.dualGrid
+                }
+              >
                 {solution.lanes.map((lane) => (
                   <article
                     key={lane.id}
@@ -535,6 +551,11 @@ export function SolutionLanding({
                       >
                         {lane.fixedOutcome}
                       </div>
+                      <p className={`${sansText.className} ${styles.lanePricing}`}>
+                        {labels.fixedPackage}: {labels.priceFrom}{" "}
+                        {lane.pricing.from} · {labels.priceRange}{" "}
+                        {lane.pricing.range}
+                      </p>
                     </div>
                     <div className={styles.splitGrid}>
                       <div>
@@ -644,6 +665,9 @@ export function SolutionLanding({
                 </p>
                 <p className={`${sansText.className} ${styles.commercialModel}`}>
                   {solution.validation.commercialModel}
+                </p>
+                <p className={`${sansText.className} ${styles.guaranteeLine}`}>
+                  {labels.guarantee}
                 </p>
               </article>
               <article className={styles.surfaceCard}>
@@ -822,12 +846,42 @@ export function SolutionLanding({
                 <p className={`${monoText.className} ${styles.cardEyebrow}`}>
                   {labels.commercialModel}
                 </p>
+                <div className={styles.pricingBlock}>
+                  <p className={`${monoText.className} ${styles.surfaceLabel}`}>
+                    {labels.fixedPackage}
+                  </p>
+                  <p className={`${sansText.className} ${styles.pricingValue}`}>
+                    {labels.priceFrom} {solution.pricing.from}
+                  </p>
+                  <p className={`${sansText.className} ${styles.pricingMeta}`}>
+                    {labels.priceRange}: {solution.pricing.range}
+                    {getPricingNote(solution.pricing, labels)
+                      ? ` · ${getPricingNote(solution.pricing, labels)}`
+                      : ""}
+                  </p>
+                  <p
+                    className={`${sansText.className} ${styles.guaranteeLine}`}
+                  >
+                    {labels.guarantee}
+                  </p>
+                </div>
                 <p className={`${sansText.className} ${styles.sectionLead}`}>
                   {labels.commercialBody}
                 </p>
+                <p className={`${sansText.className} ${styles.foundingNote}`}>
+                  {labels.foundingNote}
+                </p>
+                <p className={`${sansText.className} ${styles.careHandoff}`}>
+                  <Link
+                    href={localizePath("/care", locale)}
+                    className={styles.careHandoffLink}
+                  >
+                    {labels.careHandoff}
+                  </Link>
+                </p>
               </article>
             </div>
-            {variant === "public" && solution.slug === "vibe-code-rescue" ? (
+            {variant === "public" && solution.slug === "rescue-and-migration" ? (
               <ChecklistMagnet
                 locale={locale}
                 source="solution-checklist-magnet"

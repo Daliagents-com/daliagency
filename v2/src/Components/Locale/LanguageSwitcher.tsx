@@ -47,7 +47,7 @@ export default function LanguageSwitcher({
     }
 
     return localizePath(
-      hasLocalizedEquivalent ? normalizedPathname : "/#services",
+      hasLocalizedEquivalent ? normalizedPathname : "/",
       locale,
     );
   };

@@ -30,7 +30,7 @@ export const solutionSlugs = [
   "conversation-control",
   "ops-knowledge",
   "voice-agents",
-  "vibe-code-rescue",
+  "rescue-and-migration",
 ] as const;
 
 /** Fixed lanes inside families (source pilots before merge). */
@@ -41,6 +41,8 @@ export const pilotSourceSlugs = [
   "knowledge-assistant",
   "voice-agents",
   "vibe-code-rescue",
+  "agent-rescue",
+  "assistants-migration",
 ] as const;
 
 export type SolutionSlug = (typeof solutionSlugs)[number];
@@ -55,6 +57,14 @@ export type SolutionPreviewKind =
   | "knowledge-assistant"
   | "voice-agents";
 
+/** Fixed-price display for one package: same numbers in every locale. */
+export type SolutionPricing = {
+  from: string;
+  range: string;
+  /** Optional qualifier rendered from localized labels. */
+  note?: "bundle" | "lane";
+};
+
 export type SolutionLane = {
   id: string;
   name: string;
@@ -64,6 +74,7 @@ export type SolutionLane = {
   excludes: readonly string[];
   acceptanceTest: string;
   sourceSlug: PilotSourceSlug;
+  pricing: SolutionPricing;
 };
 
 type SolutionMetadata = {
@@ -167,6 +178,8 @@ export type SolutionContent = SolutionBody & {
   lanes?: readonly SolutionLane[];
   /** Product mock shell (AgentUxPreview kind). */
   previewKind: SolutionPreviewKind;
+  /** Family-level fixed package price (bundle or starting lane). */
+  pricing: SolutionPricing;
 };
 
 export type PilotSourceContent = SolutionBody & {
@@ -1101,6 +1114,321 @@ export const pilotSourcesBySlug: Record<PilotSourceSlug, PilotSourceContent> = {
       upworkLabel: "See what to send in Upwork",
       upworkBody:
         "Reply in Upwork with the product surface, payment or admin paths, and the owner for risk decisions. Dali will answer with the fixed rescue package boundary and triage order.",
+    },
+  },
+  "agent-rescue": {
+    slug: "agent-rescue",
+    name: "Agent Rescue",
+    summary:
+      "A fixed-scope package for AI agents that pass the demo but fail in production: triage the real failure modes, build an eval suite on real conversations, add guardrails and monitoring, and cut back over with evidence.",
+    accent: "#0B3A4A",
+    accentSoft: "#E4F0F3",
+    tint: "#f4f9fa",
+    metadata: {
+      title: "Agent Rescue | Dali",
+      description:
+        "Fixed-scope rescue for AI agents that work in demo but fail or stall in production: failure-mode triage, eval suite on real conversations, guardrails, approval gates, monitoring, and a production cutover in 2-4 weeks.",
+    },
+    hero: {
+      eyebrow: "Packaged solution",
+      title: "Your agent worked in the demo. Production is where it stalled.",
+      lead:
+        "Dali takes over an agent built by another vendor, a freelancer, or your own team, triages the real failure modes - hallucinated actions, silent timeouts, drift, cost spikes - builds an eval suite from real conversations, adds guardrails and monitoring, and cuts over to production in 2-4 weeks.",
+      supportLine:
+        "Best fit for teams that already invested in an agent and need it to earn production trust, not a pitch to start over.",
+    },
+    workflow: {
+      label: "Workflow diagram",
+      intake: ["Existing agent code", "Real conversation logs", "Failure reports"],
+      agentLabel: "Agent rescue package",
+      review: ["High-risk actions", "Eval failures", "Cutover sign-off"],
+      outcomes: ["Failure-mode map", "Passing eval suite", "Monitored production agent"],
+    },
+    contrast: {
+      painTitle: "What it replaces",
+      painPoints: [
+        "An agent that demos well but hallucinates actions, times out silently, or drifts once real users arrive.",
+        "Debugging by anecdote: one bad transcript triggers a prompt tweak, and nobody knows whether the last failure is actually fixed.",
+        "Token costs that spike without an owner because nobody measures what the agent does per conversation.",
+      ],
+      outcomeTitle: "What it creates",
+      outcomePoints: [
+        "A severity-ordered map of real failure modes taken from production conversations, not from guesses.",
+        "An eval suite the team reruns on every change, so a fix stays fixed.",
+        "Guardrails, approval gates, and monitoring that make the agent safe to leave running.",
+      ],
+    },
+    pilot: {
+      label: "Exact fixed scope boundary",
+      fixedOutcome:
+        "One agent, one production workflow, a written failure-mode triage, an eval suite on representative conversations, guardrails and approval gates on high-risk actions, monitoring, and a production cutover in 2-4 weeks.",
+      includes: [
+        "1 existing agent or AI pilot, whoever built it: vendor, freelancer, or in-house",
+        "Triage of failure modes: hallucinated actions, silent timeouts, drift, cost spikes",
+        "Eval suite built from real conversations with an agreed pass threshold",
+        "Guardrails, approval gates for high-risk actions, and production monitoring",
+        "Production cutover with logs and a rollback path",
+      ],
+      excludes: [
+        "A full rebuild from scratch when the existing agent can be repaired",
+        "New feature development beyond what the rescue itself needs",
+        "Rescuing a multi-agent portfolio inside one package",
+      ],
+    },
+    integrations: {
+      label: "Integrations and examples",
+      intro:
+        "The package works on the stack the agent already runs on. The goal is a production-trustworthy agent, not a platform migration.",
+      items: [
+        "Agents built on OpenAI, Anthropic, LangChain, LangGraph, or custom stacks",
+        "The CRM, helpdesk, or internal tools the agent already touches",
+        "Tracing and eval tooling wired into your stack, kept rerunnable by your team",
+        "Slack, Telegram, or email alerts for guardrail and monitoring events",
+      ],
+    },
+    guardrails: {
+      label: "Guardrails and approval",
+      intro:
+        "A rescued agent earns trust by failing visibly and cheaply before it is allowed to act alone again.",
+      items: [
+        "High-risk actions go behind approval gates until the eval suite says otherwise.",
+        "Every agent action is logged with the context that produced it.",
+        "Cost and latency budgets are explicit, with alerts when the agent breaks them.",
+        "The old behavior stays available for rollback until the cutover evidence holds.",
+      ],
+    },
+    validation: {
+      acceptanceTest:
+        "Agree an eval pass rate on a representative set of real conversations. The rescue passes only when the agent meets that rate, high-risk actions stop at approval gates, and monitoring shows cost and latency inside the agreed budget.",
+      measures: [
+        "Eval pass rate on the representative conversation set",
+        "Hallucinated or unauthorized action rate",
+        "Silent failure and timeout rate",
+        "Cost per conversation against budget",
+        "Escalation and approval-gate hit rate",
+      ],
+      commercialModel:
+        "The audit fixes the failure modes, the eval set, and the pass threshold. Dali then quotes one fixed-scope, fixed-price rescue. Build starts after approval, and a wider agent roadmap is a separate decision.",
+    },
+    delivery: [
+      {
+        title: "Triage the failure modes",
+        body:
+          "We read real production conversations and logs, name the actual failure modes - hallucinated actions, silent timeouts, drift, cost spikes - and rank them by damage.",
+      },
+      {
+        title: "Build the eval suite and fix",
+        body:
+          "We turn representative conversations into a rerunnable eval suite, then fix guardrails, prompts, tools, and state handling until the suite passes the agreed threshold.",
+      },
+      {
+        title: "Cut over with monitoring",
+        body:
+          "The agent returns to production behind approval gates, with monitoring, budgets, and a rollback path, within 2-4 weeks of the start.",
+      },
+    ],
+    fit: {
+      fit: [
+        "An agent or AI pilot already exists and worked well enough in the demo to be worth saving.",
+        "You have real conversations or logs the eval suite can be built from.",
+        "Someone on your side can name the high-risk actions and sign off the pass threshold.",
+      ],
+      notFit: [
+        "There is no working prototype yet - that is a build, not a rescue.",
+        "The workflow changed so much that the agent's job no longer exists.",
+        "Nobody can own approvals or accept an eval threshold.",
+      ],
+    },
+    faqs: [
+      {
+        question: "The agent was built by another vendor. Is that a problem?",
+        answer:
+          "No. Most rescues start exactly there. We read the code and the conversations, keep what works, and change what fails. Blame is not part of the package.",
+      },
+      {
+        question: "Why an eval suite instead of just fixing the bugs?",
+        answer:
+          "Because without one, every fix is an anecdote. The eval suite is what turns 'it works now' into a measurable claim the team can re-check after every change.",
+      },
+      {
+        question: "Will you rebuild it from scratch?",
+        answer:
+          "Only if triage shows repair costs more than a rebuild, and that call is made in writing before the work. A full rebuild is deliberately out of this package's scope.",
+      },
+    ],
+    cta: {
+      publicLabel: "Start the agent rescue audit",
+      publicBody:
+        "Send what the agent should do, where it fails, and a sample of real conversations. Dali will reply with the failure-mode triage plan, the eval approach, and the fixed rescue boundary.",
+      intakeFields: [
+        "Who built the agent and what stack it runs on",
+        "What it should do versus what actually happens in production",
+        "A sample of real conversations or logs, redacted is fine",
+        "Actions that must stay behind human approval",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with the agent's stack, the failure you see most, and whether you can share conversation logs. Dali will answer with the triage plan and the fixed rescue boundary.",
+    },
+  },
+  "assistants-migration": {
+    slug: "assistants-migration",
+    name: "Assistants API Migration",
+    summary:
+      "A time-boxed migration off the OpenAI Assistants API before the August 26, 2026 shutdown: map every call, port state and thread handling, run side-by-side evals, and cut over with zero downtime.",
+    accent: "#0B3A4A",
+    accentSoft: "#E4F0F3",
+    tint: "#f4f9fa",
+    metadata: {
+      title: "Assistants API Migration | Dali",
+      description:
+        "Migration from the OpenAI Assistants API to the Responses API before the August 26, 2026 shutdown: call mapping, state and thread handling, side-by-side eval runs, zero-downtime cutover, and thread-data export.",
+    },
+    hero: {
+      eyebrow: "Packaged solution · deadline-bound",
+      title:
+        "The Assistants API shuts down on August 26, 2026. Migrate before it becomes an outage.",
+      lead:
+        "OpenAI retires /v1/assistants, /v1/threads, and /v1/runs on August 26, 2026, and the Azure mirror follows the same window. Dali migrates your integration to the Responses API in 1-2 weeks: map every call, port state and thread handling, run side-by-side evals, and cut over with zero downtime - with your thread data exported before the shutdown.",
+      supportLine:
+        "Best fit for teams with a working Assistants API integration who want a planned migration now instead of an emergency rebuild mid-outage at 3-5x the cost.",
+    },
+    workflow: {
+      label: "Workflow diagram",
+      intake: ["Assistants API calls", "Thread and run state", "Prompt and tool configs"],
+      agentLabel: "Assistants migration",
+      review: ["Behavior diffs", "Eval regressions", "Cutover sign-off"],
+      outcomes: [
+        "Responses API integration",
+        "Side-by-side eval report",
+        "Exported thread data",
+      ],
+    },
+    contrast: {
+      painTitle: "What it replaces",
+      painPoints: [
+        "A production integration built on /v1/assistants, /v1/threads, and /v1/runs with a hard shutdown date attached.",
+        "The assumption that this is an endpoint swap, when state management, the cost model, and feature parity all change.",
+        "Waiting until the deadline, when an emergency rebuild mid-outage costs 3-5x a planned migration.",
+      ],
+      outcomeTitle: "What it creates",
+      outcomePoints: [
+        "Every Assistants API call mapped to its Responses API equivalent, with the gaps named in writing.",
+        "State and thread handling ported deliberately instead of patched during an outage.",
+        "A side-by-side eval run proving the migrated behavior before anything is switched.",
+      ],
+    },
+    pilot: {
+      label: "Exact fixed scope boundary",
+      fixedOutcome:
+        "One Assistants API integration mapped call by call, ported to the Responses API, verified with side-by-side eval runs, and cut over with zero downtime, with thread data exported before the shutdown.",
+      includes: [
+        "1 production integration on /v1/assistants, /v1/threads, or /v1/runs, OpenAI or Azure",
+        "Call-by-call mapping to the Responses API, including the parts without direct parity",
+        "State and thread handling ported to storage you control where the API no longer holds it",
+        "Side-by-side eval runs comparing old and new behavior on real cases",
+        "Zero-downtime cutover and thread-data export before the shutdown",
+      ],
+      excludes: [
+        "New features beyond what the migration itself requires",
+        "Unrelated refactors of the surrounding codebase",
+        "A redesign of the assistant's behavior - parity first, improvements after",
+      ],
+    },
+    integrations: {
+      label: "Integrations and examples",
+      intro:
+        "The package moves the integration you have, on the stack you have. The deadline is external; the migration plan is yours.",
+      items: [
+        "OpenAI Assistants API and the Azure OpenAI Assistants mirror",
+        "Responses API as the target, with conversation state moved to storage you control",
+        "Your existing backend: Node, Python, or whatever hosts the current calls",
+        "Eval runs on real conversation cases before and after the port",
+      ],
+    },
+    guardrails: {
+      label: "Guardrails and approval",
+      intro:
+        "A migration with a hard external deadline earns trust by proving parity before the switch, not after.",
+      items: [
+        "No cutover before the side-by-side eval run matches on the agreed cases.",
+        "Thread data is exported and verified before the old endpoints disappear.",
+        "The old integration keeps running until the new one holds in production.",
+        "Every mapped call and known parity gap is written down, not discovered later.",
+      ],
+    },
+    validation: {
+      acceptanceTest:
+        "Run the agreed case set through the old and new integrations side by side. The migration passes only when responses match on the agreed criteria, state survives the port, thread data is exported and verified, and production cuts over without downtime.",
+      measures: [
+        "Calls mapped and ported versus total",
+        "Side-by-side eval match rate on the agreed cases",
+        "Thread-data export completeness",
+        "Downtime during cutover, target zero",
+        "Cost per conversation before and after",
+      ],
+      commercialModel:
+        "The audit fixes the call inventory, the eval cases, and the cutover plan. Dali then quotes one fixed-scope, fixed-price migration. The 1-2 week window holds only while this is planned work - the deadline does not move.",
+    },
+    delivery: [
+      {
+        title: "Map the integration",
+        body:
+          "We inventory every Assistants API call, thread, and run your code makes, and write the mapping to the Responses API, including where parity does not exist.",
+      },
+      {
+        title: "Port and prove",
+        body:
+          "We port the calls and the state handling, then run the old and new integrations side by side on real cases until behavior matches the agreed criteria.",
+      },
+      {
+        title: "Cut over and export",
+        body:
+          "Production switches to the Responses API with zero downtime, thread data is exported and verified, and the old path is retired on your schedule, not OpenAI's.",
+      },
+    ],
+    fit: {
+      fit: [
+        "You run a production integration on the Assistants API, direct or through Azure.",
+        "You can share the code paths that call it and a sample of real conversations.",
+        "You want this handled before the deadline forces it.",
+      ],
+      notFit: [
+        "The integration is a prototype nobody depends on - deleting it may be cheaper.",
+        "You want a full assistant redesign inside the migration window.",
+        "No one can approve the eval cases or the cutover.",
+      ],
+    },
+    faqs: [
+      {
+        question: "Is this just swapping endpoints?",
+        answer:
+          "No. The Responses API changes how conversation state is managed and how costs accrue, and it does not have full feature parity. That is exactly why a planned migration takes 1-2 weeks and an emergency one mid-outage costs 3-5x.",
+      },
+      {
+        question: "What happens to our existing threads?",
+        answer:
+          "They are exported and verified before the shutdown, and conversation state moves to storage you control. After August 26, 2026, the data behind /v1/threads is not something to bet on retrieving.",
+      },
+      {
+        question: "We are on Azure OpenAI. Does the deadline apply to us?",
+        answer:
+          "Yes. The Azure Assistants mirror retires in the same window, so the migration path and the deadline planning are the same.",
+      },
+    ],
+    cta: {
+      publicLabel: "Start the migration audit",
+      publicBody:
+        "Send where the Assistants API is called, roughly how many threads are live, and who depends on the integration. Dali will reply with the call inventory plan, the eval approach, and the fixed migration boundary.",
+      intakeFields: [
+        "Where the integration runs: OpenAI direct or Azure",
+        "The code paths or services that call /v1/assistants, /v1/threads, /v1/runs",
+        "Approximate live thread volume and what depends on it",
+        "A sample of real conversations for the eval cases",
+      ],
+      upworkLabel: "See what to send in Upwork",
+      upworkBody:
+        "Reply in Upwork with your stack, where the Assistants API is called, and the live thread volume. Dali will answer with the migration plan and the fixed scope boundary.",
     },
   },
 };

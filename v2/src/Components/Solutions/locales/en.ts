@@ -95,14 +95,14 @@ export const englishSolutionsBundle = {
             "Transfer hard cases to a person without losing context",
           ],
         },
-        "vibe-code-rescue": {
-          title: "Vibe-code Rescue",
+        "rescue-and-migration": {
+          title: "Rescue & Migration",
           summary:
-            "Triage secrets, payments, and admin on an AI-built MVP, then harden with gates and a handoff.",
+            "Three fixed lanes for AI systems under pressure: agent rescue, Assistants API migration, and vibe-code hardening.",
           tasks: [
-            "Map high-risk secrets, payments, admin, and outbound paths",
-            "Decide patch vs rewrite for each critical path in scope",
-            "Ship gates, a stop-switch, and an ownership handoff package",
+            "Rescue an agent that fails in production with evals and guardrails",
+            "Migrate off the Assistants API before the August 26, 2026 shutdown",
+            "Harden a vibe-coded MVP with gates, a stop-switch, and a handoff",
           ],
         },
       },
