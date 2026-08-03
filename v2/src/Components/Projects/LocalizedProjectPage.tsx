@@ -47,7 +47,7 @@ const projectVisuals: Record<ProjectSlug, ProjectVisual> = {
   },
   uimix: {
     image: UIMixImage,
-    client: "UIMix",
+    client: "Dali Agents",
     year: "2024",
   },
   masuro: {

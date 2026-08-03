@@ -8,7 +8,7 @@ import ProjectsSelect from "@/Components/ProjectsSelect/ProjectsSelect";
 import { getProjectAlternates } from "@/i18n/projects";
 import { absoluteUrl } from "@/lib/seo/site";
 
-const title = "UIMix";
+const title = "Dali Agents";
 const description = "Open-source WYSIWYG editor for React components";
 
 export const metadata: Metadata = {
@@ -66,13 +66,13 @@ export default function UIMixPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48 items-start">
           <Image
             src={HeroImage}
-            alt="UIMix product screenshot"
+            alt="Dali Agents product screenshot"
             className="w-full"
             placeholder="blur"
             priority
           />
           <p className="text-body4 md:text-body1">
-            UIMix is an open-source WYSIWYG editor for React components — letting designers and developers compose interfaces on a canvas with full code fidelity. From product strategy and UX to engineering the editor itself, the entire tool came out of our studio.
+            Dali Agents is an open-source WYSIWYG editor for React components — letting designers and developers compose interfaces on a canvas with full code fidelity. From product strategy and UX to engineering the editor itself, the entire tool came out of our studio.
           </p>
         </div>
       </section>
@@ -91,6 +91,6 @@ export default function UIMixPage() {
 
 const projectData = {
   tags: ["product", "dev tool", "open source"],
-  client: "UIMix",
+  client: "Dali Agents",
   year: "2024",
 };

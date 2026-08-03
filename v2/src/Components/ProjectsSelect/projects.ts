@@ -50,7 +50,7 @@ export const projects: Project[] = [
     mobileImage: AgentsGeMobile,
   },
   {
-    title: "UIMix",
+    title: "Dali Agents",
     slug: "uimix",
     tagline: "wysiwyg for react components",
     tags: ["product", "dev tool", "open source"],

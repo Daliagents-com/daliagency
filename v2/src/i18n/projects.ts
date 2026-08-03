@@ -82,11 +82,11 @@ export const projectCaseCopy: Record<
       imageAlt: "Delivery Setup website",
     },
     uimix: {
-      title: "UIMix",
+      title: "Dali Agents",
       headline: "A WYSIWYG editor for React components.",
       description:
-        "UIMix is an open-source WYSIWYG editor for React components, letting designers and developers compose interfaces on a canvas with full code fidelity. From product strategy and UX to engineering the editor itself, the entire tool came out of our studio.",
-      imageAlt: "UIMix product screenshot",
+        "Dali Agents is an open-source WYSIWYG editor for React components, letting designers and developers compose interfaces on a canvas with full code fidelity. From product strategy and UX to engineering the editor itself, the entire tool came out of our studio.",
+      imageAlt: "Dali Agents product screenshot",
     },
     masuro: {
       title: "Masuro",
@@ -140,11 +140,11 @@ export const projectCaseCopy: Record<
       imageAlt: "Сайт Delivery Setup",
     },
     uimix: {
-      title: "UIMix",
+      title: "Dali Agents",
       headline: "Визуальный WYSIWYG-редактор React-компонентов.",
       description:
-        "UIMix - WYSIWYG-редактор React-компонентов с открытым исходным кодом. Дизайнеры и разработчики могут собирать интерфейсы на холсте с полной точностью кода. В нашей студии появились стратегия продукта, UX и сама инженерная реализация редактора.",
-      imageAlt: "Интерфейс продукта UIMix",
+        "Dali Agents - WYSIWYG-редактор React-компонентов с открытым исходным кодом. Дизайнеры и разработчики могут собирать интерфейсы на холсте с полной точностью кода. В нашей студии появились стратегия продукта, UX и сама инженерная реализация редактора.",
+      imageAlt: "Интерфейс продукта Dali Agents",
     },
     masuro: {
       title: "Masuro",
@@ -198,11 +198,11 @@ export const projectCaseCopy: Record<
       imageAlt: "Delivery Setup-ის ვებსაიტი",
     },
     uimix: {
-      title: "UIMix",
+      title: "Dali Agents",
       headline: "React კომპონენტების ვიზუალური WYSIWYG რედაქტორი.",
       description:
-        "UIMix არის ღია კოდის WYSIWYG რედაქტორი React კომპონენტებისთვის. დიზაინერებსა და დეველოპერებს შეუძლიათ ინტერფეისები ტილოზე, კოდის სრული სიზუსტით ააწყონ. პროდუქტის სტრატეგია, UX და თავად რედაქტორის ინჟინერია ჩვენს სტუდიაში შეიქმნა.",
-      imageAlt: "UIMix პროდუქტის ინტერფეისი",
+        "Dali Agents არის ღია კოდის WYSIWYG რედაქტორი React კომპონენტებისთვის. დიზაინერებსა და დეველოპერებს შეუძლიათ ინტერფეისები ტილოზე, კოდის სრული სიზუსტით ააწყონ. პროდუქტის სტრატეგია, UX და თავად რედაქტორის ინჟინერია ჩვენს სტუდიაში შეიქმნა.",
+      imageAlt: "Dali Agents პროდუქტის ინტერფეისი",
     },
     masuro: {
       title: "Masuro",
@@ -256,11 +256,11 @@ export const projectCaseCopy: Record<
       imageAlt: "Delivery Setup-ի կայքը",
     },
     uimix: {
-      title: "UIMix",
+      title: "Dali Agents",
       headline: "React բաղադրիչների տեսողական WYSIWYG խմբագիր։",
       description:
-        "UIMix-ը բաց կոդով WYSIWYG խմբագիր է React բաղադրիչների համար։ Դիզայներներն ու ծրագրավորողները կարող են կտավի վրա հավաքել միջերեսներ՝ պահպանելով կոդի ամբողջական ճշգրտությունը։ Արտադրանքի ռազմավարությունը, UX-ը և խմբագրի ինժեներական լուծումը ստեղծվել են մեր ստուդիայում։",
-      imageAlt: "UIMix արտադրանքի միջերեսը",
+        "Dali Agents-ը բաց կոդով WYSIWYG խմբագիր է React բաղադրիչների համար։ Դիզայներներն ու ծրագրավորողները կարող են կտավի վրա հավաքել միջերեսներ՝ պահպանելով կոդի ամբողջական ճշգրտությունը։ Արտադրանքի ռազմավարությունը, UX-ը և խմբագրի ինժեներական լուծումը ստեղծվել են մեր ստուդիայում։",
+      imageAlt: "Dali Agents արտադրանքի միջերեսը",
     },
     masuro: {
       title: "Masuro",

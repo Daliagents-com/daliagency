@@ -13,6 +13,7 @@
     "verify:geo-surfaces": "node scripts/verify-geo-surfaces.mjs"
   },
   "dependencies": {
+    "@clickhouse/client": "^1.23.1",
     "@paper-design/shaders-react": "^0.0.78",
     "@vercel/analytics": "2.0.1",
     "@xyflow/react": "^12.11.2",

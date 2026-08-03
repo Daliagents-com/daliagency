@@ -13,7 +13,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { projects } from "@/Components/ProjectsSelect/projects";
 import MasuroLogo from "@/assets/images/projects/logos/masuro.svg";
-import UIMixLogo from "@/assets/images/projects/logos/uimix.png";
+import DaliAgentsLogo from "@/assets/images/projects/logos/dali-mark.png";
 import MuqtaLogo from "@/assets/images/projects/logos/muqta.png";
 import MuqtadLogo from "@/assets/images/projects/logos/muqtad.png";
 import TamariLogo from "@/assets/images/projects/logos/tamari.png";
@@ -48,7 +48,7 @@ type Position = {
 
 const projectLogos: Partial<Record<ProjectSlug, StaticImageData>> = {
   masuro: MasuroLogo,
-  uimix: UIMixLogo,
+  uimix: DaliAgentsLogo,
   // Muqta / Muqtad share the same product mark (cart).
   muqta: MuqtaLogo,
   muqtad: MuqtadLogo,
@@ -59,7 +59,7 @@ const projectLogos: Partial<Record<ProjectSlug, StaticImageData>> = {
 
 /** Per-logo max width so dense emblems (Tamari) stay readable. */
 const logoMaxClass: Partial<Record<ProjectSlug, string>> = {
-  uimix: "max-w-[88px]",
+  uimix: "max-w-[64px]",
   muqta: "max-w-[80px]",
   muqtad: "max-w-[80px]",
   kora: "max-w-[84px]",
