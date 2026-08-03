@@ -140,19 +140,23 @@ export default function Navbar() {
         className={`${onestText.className} sticky left-0 top-0 z-30 w-full ${
           isHome
             ? "border-b border-black/10 bg-[var(--page-bg-color)]"
-            : "border-b-2 border-gray-500 border-opacity-20 bg-inherit md:border-b-0"
+            : "border-b-2 border-gray-500 border-opacity-20 bg-inherit xl:border-b-0"
         }`}
       >
         <Container wide>
           <div className="relative flex items-center gap-16 py-12 md:gap-24 md:py-14">
-            <ul className="hidden min-w-0 flex-1 items-center justify-start gap-4 text-body6 md:flex md:gap-6 md:text-body5">
+            {/* xl, not md: the centered signature is positioned out of flow, so
+                the links have nothing to stop them running under it. Five
+                nowrap links plus language and CTA only clear the logo from
+                ~1240px up. Below that the drawer takes over. */}
+            <ul className="hidden min-w-0 flex-1 items-center justify-start gap-4 text-body6 xl:flex xl:text-body5 2xl:gap-6">
               {links.map((link) => (
                 <li
                   key={link.href}
-                  className="shrink-0 border-opacity-10 md:border-l md:border-gray-100"
+                  className="shrink-0 border-opacity-10 xl:border-l xl:border-gray-100"
                 >
                   <NavLink
-                    className="block whitespace-nowrap font-normal uppercase tracking-wide transition-opacity hover:opacity-60 md:pl-12 md:pr-8"
+                    className="block whitespace-nowrap font-normal uppercase tracking-wide transition-opacity hover:opacity-60 xl:pl-8 xl:pr-4 2xl:pl-12 2xl:pr-8"
                     activeClassName="underline underline-offset-4"
                     href={link.href}
                   >
@@ -166,7 +170,7 @@ export default function Navbar() {
               {centerLogo}
             </div>
 
-            <div className="ml-auto hidden items-center gap-12 md:flex">
+            <div className="ml-auto hidden items-center gap-12 xl:flex">
               <LanguageSwitcher
                 ariaLabel={copy.navigation.selectLanguage}
                 variant="dropdown"
@@ -179,7 +183,7 @@ export default function Navbar() {
               </ConsultationTrigger>
             </div>
 
-            <div className="ml-auto flex items-center gap-12 md:hidden">
+            <div className="ml-auto flex items-center gap-12 xl:hidden">
               <LanguageSwitcher
                 ariaLabel={copy.navigation.selectLanguage}
                 variant="dropdown"
@@ -203,7 +207,7 @@ export default function Navbar() {
       <button
         type="button"
         aria-label={copy.navigation.closeMenu}
-        className={`fixed inset-0 z-20 bg-black/40 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-20 bg-black/40 transition-opacity duration-300 xl:hidden ${
           isOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -216,7 +220,7 @@ export default function Navbar() {
       <nav
         id="mobile-nav-drawer"
         aria-hidden={!isOpen}
-        className={`${onestText.className} fixed inset-x-0 top-0 z-40 border-b border-gray-200 bg-[var(--page-bg-color)] p-16 pb-42 transition-[transform,opacity] duration-300 ease-out md:hidden ${
+        className={`${onestText.className} fixed inset-x-0 top-0 z-40 border-b border-gray-200 bg-[var(--page-bg-color)] p-16 pb-42 transition-[transform,opacity] duration-300 ease-out xl:hidden ${
           isOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-full opacity-0"
