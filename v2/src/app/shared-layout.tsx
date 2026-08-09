@@ -35,11 +35,7 @@ export const sharedMetadata: Metadata = {
     description: siteDescription,
   },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    shortcut: "/favicon.ico",
+    icon: { url: "/favicon.ico", type: "image/x-icon", sizes: "48x48" },
     apple: "/apple-touch-icon.png",
   },
 };
