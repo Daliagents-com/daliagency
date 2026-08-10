@@ -76,6 +76,9 @@ export function scoreRelatedPost(current: BlogPost, candidate: BlogPost): number
   });
 
   const typeBonus = current.type === candidate.type ? 4 : 0;
+  const categoryBonus = current.category && candidate.category && current.category === candidate.category
+    ? 8
+    : 0;
   const titleHits = overlapCount(tokens(current.title), tokens(candidate.title));
   const descHits = overlapCount(
     tokens(`${current.title} ${current.description}`),
@@ -89,7 +92,7 @@ export function scoreRelatedPost(current: BlogPost, candidate: BlogPost): number
   );
   const recency = Math.max(0, 1 - ageDays / 365);
 
-  return keywordHits + typeBonus + titleHits * 2 + descHits + recency;
+  return keywordHits + typeBonus + categoryBonus + titleHits * 2 + descHits + recency;
 }
 
 export function getRelatedPosts(

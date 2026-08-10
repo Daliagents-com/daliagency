@@ -1,51 +1,177 @@
 ---
-slug: "red-flags-when-hiring-ai-agent-company"
-title: "Red flags when hiring an AI agent company"
-description: "Warning signs in AI agent sales processes: demo theater, missing gates, fake metrics, platform lock-in, and no handoff."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "red-flags-when-hiring-ai-agent-company"
-keywords: ["AI agent company red flags", "AI agency warning signs", "bad AI automation vendor"]
-status: "published"
-author: "Dali"
-type: "article"
+slug: red-flags-when-hiring-ai-agent-company
+title: Red flags when hiring an AI agent company
+description: 'Warning signs in AI agent sales processes: demo theater, missing gates,
+  fake metrics, platform lock-in, and no handoff.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: red-flags-when-hiring-ai-agent-company
+canonical: /blog/red-flags-when-hiring-ai-agent-company
+keywords:
+- AI agent company red flags
+- AI agency warning signs
+- bad AI automation vendor
+status: published
+author: Dali
+type: article
+category: buying-partners
 ---
 
-## Direct answer
+Walk away when the vendor cannot show you a real workflow, a real stop rule, and a real handoff.
+That is the shortest safe answer.
+[OpenAI](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) distinguishes agentic systems from chat-only systems by their tool use and guardrails.
+[IBM](https://www.ibm.com/think/topics/ai-agent-deployment) treats deployment as a move into real-world operation.
+[Dataiku](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) says production needs least privilege, auditability, human review, kill switches, and cost signals.
+[NIST](https://www.nist.gov/itl/ai-risk-management-framework) and [OWASP](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) give the risk lens behind that answer.
 
-Walk away when a company sells unlimited autonomy, invents case metrics, skips approval design, or cannot explain how the system stops when wrong.
+If the vendor cannot explain those parts, the sales process is not ready for a signed deal.
+
+## Deal-breakers at a glance
+
+| Red flag | Why it matters | What a credible answer looks like |
+| --- | --- | --- |
+| Demo never touches a real workflow | You cannot judge production behavior from a polished screen. | The vendor shows the system against your actual tools, data, and exceptions. |
+| No stop or rollback plan | A system that cannot be paused is a liability. | The vendor can explain how to stop new actions without breaking adjacent systems. |
+| Broad access before scope is clear | Least privilege is missing. | Access is scoped to the one workflow under review. |
+| No logs or review loop | You cannot reconstruct failure. | The vendor shows where traces live and how review samples are handled. |
+| No named owner for exceptions | Nobody owns the messy cases after launch. | One person owns the queue and one path exists for escalation. |
+| Irreversible actions are treated casually | Refunds, deletes, and sends need stronger controls. | The vendor lists which actions require approval. |
+| Success claims use no real data | Metrics without a test design are fiction. | The vendor shows the eval set, pass bar, and review method. |
+| Handoff is vague | You can get trapped in the vendor's system. | You receive docs, runbooks, and a maintenance model. |
+
+If you hear multiple red flags in one call, stop the process and re-check the scope before you proceed.
 
 ## Demo theater
 
-Flashy chat that never touches your real tools or exception cases.
+The first bad pattern is a demo that never leaves the vendor's sandbox.
+That kind of pitch often looks impressive because it avoids the messy parts.
+It can answer questions, show a UI, and still tell you nothing about production behavior.
+
+The useful test is simple.
+Ask the vendor to show the workflow against a real tool, a real exception, and a real handoff.
+If they can only show canned prompts or a polished chat surface, they are showing a surface, not a system.
+
+OpenAI's guidance is the cleanest shortcut here.
+
+A beautiful conversation layer is not enough proof of a workflow agent.
+
+You still need to see tool use, controls, and operating logic against a real task.
 
 ## Safety avoidance
 
-No talk of gates, logs, least privilege, or stop-switches.
+The second bad pattern is a vendor that talks about autonomy but avoids the controls that make autonomy survivable.
+If they cannot discuss least privilege, approval gates, logging, or rollback, they are asking you to accept risk without a design.
 
-## Metric fiction
+[Dataiku](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) is explicit on this point.
+Production agents need access limits, auditability, guardrails, human review, a kill switch, and cost tracking.
+That is not a nice-to-have checklist.
+It is the minimum shape of a production system.
 
-Exact revenue lift with no measurement design or access to your data.
+Ask these questions in the meeting:
 
-## Lock-in without ownership
+- Which actions require human approval?
+- What is the rollback path if the system misbehaves?
+- Where do logs live?
+- Who reviews a sample of traces?
+- What is the least privilege access plan?
+- What happens when the workflow hits an edge case?
 
-You cannot export prompts, configs, or runbooks. No training for your team.
+If the vendor answers with confidence but not detail, keep digging.
+Confidence is not evidence.
+
+## Ownership and handoff
+
+The third bad pattern is a vendor that builds something and leaves you with no operating model.
+That is not a production handoff.
+It is a dependency.
+
+You should expect the vendor to explain who owns exceptions, who gets alerted, who can pause the system, and what the buyer team receives at the end.
+If the answer is "we will manage everything," ask what that means after the first month.
+
+[IBM](https://www.ibm.com/think/topics/ai-agent-deployment) says deployment is not the same as development.
+The system is integrated with business tools and performance is managed over time.
+That implies an owner on the buyer side, not just a builder on the vendor side.
+
+Watch for these ownership gaps:
+
+- No named business owner.
+- No runbook.
+- No escalation path.
+- No documentation for the support queue.
+- No answer to who changes the workflow after launch.
+
+If the vendor will not hand over enough context for your team to operate the system, the deal is not complete.
+
+## Platform lock-in
+
+Lock-in is not just about pricing.
+
+It is about whether you can leave without losing the workflow.
+
+Ask the vendor to show you all of the following.
+
+- How data, logs, prompts, and configs are exported.
+- Who owns the credentials and how they are transferred.
+- What happens to evaluation assets if the engagement ends.
+- Whether the buyer receives the IP and operating docs needed to keep running.
+- What termination support looks like if you move to another team.
+
+If the answer is "you can only use this inside our platform," treat that as a lock-in warning, not a feature.
 
 ## Scope inflation
 
-'We automate everything' before mapping one path.
+The fourth bad pattern is the promise to automate everything before one workflow is mapped.
+That usually means the vendor is selling ambition, not delivery.
+
+The safer test is one workflow, one acceptance test, one set of gates.
+Anything larger should be earned after the first path works.
+
+[NIST](https://www.nist.gov/itl/ai-risk-management-framework) is useful here because AI risk management is about systematic control, not hype.
+[OWASP](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) is useful because the agentic risk surface grows quickly when scope grows without controls.
+
+Ask the vendor to name the exact workflow they would ship first.
+If they refuse to narrow the scope, they are not ready to price the work.
+
+## What to ask before you sign
+
+Use this as a live refusal test.
+
+1. Show me the real workflow, not a demo path.
+2. Show me the stop rule and rollback plan.
+3. Show me the least privilege access plan.
+4. Show me the logs and review loop.
+5. Show me who owns exceptions after launch.
+6. Show me which actions are gated.
+7. Show me the handoff package.
+8. Show me the acceptance test.
+
+If the vendor can answer all eight questions clearly, keep going.
+If they cannot, move to [how to hire an AI agent agency](/blog/how-to-hire-an-ai-agent-agency) or [top questions to ask AI agent vendors](/blog/top-questions-to-ask-ai-agent-vendors) before you commit.
+
+If you already have a scope draft, compare it against [the AI agent pilot scope template](/blog/ai-agent-pilot-scope-template) and [how to compare AI agent agencies](/blog/how-to-compare-ai-agent-agencies).
 
 ## How Dali fits
 
-Dali documents failure modes and gates in public posts. Start with a scoped [audit](/solutions).
+We treat missing gates, missing logs, and missing handoff as scope problems, not polish problems.
+That is why we prefer a scoped audit before a build.
+It is easier to stop a bad deal before a contract than to rescue a broken one after launch.
+
+If you want a second set of eyes on one workflow or one vendor quote, bring it to [solutions](/solutions).
 
 ## FAQ
 
-### Is confidence in sales a red flag?
-Overconfidence without questions about your process is.
+### Is confidence in sales itself a red flag?
 
-### What if they only work on their platform?
-Fine if the platform fits. Bad if they refuse to discuss fit.
+Not by itself.
+Overconfidence becomes a red flag when the vendor cannot answer the control questions above.
+
+### What if the vendor only works on its own platform?
+
+That can be fine if the platform really fits the workflow.
+It is a problem when the vendor refuses to discuss fit, control, and handoff.
 
 ### Can freelancers show the same red flags?
-Yes. The pattern is about discipline, not company size.
+
+Yes.
+The pattern is about discipline and production readiness, not company size.

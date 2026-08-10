@@ -1,47 +1,185 @@
 ---
-slug: "what-does-an-ai-agent-agency-do"
-title: "What does an AI agent agency actually do?"
-description: "Plain-language explanation of AI agent agency work: workflow mapping, tools, gates, pilots, and handoff - not chat skins."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "what-does-an-ai-agent-agency-do"
-keywords: ["what is an AI agent agency", "AI agent agency services", "AI automation agency what they do"]
-status: "published"
-author: "Dali"
-type: "article"
+slug: what-does-an-ai-agent-agency-do
+title: What does an AI agent agency actually do?
+description: 'Plain-language explanation of AI agent agency work: workflow mapping,
+  tools, gates, pilots, and handoff - not chat skins.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: what-does-an-ai-agent-agency-do
+canonical: /blog/what-does-an-ai-agent-agency-do
+keywords:
+- what is an AI agent agency
+- AI agent agency services
+- AI automation agency what they do
+status: published
+author: Dali
+type: article
+category: buying-partners
 ---
 
-## Direct answer
+An AI agent agency maps a workflow, chooses the tools, adds the controls, tests the system, deploys it, and hands over enough context for your team to run it or keeps it in managed support if that is the operating model.
+That is the practical answer.
+[OpenAI](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) says agents independently accomplish tasks with tools and guardrails.
+[IBM](https://www.ibm.com/think/topics/ai-agent-deployment) says deployment means moving from prototype or testing into real-world operation.
+[Gartner](https://www.gartner.com/reviews/market/generative-ai-consulting-and-implementation-services) vendor descriptions for generative AI consulting and implementation repeatedly use the same service language.
 
-An AI agent agency designs and ships production agent systems for real business workflows: map the process, connect tools, add human gates, run a pilot, and hand ownership to your team.
+So the category is not "chatbot skin."
+It is workflow delivery.
 
 ## Not a chatbot skin
 
-Chat UI can be a surface. The system is routing, tools, memory policy, approvals, and logs.
+A chat interface can be part of the system.
+It is not the system by itself.
 
-## Core services
+The real work lives under the surface.
+The agency needs to understand the workflow, the systems of record, the approval rules, the exception paths, and the handoff model.
+If those pieces are missing, the output is usually a demo, not a production agent.
 
-Discovery and workflow maps. Agent design inside existing stacks. Approval gates. Evaluation and monitoring. Rescue of vibe-coded MVPs. Visibility systems when growth is the goal.
+That is why this page exists.
+The buyer needs a plain-language map of the service stack before they can judge fit.
 
-## What good delivery looks like
+## What an agency actually delivers
 
-One high-cost workflow first. Standard vs non-standard paths. Clear stop rules. Documentation operators can run.
+| Stage | What the agency does | What the buyer receives |
+| --- | --- | --- |
+| Discovery | Maps the workflow, identifies edge cases, and defines the scope boundary. | A clear first workflow and a short list of risks. |
+| Design | Chooses tools, access rules, gate points, and success criteria. | A system sketch and an acceptance bar. |
+| Build | Connects the workflow to the tools and writes the operating logic. | A working pilot in the buyer's stack. |
+| Deploy | Moves the system into real-world use and either supports it or hands it off. | A live path with owners, review points, and support or handoff terms. |
+| Handoff | Documents the runbook, escalation path, operating rules, and exit terms. | Enough context for the buyer team to run the system. |
 
-## What you should still own
+That shape is consistent with [IBM's deployment model](https://www.ibm.com/think/topics/ai-agent-deployment).
+It is also consistent with how [Dataiku](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) describes production work.
+Production means least privilege, auditability, guardrails, human review, kill switches, and ongoing monitoring.
 
-Business rules, final accountability, data access policy, and prioritization of which workflows matter.
+## What the buyer still owns
+
+The agency does not own your business.
+You still own the parts that make the workflow worth shipping.
+
+- Business rules.
+- Data access decisions.
+- Approval policy.
+- Priority order.
+- Final accountability.
+- Internal adoption.
+
+That boundary matters.
+If the buyer does not own the policy, the agency cannot safely guess it.
+If the agency does not hand back enough documentation, the buyer cannot run the system.
+
+## What a first engagement should look like
+
+A good first engagement is narrow on purpose.
+
+1. Pick one workflow with real volume.
+2. Write down what "done" means.
+3. Map the tools and the people involved.
+4. Define the gate points and the irreversible actions.
+5. Build one pilot.
+6. Test it on real cases.
+7. Hand over the runbook and support model.
+
+That sequence is the reason [the AI agent pilot scope template](/blog/ai-agent-pilot-scope-template) exists.
+It keeps the first project small enough to price and specific enough to judge.
+
+If the vendor starts with a giant platform promise, the buyer loses the ability to evaluate the work.
+Start with one workflow instead.
+
+## When you probably do not need an agency
+
+OpenAI says agents are best for workflows where deterministic and rule-based approaches fall short.
+That means not every problem needs an agent.
+If a rules engine, form flow, or ordinary automation already solves the task cleanly, a specialist agency may be overkill.
+
+That is not a marketing line.
+It is a scope discipline line.
+
+Use an agency when the workflow needs tool use, judgment, gates, and handoff.
+Skip the agency when you only need simple automation or a very stable process.
+
+## How this differs from consulting or software sales
+
+Consulting can stop at advice.
+Software sales can stop at access to a product.
+An AI agent agency should do more than either of those.
+
+It should connect the business problem to the workflow.
+It should turn that workflow into a working path.
+It should leave behind a system your team can operate.
+
+[Gartner's category pages](https://www.gartner.com/reviews/market/generative-ai-consulting-and-implementation-services) also show the same service vocabulary across vendors.
+Assessment.
+Strategy.
+Solution design.
+Implementation.
+That is the commercial shape buyers should expect.
+
+## What the handoff should include
+
+A real agency handoff is not a slide deck and a goodbye.
+It is the package that lets your team operate the workflow after the build team steps out.
+
+At minimum, expect:
+
+- A workflow map with the real tools and exceptions.
+- A list of allowed and forbidden actions.
+- The approval rules for irreversible steps.
+- A small eval set or test pack for future changes.
+- The logging and trace location.
+- The owner and escalation path.
+- The support window and maintenance model.
+
+If the agency cannot name those pieces, it has not finished the job.
+It has only built a first draft of the job.
+
+This is also where a specialist agency differs from a generalist shop.
+The specialist should understand how workflow design, access control, evaluation, and handoff fit together.
+The generalist may know how to ship software.
+The specialist should know how to ship a workflow that a business team can safely run.
+
+That distinction shows up in the market language too.
+Vendor descriptions on [Gartner's category pages](https://www.gartner.com/reviews/market/generative-ai-consulting-and-implementation-services) keep returning to assessment, strategy, solution design, and implementation.
+That is the service stack the buyer is actually buying.
+Not just prompts.
+Not just a UI.
+Not just a model choice.
+
+If the first conversation never reaches workflow steps, gates, and ownership, the buyer is still at the surface.
+The useful question is not "Can you build an agent?"
+The useful question is "Can you hand us a workflow we can actually run?"
 
 ## How Dali fits
 
-Dali combines engineering and operations for production agents. Explore [pilots](/solutions).
+We do not start from a chatbot.
+We start from the workflow and the approval boundary.
+
+If you want the business-level definition of production, read [production AI agents for business](/blog/production-ai-agents-for-business).
+If you want the technical version, read [what is a production AI agent](/blog/what-is-a-production-ai-agent).
+If you want the delivery path, read [map workflows for AI agents](/blog/map-workflows-for-ai-agents) and [human-in-the-loop AI agents explained](/blog/human-in-the-loop-ai-agents-explained).
+
+If you already know you need help, the next step is to [hire an AI agent agency](/blog/how-to-hire-an-ai-agent-agency).
+
+If you want to pressure-test one real workflow first, bring it to [solutions](/solutions).
 
 ## FAQ
 
 ### Is this the same as an AI consulting firm?
-Consulting may stop at strategy. An implementation-focused agency ships a working path with gates.
 
-### Do agencies replace employees?
-Usually they remove repetitive first-pass work so people handle judgment and exceptions.
+Not exactly.
+Consulting may stop at strategy or advice.
+An implementation-focused agency should ship a working workflow and hand it over.
 
-### Can one agency cover product and ops agents?
-Some can. Validate depth per domain instead of assuming.
+### What should the buyer expect instead of a labor-replacement promise?
+
+That should not be the buying claim.
+
+The useful promise is narrower.
+
+An agency should help a team ship a workflow with clear controls, ownership, and handoff.
+
+### Do we need multi-agent orchestration on day one?
+
+Usually no.
+One reliable path beats a swarm of half-wired specialists.

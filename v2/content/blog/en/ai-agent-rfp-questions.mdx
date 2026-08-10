@@ -1,44 +1,139 @@
 ---
-slug: "ai-agent-rfp-questions"
-title: "RFP questions to ask an AI agent vendor or studio"
-description: "A buyer checklist of questions that separate production delivery from slideware."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "ai-agent-rfp-questions"
-keywords: ["AI agent RFP questions", "AI vendor evaluation questions"]
-status: "published"
-author: "Dali"
-type: "tutorial"
-heroImage: "/blog/ai-agent-rfp-questions/hero.jpg"
-heroAlt: "RFP questions to ask an AI agent vendor or studio"
-ogImage: "/blog/ai-agent-rfp-questions/og.jpg"
+slug: ai-agent-rfp-questions
+title: AI Agent RFP Questions That Separate Proof From Pitch
+description: A buyer question bank for AI agent RFPs focused on workflow fit, gates,
+  security, pilot scope, observability, ownership, commercial terms, and response
+  format.
+date: '2026-08-10'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: ai-agent-rfp-questions
+keywords:
+- AI agent RFP questions
+- RFP questions for AI vendor
+- procurement questions for AI agent agency
+status: published
+author: Dali
+type: tutorial
+category: buying-partners
+heroImage: /blog/ai-agent-rfp-questions/hero.jpg
+heroAlt: AI agent RFP proof checklist with workflow, gate, and handoff evidence
+ogImage: /blog/ai-agent-rfp-questions/og.jpg
 ---
 
 ## Direct answer
 
-Ask for workflow mapping method, gate design, tool integration plan, ownership handoff, evaluation approach, and examples of what they refuse to automate. Vague 'AI transformation' language is a warning.
+Use the RFP to force written proof of workflow fit, control, security, observability, ownership, and commercial terms.
 
-## What good looks like
+Treat any missing written answer as a stop signal until the vendor supplies the evidence.
 
-- Workflow map exists before build
-- Irreversible actions have owners and gates
-- Tools of record are explicit
-- Success is defined as finished work quality, not model verbosity
+[OpenAI](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) is useful here because it says agents make sense where deterministic and rule-based approaches fall short.
 
-## What bad looks like
+That means the RFP should test whether the workflow actually needs agentic behavior.
 
-- Demo theater without production path
-- Unowned automations
-- Invented metrics instead of operational evidence
+If the workflow is still a rules-engine problem, do not let the process drift into a sales pitch.
 
-## How Dali helps
+## What the packet must uncover
 
-Dali designs and implements agent systems with engineering and operations together - from discovery to production paths and AI visibility. See [solutions](/solutions) and related posts on [production agents](/blog/production-ai-agents-for-business).
+The packet should do one job.
+
+It should expose whether the vendor can ship a controlled system in a real environment.
+
+[IBM](https://www.ibm.com/think/topics/ai-agent-deployment) frames deployment as a real-environment problem with connected business systems.
+
+[Dataiku](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) is even more explicit.
+
+It says production-ready agents need live users, real data, monitoring, access controls, rollback, and defined success metrics.
+
+That is the standard the questions should reveal.
+
+## The core request bank
+
+| Artifact to request | What to require | Why it matters |
+| --- | --- | --- |
+| Workflow map | Ask for one step-by-step map of the first workflow | Shows whether the vendor understands the process shape |
+| Access matrix | Ask for systems, roles, and permission levels | Makes least privilege visible |
+| Acceptance test | Ask for inputs, expected outputs, and pass thresholds | Turns the pilot into a checkable result |
+| Rollback plan | Ask how the workflow stops or reverses risky actions | Shows containment instead of optimism |
+| Handoff inventory | Ask for docs, prompts, eval sets, and runbooks | Shows whether the buyer can own the system later |
+| Cost assumptions | Ask for usage, retries, support, and scale assumptions | Makes the first-year cost comparable |
+| Exclusions | Ask what is explicitly out of scope | Prevents drift during the build |
+| Support window | Ask how long the vendor stays on call after launch | Makes ownership concrete |
+
+## How to score the answers
+
+Do not use a vague gut feel.
+
+Use a simple pass / investigate / stop model.
+
+| Signal | What it means |
+| --- | --- |
+| Pass | The vendor names the workflow, the gates, the data access, the test, and the handoff without hedging |
+| Investigate | The vendor sounds plausible but leaves important items vague |
+| Stop | The vendor cannot describe control, ownership, or the acceptance test in writing. Ask for the missing evidence before moving forward. |
+
+[NIST](https://www.nist.gov/itl/ai-risk-management-framework) is useful here because it treats AI as a trustworthiness and risk-management problem.
+
+[OWASP](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) is also useful because agentic systems have a specific security surface.
+
+If the answers do not reduce risk, the RFP is not doing its job.
+
+## Red flags in written responses
+
+| Hypothetical weak answer | Why it is a problem |
+| --- | --- |
+| "We can figure out the workflow later" | The vendor is selling before understanding the process |
+| "The agent will handle it end to end" | The vendor has not named the gate model |
+| "We will use broad access for the pilot" | Least privilege is missing |
+| "Logs are optional" | You will not be able to reconstruct failure |
+| "Documentation comes after launch" | The buyer may get trapped in vendor dependency |
+| "We do not usually write acceptance tests" | The vendor is not ready to prove production behavior |
+
+[Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) warns that agent washing is real.
+
+That is why the RFP should not reward polished language.
+
+It should reward proof.
+
+## Use this with the sibling pages
+
+- [How to write an AI agent RFP](/blog/how-to-write-ai-agent-rfp) for the document structure.
+- [Top questions to ask AI agent vendors](/blog/top-questions-to-ask-ai-agent-vendors) for the live call.
+- [How to hire an AI agent agency](/blog/how-to-hire-an-ai-agent-agency) for the end-to-end hiring sequence.
+- [How to compare AI agent agencies](/blog/how-to-compare-ai-agent-agencies) for the finalist bake-off.
+
+## How Dali fits
+
+Dali recommends keeping the question bank anchored to production proof.
+
+The packet is a control surface, not a marketing document.
+
+If you want a structured next step, bring one workflow to [solutions](/solutions) for a scoped production-readiness review.
 
 ## FAQ
 
-### Can we skip discovery if we already bought tools?
-No. Tools without a workflow map still fail.
+### Do I need a formal RFP for every project?
 
-### What should we measure first?
-Cycle time, rework, and error/incident rate on one path.
+No.
+
+A short brief and a few written answers are enough for many narrow workflows.
+
+Use a formal RFP when procurement needs repeatability or comparison discipline.
+
+### Should I ask the same questions to every vendor?
+
+Yes.
+
+That is the point of the question bank.
+
+### What if a vendor gives long answers but no specifics?
+
+Treat that as weak evidence.
+
+Long answers can still avoid the real question.
+
+### Can a small team use this page?
+
+Yes.
+
+The same questions work even when the buying team is small.

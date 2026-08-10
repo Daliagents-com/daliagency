@@ -20,6 +20,13 @@ export const htmlLanguages: Record<Locale, string> = {
   arm: "hy",
 };
 
+export const openGraphLocales: Record<Locale, string> = {
+  en: "en_US",
+  ru: "ru_RU",
+  ge: "ka_GE",
+  arm: "hy_AM",
+};
+
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }

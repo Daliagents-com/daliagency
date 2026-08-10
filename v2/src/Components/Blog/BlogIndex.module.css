@@ -1,0 +1,110 @@
+.navScroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 32px), transparent);
+}
+
+.navScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.placeholderMedia {
+  position: relative;
+  display: flex;
+  aspect-ratio: 16 / 9;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 1.125rem;
+  background:
+    linear-gradient(135deg, rgba(233, 237, 255, 0.92) 0%, rgba(252, 252, 250, 0.98) 48%, rgba(248, 249, 252, 0.98) 100%),
+    radial-gradient(circle at top left, rgba(30, 58, 138, 0.16), transparent 54%);
+}
+
+.placeholderMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(17, 19, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 19, 18, 0.04) 1px, transparent 1px);
+  background-position: center;
+  background-size: 1.4rem 1.4rem;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 85%);
+  pointer-events: none;
+}
+
+.placeholderSystem {
+  position: absolute;
+  inset: 18% 12% auto;
+  height: 48%;
+  pointer-events: none;
+}
+
+.placeholderRail {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(30, 58, 138, 0), rgba(30, 58, 138, 0.8) 18%, rgba(30, 58, 138, 0.8) 82%, rgba(30, 58, 138, 0));
+}
+
+.placeholderNode {
+  position: absolute;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid rgba(30, 58, 138, 0.75);
+  border-radius: 999px;
+  background: rgba(252, 252, 250, 0.96);
+  box-shadow: 0 0 0 0.35rem rgba(233, 237, 255, 0.75);
+}
+
+.placeholderNodeNorth {
+  top: 16%;
+  left: 18%;
+}
+
+.placeholderNodeCenter {
+  top: calc(50% - 0.425rem);
+  left: calc(50% - 0.425rem);
+}
+
+.placeholderNodeSouth {
+  right: 18%;
+  bottom: 16%;
+}
+
+.placeholderLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  max-width: min(82%, 18rem);
+  color: var(--accent);
+  font-size: 0.72rem;
+  line-height: 1.15;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .navScroller {
+    mask-image: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .placeholderMedia {
+    padding: 0.9rem;
+  }
+
+  .placeholderSystem {
+    inset: 20% 10% auto;
+    height: 42%;
+  }
+
+  .placeholderLabel {
+    max-width: 88%;
+    font-size: 0.68rem;
+  }
+}
