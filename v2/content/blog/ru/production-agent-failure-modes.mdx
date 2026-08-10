@@ -1,70 +1,474 @@
 ---
-slug: "production-agent-failure-modes"
-title: "Сбои боевых AI-агентов и как проектировать против них"
-description: "Типичные режимы отказа агентов в реальной эксплуатации: неверные записи инструментами, тихий дрейф, отсутствие точек контроля и дыры во владении."
-date: "2026-07-31"
-locale: "ru"
-hreflangGroup: "production-agent-failure-modes"
-keywords: ["сбои AI-агентов", "риски боевых агентов", "AI agent failure modes", "production agent risks"]
-status: "published"
-author: "Dali"
-type: "tutorial"
-heroImage: "/blog/production-agent-failure-modes/hero.jpg"
-heroAlt: "Сбои боевых AI-агентов и как проектировать против них"
-ogImage: "/blog/production-agent-failure-modes/og.jpg"
+slug: production-agent-failure-modes
+title: Режимы отказа боевых AI-агентов (и как проектировать против них)
+description: 'Режимы отказа production AI-агентов, с которыми сталкиваются операторы:
+  неверное использование tools, устаревший контекст, отсутствие gates, тихая деградация.
+  Контроли проектирования и детекция - с первоисточниками.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: ru
+hreflangGroup: production-agent-failure-modes
+keywords:
+- режимы отказа AI-агентов
+- риски боевых агентов
+- отказы production-агентов
+- AI agent failure modes
+- production agent risks
+status: published
+author: Dali
+type: tutorial
+heroImage: /blog/production-agent-failure-modes/hero.jpg
+heroAlt: Боевой путь агента с gate, стоп-кнопкой и циклом human review
+ogImage: /blog/production-agent-failure-modes/og.jpg
+diagramGatedPathAlt: 'Схема gated production-пути агента: карта workflow, агент, tool
+  of record, approval gate, результат, стоп-кнопка'
+diagramDemoVsProdAlt: Сравнение demo-only пути агента и production-пути с владельцами,
+  gates и циклом review
 ---
 
-## Прямой ответ
+Боевые AI-агенты редко ломаются из-за того, что модель «недостаточно умная».
+Они ломаются, потому что система вокруг модели - коннекторы, контекст, права, gates и ownership - неполная.
+Проектируйте против неверных записей инструментами, устаревшего или непроверенного контекста, отсутствующих approval gates, дрейфа промптов без evals и отсутствия человеческого владельца.
+У каждого production-пути нужны стоп-кнопка и цикл разбора.
 
-Проектируйте против: неверных записей инструментами, устаревшего контекста, отсутствующих точек ручного контроля, дрейфа промптов без проверок и отсутствия человеческого владельца. У каждого пути в реальной эксплуатации должны быть стоп-кнопка и цикл разбора.
+Это практическая операторская таксономия, а не официальный универсальный стандарт.
+Используйте её, чтобы назвать, что сломается, выбрать контроли проектирования до добавления tools и понимать, что мерить после запуска.
 
-Демо падает красиво. Боевой агент падает в CRM, письмах клиентам и деньгах.
+## Почему демо проходит, а production падает
 
-## Основные режимы отказа
+Демо - короткий «идеальный» сценарий с чистыми входами и человеком, который смотрит.
+Production - многошаговая работа в реальных tools: поля CRM, тикеты, refunds, inbox и права, которые меняются со временем.
 
-1. **Wrong-tool write** - агент вызвал не тот tool или с неверными аргументами (чужой клиент, неверная сумма, неверный stage).
-2. **Stale context** - устаревшая база знаний, старый курс, отменённая политика; модель уверена и неправа.
-3. **Missing gates** - необратимое действие ушло без человека.
-4. **Prompt drift** - «чуть подкрутили промпт» без evals; качество тихо просело.
-5. **No owner** - инцидент есть, дежурного и runbook нет.
-6. **Silent partial failure** - часть шагов прошла, часть нет; система выглядит «зелёной».
+Модель - один компонент.
+Система, которая ломается первой, обычно такая:
+
+- Коннекторы и auth, которые «протухают» после недели демо
+- Контекст, который retrieval находит, но перед действием никто не проверяет
+- Многошаговые планы, где мелкие ошибки накапливаются
+- Автономия, которая может писать без именованного approver
+- Метрики, которые меряют многословие модели, а не качество завершённой работы
+
+Сквозной (end-to-end) успех труден даже на публичных бенчмарках.
+На WebArena, реалистичной среде web-задач, агент на базе GPT-4 показал около 14.41% end-to-end успеха по задачам против примерно 78.24% у людей на этом наборе ([статья WebArena](https://arxiv.org/abs/2307.13854)).
+Это не утверждение про каждый бизнес-агент.
+Это свидетельство, что многошаговая работа с tools сложнее, чем кажется по chat-транскрипту.
+
+**Иллюстративная математика накопления (не KPI Dali):**
+Если каждый шаг корректен в 85% случаев, и шаги независимы, десять шагов дают примерно `0.85^10 ≈ 20%` end-to-end успеха.
+Реальные workflow грязнее этой формулы, но направление ясно: многошаговым путям нужны gates и recovery, а не только больше автономии.
+
+```text
+DEMO-ONLY PATH (happy path, human watching)
+  Clean input --> Agent --> Tool sandbox --> Fluent answer
+       |              |            |
+       v              v            v
+  no schema rot   no write tiers   no post-run quality gate
+  Result: looks successful; production path never designed
+
+PRODUCTION PATH (multi-step, real tools)
+  Live request --> Workflow map --> Agent + scoped tools
+                        |                    |
+                        v                    v
+                 Tool of record      Approval gate / stop switch
+                        |                    |
+                        v                    v
+                 Outcome + audit --> Review / eval loop --> Owner on-call
+  Failure surfaces: wrong write, stale context, ungated irreversible, silent rework
+```
+
+*Рисунок: demo-only путь против production-пути с gates.
+Демо оптимизирует supervised «идеальный» сценарий; production падает, когда нет коннекторов, write tiers, владельцев и циклов review.*
+
+Полный разбор демо против production: [демо AI-агента против production](/ru/blog/ai-agent-demo-vs-production-difference).
+
+## Отраслевые якоря (читайте внимательно)
+
+Используйте первоисточники как общий словарь, а не как стену статистики.
+
+- **Gartner (июнь 2025)** прогнозирует, что к концу 2027 будет отменено более 40% agentic AI-проектов, ссылаясь на растущие costs, неясную бизнес-ценность или слабые risk controls - не на «модели глупые» ([пресс-релиз Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027)).
+- **Microsoft AI Red Team** опубликовали [таксономию failure modes в agentic AI-системах](https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/) ([PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf)) и [обновление v2.0](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/) ([v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)). Берите пару как общий словарь (baseline v1 плюс добавления v2 вроде goal hijacking, session contamination и MCP/plugin abuse); детали режимов - в таксономии и security map ниже.
+- **OWASP** документирует [Excessive Agency](https://genai.owasp.org/llm-top-10/) в LLM Top 10 и публикует [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) плюс [agentic threats and mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/).
+- **MAST** (Cemri et al.) разбирает multi-agent failures: 14 режимов в трёх категориях по 1600+ аннотированным traces, с высоким inter-annotator agreement (κ = 0.88) ([arXiv:2503.13657](https://arxiv.org/abs/2503.13657)).
+
+Эти источники - якоря для языка и дизайна.
+Они не заменяют вашу карту workflow, tools of record и именованных владельцев.
 
 ## Как выглядит хорошо
 
-- Карта процессов до сборки.
-- Необратимые действия с владельцем и точками ручного контроля.
-- Явные системы учёта: куда пишем, откуда читаем.
-- Успех = качество завершённой работы, не длина ответа модели.
-- Логи tool-вызовов, причины reject, возможность stop.
+- Карта workflow существует до сборки
+- Необратимые действия имеют владельцев и gates
+- Tools of record названы явно
+- Успех = качество завершённой работы, а не многословие модели
 
 ## Как выглядит плохо
 
-- Демо-театр без пути в боевую работу.
-- Автоматизация без владельца.
-- Выдуманные метрики вместо операционных фактов.
-- «Починили промптом» без регрессионных сценариев.
-- Нет стоп-кнопки: единственный выход - выключить весь сервис.
+- Демо-театр без production-пути
+- Автоматизации без владельца
+- Выдуманные метрики вместо операционных фактов
 
-## Минимальная защита
+Если текущий стек агентов ближе к «плохо», перестаньте добавлять tools.
+Наметьте один путь, затем спроектируйте gates.
 
-1. Whitelist tools + schema validation аргументов.
-2. Tenant / entity id обязателен на запись.
-3. Gates на money / access / outbound.
-4. Eval-набор из реальных кейсов до и после смены промпта.
-5. On-call роль и короткий runbook: как остановить, как откатить, кого звать.
-6. Метрики: время цикла, rework, incidents - см. [измерение ops](/ru/blog/measuring-ai-agent-ops).
+## Таксономия production failure modes
+
+![Production AI-агент окружён слоями контрактов, разрешений, наблюдаемости, паузы, восстановления и человеческой ответственности](/blog/production-agent-failure-modes/failure-containment-layers.svg)
+
+*Концептуальная модель сдерживания: один guard не ловит все failure modes, поэтому агенту нужны несколько независимых слоёв контроля.*
+
+Список ниже - практический операторский набор для бизнес-агентов (CRM writes, support, ops automation).
+Он сводит меж-source консенсус с production-темами.
+Он не претендует быть полным отраслевым стандартом.
+
+### 1. Tool misuse / неверные записи
+
+Агент выбирает неверный tool, неверные аргументы или пишет в неверную запись.
+В бизнес-workflow это выглядит как обновление чужого CRM-контакта, закрытие не того тикета или пост не в тот канал.
+
+**Радиус поражения:** испорченный system of record, удар по доверию клиента, труд на зачистку.
+
+**Контроль проектирования:** least-privilege scopes для tools; dry-run или draft mode для writes; confirmation на high-impact tools.
+
+**Детекция:** audit logs tool-вызовов с target IDs; post-write валидация против ожидаемой schema и бизнес-правил.
+
+### 2. Bad retrieval / действие по непроверенному контексту
+
+Retrieval возвращает устаревший, частичный или нерелевантный контекст.
+Агент принимает его за эталонный факт и действует уверенно.
+
+**Радиус поражения:** неверные ответы, которые ведут к неверным действиям; тихие нарушения policy.
+
+**Контроль проектирования:** разделяйте «получить» и «действовать»; требуйте citations или source IDs для consequential решений; белый список доверенных corpora.
+
+**Детекция:** выборки качества retrieval; доля расхождений между cited sources и финальными действиями.
+
+### 3. Хрупкие коннекторы (schema, auth, timeouts)
+
+API меняют поля, tokens истекают, появляются rate limits, polling traps стопорят workflow.
+Демо живут в стабильных sandboxes; production-коннекторы «протухают».
+
+**Радиус поражения:** частичные runs, застрявшие очереди, каскадные retries, пропущенные updates.
+
+**Контроль проектирования:** health checks, schema-контракты, явная timeout и backoff policy, circuit breaker.
+
+**Детекция:** error rates коннекторов, alerts по истечению auth, timeout histograms, dead-letter queues.
+
+### 4. Накопление ошибок на многошаговом пути
+
+Каждый шаг «в основном верный», но joint path падает.
+См. иллюстративную математику `0.85^n` выше.
+
+**Радиус поражения:** неверное конечное состояние, которое ни один отдельный шаг не пометил как fail.
+
+**Контроль проектирования:** контрольные точки после критических шагов; replan только в разрешённых scopes; human gate перед необратимыми commits.
+
+**Детекция:** успех на шаге vs успех на пути; offline path eval на записанных traces.
+
+### 5. Потеря контекста / session contamination
+
+Важные constraints выпадают из окна, или ранние данные сессии смещают поздние шаги.
+Agentic taxonomy Microsoft выделяет session context contamination как отдельный режим в обновлении v2 ([Microsoft v2 blog](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/)).
+
+**Радиус поражения:** забывание policy, риск cross-customer leakage, непоследовательные решения в одной сессии.
+
+**Контроль проектирования:** жёсткие session boundaries; structured state objects; никогда не смешивайте untrusted content в goal channel.
+
+**Детекция:** context snapshots в traces; неожиданные смены goal или policy mid-session.
+
+### 6. Дрейф цели / спецификации
+
+Агент преследует близкую, но неверную цель («помочь пользователю» превращается в «закрыть тикет любой ценой»).
+Security-вариант goal hijacking - когда untrusted content перенаправляет terminal goal, маскируясь под полезное завершение задачи ([Microsoft taxonomy v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+Дрейф промпта или evals без review loop обычно проявляется здесь как дрейф цели/спецификации, а позже как тихие провалы качества (режим 8).
+
+**Радиус поражения:** завершённая работа, которая нарушает исходный business intent.
+
+**Контроль проектирования:** неизменяемая task objective; сравнивайте plan и actions с исходной целью; останов при смене objective.
+
+**Детекция:** reviewers «цель vs действие»; human re-authorization, когда plan меняет категорию.
+
+### 7. Циклы повторов и взрыв затрат
+
+Сбои tools или неоднозначные критерии успеха запускают неограниченные retries.
+Затраты на tokens и API растут, а работа всё равно не завершается.
+
+**Радиус поражения:** выгорание бюджета, rate-limit storms, шум в downstream-системах.
+
+**Контроль проектирования:** max attempts, max cost per run, эскалация к человеку при превышении бюджета.
+
+**Детекция:** стоимость успеха, глубина retries, outliers по длительности run.
+
+### 8. Тихая деградация качества
+
+Workflow возвращает success.
+Output выглядит fluent.
+Downstream люди или клиенты позже поглощают переделки.
+
+Исследование silent failure в LLM agent systems изучает отказы без внешних adversarial triggers, которые легко списать на разовые баги ([статья silent failure](https://arxiv.org/html/2606.08162v1)).
+
+**Радиус поражения:** эрозия доверия, невидимые переделки, позднее обнаружение инцидентов.
+
+**Контроль проектирования:** успех = quality checks завершённой работы, не HTTP 200; sampling review на live traffic.
+
+**Детекция:** доля переделок, customer corrections, quality rubrics на completed jobs - не только chat satisfaction.
+
+### 9. Каскадные multi-agent / сбои verification
+
+Один агент передаёт плохой state следующему.
+Verifiers штампуют без проверки или не запускаются.
+MAST группирует multi-agent failures в system design issues, inter-agent misalignment и task verification ([MAST](https://arxiv.org/abs/2503.13657)).
+
+**Радиус поражения:** усиленная ошибка по ролям; сложная root-cause attribution.
+
+**Контроль проектирования:** явные handoff-контракты; независимая проверка high-impact outputs; начинайте с single-agent, когда multi не нужен.
+
+**Детекция:** сбои handoff schema; доля disagreement verifiers; path traces между агентами.
+
+### 10. Избыточная agency / отсутствие HitL-gates
+
+У агента больше tools, permissions или автономии, чем требует задача.
+OWASP описывает Excessive Agency через excess functionality, permissions и autonomy ([OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/), overview проекта на [owasp.org](https://owasp.org/www-project-top-10-for-large-language-model-applications/)).
+
+**Радиус поражения:** необратимые действия без согласия - возвраты, удаления, публичные отправки, смена permissions.
+
+**Контроль проектирования:** tiers read / write / destructive с именованными approvers (см. матрицу ниже).
+
+**Детекция:** необратимые действия без gate; доля пропусков HitL; post-hoc разбор инцидентов.
+
+Глубина по design approve: [AI-агенты с человеком в контуре (HitL)](/ru/blog/human-in-the-loop-ai-agents-explained).
+
+### 11. Injection, memory poisoning, tool supply-chain
+
+Untrusted content, poisoned memory или malicious/compromised tools и plugins направляют поведение.
+Taxonomy v2 Microsoft выделяет режимы вроде agentic supply-chain compromise, MCP/plugin abuse, memory poisoning и связанные атаки ([Microsoft v2](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/), [v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+OWASP agentic materials покрывают связанные application risks ([Agentic Top 10 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), [threats and mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/)).
+
+**Радиус поражения:** утечка данных, несанкционированные записи, long-lived memory, которая reinfects поздние runs.
+
+**Контроль проектирования:** tool definitions и memory как supply chain; pin и review plugins; изолируйте untrusted content от instructions.
+
+**Детекция:** неожиданные регистрации tools; аудиты записи memory; anomaly alerts на новые capabilities.
+
+### 12. Автоматизации без владельца / неясная бизнес-ценность
+
+После pilot никто не владеет ботом.
+Success - metric на слайде, а не metric завершённой работы.
+Это организационный близнец истории Gartner про риск отмены: неясная ценность и слабые risk controls убивают проекты, даже когда демо выглядят нормально ([Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027)).
+
+**Радиус поражения:** тихий production debt, нет владельца инцидента, нет kill switch.
+
+**Контроль проектирования:** именованный human owner на путь; документированный stop switch; ценность = cycle time, переделки и error rate на одном пути.
+
+**Детекция:** отсутствие owner в runbooks; нет еженедельного quality review; metrics только про длину output модели.
+
+### Сводная таблица
+
+| Режим | Как выглядит в бизнес-workflow | Радиус поражения | Контроль проектирования | Как детектировать |
+| --- | --- | --- | --- | --- |
+| Неверное использование tools / неверные записи | Неверное поле CRM, закрытие не того тикета | Испорченные записи, вред клиенту | Ограниченные scopes tools, подтверждение записи | Аудиты tools + проверки после записи |
+| Действие по плохому retrieval | Устаревшая политика принята за факт | Неверные действия с уверенностью | Получить ≠ действовать; белые списки источников | Выборки расхождений цитаты и действия |
+| Хрупкие коннекторы | Сбои auth, дрейф schema, timeouts | Застрявшие или частичные workflows | Контракты, health checks, circuit breaker | Алерты по ошибкам, timeout и auth |
+| Накопление multi-step ошибок | Каждый шаг «ок», путь неверный | Неверное конечное состояние | Контрольные точки, path eval | Разрыв успеха пути и шага |
+| Потеря контекста / contamination | Забытая политика mid-session или смещение | Непоследовательные или небезопасные решения | Границы session, структурированное state | Смена цели или политики в traces |
+| Дрейф цели / спецификации | Тикет закрыт, цель промахнута | Провал намерения | Неизменяемая цель, останов при смене | Разбор «цель vs действие» |
+| Циклы повторов / взрыв затрат | Бесконечные retries tools | Урон бюджету и rate limits | Лимит затрат и попыток, эскалация | Стоимость успеха, глубина retries |
+| Тихая деградация качества | Флаг успеха, плохой результат работы | Скрытые переделки, потеря доверия | Контроль качества завершённой работы | Переделки, исправления, rubrics |
+| Каскадные multi-agent отказы | Плохой handoff, слабая проверка | Усиленная ошибка по ролям | Handoff-контракты, независимая проверка | Traces между агентами |
+| Избыточная agency / нет HitL | Возврат или удаление без approve | Необратимый вред | Уровни approve + владельцы | Необратимые события без gate |
+| Injection / memory / supply chain | Отравленная memory или plugin | Долгоживущий компромисс | Контроли tool/memory supply-chain | Аудиты изменений memory и tools |
+| Без владельца / неясная ценность | Бот-сирота после pilot | Нет владельца, нет kill switch | Именованный владелец, stop switch, KPI пути | Нет владельца в runbooks |
+
+## Уровни необратимых действий
+
+Сопоставьте каждый tool call с уровнем до go-live.
+Отсутствие gates обычно значит, что всё считали «просто write».
+
+| Уровень | Примеры | Approve по умолчанию | Владелец | Логирование |
+| --- | --- | --- | --- | --- |
+| Read | Поиск в CRM, получить тикет, список инвентаря | Авто в рамках scope | Владелец пути | Лог запроса + ID результатов |
+| Write (обратимый или низкий blast) | Черновик email, подготовка обновления CRM, внутренняя заметка | Авто или лёгкий review по policy | Владелец пути | Лог полей до/после |
+| Write (критичный для бизнеса) | Отправить email клиенту, сменить стадию сделки, обновить draft invoice | Подтверждение человеком или двойной контроль | Владелец бизнеса + ops | Неизменяемый аудиторский след |
+| Destructive / высокий blast | Возврат средств, удаление, смена permissions, публичный пост, bulk mutate | Явное подтверждение человеком; никогда тихий auto | Владелец риска + владелец пути | Полный аудит + план rollback |
+
+Narrative red team Microsoft относит human-in-the-loop bypass к наиболее стабильно эксплуатируемым путям в agentic systems ([Microsoft v2 blog](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/)).
+На языке оператора: если consent можно «утомить», пропустить или никогда не подключить, матрица выше - театр.
+
+```text
+FREE-FIRE PATH (missing gates)
+  Request --> Agent --> Write tools (full scope) --> System of record
+                              |
+                              v
+                     No approval, no stop switch
+                     Exception = silent retry or ignore
+  Outcome: irreversible action lands first; HitL bypass by design
+
+GATED PATH (production default for high blast)
+  Request --> Agent plans --> Read / draft tools
+                    |
+          +---------+---------+
+          |                   |
+          v                   v
+   Safe tier:           Business-critical /
+   auto within scope    destructive tier
+                              |
+                              v
+                     Approval / exception queue
+                     (named owner)
+                     | approve | edit | reject |
+                              v
+                     Commit to tool of record
+                              |
+                              v
+              Stop switch available anytime
+              Audit trail + review / eval loop
+```
+
+*Рисунок: free-fire путь против gated production-пути.
+Approval, стоп-кнопка и exception queue стоят перед high-blast writes; free-fire трактует каждый write как auto.*
+
+## Риски безопасности и agency простым языком
+
+Переведите security vocabulary на бизнес-записи и consent - не на red-team theater.
+
+| Термин security / framework | Смысл для оператора | Первый control |
+| --- | --- | --- |
+| Excessive Agency (OWASP) | Слишком много tools, permissions или автономии | Сузьте scopes; gate high-impact действий |
+| HitL bypass (Microsoft) | Approvals пропущены, «устали» или никогда не вызывались | Жёсткие gates на destructive tiers |
+| Goal hijacking | Untrusted content перенаправляет objective | Отделите goal channel от data |
+| Session contamination | Ранний junk смещает поздние шаги | Изоляция session; sanitize tool output |
+| Memory poisoning | Плохие facts живут и возвращаются | Policy записи memory + audits |
+| MCP / plugin / supply chain | Compromised или over-powered tools | Pin, review, least privilege для plugins |
+
+Начинайте с permissions и gates.
+Глубина security taxonomy без карты workflow всё равно выпускает неверные writes.
+
+## Отказы multi-agent (когда multi-agent - неверное «лечение»)
+
+Добавление агентов не чинит unmapped workflow.
+Оно умножает handoffs.
+
+MAST организует multi-agent failures в три категории ([arXiv:2503.13657](https://arxiv.org/abs/2503.13657)):
+
+1. **System design / specification issues** - неясные roles, размытые success criteria, brittle orchestration
+2. **Inter-agent misalignment** - агенты работают вразрез или теряют context на handoffs
+3. **Task verification** - слабые или отсутствующие checks на finished result
+
+**Multi-agent часто неверное «лечение», когда:**
+
+- У вас ещё нет одного надёжного single-agent path на одном workflow
+- Roles не заданы с tools of record и определениями success
+- Нет независимого шага verification для high-impact outputs
+- Ownership неясен (кто перезапускает swarm в 2 ночи?)
+
+Детали выбора архитектуры: [когда multi-agent, а когда один агент](/ru/blog/multi-agent-vs-single-agent-when-to-use).
+
+## Детекция и измерение
+
+Нельзя проектировать против silent failure, если успех - только «run completed».
+
+**Карта детекции для оператора (достаточно, чтобы кластеризовать failures - не tutorial observability-продукта):**
+
+1. **Проследите путь** - session ID, plan steps, tool calls, approvals, финальный business outcome.
+2. **Кластеризуйте отказы** - тот же неверный tool, та же ошибка коннектора, тот же промах quality rubric.
+3. **Root-cause в таксономии** - сопоставьте cluster с режимом выше.
+4. **Превращайте production failures в evals** - зафиксируйте examples, которые не должны regress перед следующим release.
+
+Глубина instrumentation (logs, traces, redaction boundaries): [наблюдаемость агентов: логи и трассировки](/ru/blog/agent-observability-logs-traces).
+
+**Сначала мерите на одном production-пути:**
+
+| Метрика | Почему важна |
+| --- | --- |
+| Cycle time (время цикла) | Стала ли завершённая работа быстрее end-to-end? |
+| Rework rate (доля переделок) | Как часто люди отменяют или переделывают output агента? |
+| Error / incident rate (ошибки / инциденты) | Неверные записи, промахи policy, сбои, видимые клиенту |
+| Необратимые действия без gate | Должно быть zero вне approved policy |
+| Cost per successful completion (стоимость успешного завершения) | Вскрывает retry loops и thrash |
+
+Поднимайте эти mid-lifecycle metrics раньше vanity-оценок модели.
+Design evals до go-live: [как оценивать AI-агентов перед go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live).
+
+## Чеклист проектирования (порядок сборки)
+
+1. **Карта workflow** - реальные шаги, exceptions, tools и стоимость отказа.
+2. **Tools of record** - назовите системы, в которые можно писать.
+3. **Уровни необратимости** - read / write / destructive с owners.
+4. **Человек-владелец** - один именованный человек на путь, не «AI team».
+5. **Stop switch** - как поставить агента на паузу без охоты за credentials.
+6. **Цикл eval и review** - offline cases плюс live sampling.
+7. **Определение успеха** - качество завершённой работы на одном пути (cycle time, переделки, ошибки).
+
+```text
+[Workflow map]
+      |
+      v
+[Agent + scoped tools] --> [Tool of record]
+      |                         |
+      v                         v
+[Approval gate] <---- stop switch (human)
+      |
+      v
+[Outcome + audit] --> [Review / eval loop]
+```
+
+*Рисунок: краткий порядок сборки gated production-пути агента.
+Сначала map и tools of record; стоп-кнопка и review loop остаются подключёнными после go-live.*
+
+## Рабочий пример (гипотетический)
+
+**Сценарий:** Support-агенту разрешено обновлять CRM notes и закрывать тикеты после черновика resolution.
+Он не должен оформлять refunds без approve.
+
+**Отказ:** Агент закрывает VIP-тикет как «resolved», опираясь на устаревший FAQ-фрагмент, и никогда не создаёт обещанный follow-up task.
+Статус run = success.
+Через два дня клиент эскалирует; человек переоткрывает кейс и переделывает работу.
+
+**Задействованные режимы:** действие по bad retrieval; тихая деградация качества; нет write-tier gate на «close ticket» для VIP-аккаунтов.
+
+**Радиус поражения:** доверие клиента, промах по SLA, rework у senior support.
+
+**Контроль проектирования:** закрытие VIP-тикета требует human approval; черновики resolution обязаны cite ID актуального policy document; создание follow-up task - жёсткое post-condition до разрешения close.
+
+**Детекция:** rework/reopen rate на тикетах, закрытых агентом; sampling закрытых тикетов без linked follow-up tasks; fail по rubric, когда cited policy старше заданного freshness window.
+
+Без имён клиентов - это помеченный гипотетический пример для design practice.
 
 ## Как помогает Dali
 
-Dali проектирует и внедряет агентные системы с инженерией и операциями - от разбора процессов до путей в реальную эксплуатацию. [Решения](/ru/solutions), [боевые агенты](/ru/blog/production-ai-agents-for-business).
+Dali проектирует и внедряет agent-системы с engineering и operations вместе - от discovery до production-путей и AI visibility.
+Мы начинаем с карты workflow, tools of record, gates и owners - не с большей модели или ещё одного демо.
+См. [решения](/ru/solutions) и hub [боевые AI-агенты для бизнеса](/ru/blog/production-ai-agents-for-business).
+
+Если агенты выглядят нормально в демо, но создают rework в production, наметьте один workflow с gates и owners до добавления tools.
+Смежные материалы: [агентство vs своя команда](/ru/blog/ai-agent-agency-vs-in-house) и [агентство vs фрилансеры](/ru/blog/ai-agent-agency-vs-freelancers).
 
 ## FAQ
 
-### Можно ли пропустить разбор процессов, если инструменты уже куплены?
-Нет. Без карты процессов непонятно, какие отказы вообще возможны.
+### Можно ли пропустить discovery, если tools уже куплены?
 
-### Что мерить первым при расследовании сбоев?
-Время цикла, переделки, частоту ошибок/инцидентов на одном пути - и последние изменения промпта/tools.
+Нет.
+Tools без карты workflow всё равно падают.
+Лицензии и доступ к модели не называют необратимые шаги, владельцев и success как качество завершённой работы.
 
-### Чем «тихий дрейф» опаснее явного падения?
-Явное падение видно. Тихий дрейф неделями портит качество, пока клиенты не уйдут.
+### Что мерить первым для reliability production-агента?
+
+Cycle time, rework и error/incident rate на одном пути.
+Добавьте cost per successful completion и необратимые действия без gate, когда путь уже live.
+
+### Почему AI-агенты работают в демо, но падают в production?
+
+Демо короткие, под наблюдением и с чистыми входами.
+Production - многошаговый, связанный коннекторами и полный exceptions.
+Отказ обычно в системе вокруг модели.
+Отдельный разбор: [демо против production](/ru/blog/ai-agent-demo-vs-production-difference).
+
+### Что такое goal drift (или specification drift) в agent-системе?
+
+Агент продолжает действовать, но objective уходит от исходной business goal - часто к proxy вроде «закрыть тикет» или к content, injected mid-session.
+Security-материалы называют adversarial форму goal hijacking ([Microsoft taxonomy v2](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+Контролируйте immutable objective, plan checks и human re-authorization, когда категория goal меняется.
+
+### Падают ли multi-agent systems чаще - и когда multi-agent - неверное «лечение»?
+
+Multi-agent systems добавляют лишние поверхности отказа: specification, inter-agent misalignment и verification ([MAST](https://arxiv.org/abs/2503.13657)).
+Это неверное первое исправление, когда нет рабочего single-agent path, ясных roles, independent verification или именованного owner.
+См. [когда multi-agent, а когда один агент](/ru/blog/multi-agent-vs-single-agent-when-to-use).

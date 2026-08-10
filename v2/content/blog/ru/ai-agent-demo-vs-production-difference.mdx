@@ -1,47 +1,181 @@
 ---
-slug: "ai-agent-demo-vs-production-difference"
-title: "AI agent demo vs production: в чём реальная разница"
-description: "Чёткий contrast между AI agent demos и production systems: tools, permissions, gates, evaluation и failure handling."
-date: "2026-07-31"
-locale: "ru"
-hreflangGroup: "ai-agent-demo-vs-production-difference"
-keywords: ["AI agent demo vs production", "production ready AI agent", "chatbot demo vs agent system"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: ai-agent-demo-vs-production-difference
+title: 'AI agent demo vs production: в чём реальная разница'
+description: 'Чёткое сравнение demo AI-агента и production-системы: tools, permissions,
+  gates, evaluation, обработка сбоев и buyer-тест, на котором проваливаются вендоры.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: ru
+hreflangGroup: ai-agent-demo-vs-production-difference
+keywords:
+- AI agent demo vs production
+- production ready AI agent
+- chatbot demo vs agent system
+- demo vs production AI-агент
+- production-ready AI-агент
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/ai-agent-demo-vs-production-difference/hero.jpg
+heroAlt: Хрупкое постановочное демо AI-агента напротив production-системы с tools,
+  gates, observability, exceptions и человеком-владельцем
+ogImage: /blog/ai-agent-demo-vs-production-difference/og.jpg
 ---
 
-## Прямой ответ
+Demo впечатляет на встрече.
+Production выдерживает плохие входы, ограниченные permissions, human gates и исключения в понедельник утром.
+Разрыв - не «ещё чуть-чуть polish в chat UI».
+Разрыв в том, ведёт ли себя система в ваших constraints, когда никто не подставляет готовые промпты.
 
-Demo впечатляет на встрече. Production выживает bad inputs, limited permissions, human gates и Monday morning exceptions. Покупайте production design, не demo polish.
+Полный набор controls за этим утверждением - в материале [определение и архитектура production AI agent](/ru/blog/what-is-a-production-ai-agent).
+Покупайте production design, а не demo polish.
 
-## Demo checklist
+## Demo vs production с одного взгляда
 
-Скриптованные prompts. Слишком broad credentials. Нет logs. Нет owner.
+![Узкий путь demo AI-агента в сравнении с production-путём, где есть контроли, наблюдаемость, альтернативные маршруты и восстановление](/blog/ai-agent-demo-vs-production-difference/demo-to-production-path.svg)
 
-## Production checklist
+*Концептуальная схема: demo доказывает один отполированный путь, а production readiness добавляет контроли, наблюдаемость, ветки отказа и восстановление.*
 
-Real tool scopes. Failure modes. Approvals. Metrics. Kill switch. Docs.
+Используйте эту таблицу, когда смотрите demo вендора или внутренний прототип.
+Она сопоставляет обычные shortcuts demo с controls, которые реально нужны в production.
 
-## Как vendors размывают границу
+| Измерение | Demo | Production |
+| --- | --- | --- |
+| Входы | Скриптованные, чистые промпты и happy-path тикеты | Реальные, грязные, неполные и adversarial входы |
+| Permissions / tools | Широкие credentials (ключи основателя, admin OAuth) | Least-privilege scopes на каждый tool и environment |
+| Human gates | Нет, или «approval добавим потом» | Approvals на необратимые действия (send, pay, change records) |
+| Logs / observability | Вывод в консоль или логов нет | Восстановимые traces: decisions, tools, cost, outcomes |
+| Evaluation | «На звонке выглядело нормально» | Eval suite до go-live и после каждого изменения model/prompt |
+| Failure / cost | Останавливается или слепо ретраит; про бюджет тишина | Известные failure modes, fallbacks и лимиты spend |
+| Ownership / kill switch | Нет именованного владельца; нет docs | Именованный owner, ops metrics, runbook, docs и реальный kill switch |
 
-Хостят demo на вашей logo theme без ваших constraints.
+*Подпись: таблица решения - черты AI agent demo против production controls.
+Если строка на стороне production пустая, вы всё ещё смотрите на demo.*
 
-## Buyer test
+## Почему demo работает, а production падает
 
-Попросите replay last month's messy tickets, не clean sample.
+Демо оптимизируют под успех на встрече.
+Кто-то выбирает удобные тикеты, широкие API keys и путь, который модель уже хорошо закрывает.
+Зал аплодирует, потому что сценарий срабатывает.
 
-## Как помогает Dali
+Production падает по обратным причинам.
+Входы не отобраны: опечатки, пустые поля, злые клиенты, неполные записи CRM и edge cases, которые никто не репетировал.
+Credentials должны быть узкими, чтобы ошибка одного tool не стёрла и не раскрыла больше, чем должна.
+Multi-step agents ещё и накапливают ошибки: каждый слабый шаг умножает риск через tool calls - поэтому Anthropic рекомендует простые composable patterns, обширное тестирование в sandboxed environments и guardrails до ставки на открытую автономию ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
 
-Dali доставляет production paths: [solutions](/ru/solutions).
+Вывод: demo, которое работает только на happy path, - ожидаемо.
+Называть этот путь «production ready» - и есть провал.
+
+## Chatbot demo vs agent system
+
+Узкий Q&A chatbot может быть production-ready при меньшем blast radius.
+Он отвечает из knowledge base, передаёт человеку и не переписывает ваши systems of record.
+
+Agent demo с tools - другой класс риска.
+Он может создавать тикеты, обновлять поля CRM, слать сообщения или запускать workflows.
+Это и есть различие chatbot-demo vs agent-system, важное для покупателя: тот же polish на встрече, куда выше цена ошибки, когда permissions настоящие.
+
+Если demo только чатится - оценивайте его как support surface.
+Если demo действует - оценивайте как систему, которая при ошибке может навредить людям и данным.
+
+## Как вендоры размывают границу (agent washing)
+
+Вендоры часто хостят demo на вашей logo theme, ваших цветах и выборке FAQ.
+Это брендинг, не production.
+
+В отраслевых и agency-текстах это иногда называют **agent washing**: отгружают отполированное demo под ярлыком production без evaluation, observability, least-privilege tools, failure handling и runbook.
+Проще: demo на вашем брендинге без ваших constraints - всё ещё demo.
+
+Следите за такими паттернами:
+
+- Credentials - «временный admin», который никогда не сужают.
+- Сбои отмахивают: «retries добавим во phase two».
+- Логи заканчиваются chat transcript; tool calls и cost невидимы.
+- После pilot нет именованного владельца.
+- Единственный «eval» - слайд с зелёными галочками с sales-звонка.
+
+Если этих constraints нет, вы купили театр с датой deployment.
+
+## Buyer tests: вопросы, которые счищают demo
+
+Не принимайте чистый sample как proof.
+Гоняйте тесты, которые вендор или внутренняя команда не поставят за пять минут.
+
+1. **Replay messy tickets за прошлый месяц** - не golden path.
+   Берите реальные exceptions: refunds, edge cases политики, неполные данные, злой тон.
+2. **Покажите permission scopes** - какие tools, какие environments, least privilege или admin?
+3. **Kill switch drill** - кто останавливает agent mid-run и сколько это занимает?
+4. **Есть ли eval suite** - cases, pass bars и что гоняется после смены prompt или model.
+   См. [как оценивать AI-агентов до go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live).
+5. **Последний incident или failure log** - что сломалось, что сделал agent, кто заметил.
+6. **Владелец runbook** - именованный человек за review queue, on-call и post-incident notes.
+7. **Tool failure и budget limit** - что происходит, когда API уходит в timeout или spend бьёт в cap?
+
+*Назначение чеклиста: buyer-вопросы, чтобы проверить, production-ready ли AI agent demo.
+Если ответы размыты, вы всё ещё в demo mode.*
+
+## Production signals, которые стоит требовать
+
+Вам не нужен platform whitepaper, чтобы требовать эти signals.
+Они нужны до того, как через agent пойдут данные клиентов или деньги.
+
+- **Human gates и oversight.** Необратимые действия требуют approval paths, а не надежды.
+  Практики OpenAI по governance agentic systems подчёркивают accountability и human approval для значимых решений ([Practices for governing agentic AI systems](https://openai.com/index/practices-for-governing-agentic-ai-systems/)).
+  Практический design gates: [human-in-the-loop AI-агенты: как это устроено](/ru/blog/human-in-the-loop-ai-agents-explained).
+- **Trajectory-aware evaluation.** Оценивайте путь (выбор tool, recovery, уточняющие вопросы), а не только финальный ответ.
+  Google Cloud строит agent evaluation вокруг полных trajectories и staged rollout: sandbox → canary → production ([A developer's guide to production-ready AI agents](https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents); [Agent Quality](https://www.kaggle.com/whitepaper-agent-quality)).
+- **Least-privilege tools.** Scoped credentials и authenticated tool access сильнее API keys основателя.
+- **Security против prompt injection и смежных LLM-рисков.** Agents с tools наследуют риски из OWASP Top 10 for LLM applications, включая prompt injection и excessive agency ([OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)).
+- **Staged deploy mindset.** Sandbox internal tests, canary на ограниченный traffic, затем более широкий production.
+  Полная глубина архитектуры - в посте [определение production AI agent](/ru/blog/what-is-a-production-ai-agent), не здесь.
+- **Observable failures.** Когда что-то ломается, нужны logs и traces, а не память.
+  Связанные материалы кластера: [режимы отказа production-агентов](/ru/blog/production-agent-failure-modes) и [наблюдаемость агента: logs и traces](/ru/blog/agent-observability-logs-traces).
+
+Hybrid-паттерны в production обычны: deterministic controls и policy на шаги с деньгами и compliance, LLM judgment там, где нужны язык и routing.
+Это design recommendation, а не универсальный закон - и оно совпадает с позицией Anthropic: начинать просто и добавлять agent autonomy только когда более простых workflows уже мало ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
+
+## Как вписывается Dali
+
+Dali поставляет production paths: discovery, scoped tools, human gates, evals и ownership после handoff - не demo polish под видом go-live.
+Если у вас есть прототип, которому нужен production design, смотрите [решения](/ru/solutions) или начните разговор через CTA на сайте.
+
+Мы не выдумываем case study для этой страницы.
+Тест тот же, что мы советуем гонять на любом вендоре: messy tickets, реальные scopes, kill switch, evals, logs.
 
 ## FAQ
 
 ### Может ли demo стать production?
-Только после redesign под gates, permissions и evals.
 
-### UI polish - production signal?
-Слабо. Ops design сильнее.
+Да, но только после redesign под gates, permissions и evals - не после reskin UI или смены логотипа.
+Модель может остаться; wrapper вокруг tools, approvals, observability и ownership обычно нужно менять.
 
-### Related
-[Что такое production AI agent?](/ru/blog/what-is-a-production-ai-agent).
+### UI polish - это production signal?
+
+Слабо.
+Ops design сильнее: scoped tools, failure handling, metrics, kill switch и именованный owner бьют красивую chat-оболочку.
+
+### Что спросить у вендора на live demo?
+
+Начинайте с messy tickets за прошлый месяц.
+Затем - permission scopes, kill switch drill, eval suite, недавний failure log, владелец runbook и поведение при tool failure или budget limit.
+Если отказываются от реальных тикетов, считайте demo только sales content.
+
+### Chatbot demo - тот же риск, что agent demo с tools?
+
+Нет.
+Узкий Q&A имеет меньший blast radius.
+Agents с tools могут менять записи, тратить budget и слать сообщения клиентам - поэтому production controls важнее.
+
+### Как понять: rewrite или harden-in-place?
+
+Если у demo уже есть scoped tools, logs, evals и ясные gates, можно harden-in-place.
+Если это prompt плюс широкие credentials и нет owner - планируйте rewrite production wrapper.
+Scope и risk решают объём; честного универсального процента «demo vs production work» нет.
+
+## Связанные
+
+- [Что такое production AI agent?](/ru/blog/what-is-a-production-ai-agent)
+- [Как оценивать AI-агентов до go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live)
+- [Human-in-the-loop AI-агенты: как это устроено](/ru/blog/human-in-the-loop-ai-agents-explained)
+- [Режимы отказа production-агентов](/ru/blog/production-agent-failure-modes)
+- [Наблюдаемость агента: logs и traces](/ru/blog/agent-observability-logs-traces)

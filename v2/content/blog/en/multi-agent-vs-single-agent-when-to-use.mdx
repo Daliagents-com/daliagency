@@ -1,54 +1,206 @@
 ---
-slug: "multi-agent-vs-single-agent-when-to-use"
-title: "Multi-agent vs single agent: when orchestration helps (and when it hurts)"
-description: "A practical rule for multi-agent systems vs one tool-using agent: complexity, failure modes, and production ownership."
-date: "2026-08-01"
-locale: "en"
-hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
-keywords: ["multi-agent vs single agent", "multi-agent orchestration", "when to use multi-agent systems"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: multi-agent-vs-single-agent-when-to-use
+title: 'Multi-agent vs single agent: when orchestration helps (and when it hurts)'
+description: Start with one tool-using agent. Add multi-agent only for real role,
+  privilege, or parallel splits you can own - decision table, checklist, and cost
+  trade-offs.
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: multi-agent-vs-single-agent-when-to-use
+keywords:
+- multi-agent vs single agent
+- multi-agent orchestration
+- when to use multi-agent systems
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/multi-agent-vs-single-agent-when-to-use/hero.jpg
+heroAlt: Comparison of single-agent, single-agent with tools, and multi-agent systems
+  across cost, latency, debugging, security, and ownership
+ogImage: /blog/multi-agent-vs-single-agent-when-to-use/og.jpg
 ---
 
 ## Direct answer
 
-Start with **one agent and clear tools** for a single workflow. Add multi-agent orchestration only when roles, permissions, or handoffs are truly separate - and you can own the failure modes of the whole graph.
+Start with **one agent and clear tools** for a single workflow.
+Add multi-agent orchestration only when roles, permissions, or handoffs are truly separate - and you can own the failure modes of the whole graph.
+A common failure mode is adding agents before the workflow, acceptance test, and approval owner are clear.
+Multi-agent is a tax you pay for real separation needs, not a quality upgrade by default.
 
-## What people mean by multi-agent
+## What people mean by multi-agent (and multi-agent orchestration)
 
-Usually: a planner plus workers, or specialized agents for research, coding, and review. In business ops it often means more moving parts, more latency, and more places to lose state - not automatically more quality.
+In LLM product work, multi-agent usually means a planner or coordinator plus workers, or specialized agents for research, coding, review, or other roles.
+Each agent often has its own context, tools, and prompt, and something must route work between them.
 
-## When a single agent is enough
+**Multi-agent orchestration** is that coordination layer: a coordinator (or router) assigns work, workers run in isolated threads or contexts, and results come back for synthesis or the next step.
+In platform terms, that often looks like a coordinator plus specialized or isolated workers that do not share full conversation history by default ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
 
-One primary system of record, one approval owner, a short tool list, and a clear standard path. Lead response, inbox triage, and document-to-tracker often ship better as one gated agent.
+In business ops, multi-agent often means more latency, more places to lose state at handoffs, and a larger surface to evaluate - not automatically higher quality.
+Classic multi-agent research describes autonomous agents with local views and decentralized control; production LLM graphs still need one operational owner for the whole path.
+
+## Single agent with tools: the default
+
+![A single agent connecting directly to tools compared with a coordinator routing work among three specialist agents](/blog/multi-agent-vs-single-agent-when-to-use/single-vs-multi-coordination.svg)
+
+*Conceptual topology: multi-agent design adds specialization, but it also adds routing, shared-state, and coordination surfaces that need ownership.*
+
+A single tool-using agent is the middle ground most teams should start with.
+One primary system of record, one approval owner, a short tool list, and a clear standard path usually beat a graph of agents that nobody can debug on Monday.
+
+Many vendor and framework guides land in the same place: start with one agent that has well-designed tools before you split work across agents ([LangChain on multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+Production trade-off writeups also treat single-agent as the simpler path for well-defined workflows without hard security boundaries ([Redis: single-agent vs multi-agent](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+Hypothetical ops examples that often ship better as one gated agent:
+
+1. **Lead response** - read the inquiry, draft a reply or CRM note, stop for human send or write when the action is customer-facing.
+2. **Inbox triage** - classify, label, and route; a human still owns escalations and irreversible replies.
+3. **Document-to-tracker** - extract fields into a sheet or ticket with validation and an approval gate before anything overwrites production data.
+
+If the workflow fits one system of record and one person who can say yes or no to risky writes, multi-agent is usually premature.
+When agents are the wrong tool entirely - no stable process, no owner, no tolerance for partial automation - see [when not to use AI agents](/blog/when-not-to-use-ai-agents).
 
 ## When multi-agent can help
 
-Hard separation of privileges (read-only research vs write actions), long multi-hour jobs with checkpoints, or different models for different stages with explicit contracts between them.
+Multi-agent earns its keep when a single context or a single permission set is the bottleneck, not when a demo needs more boxes.
 
-## Costs of multi-agent theater
+Claude's production guidance frames three justified cases: **context protection** (avoid polluting the main thread with bulk retrieval), **parallelization** (independent subtasks that can run together), and **specialization** (focused tools or prompts per role) ([Claude: when and how to use multi-agent systems](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
 
-Harder evals, harder incident response, unclear ownership, and demos that impress more than they run on Monday morning tickets.
+In ops language, that maps to:
 
-## Practical rule
+- **Hard privilege separation** - a read-only research path must not share write credentials with the agent that updates CRM or finance systems.
+- **Breadth-first parallel work** - multiple independent sources or queues that would thrash a single context if run serially.
+- **Stage contracts** - different models or roles with an explicit handoff format (for example research summary in, approved write-out).
+- **Long checkpointed jobs** - multi-hour work where intermediate state must survive, with a human or system gate between phases.
 
-If you cannot draw the workflow on one page with one acceptance test, multi-agent design will not save you. Map first, then choose topology.
+Enterprise adoption guidance is stricter still: start multi-agent mainly when security or compliance boundaries, multi-team knowledge ownership, or planned multi-domain growth **mandate** separation; otherwise prototype single-agent first ([Microsoft Cloud Adoption Framework: single vs multi-agent](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
 
-## How Dali fits
+## Comparison table: single vs single + tools vs multi-agent
 
-Dali starts with one production path and gates. See [solutions](/solutions) and [when not to use AI agents](/blog/when-not-to-use-ai-agents).
+How to read this table for an ops pilot: optimize for what one team can evaluate, approve, and on-call - not for how many agents the architecture diagram shows.
+
+| Dimension | Single agent | Single agent + tools | Multi-agent graph |
+| --- | --- | --- | --- |
+| Cost / tokens | Lowest for narrow Q&A | Moderate; grows with tool loops | Highest; often multiplies tokens vs one agent |
+| Latency | Usually lowest | Tool round-trips dominate | Handoffs and parallel fan-out add coordination time |
+| Debugging | One trace, one prompt stack | One agent plus tool logs | Fragmented across agents, contracts, and threads |
+| Security boundaries | One permission set (harder least-privilege) | Still one agent; scopes tools carefully | Better isolation if roles and credentials are truly split |
+| Parallel work | Weak for breadth | Sequential tool use unless tools parallelize | Strong when subtasks are independent |
+| Ownership / on-call | One path, one owner | Still one owner if gates are clear | Needs an owner of the **whole graph**, not each agent |
+| Eval surface | One acceptance test path | Tool success + outcome quality | Per-role evals plus end-to-end graph evals |
+
+Production writeups stress the same axes - complexity, debugging, cost, and whether you need hard boundaries or specialization ([Redis comparison framing](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+## Token and ops economics (attributed)
+
+Token cost is not a Dali measurement; use vendor numbers as scoped observations, not universal laws.
+
+Anthropic's engineering post on their multi-agent research system reports that a multi-agent setup with Claude Opus 4 as lead and Claude Sonnet 4 subagents **outperformed single-agent Opus 4 by 90.2% on their internal research evaluation**.
+In their data, agents typically used about **4x** tokens versus chat interactions, and multi-agent systems about **15x** tokens versus chats.
+They also note that multi-agent systems need task value high enough to pay for the performance gain, and that domains needing shared context or heavy real-time coordination (many coding tasks) fit poorly today ([Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)).
+
+Claude's product guidance reports that multi-agent implementations **typically use about 3-10x more tokens** than single-agent approaches for equivalent tasks, from duplicated context, coordination messages, and handoff summaries ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+LangChain's economic framing is consistent: task value must cover token cost; build multi-agent when parallelization, large context pressure, and complex tool surfaces justify the spend ([LangChain: how and when to build multi-agent systems](https://www.langchain.com/blog/how-and-when-to-build-multi-agent-systems)).
+
+**Ops rule:** pay the multi-agent tax only when the business value of the outcome covers tokens, latency, and the people who will own incidents.
+
+## Costs of multi-agent theater (topology and ownership)
+
+**Multi-agent theater** is a demo-friendly graph that fails on Monday tickets: many agents, weak contracts, no single on-call owner of the path.
+
+Topology and ownership costs that should kill or delay a multi-agent design:
+
+- **Handoff and state loss** - each boundary can drop constraints, priorities, or partial results ("telephone game" between roles).
+- **Eval fragmentation** - you need per-agent checks and a full-graph acceptance test; teams often ship neither.
+- **Unclear ownership** - when a bad CRM write ships, "which agent?" is the wrong question; someone must own the graph.
+- **Permission blur** - one shared credential bag across "specialists" erases the security reason for multi-agent.
+- **Duplicated work** - workers re-search the same sources without clear task boundaries (a failure Anthropic called out when lead instructions were too vague).
+- **Verifier shortcuts** - industry guidance warns that verification subagents can declare early victory after incomplete checks; only use them with concrete criteria ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+These are decision-time ownership risks, not a full production failure taxonomy.
+For broader design against wrong-tool writes, missing gates, and silent drift, see [production agent failure modes](/blog/production-agent-failure-modes).
+For approval design on a single path, see [human-in-the-loop AI agents](/blog/human-in-the-loop-ai-agents-explained).
+
+## Decision checklist: five questions
+
+Answer these before you add a second agent.
+
+1. **Are subtasks genuinely parallelizable?** If every step needs the full prior context, a graph mostly adds handoff loss.
+2. **Do separate privileges actually require isolation?** If one service account can still do everything, multi-agent is costume, not security.
+3. **Would one agent pollute its context with bulk intermediate data?** If yes, a focused worker that returns a short summary may help.
+4. **Does each role need its own eval and acceptance criteria?** If you cannot define success per role, you cannot operate a graph.
+5. **Can one person own the full graph on-call?** If ownership is "the agents," do not ship multi-agent to production.
+
+If most answers are no, stay single-agent with tools and gates.
+
+## Architecture patterns for ops (light)
+
+Name the pattern only when it maps to an ops need - not as a framework shopping list.
+
+1. **Router (queues)** - classify an incoming ticket or lead and send it to the right policy or tool path without a full multi-agent conversation.
+2. **Sequential handoff (approvals)** - stage work so the next role or model unlocks only after a gate (human or system) on a fixed contract.
+3. **Parallel workers (breadth research)** - fan out independent lookups or sources, then synthesize under one owner.
+4. **Verifier subagent (optional)** - a separate checker for black-box validation when criteria are explicit and complete, not a rubber stamp.
+
+LangChain documents related pattern families (subagents, handoffs, router, and lighter "skills" composition) and still opens with: many tasks are best as a single agent ([LangChain multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+Pick one pattern that matches your ownership model; do not install a catalog of frameworks to feel production-ready.
+
+## Practical rule: map first, then choose topology
+
+If you cannot draw the workflow on one page with one acceptance test, multi-agent design will not save you.
+Map steps, systems of record, failure cost, and human gates first - then choose topology ([map workflows for AI agents](/blog/map-workflows-for-ai-agents)).
+
+Default path:
+
+1. Prototype a **single gated agent** on one standard path.
+2. Measure tool errors, human overrides, and end-to-end completion quality.
+3. Split only when security or compliance boundaries, multi-team ownership, or real parallel breadth force it - aligned with enterprise "multi only when mandated" criteria ([Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+4. Keep one system of record for writes and one approval owner even after a split.
+
+## How Dali approaches this
+
+Dali starts with one production path and gates, not multi-agent theater.
+We map the workflow, define acceptance tests, and only expand topology when privileges, parallel work, or ownership boundaries demand it.
+See [solutions](/solutions) for engagement paths, and [when not to use AI agents](/blog/when-not-to-use-ai-agents) if the process is not ready for agents at all.
+If you are still choosing who builds (studio vs internal team), see [AI agent agency vs in-house](/blog/ai-agent-agency-vs-in-house).
 
 ## FAQ
 
-### Do LangChain or CrewAI force multi-agent?
-No. Use them as libraries when they reduce glue code - not as a requirement for every pilot.
+### Do LangChain, CrewAI, or LangGraph force multi-agent?
+
+No.
+Use them as libraries when they reduce glue code - not as a requirement for every pilot.
+A single tool-using agent can live in those ecosystems without a multi-agent graph.
 
 ### Is a planner agent required?
-Only if planning is a real stage with its own eval. Many ops agents are deterministic routers plus an LLM for language.
+
+Only if planning is a real stage with its own eval and contract.
+Many ops agents are deterministic routers plus an LLM for language, with humans on irreversible actions.
 
 ### Can sales and support share one agent?
-Prefer separate pilots and policies. Shared agents blur permissions and knowledge.
 
+Prefer separate pilots and policies.
+Shared agents blur permissions, knowledge bases, and who is accountable when the wrong customer message goes out.
 
-<!-- covers GPT questions: 1,3,4,8,9,10 -->
+### Is multi-agent always better than a single agent?
+
+No.
+Primary vendor guidance and enterprise docs both treat multi-agent as situational: useful for parallel breadth, context isolation, or hard boundaries, costly in tokens and operations otherwise ([Anthropic research system](https://www.anthropic.com/engineering/multi-agent-research-system); [Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them); [Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+
+### What is multi-agent orchestration in production terms?
+
+It is the controlled way agents coordinate: who plans, who executes, how results return, and where humans approve.
+In product docs, that often means a coordinator with isolated worker threads or sessions rather than one long shared chat ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
+Orchestration without ownership is still theater.
+
+### When does a single agent fail hard enough to justify a split?
+
+When you hit proven limits: context pollution you cannot fix with better retrieval or summarization, truly parallel independent work, or security and org boundaries that forbid one permission set.
+Even then, prototype the single path first unless those boundaries mandate multi-agent on day one.
+
+## Next step
+
+Map one workflow with one acceptance test.
+Start single-agent unless privileges or parallel work force a graph you can own on-call.
+Talk to Dali about a gated production path on [solutions](/solutions), or read [when not to use AI agents](/blog/when-not-to-use-ai-agents) if the workflow is not ready.

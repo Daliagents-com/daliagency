@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Boundary between deterministic workflow automation and controlled AI agents</title>
+  <desc id="desc">A fixed workflow on the left crosses a permission gate into an observe-plan-act agent loop on the right, with a human pause control.</desc>
+  <rect width="1600" height="900" rx="44" fill="#f4efe4"/>
+  <rect x="70" y="90" width="610" height="720" rx="34" fill="#fffaf0" stroke="#d6cdbd" stroke-width="4"/>
+  <rect x="920" y="90" width="610" height="720" rx="34" fill="#101826"/>
+  <g stroke="#2255d6" stroke-width="12" fill="none" stroke-linecap="round">
+    <path d="M155 450h410"/><path d="M535 420l40 30-40 30"/>
+  </g>
+  <g fill="#fffaf0" stroke="#2255d6" stroke-width="7">
+    <circle cx="180" cy="450" r="52"/><rect x="315" y="398" width="105" height="105" rx="26"/><circle cx="555" cy="450" r="52"/>
+  </g>
+  <g fill="none" stroke="#101826" stroke-width="8" stroke-linecap="round">
+    <path d="M157 450h46M180 427v46"/><path d="M340 430h55M340 455h55M340 480h38"/><path d="M535 450h40"/>
+  </g>
+  <g transform="translate(730 315)">
+    <rect width="140" height="270" rx="38" fill="#172235" stroke="#ff6b4a" stroke-width="9"/>
+    <circle cx="70" cy="70" r="30" fill="#ff6b4a"/>
+    <rect x="42" y="128" width="56" height="90" rx="18" fill="none" stroke="#fffaf0" stroke-width="8"/>
+    <path d="M70 148v48" stroke="#fffaf0" stroke-width="8"/>
+  </g>
+  <g transform="translate(1225 450)">
+    <circle r="205" fill="#172235" stroke="#2255d6" stroke-width="10"/>
+    <circle cy="-105" r="45" fill="#2255d6"/>
+    <circle cx="105" r="45" fill="#ff6b4a"/>
+    <circle cy="105" r="45" fill="#2255d6"/>
+    <circle cx="-105" r="45" fill="#ff6b4a"/>
+    <g fill="none" stroke="#8dbdff" stroke-width="10" stroke-linecap="round">
+      <path d="M34-100c65 15 80 45 76 72"/><path d="M108 35c-15 60-48 77-78 75"/><path d="M-35 108c-60-16-78-48-74-78"/><path d="M-108-35c14-60 45-80 75-75"/>
+    </g>
+    <circle r="55" fill="#101826" stroke="#fffaf0" stroke-width="8"/>
+    <path d="M-19-2h38M0-21v38" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(815 650)" fill="none" stroke="#ff6b4a" stroke-width="10" stroke-linecap="round">
+    <circle cx="55" cy="25" r="25"/><path d="M5 105c8-48 92-48 100 0"/>
+  </g>
+  <path d="M870 650c90-85 155-120 205-145" fill="none" stroke="#ff6b4a" stroke-width="9" stroke-dasharray="16 16"/>
+</svg>

@@ -1,22 +1,95 @@
 ---
-slug: "production-agent-failure-modes"
-title: "Production agent failure modes (and how to design against them)"
-description: "Common failure modes for production agents: wrong tool writes, silent drift, missing gates, and ownership gaps."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "production-agent-failure-modes"
-keywords: ["AI agent failure modes", "production agent risks", "agent system failures"]
-status: "published"
-author: "Dali"
-type: "tutorial"
-heroImage: "/blog/production-agent-failure-modes/hero.jpg"
-heroAlt: "Production agent failure modes (and how to design against them)"
-ogImage: "/blog/production-agent-failure-modes/og.jpg"
+slug: production-agent-failure-modes
+title: Production agent failure modes (and how to design against them)
+description: 'Production AI agent failure modes operators actually hit: tool misuse,
+  stale context, missing gates, silent degradation. Design controls and detection
+  - with primary sources.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: production-agent-failure-modes
+keywords:
+- AI agent failure modes
+- production agent risks
+- agent system failures
+status: published
+author: Dali
+type: tutorial
+heroImage: /blog/production-agent-failure-modes/hero.jpg
+heroAlt: Gated production agent path with stop switch and human review loop
+ogImage: /blog/production-agent-failure-modes/og.jpg
+diagramGatedPathAlt: 'Diagram of a gated production agent path: workflow map, agent,
+  tool of record, approval gate, outcome, stop switch'
+diagramDemoVsProdAlt: Comparison of a demo-only agent path versus a production path
+  with owners, gates, and review loop
 ---
 
-## Direct answer
+Production AI agents rarely fail because the model is "not smart enough."
+They fail because the system around the model - connectors, context, permissions, gates, and ownership - is incomplete.
+Design against wrong-tool writes, stale or unvetted context, missing approval gates, prompt drift without evals, and no human owner.
+Every production path needs a stop switch and a review loop.
 
-Design against wrong-tool writes, stale context, missing gates, prompt drift without evals, and no human owner. Every production path needs a stop switch and a review loop.
+This is a practical operator taxonomy, not an official universal standard.
+Use it to name what will break, pick design controls before more tools, and know what to measure after launch.
+
+## Why demos pass and production fails
+
+A demo is a short happy path with clean inputs and a human watching.
+Production is multi-step work across real tools: CRM fields, tickets, refunds, inboxes, and permissions that change over time.
+
+The model is one component.
+The system that breaks first is usually:
+
+- Connectors and auth that rot after the demo week
+- Context that is retrieved but never vetted before action
+- Multi-step plans where small errors compound
+- Autonomy that can write without a named approver
+- Metrics that track model verbosity instead of finished work quality
+
+End-to-end success is hard even on public benchmarks.
+On WebArena, a realistic web-task environment, a GPT-4-based agent achieved about 14.41% end-to-end task success versus about 78.24% for humans on that benchmark set ([WebArena paper](https://arxiv.org/abs/2307.13854)).
+That is not a claim about every business agent.
+It is evidence that multi-step tool use is harder than a chat transcript suggests.
+
+**Illustrative compounding math (not a Dali KPI):**
+If each step is correct 85% of the time, and steps are independent, ten steps yield roughly `0.85^10 ≈ 20%` end-to-end success.
+Real workflows are messier than that formula, but the direction is clear: multi-step paths need gates and recovery, not more autonomy alone.
+
+```text
+DEMO-ONLY PATH (happy path, human watching)
+  Clean input --> Agent --> Tool sandbox --> Fluent answer
+       |              |            |
+       v              v            v
+  no schema rot   no write tiers   no post-run quality gate
+  Result: looks successful; production path never designed
+
+PRODUCTION PATH (multi-step, real tools)
+  Live request --> Workflow map --> Agent + scoped tools
+                        |                    |
+                        v                    v
+                 Tool of record      Approval gate / stop switch
+                        |                    |
+                        v                    v
+                 Outcome + audit --> Review / eval loop --> Owner on-call
+  Failure surfaces: wrong write, stale context, ungated irreversible, silent rework
+```
+
+*Figure: demo-only path versus production-gated path.
+Demos optimize for a supervised happy path; production fails when connectors, write tiers, owners, and review loops are missing.*
+
+For the full demo-versus-production contrast, see [AI agent demo vs production](/blog/ai-agent-demo-vs-production-difference).
+
+## Industry anchors (read carefully)
+
+Use primary sources as shared vocabulary, not as a stats wall.
+
+- **Gartner (June 2025)** predicts that over 40% of agentic AI projects will be canceled by the end of 2027, citing escalating costs, unclear business value, or inadequate risk controls - not "models are dumb" ([Gartner press release](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027)).
+- **Microsoft AI Red Team** published a [taxonomy of failure modes in agentic AI systems](https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/) ([PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf)) and a [v2.0 update](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/) ([v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)). Use the pair as shared vocabulary (v1 baseline plus v2 additions such as goal hijacking, session contamination, and MCP/plugin abuse); mode detail appears in the taxonomy and security map below.
+- **OWASP** documents [Excessive Agency](https://genai.owasp.org/llm-top-10/) in the LLM Top 10 and publishes the [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) plus [agentic threats and mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/).
+- **MAST** (Cemri et al.) analyzes multi-agent failures with 14 modes in three categories across 1600+ annotated traces, with high inter-annotator agreement (κ = 0.88) ([arXiv:2503.13657](https://arxiv.org/abs/2503.13657)).
+
+These sources are anchors for language and design.
+They are not a substitute for your workflow map, tools of record, and named owners.
 
 ## What good looks like
 
@@ -31,14 +104,369 @@ Design against wrong-tool writes, stale context, missing gates, prompt drift wit
 - Unowned automations
 - Invented metrics instead of operational evidence
 
+If your current agent stack scores closer to "bad," stop adding tools.
+Map one path, then design gates.
+
+## Production failure-mode taxonomy
+
+![A production AI agent surrounded by contract, permission, observation, pause, recovery, and human ownership layers](/blog/production-agent-failure-modes/failure-containment-layers.svg)
+
+*Conceptual containment model: no single guard catches every failure mode, so controls must surround the agent at several independent layers.*
+
+The list below is a practical operator set for business agents (CRM writes, support, ops automation).
+It merges cross-source consensus with production themes.
+It is not claiming to be the complete industry standard.
+
+### 1. Tool misuse / wrong writes
+
+The agent picks the wrong tool, wrong arguments, or writes to the wrong record.
+In a business workflow this looks like updating the wrong CRM contact, closing the wrong ticket, or posting to the wrong channel.
+
+**Blast radius:** corrupted system of record, customer trust damage, cleanup labor.
+
+**Design gate:** least-privilege tool scopes; dry-run or draft mode for writes; confirmation on high-impact tools.
+
+**Detect:** tool-call audit logs with target IDs; post-write validation against expected schema and business rules.
+
+### 2. Bad retrieval / unvetted context acted on
+
+Retrieval returns stale, partial, or irrelevant context.
+The agent treats it as ground truth and acts with confidence.
+
+**Blast radius:** wrong answers that drive wrong actions; silent policy violations.
+
+**Design gate:** separate "retrieve" from "act"; require citations or source IDs for consequential decisions; allowlist trusted corpora.
+
+**Detect:** retrieval quality samples; mismatch rates between cited sources and final actions.
+
+### 3. Brittle connectors (schema, auth, timeouts)
+
+APIs change fields, tokens expire, rate limits appear, or polling traps stall the workflow.
+Demos use stable sandboxes; production connectors rot.
+
+**Blast radius:** partial runs, stuck queues, cascading retries, missing updates.
+
+**Design gate:** health checks, schema contracts, explicit timeout and backoff policy, circuit breakers.
+
+**Detect:** connector error rates, auth expiry alerts, timeout histograms, dead-letter queues.
+
+### 4. Compounding multi-step error
+
+Each step is "mostly right," but the joint path fails.
+See the illustrative `0.85^n` math above.
+
+**Blast radius:** incorrect end state that no single step flagged as failed.
+
+**Design gate:** checkpoints after critical steps; replan only within allowed scopes; human gate before irreversible commits.
+
+**Detect:** step-level success vs path-level success; offline path evals on recorded traces.
+
+### 5. Context loss / session contamination
+
+Important constraints drop out of the window, or earlier session data biases later steps.
+Microsoft's agentic taxonomy calls out session context contamination as a distinct mode in its v2 update ([Microsoft v2 blog](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/)).
+
+**Blast radius:** policy forgetfulness, cross-customer leakage risk, inconsistent decisions in one session.
+
+**Design gate:** hard session boundaries; structured state objects; never mix untrusted content into the goal channel.
+
+**Detect:** context snapshots in traces; unexpected goal or policy changes mid-session.
+
+### 6. Goal drift / specification drift
+
+The agent pursues a nearby but wrong objective ("help the user" becomes "close the ticket at any cost").
+Security-flavored goal hijacking is when untrusted content redirects the terminal goal while looking like helpful task completion ([Microsoft taxonomy v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+Prompt or eval drift without a review loop usually shows up here as goal or specification drift, and later as silent quality misses (mode 8).
+
+**Blast radius:** completed work that violates the original business intent.
+
+**Design gate:** immutable task objective; compare plan and actions to the original goal; halt on objective change.
+
+**Detect:** goal-vs-action reviewers; human re-authorization when the plan changes category.
+
+### 7. Retry loops and cost explosions
+
+Tool failures or ambiguous success criteria trigger unbounded retries.
+Token and API spend spike while work still does not finish.
+
+**Blast radius:** budget burn, rate-limit storms, noisy downstream systems.
+
+**Design gate:** max attempts, max cost per run, escalate-to-human on budget breach.
+
+**Detect:** cost-per-success, retry depth, run duration outliers.
+
+### 8. Silent quality degradation
+
+The workflow returns success.
+The output looks fluent.
+Downstream humans or customers absorb the rework later.
+
+Research on silent failure in LLM agent systems studies failures that occur without external adversarial triggers and are easy to misattribute to one-off bugs ([silent failure paper](https://arxiv.org/html/2606.08162v1)).
+
+**Blast radius:** trust erosion, invisible rework, delayed incident discovery.
+
+**Design gate:** success = finished work quality checks, not HTTP 200; sampling review on live traffic.
+
+**Detect:** rework rate, customer corrections, quality rubrics on completed jobs - not chat satisfaction alone.
+
+### 9. Cascading multi-agent / verification failures
+
+One agent hands bad state to the next.
+Verifiers rubber-stamp or never run.
+MAST groups multi-agent failures into system design issues, inter-agent misalignment, and task verification ([MAST](https://arxiv.org/abs/2503.13657)).
+
+**Blast radius:** amplified error across roles; hard root-cause attribution.
+
+**Design gate:** explicit handoff contracts; independent verification on high-impact outputs; start single-agent when multi is not needed.
+
+**Detect:** handoff schema failures; verifier disagreement rates; path traces across agents.
+
+### 10. Excessive agency / missing human-in-the-loop gates
+
+The agent has more tools, permissions, or autonomy than the task requires.
+OWASP frames Excessive Agency around excessive functionality, permissions, and autonomy ([OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/), project overview at [owasp.org](https://owasp.org/www-project-top-10-for-large-language-model-applications/)).
+
+**Blast radius:** irreversible actions without consent - refunds, deletes, public sends, permission changes.
+
+**Design gate:** read / write / destructive tiers with named approvers (see matrix below).
+
+**Detect:** ungated irreversible actions; HitL skip rate; post-hoc incident review.
+
+Depth on approval design lives in [human-in-the-loop AI agents explained](/blog/human-in-the-loop-ai-agents-explained).
+
+### 11. Injection, memory poisoning, tool supply-chain
+
+Untrusted content, poisoned memory, or malicious/compromised tools and plugins steer behavior.
+Microsoft's v2 taxonomy highlights modes such as agentic supply-chain compromise, MCP/plugin abuse, memory poisoning, and related attacks ([Microsoft v2](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/), [v2 PDF](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+OWASP agentic materials cover related application risks ([Agentic Top 10 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/), [threats and mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/)).
+
+**Blast radius:** data exfiltration, unauthorized writes, long-lived memory that re-infects later runs.
+
+**Design gate:** treat tool definitions and memory as supply chain; pin and review plugins; isolate untrusted content from instructions.
+
+**Detect:** unexpected tool registrations; memory write audits; anomaly alerts on new capabilities.
+
+### 12. Unowned automations / unclear business value
+
+Nobody owns the bot after the pilot.
+Success is a slide metric, not a finished-work metric.
+This is the organizational twin of the Gartner cancel-risk story: unclear value and weak risk controls kill projects even when demos look fine ([Gartner](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027)).
+
+**Blast radius:** silent production debt, no incident owner, no kill switch.
+
+**Design gate:** named human owner per path; stop switch documented; value defined as cycle time, rework, and error rate on one path.
+
+**Detect:** owner absence in runbooks; no weekly quality review; metrics only about model output length.
+
+### Master table
+
+| Mode | Looks like in a business workflow | Blast radius | Design gate / control | How you detect it |
+| --- | --- | --- | --- | --- |
+| Tool misuse / wrong writes | Wrong CRM field, wrong ticket close | Corrupted records, customer harm | Scoped tools, write confirmation | Tool audits + post-write checks |
+| Bad retrieval acted on | Stale policy used as fact | Wrong actions with confidence | Retrieve ≠ act; source allowlists | Citation/action mismatch samples |
+| Brittle connectors | Auth fails, schema drift, timeouts | Stuck or partial workflows | Contracts, health checks, breakers | Error/timeout/auth alerts |
+| Compounding multi-step error | Each step "ok," path wrong | Incorrect end state | Checkpoints, path evals | Path vs step success gap |
+| Context loss / contamination | Mid-session policy forget or bias | Inconsistent or unsafe decisions | Session bounds, structured state | Goal/policy change in traces |
+| Goal / specification drift | Ticket closed, goal missed | Intent failure | Immutable objective, halt on change | Goal-vs-action review |
+| Retry loops / cost blowups | Infinite tool retries | Budget and rate-limit damage | Max cost/attempts, escalate | Cost-per-success, retry depth |
+| Silent quality degradation | Success flag, bad work product | Hidden rework, trust loss | Quality gates on finished work | Rework, corrections, rubrics |
+| Cascading multi-agent fails | Bad handoff, weak verify | Amplified multi-role error | Handoff contracts, independent verify | Cross-agent traces |
+| Excessive agency / no HitL | Refund/delete without approval | Irreversible harm | Approval tiers + owners | Ungated irreversible events |
+| Injection / memory / supply chain | Poisoned memory or plugin | Long-lived compromise | Tool/memory supply-chain controls | Memory/tool change audits |
+| Unowned / unclear value | Orphan bot after pilot | No owner, no kill switch | Named owner, stop switch, path KPIs | Missing runbook ownership |
+
+## Irreversible action tiers
+
+Map every tool call to a tier before go-live.
+Missing gates usually mean everything was treated as "just a write."
+
+| Tier | Examples | Approval default | Owner | Logging |
+| --- | --- | --- | --- | --- |
+| Read | Search CRM, fetch ticket, list inventory | Auto allowed within scope | Path owner | Log query + result IDs |
+| Write (reversible or low blast) | Draft email, stage CRM update, internal note | Auto or light review by policy | Path owner | Log before/after fields |
+| Write (business-critical) | Send customer email, change deal stage, update invoice draft | Human approve or dual control | Business + ops owner | Immutable audit trail |
+| Destructive / high blast | Refund, delete, permission change, public post, bulk mutate | Explicit human approval; never silent auto | Risk owner + path owner | Full audit + rollback plan |
+
+Microsoft red-team narrative treats human-in-the-loop bypass as among the most consistently exploited paths in agentic systems ([Microsoft v2 blog](https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/)).
+In operator language: if consent can be fatigued, skipped, or never wired, the matrix above is theater.
+
+```text
+FREE-FIRE PATH (missing gates)
+  Request --> Agent --> Write tools (full scope) --> System of record
+                              |
+                              v
+                     No approval, no stop switch
+                     Exception = silent retry or ignore
+  Outcome: irreversible action lands first; HitL bypass by design
+
+GATED PATH (production default for high blast)
+  Request --> Agent plans --> Read / draft tools
+                    |
+          +---------+---------+
+          |                   |
+          v                   v
+   Safe tier:           Business-critical /
+   auto within scope    destructive tier
+                              |
+                              v
+                     Approval / exception queue
+                     (named owner)
+                     | approve | edit | reject |
+                              v
+                     Commit to tool of record
+                              |
+                              v
+              Stop switch available anytime
+              Audit trail + review / eval loop
+```
+
+*Figure: free-fire path versus gated production path.
+Approval, stop switch, and an exception queue sit before high-blast writes; free-fire treats every write as auto.*
+
+## Security and agency risks in plain language
+
+Map security vocabulary to business writes and consent - not red-team theater.
+
+| Security / framework term | Operator meaning | First control |
+| --- | --- | --- |
+| Excessive Agency (OWASP) | Too many tools, permissions, or autonomy | Shrink scopes; gate high-impact actions |
+| HitL bypass (Microsoft) | Approvals skipped, fatigued, or never invoked | Hard gates on destructive tiers |
+| Goal hijacking | Untrusted content redirects the objective | Separate goal channel from data |
+| Session contamination | Early junk biases later steps | Session isolation; sanitize tool output |
+| Memory poisoning | Bad facts persist and reappear | Memory write policy + audits |
+| MCP / plugin / supply chain | Compromised or over-powered tools | Pin, review, least privilege for plugins |
+
+Start with permissions and gates.
+Security taxonomy depth without a workflow map still ships wrong writes.
+
+## Multi-agent failures (when multi-agent is the wrong fix)
+
+Adding more agents does not fix an unmapped workflow.
+It multiplies handoffs.
+
+MAST organizes multi-agent failures into three categories ([arXiv:2503.13657](https://arxiv.org/abs/2503.13657)):
+
+1. **System design / specification issues** - unclear roles, vague success criteria, brittle orchestration
+2. **Inter-agent misalignment** - agents work at cross purposes or drop context across handoffs
+3. **Task verification** - weak or missing checks on the finished result
+
+**Multi-agent is often the wrong fix when:**
+
+- You do not yet have one reliable single-agent path on one workflow
+- Roles are not specified with tools of record and success definitions
+- You have no independent verification step for high-impact outputs
+- Ownership is unclear (who restarts the swarm at 2 a.m.?)
+
+For architecture choice detail, see [multi-agent vs single-agent](/blog/multi-agent-vs-single-agent-when-to-use).
+
+## Detection and measurement
+
+You cannot design against silent failure if success is only "the run completed."
+
+**Operator detection map (enough to cluster failures - not an observability product tutorial):**
+
+1. **Trace the path** - session ID, plan steps, tool calls, approvals, final business outcome.
+2. **Cluster failures** - same wrong tool, same connector error, same quality rubric miss.
+3. **Root-cause in the taxonomy** - map the cluster to a mode above.
+4. **Turn production failures into evals** - freeze examples that must not regress before the next release.
+
+For instrumentation depth (logs, traces, redaction boundaries), see [agent observability: logs and traces](/blog/agent-observability-logs-traces).
+
+**Measure first on one production path:**
+
+| Metric | Why it matters |
+| --- | --- |
+| Cycle time | Did finished work get faster end to end? |
+| Rework rate | How often humans undo or redo agent output? |
+| Error / incident rate | Wrong writes, policy misses, customer-visible failures |
+| Ungated irreversible actions | Should be zero outside approved policy |
+| Cost per successful completion | Surfaces retry loops and thrash |
+
+Promote these mid-lifecycle metrics before vanity model scores.
+Pre-launch eval design is covered in [how to evaluate AI agents before go-live](/blog/how-to-evaluate-ai-agents-before-go-live).
+
+## Design checklist (build order)
+
+1. **Workflow map** - real steps, exceptions, tools, and failure cost.
+2. **Tools of record** - name the systems that may be written.
+3. **Irreversible tiers** - read / write / destructive with owners.
+4. **Human owner** - one named person for the path, not "the AI team."
+5. **Stop switch** - how to pause the agent without hunting credentials.
+6. **Eval and review loop** - offline cases plus live sampling.
+7. **Success definition** - finished work quality on one path (cycle time, rework, errors).
+
+```text
+[Workflow map]
+      |
+      v
+[Agent + scoped tools] --> [Tool of record]
+      |                         |
+      v                         v
+[Approval gate] <---- stop switch (human)
+      |
+      v
+[Outcome + audit] --> [Review / eval loop]
+```
+
+*Figure: build-order summary for a gated production agent path.
+Map and tools of record come first; the stop switch and review loop stay wired after go-live.*
+
+## Worked example (hypothetical)
+
+**Scenario:** A support agent is allowed to update CRM notes and close tickets after drafting a resolution.
+It is not supposed to issue refunds without approval.
+
+**Failure:** The agent closes a VIP ticket as "resolved" using a stale FAQ snippet and never creates the promised follow-up task.
+The run status is success.
+Two days later the customer escalates; a human reopens the case and redoes the work.
+
+**Modes involved:** bad retrieval acted on; silent quality degradation; missing write-tier gate on "close ticket" for VIP accounts.
+
+**Blast radius:** customer trust, SLA miss, rework by senior support.
+
+**Design gate:** VIP ticket close requires human approval; resolution drafts must cite a current policy document ID; follow-up task creation is a hard post-condition before close is allowed.
+
+**Detection:** rework/reopen rate on agent-closed tickets; sampling of closed tickets without linked follow-up tasks; rubric fail when cited policy is older than a set freshness window.
+
+No client names - this is a labeled hypothetical for design practice.
+
 ## How Dali helps
 
-Dali designs and implements agent systems with engineering and operations together - from discovery to production paths and AI visibility. See [solutions](/solutions) and related posts on [production agents](/blog/production-ai-agents-for-business).
+Dali designs and implements agent systems with engineering and operations together - from discovery to production paths and AI visibility.
+We start from the workflow map, tools of record, gates, and owners - not from a larger model or another demo.
+See [solutions](/solutions) and the hub on [production AI agents for business](/blog/production-ai-agents-for-business).
+
+If agents look fine in demos but create rework in production, map one workflow with gates and owners before adding more tools.
+Related decision posts: [agency vs in-house](/blog/ai-agent-agency-vs-in-house) and [agency vs freelancers](/blog/ai-agent-agency-vs-freelancers).
 
 ## FAQ
 
 ### Can we skip discovery if we already bought tools?
-No. Tools without a workflow map still fail.
 
-### What should we measure first?
+No.
+Tools without a workflow map still fail.
+Licenses and model access do not name irreversible steps, owners, or success as finished work quality.
+
+### What should we measure first for production agent reliability?
+
 Cycle time, rework, and error/incident rate on one path.
+Add cost per successful completion and ungated irreversible actions once the path is live.
+
+### Why do AI agents work in demos but fail in production?
+
+Demos are short, supervised, and clean.
+Production is multi-step, connected, and full of exceptions.
+The failure is usually the system around the model.
+For a dedicated breakdown, read [demo vs production](/blog/ai-agent-demo-vs-production-difference).
+
+### What is goal drift (or specification drift) in an agent system?
+
+The agent continues to act, but the objective shifts away from the original business goal - often toward a proxy like "close the ticket" or content injected mid-session.
+Security materials call the adversarial form goal hijacking ([Microsoft taxonomy v2](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf)).
+Control it with an immutable objective, plan checks, and human re-authorization when the goal category changes.
+
+### Do multi-agent systems fail more often - and when is multi-agent the wrong fix?
+
+Multi-agent systems introduce extra failure surfaces: specification, inter-agent misalignment, and verification ([MAST](https://arxiv.org/abs/2503.13657)).
+They are the wrong first fix when you lack a working single-agent path, clear roles, independent verification, or a named owner.
+See [multi-agent vs single-agent](/blog/multi-agent-vs-single-agent-when-to-use).

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pre-launch AI agent evaluation gate</title>
+  <desc id="desc">A scenario-by-dimension evaluation matrix feeds a go or no-go gate, with failed cases returning to the test suite before launch.</desc>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="34" markerHeight="34" refX="30" refY="17" orient="auto"><path d="M0 0L34 17L0 34Z" fill="#246bfd"/></marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-opacity=".16"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="44" fill="#f4efe4"/>
+  <g transform="translate(80 110)" filter="url(#shadow)">
+    <rect width="860" height="680" rx="34" fill="#fffaf0" stroke="#d6cdbd" stroke-width="4"/>
+    <g transform="translate(90 78)">
+      <rect width="680" height="500" rx="20" fill="#ffffff" stroke="#d6cdbd" stroke-width="4"/>
+      <g stroke="#d6cdbd" stroke-width="3">
+        <path d="M0 84h680M0 168h680M0 252h680M0 336h680M0 420h680"/>
+        <path d="M136 0v500M272 0v500M408 0v500M544 0v500"/>
+      </g>
+      <g fill="none" stroke-width="8">
+        <g stroke="#246bfd"><circle cx="68" cy="42" r="22"/><path d="M58 42l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="204" cy="42" r="22"/><path d="M194 42l8 8 16-19"/></g>
+        <g stroke="#ef6b5b"><circle cx="340" cy="42" r="22"/><path d="M328 30l24 24M352 30l-24 24"/></g>
+        <g stroke="#246bfd"><circle cx="476" cy="42" r="22"/><path d="M466 42l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="612" cy="42" r="22"/><path d="M602 42l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="68" cy="126" r="22"/><path d="M58 126l8 8 16-19"/></g>
+        <g stroke="#ef6b5b"><circle cx="204" cy="126" r="22"/><path d="M192 114l24 24M216 114l-24 24"/></g>
+        <g stroke="#246bfd"><circle cx="340" cy="126" r="22"/><path d="M330 126l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="476" cy="126" r="22"/><path d="M466 126l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="612" cy="126" r="22"/><path d="M602 126l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="68" cy="210" r="22"/><path d="M58 210l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="204" cy="210" r="22"/><path d="M194 210l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="340" cy="210" r="22"/><path d="M330 210l8 8 16-19"/></g>
+        <g stroke="#ef6b5b"><circle cx="476" cy="210" r="22"/><path d="M464 198l24 24M488 198l-24 24"/></g>
+        <g stroke="#246bfd"><circle cx="612" cy="210" r="22"/><path d="M602 210l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="68" cy="294" r="22"/><path d="M58 294l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="204" cy="294" r="22"/><path d="M194 294l8 8 16-19"/></g>
+        <g stroke="#ef6b5b"><circle cx="340" cy="294" r="22"/><path d="M328 282l24 24M352 282l-24 24"/></g>
+        <g stroke="#246bfd"><circle cx="476" cy="294" r="22"/><path d="M466 294l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="612" cy="294" r="22"/><path d="M602 294l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="68" cy="378" r="22"/><path d="M58 378l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="204" cy="378" r="22"/><path d="M194 378l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="340" cy="378" r="22"/><path d="M330 378l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="476" cy="378" r="22"/><path d="M466 378l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="612" cy="378" r="22"/><path d="M602 378l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="68" cy="462" r="22"/><path d="M58 462l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="204" cy="462" r="22"/><path d="M194 462l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="340" cy="462" r="22"/><path d="M330 462l8 8 16-19"/></g>
+        <g stroke="#246bfd"><circle cx="476" cy="462" r="22"/><path d="M466 462l8 8 16-19"/></g>
+        <g stroke="#ef6b5b"><circle cx="612" cy="462" r="22"/><path d="M600 450l24 24M624 450l-24 24"/></g>
+      </g>
+    </g>
+  </g>
+  <path d="M950 450h115" stroke="#246bfd" stroke-width="12" marker-end="url(#arrow)"/>
+  <g transform="translate(1080 290)" filter="url(#shadow)">
+    <path d="M150 0l150 160-150 160L0 160Z" fill="#101826" stroke="#8dbdff" stroke-width="7"/>
+    <path d="M91 162l37 37 78-91" fill="none" stroke="#67d6a5" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M92 110l116 104" stroke="#ef6b5b" stroke-width="10" stroke-linecap="round" opacity=".45"/>
+  </g>
+  <path d="M1380 450h100" stroke="#67d6a5" stroke-width="12" marker-end="url(#arrow)"/>
+  <g transform="translate(1450 375)">
+    <rect width="90" height="150" rx="20" fill="#172235"/>
+    <path d="M23 75l18 18 31-38" fill="none" stroke="#67d6a5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M1230 610v110c0 58-45 90-110 90H430c-58 0-90-30-90-76v-25" fill="none" stroke="#ef6b5b" stroke-width="9" stroke-dasharray="18 16" marker-end="url(#arrow)"/>
+</svg>

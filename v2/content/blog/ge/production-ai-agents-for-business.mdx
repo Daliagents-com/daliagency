@@ -1,52 +1,384 @@
 ---
-slug: "production-ai-agents-for-business"
-title: "Production AI აგენტები ბიზნესისთვის: რას ნიშნავს 'production' სინამდვილეში"
-description: "მარტივი განმარტება production AI აგენტებისა ბიზნეს გუნდებისთვის: tools, gates, ownership, measurement - არა demo-ები."
-date: "2026-07-31"
-locale: "ge"
-hreflangGroup: "production-ai-agents-for-business"
-keywords: ["production AI აგენტები ბიზნესისთვის", "AI აგენტები production-ში", "ბიზნეს AI აგენტები"]
-status: "published"
-author: "Dali"
-type: "pillar"
-heroImage: "/blog/production-ai-agents-for-business/hero.jpg"
-heroAlt: "Production AI აგენტები ბიზნესისთვის: რას ნიშნავს 'production' სინამდვილეში"
-ogImage: "/blog/production-ai-agents-for-business/og.jpg"
+slug: production-ai-agents-for-business
+title: 'Production AI აგენტები ბიზნესისთვის: რას ნიშნავს ''production'' სინამდვილეში'
+description: 'მარტივი განმარტება production AI აგენტებისა ბიზნეს გუნდებისთვის: ხელსაწყოები,
+  დამტკიცების კარიბჭეები, პასუხისმგებლობა და გაზომვა - არა დემოები.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: ge
+hreflangGroup: production-ai-agents-for-business
+keywords:
+- production AI აგენტები ბიზნესისთვის
+- AI აგენტები production-ში
+- ბიზნეს AI აგენტები
+- production-ready AI აგენტები
+- რა არის production AI აგენტი
+status: published
+author: Dali
+type: pillar
+heroImage: /blog/production-ai-agents-for-business/hero.jpg
+heroAlt: 'Production AI აგენტები ბიზნესისთვის: რას ნიშნავს ''production'' სინამდვილეში'
+ogImage: /blog/production-ai-agents-for-business/og.jpg
 ---
 
 ## პირდაპირი პასუხი
 
-**Production AI აგენტი** ბიზნესისთვის არის სისტემა, რომელიც განმეორებით ასრულებს რეალურ სამუშაოს კომპანიის tools-ში, წესებისა და human gate-ების ქვეშ, და ვიღაც პასუხისმგებელია, როცა ის ვერ მუშაობს. Demo, რომელიც chat ფანჯარაში კითხვებს პასუხობს, production არ არის.
+**Production AI აგენტი ბიზნესისთვის** განმეორებით ასრულებს რეალურ სამუშაოს კომპანიის ხელსაწყოებში, წესებისა და ადამიანის დამტკიცების კარიბჭეების ქვეშ, და ვიღაც პასუხისმგებელია, როცა ის ვერ მუშაობს.
 
-## Production checklist
+აქ "production" ნიშნავს **ცოცხალ ბიზნეს ოპერაციებს** - რეალური მომხმარებლები, რეალური მონაცემები, რეალური სისტემები - არა საწარმოო ხაზს და არა გაპრიალებულ ჩატ-დემოს.
 
-- მუშაობს რეალურ case-ებზე, არა scripted screenshot-ებზე
-- იყენებს tools-ს, რომლებშიც გუნდი უკვე ცხოვრობს (inbox, CRM, docs, chat)
-- აქვს მკაფიო allowed და forbidden მოქმედებები
-- ალოგებს შედეგებს review-ისთვის
-- აქვს owner on-call exceptions-ისთვის
-- შეიძლება შეჩერდეს სრული outage თეატრის გარეშე
+დემო, რომელიც მხოლოდ ჩატის ფანჯარაში კითხვებს პასუხობს, production არ არის.
+
+ეს სტატია ფოკუსირებულია ბიზნეს-შესაბამისობაზე, სიმწიფის ეტაპებზე, პასუხისმგებლობაზე, ბიზნეს-ხედვის გაშვების გზაზე და გაზომვაზე.
+
+ტექნიკური განმარტების, არქიტექტურისა და იმპლემენტაციის მაგალითებისთვის წაიკითხეთ [Production AI Agents: განმარტება, არქიტექტურა და მაგალითები](/ge/blog/what-is-a-production-ai-agent).
+
+უფრო მოკლე დემო vs ცოცხალი კონტრასტისთვის იხილეთ [AI agent demo vs production](/ge/blog/ai-agent-demo-vs-production-difference).
+
+## Production-ის ჩეკლისტი
+
+თუ ქვემოთ ჩამოთვლილი რომელიმე პუნქტი აკლია, სისტემას მოეპყარით როგორც პილოტს - არა production-ს.
+
+- მუშაობს რეალურ შემთხვევებზე, არა წინასწარ დადგმულ სკრინშოტებზე
+- იყენებს ხელსაწყოებს, რომლებშიც გუნდი უკვე მუშაობს (inbox, CRM, docs, chat)
+- აქვს მკაფიოდ ნებადართული და აკრძალული მოქმედებები
+- ალოგებს შედეგებს განხილვისთვის
+- აქვს დასახელებული პასუხისმგებელი on-call გამონაკლისებისთვის
+- შეიძლება შეჩერდეს სრული გათიშვის თეატრის გარეშე
+
+![ექვსი საკონტროლო წერტილი დახურულ production readiness ციკლში pause კონტროლის გარშემო](/blog/production-ai-agents-for-business/production-checklist-loop.svg)
+
+*ციკლი მოიცავს ხელსაწყოებს, ნებართვებს, დამტკიცების კარიბჭეებს, შეფასებას, observability-ს და დასახელებულ პასუხისმგებლობას.
+ცენტრალური pause კონტროლი მთელ სისტემაზე ვრცელდება.*
+
+**დასკვნა:** ჩეკლისტი არის მინიმალური ოპერატორის ზღვარი.
+არქიტექტურული სიღრმე ტექნიკურ დაკავშირებულ სტატიაშია; ეს სია არის ის, თუ როგორ წყვეტს ბიზნეს-ხელმძღვანელი, ცოცხალია თუ არა რაღაც ნამდვილად.
+
+## ბაზრის რეალობა: უმეტესი "აგენტი" production არ არის
+
+ჰაიპი უსწრებს რეალურ ოპერაციულ სისტემებს.
+
+[Gartner პროგნოზირებს](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027), რომ agentic AI პროექტების 40%-ზე მეტი 2027 წლის ბოლომდე გაუქმდება - მიზეზად მზარდი ხარჯები, გაურკვეველი ბიზნეს ღირებულება ან არაადეკვატური რისკის კონტროლი.
+
+იგივე Gartner press release აფრთხილებს **"agent washing"-ის** შესახებ: არსებული პროდუქტების (assistants, RPA, chatbots) agentic-ად გადარქმევა არსებითი agentic შესაძლებლობების გარეშე, და აფასებს, რომ ათასობით გამოცხადებული agentic AI vendor-იდან მხოლოდ დაახლოებით 130 არის ნამდვილი.
+
+[McKinsey-ს State of AI survey](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) იუწყება, რომ რესპონდენტების 23% ამბობს, რომ მათი ორგანიზაციები სადღაც enterprise-ში მასშტაბირებენ agentic AI სისტემას, ხოლო დამატებით 39% ამბობს, რომ AI აგენტებით ექსპერიმენტირება დაიწყეს.
+
+McKinsey ასევე აღნიშნავს, რომ აგენტების გამოყენება ჯერ ფართოდ გავრცელებული არ არის: უმეტესობა ორგანიზაციებისა, რომლებიც მასშტაბირებენ აგენტებს, ამბობს, რომ ამას მხოლოდ ერთ ან ორ ფუნქციაში აკეთებენ.
+
+[Cleanlab-ის vendor survey engineering leader-ებზე](https://cleanlab.ai/ai-agents-in-production-2025/) (მონაცემები შეგროვებულია 2025 წლის აგვისტოში) გაფილტრა 1,837 რესპონდენტი და იპოვა მხოლოდ 95, ვისაც AI აგენტები production-ში ჰქონდათ რეალური მომხმარებლის ურთიერთქმედებებით - და ამ production ოპერატორებს შორის სამიდან ერთზე ნაკლები იყო კმაყოფილი observability-ისა და guardrail გადაწყვეტებით.
+
+Cleanlab-ს მოეპყარით როგორც **vendor survey-ს თვითშერჩეული production ნიმუშით**, არა ყველა კომპანიის დამოუკიდებელ აღწერას.
+
+**დასკვნა ოპერატორებისთვის:** ცნობისმოყვარეობა გავრცელებულია; საიმედო production ჯერ ადრეულ ეტაპზეა.
+ეს მხარს უჭერს gated სიმწიფის ეტაპებზე უფრო დიდხანს დარჩენას, ვიდრე მარკეტინგული დეკები გვირჩევენ.
+
+## რას ნიშნავს production-ready ბიზნეს გუნდებისთვის
+
+Enterprise სახელმძღვანელოები ერთ მარტივ იდეაზე იკრიბებიან: production-ready ნიშნავს, რომ აგენტი მუშაობს ცოცხალ გარემოში რეალური მომხმარებლებით, რეალური მონაცემებითა და რეალური შედეგებით - guardrail-ებით, monitoring-ით, წვდომის კონტროლით, rollback-ითა და განსაზღვრული წარმატების მეტრიკებით.
+
+[Dataiku-ს production-ready guide](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) ამას სწორედ ასე აყალიბებს მარტივ FAQ ენაზე.
+
+[IBM deployment-ს განსაზღვრავს](https://www.ibm.com/think/topics/ai-agent-deployment) როგორც გადასვლას prototype-იდან ან test-იდან რეალურ ოპერაციაში რეალური მომხმარებლებით, მონაცემებითა და სისტემებით - შემდეგ კი reliability-ის, accuracy-ისა და ურთიერთქმედებების monitoring launch-ის შემდეგ.
+
+[Google Cloud-ის production-agent guidance](https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents) მსგავსად ეპყრობა prototype-to-production-ს როგორც engineering და ops გზას, არა დემოს გადაცემას.
+
+გამოიყენეთ [ექვსპუნქტიანი production ჩეკლისტი](#production-ის-ჩეკლისტი) როგორც სწრაფად სკანირებადი ზღვარი.
+გააფართოვეთ ბიზნეს კრიტერიუმებით, სანამ გზას production-ready-ს უწოდებთ:
+
+| კრიტერიუმი | Pilot / demo | Production |
+| --- | --- | --- |
+| მომხმარებლები და მონაცემები | შერჩეული პრომპტები, სუფთა ნიმუშები | რეალური შემთხვევები, არეული შეყვანები, edge case-ები |
+| ხელსაწყოები | მოკეტილი ან ფართო founder credentials | შეზღუდული წვდომა ხელსაწყოებზე, რომლებსაც გუნდი უკვე იყენებს |
+| მოქმედებები | "დემოში ყველაფერი შეუძლია" | მკაფიოდ ნებადართული და აკრძალული მოქმედებები |
+| ადამიანის კარიბჭეები | არასავალდებულო ან თეატრალური | შეუქცევადი ნაბიჯები საჭიროებენ დამტკიცებას, სანამ მტკიცებულება არ გაამართლებს შემსუბუქებას |
+| შეფასება | "ზარზე კარგად ჩანს" | განსაზღვრული წარმატების კრიტერიუმები და review ნიმუშები მასშტაბირებამდე |
+| ლოგები და observability | კონსოლის სკრინშოტები | შედეგები და გადაწყვეტილების გზები აღდგენადი განხილვისთვის |
+| პასუხისმგებლობა | საერთო / არავინ | დასახელებული პასუხისმგებელი on-call გამონაკლისებისთვის |
+| გაჩერების კონტროლი | მთელი stack-ის ხელახალი deploy | Pause გათიშვის თეატრის გარეშე |
+| ხარჯის კონტროლი | ტოკენების ხარჯი იგნორირებულია | Cost per successful task კონტროლდება |
+
+ავტონომია სპექტრია, არა ბეიჯი.
+
+ინდუსტრიის ენა ხშირად დაახლოებით ასახავს assisted, semi-autonomous და supervised-autonomous ქცევას (მაგალითად [Dataiku-ს enterprise guide-ში](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents)).
+
+Dali-ს სამი სიმწიფის ეტაპი ქვემოთ არის ჩვენი ოპერატორის ეტიკეტები იგივე იდეისთვის - არა ინდუსტრიის სტანდარტი.
+
+[OpenAI-ს practical guide to building agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) აგენტებს განსაზღვრავს როგორც სისტემებს, რომლებიც დამოუკიდებლად ასრულებენ ამოცანებს მომხმარებლის სახელით ხელსაწყოებითა და workflow კონტროლით - და chatbot-ებს, რომლებიც მხოლოდ საუბრობენ, არა-აგენტებად მიიჩნევს.
+
+**დასკვნა:** production-ready არის სისტემის თვისება (ხელსაწყოები, კარიბჭეები, პასუხისმგებელი, ლოგები, pause, გაზომვა), არა model brand.
 
 ## სამი სიმწიფის ეტაპი
 
 1. **Draft assist** - აგენტი ამზადებს, ადამიანი ასრულებს
-2. **Gated execute** - აგენტი გვთავაზობს მოქმედებებს, ადამიანი ამტკიცებს irreversible-ს
-3. **Supervised autonomy** - შეზღუდული auto-actions monitoring-ით და rollback-ით
+2. **Gated execute** - აგენტი გვთავაზობს მოქმედებებს, ადამიანი ამტკიცებს შეუქცევადს
+3. **Supervised autonomy** - შეზღუდული ავტო-მოქმედებები monitoring-ითა და rollback-ით
+
+![სამი სიმწიფის ეტაპი ბიზნეს AI აგენტებისთვის მტკიცებულების საკონტროლო წერტილებით ეტაპებს შორის](/blog/production-ai-agents-for-business/maturity-stages-ladder.svg)
+
+*Draft assist, gated execution და supervised autonomy ცალკე ოპერაციული ეტაპებია.
+აწევა ხდება მხოლოდ მას შემდეგ, რაც მიმდინარე ეტაპი აკმაყოფილებს თავის გასვლის კრიტერიუმებს.*
 
 უმეტესმა კომპანიამ ეტაპებზე 1-2 უფრო დიდხანს უნდა დარჩეს, ვიდრე vendor-ები გვირჩევენ.
 
-## ბიზნეს fit
+ეს ეტაპები ფხვიერად ემთხვევა assisted / semi-autonomous / supervised-autonomous ენას, რომელიც enterprise ტექსტებში გამოიყენება.
+ისინი Dali-ს სიმწიფის ეტიკეტებია ბიზნეს გადაწყვეტილებებისთვის, არა standards body taxonomy.
 
-Production აგენტები იხდიან თავს მაღალი მოცულობის, წესებზე დაფუძნებულ სამუშაოზე ნათელი "done" კრიტერიუმებით: lead response, inbox triage, ops documentation, knowledge retrieval citations-ით. უჭირთ სუფთა სტრატეგიაზე, ბუნდოვან მოლაპარაკებაზე და სრულიად ახალ პროცესებზე, რომლებსაც ჯერ არავინ ესმის.
+### გასვლის კრიტერიუმები, სანამ ზემოთ გადახვალთ
 
-## როგორ განსაზღვრავს Dali production-ს
+**Draft assist დატოვეთ მხოლოდ მაშინ, როცა:**
 
-აგენტ სისტემებს ვაპროექტებთ workflow-ებისა და approval საზღვრების გარშემო, შემდეგ ვაიმპლემენტირებთ. დაკავშირებული: [workflow mapping](/ge/blog/map-workflows-for-ai-agents), [approval gate-ები](/ge/blog/human-approval-gates-for-ai-agents).
+- გუნდს აქვს წერილობითი "done" განმარტება workflow-სთვის
+- Review ნიმუშები აჩვენებს, რომ draft-ის ხარისხი საკმარისად კარგია, რომ ადამიანები იშვიათად წერენ თავიდან
+- ხელსაწყოები და მონაცემებზე წვდომა drafting-ისთვის შეზღუდული და დალოგილია
+
+**Gated execute დატოვეთ მხოლოდ მაშინ, როცა:**
+
+- შეუქცევადი მოქმედებები ჩამოთვლილია და თანმიმდევრულად gated
+- Acceptance და revert rate-ები იზომება
+- On-call პასუხისმგებელს შეუძლია გამონაკლისების რიგის მართვა გმირობის გარეშე
+- Pause მუშაობს მეზობელი სისტემების ჩამოშლის გარეშე
+
+**Supervised autonomy-ში შედით მხოლოდ ვიწრო მოქმედებების ნაკრებზე, როცა:**
+
+- Task success და plan adherence იკავებს რეალურ ტრაფიკზე, არა დემოებზე
+- Cost per successful task სტაბილურია
+- Rollback და pause ნავარჯიშებია, არა თეორიული
+- ბიზნეს პასუხისმგებლები residual risk-ს წერილობით იღებენ
+
+**დასკვნა:** ავტონომია მტკიცებულებით მოიპოვება.
+ეტაპების აწევა გასვლის კრიტერიუმების გარეშე არის ის, თუ როგორ ჩნდება გაუქმების რისკი მოგვიანებით.
+
+## ბიზნეს-შესაბამისობა და როდის არ უნდა ააგოთ აგენტი
+
+Production აგენტები იხდიან თავს მაღალი მოცულობის, წესებზე დაფუძნებულ სამუშაოზე ნათელი "done" კრიტერიუმებით:
+
+- Lead response და qualification handoff-ები
+- Inbox და ticket triage
+- Ops დოკუმენტაცია და ველების ამოღება systems of record-ში
+- Knowledge retrieval ციტატებით შიდა პასუხებისთვის
+
+ისინი იტანჯებიან სუფთა სტრატეგიაზე, ბუნდოვან მოლაპარაკებაზე და სრულიად ახალ პროცესებზე, რომლებსაც ჯერ არავინ ესმის.
+
+### ფუნქციის დონის მაგალითები (ზოგადი)
+
+- **Support triage:** კლასიფიკაცია, ანგარიშის კონტექსტის მიმაგრება, მარშრუტიზაცია ან პასუხის draft; ადამიანი ფლობს refund-ებსა და policy გამონაკლისებს.
+- **Lead response:** გამდიდრება, პირველი პასუხის draft, CRM ველების განახლება; ადამიანი ფლობს ფასწარმოქმნასა და ვალდებულების ენას.
+- **Docs / ops:** ველების ამოღება, წესებთან შემოწმება, ჩაწერების შემოთავაზება; ადამიანი ამტკიცებს ფინანსურ ან დამანგრეველ განახლებებს.
+- **Knowledge ციტატებით:** შიდა წყაროების მოძიება და პასუხის draft ბმულებით; ადამიანი ფლობს რჩევას, რომელსაც ბიზნეს გავლენა აქვს.
+
+### როდის არ უნდა ააგოთ აგენტი
+
+[OpenAI-ს guide](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) მკაფიოა: აგენტები ერგება workflow-ებს, სადაც ტრადიციული deterministic და rule-based მიდგომები არასაკმარისია - რთული განსჯა, მყიფე წესების გაფანტვა ან მძიმე არასტრუქტურირებული მონაცემები.
+
+თუ სტაბილური rules engine, form workflow ან ფიქსირებული RPA გზა უკვე წყვეტს პრობლემას ნათელი კრიტერიუმებით, ამჯობინეთ ის.
+
+აგენტი ამატებს ღირებულებას, როცა კონტექსტი, გამონაკლისები და მრავალსაფეხურიანი ხელსაწყოების გამოყენება უფრო მნიშვნელოვანია, ვიდრე ფიქსირებული ჩეკლისტი.
+
+ასევე გამოტოვეთ ან გადადეთ აგენტები, როცა:
+
+- არ არის დასახელებული პასუხისმგებელი გამონაკლისებისთვის
+- "Done" კრიტერიუმები განუსაზღვრელია
+- გუნდს არ შეუძლია least-privilege წვდომის მიცემა ხელსაწყოებზე
+- არავინ კვირაში არ განიხილავს ნიმუშებს
+
+უფრო დეტალური anti-fit-ისთვის იხილეთ [როდის არ უნდა გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents).
+
+**დასკვნა:** შესაბამისობა workflow-ის ფორმასა და პასუხისმგებლობაზეა, არა მოდელის სიახლეზე.
+
+## როგორ უშვებენ გუნდები (ბიზნეს ხედვა)
+
+გაშვება არ არის "დავასრულეთ დემო."
+
+[IBM](https://www.ibm.com/think/topics/ai-agent-deployment) გამოყოფს development-ს (build და test) deployment-ისგან (რეალური მომხმარებლები, რეალური სისტემები, მიმდინარე მართვა).
+
+ბიზნეს გუნდისთვის გზა ოპერატორისთვის მარტივი დატოვეთ:
+
+1. **აირჩიეთ ერთი workflow** მაღალი მოცულობითა და ნათელი done კრიტერიუმებით.
+2. **[დაამაპეთ workflow](/ge/blog/map-workflows-for-ai-agents)** - ნაბიჯები, ხელსაწყოები, handoff-ები, გამონაკლისები.
+3. **განსაზღვრეთ ნებადართული და აკრძალული მოქმედებები** და რომელი ნაბიჯები საჭიროებს [human-in-the-loop](/ge/blog/human-in-the-loop-ai-agents-explained) დამტკიცებას.
+4. **დაასახელეთ პასუხისმგებელი**, რომელიც მართავს review რიგს და შეუძლია აგენტის pause.
+5. **დაადასტურეთ რეალურ შემთხვევებზე** ფართო წვდომამდე - არა მხოლოდ იდეალური სცენარის სკრინშოტებზე.
+6. **ინტეგრირეთ logging და pause**, რომ ინციდენტები აღდგენადი და შეჩერებადი იყოს.
+7. **პილოტი ფიქსირებული ფარგლებითა და დროის ფანჯრით**, შემდეგ გააფართოვეთ მხოლოდ მაშინ, როცა KPI-ები იკავებს.
+
+არქიტექტურული არჩევანები (topology, model strategy, fallback, state, orchestration) მნიშვნელოვანია, მაგრამ ისინი ტექნიკურ გზაშია.
+
+გამოიყენეთ [რა არის production AI აგენტი](/ge/blog/what-is-a-production-ai-agent) wrapper დიზაინისთვის, evals-ისა და კონტროლებისთვის.
+
+გამოიყენეთ [pilot scope template](/ge/blog/ai-agent-pilot-scope-template), როცა გჭირდებათ წერილობითი საზღვარი პირველი კვირისთვის.
+
+**დასკვნა:** გაშვება ნიშნავს რეალურ workflow + კარიბჭეები + პასუხისმგებელი + ლოგები + pause + გაზომვის ფანჯარა - არა გაშვების ელფოსტას.
+
+## როგორ გავზომოთ production აგენტები
+
+თუ წარმატებას ვერ ზომავთ, მასშტაბირებას ვერ დაიცავთ.
+
+[Google Cloud-ის KPI framework production AI აგენტებისთვის](https://cloud.google.com/transform/the-kpis-that-actually-matter-for-production-ai-agents) გაზომვას აწყობს სამი სვეტის გარშემო: reliability და ოპერაციული ეფექტურობა, adoption და გამოყენება, და business value.
+
+ეს framework Google Cloud-ის framing-ია, არა Dali IP.
+ადაპტირეთ მარტივ ენაზე ბიზნეს გუნდებისთვის:
+
+| სვეტი | რას ეკითხებით | მაგალითი მეტრიკები |
+| --- | --- | --- |
+| Reliability | ასრულებს თუ არა აგენტი სამუშაოს სწორად და თანმიმდევრულად? | Task success rate, plan adherence, tool selection accuracy, error / escalation rate |
+| Adoption | იყენებენ თუ არა ადამიანები მასთან ბრძოლის გარეშე? | Acceptance rate, edit rate, revert / undo rate, time-to-verify, აქტიური გამოყენება სამიზნე გუნდში |
+| Business value | იღებს თუ არა ბიზნესი უფრო სწრაფ ან იაფ შედეგებს? | Time-to-done, backlog age, cost per successful task, ამოღებული ხელით ნაბიჯები |
+
+ხარჯის კონტროლი reliability-ის გვერდით უნდა იდგეს.
+
+Google Cloud ხაზს უსვამს **cost per successful task**-ს, არა მხოლოდ ტოკენებს: იაფი failed run მაინც ძვირია.
+
+დააკვირდით token runaway-ს, retry loop-ებსა და tool call storm-ებს.
+
+უფრო ღრმა ops გაზომვის ნიმუშებისთვის იხილეთ [AI agent ops-ის გაზომვა](/ge/blog/measuring-ai-agent-ops) და [AI agent ROI](/ge/blog/ai-agent-roi-how-to-measure).
+
+ლოგებისა და trace-ებისთვის, რომლებიც reliability-ს გაზომვადს ხდის, იხილეთ [agent observability: logs და traces](/ge/blog/agent-observability-logs-traces).
+
+**დასკვნა:** დაიწყეთ reliability-ითა და acceptance-ით, სანამ ROI სლაიდებს გაყიდით.
+
+თუ მზად ხართ გაზომვა პირველ pilot საზღვრად აქციოთ, გამოიყენეთ [pilot scope template](/ge/blog/ai-agent-pilot-scope-template) ან [დაამაპეთ ერთი workflow](/ge/blog/map-workflows-for-ai-agents) წვდომის გაფართოებამდე.
+
+## მაგალითი: gated lead-response გზა (ჰიპოთეტური)
+
+ეს არის **ილუსტრაციული / ჰიპოთეტური** workflow, არა დასახელებული client case.
+
+**მიზანი:** პირველი პასუხი inbound lead-ებზე ფიქსირებულ SLA-ში, CRM ველების განახლებით და unsupervised ფასის დაპირებების გარეშე.
+
+**ხელსაწყოები, რომლებიც აგენტმა შეიძლება გამოიყენოს:**
+
+- CRM კონტაქტისა და ბოლო აქტივობის კითხვა
+- Product FAQ knowledge base-ის კითხვა
+- ელფოსტის პასუხის draft shared inbox ხელსაწყოში
+- CRM ველების განახლების შემოთავაზება (stage, notes, owner)
+
+**ნებადართული მოქმედებები (აგენტმა შეიძლება მოამზადოს ცალკე დამტკიცების გარეშე):**
+
+- Lead intent-ის კლასიფიკაცია
+- პირველი პასუხის draft დამტკიცებული შაბლონებითა და FAQ snippet-ებით
+- CRM notes-ისა და stage change-ის შემოთავაზება
+
+**აკრძალული ადამიანის დამტკიცების გარეშე:**
+
+- ელფოსტის გაგზავნა
+- ფასდაკლებების ან არასტანდარტული ფასის ენის დაფიქსირება
+- CRM ჩანაწერების წაშლა ან შერწყმა
+- შეტყობინებები დამტკიცებული inbox-ის გარეთ
+
+**ადამიანის კარიბჭე:**
+
+- Sales პასუხისმგებელი განიხილავს draft-ს + შემოთავაზებულ CRM განახლებებს
+- ამტკიცებს გაგზავნას, რედაქტირებს ან უარყოფს
+
+**ლოგები:**
+
+- შეყვანის შეჯამება, გამოძახებული ხელსაწყოები, draft-ის ვერსია, დამმტკიცებლის გადაწყვეტილება, საბოლოო შედეგი
+
+**პასუხისმგებელი on-call:**
+
+- Sales ops lead ფლობს გამონაკლისებს (აკლია CRM მონაცემები, გაბრაზებული პასუხები, policy edge case-ები)
+- Engineering on-call ფლობს ხელსაწყოების გაუმართაობასა და pause-ს
+
+**Pause:**
+
+- Toggle აჩერებს ახალ draft-ებს CRM-ის ან inbox-ის ჩამოშლის გარეშე
+
+საკონსულტაციო ნარატივები ხშირად აჩვენებს მსგავს ნიმუშს: მონაცემების შეგროვება, ანალიზი, რეკომენდაცია, შემდეგ პლატფორმების განახლება **ადამიანის დამტკიცებით** (იხილეთ BCG-ს campaign-style agent ილუსტრაცია მათ [AI agents გვერდზე](https://www.bcg.com/capabilities/artificial-intelligence/ai-agents) - გამოიყენეთ მხოლოდ როგორც პროცესის ნიმუში, არა როგორც დაპირებული ROI ციფრი).
+
+**დასკვნა:** ღირებულება gated ციკლშია, არა unsupervised გაგზავნაში.
+
+## მართვა და ანტიპატერნები
+
+Production მართვა განზრახ მოსაწყენია.
+
+Enterprise პრაქტიკიდან ([Dataiku](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents), [IBM](https://www.ibm.com/think/topics/ai-agent-deployment), [OpenAI](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/)):
+
+- **Least privilege** - ხელსაწყოები და მონაცემები მხოლოდ workflow-სთვის
+- **Audit trail-ები** - who/what/when ხელსაწყოების გამოძახებებისა და დამტკიცებებისთვის
+- **Input და output guardrail-ები** - scope, უსაფრთხოება, PII სადაც რელევანტურია
+- **ადამიანის review ნიმუშები** - დაგეგმილი, არა მხოლოდ ინციდენტების შემდეგ
+- **Kill / pause switch** - კონტროლირებული გამორთვა თეატრის გარეშე
+- **შეფასება მასშტაბირებამდე** - წარმატების კრიტერიუმები დაწერილი ტრაფიკის გაფართოებამდე
+
+### ანტიპატერნები
+
+- Chat UI-ს "აგენტად" წოდება multi-step ხელსაწყოების მოქმედებების გარეშე (**agent washing** რისკი)
+- Multi-agent orchestration პირველივე დღეს ნახევრად დაკავშირებული specialist-ებით
+- არ არის დასახელებული პასუხისმგებელი გამონაკლისებისთვის
+- დემო სკრინშოტების production მტკიცებულებად მიჩნევა
+- Unsupervised შეუქცევადი მოქმედებები (გაგზავნა, გადახდა, წაშლა, იურიდიული ვალდებულება)
+- არ არის გაზომვის ფანჯარა და არ არის cost-per-success ხედვა
+- ფართო admin credentials "მხოლოდ პილოტისთვის"
+- ეტაპი 3-ის ავტონომიის მასშტაბირება იმიტომ, რომ vendor დემო ავტონომიურად გამოიყურებოდა
+
+**დასკვნა:** მართვა პროდუქტის ნაწილია.
+გვერდით მიმაგრებული პოლიტიკა გაშვების შემდეგ არის ის, თუ როგორ ხდება გაუქმების რისკი რეალური.
+
+## როგორ უდგება Dali production სისტემებს
+
+აგენტ სისტემებს ვაპროექტებთ workflow-ებისა და დამტკიცების საზღვრების გარშემო, შემდეგ ვაიმპლემენტირებთ.
+
+ეს თანმიმდევრობა უფრო მნიშვნელოვანია, ვიდრე model fashion.
+
+დაკავშირებული მასალები ამ cluster-ში:
+
+- [Workflow-ების mapping AI აგენტებისთვის](/ge/blog/map-workflows-for-ai-agents)
+- [Human-in-the-loop AI აგენტები ახსნილია](/ge/blog/human-in-the-loop-ai-agents-explained)
+- [რა არის production AI აგენტი](/ge/blog/what-is-a-production-ai-agent) (არქიტექტურა და კონტროლები)
+- [AI agent pilot scope template](/ge/blog/ai-agent-pilot-scope-template)
+
+თუ გინდათ სტრუქტურირებული შემდეგი ნაბიჯი Dali-თან, დაიწყეთ [გადაწყვეტებიდან](/ge/solutions) და მოიტანეთ ერთი რეალური workflow, არა ფუნქციების სურვილების სია.
 
 ## FAQ
 
 ### Chatbot არის agent?
-მხოლოდ თუ multi-step მოქმედებებს იღებს tools-ით. მხოლოდ chat - ეს interface-ია.
+
+მხოლოდ თუ multi-step მოქმედებებს იღებს ხელსაწყოებით workflow კონტროლის ქვეშ.
+
+მხოლოდ ჩატი - ეს ინტერფეისია.
+
+[OpenAI-ს განმარტება](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) LLM-ების გამოყენებით აპლიკაციებს workflow execution-ის კონტროლის გარეშე არა-აგენტებად მიიჩნევს.
 
 ### გვჭირდება multi-agent orchestration პირველივე დღეს?
-არა. ერთი საიმედო path სჯობს ნახევრად დაკავშირებული სპეციალისტების swarm-ს.
+
+არა.
+
+ერთი საიმედო გზა სჯობს ნახევრად დაკავშირებული specialist-ების swarm-ს.
+
+[OpenAI-ს guidance](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) არის, რომ ჯერ მაქსიმალურად გამოიყენოთ single agent ხელსაწყოებით და გაყოთ მხოლოდ მაშინ, როცა instructions ან tool overload აიძულებს.
+
+ასევე იხილეთ [multi-agent vs single agent](/ge/blog/multi-agent-vs-single-agent-when-to-use).
+
+### რას ნიშნავს production-ready AI აგენტებისთვის?
+
+ნიშნავს, რომ აგენტი მუშაობს რეალურ სამუშაოზე ცოცხალ ხელსაწყოებში რეალური შედეგებით: შეზღუდული ნებართვები, ადამიანის კარიბჭეები შეუქცევად მოქმედებებზე, ლოგები განხილვისთვის, დასახელებული პასუხისმგებელი, pause კონტროლი და წარმატების მეტრიკები, რომლებსაც რეალურად თვალს ადევნებთ.
+
+იხილეთ [production ჩეკლისტი](#production-ის-ჩეკლისტი) და pilot-versus-production ცხრილი ზემოთ.
+
+### როგორ განსხვავდება production პილოტისგან ან დემოსგან?
+
+პილოტი ამტკიცებს გზას ლიმიტების ქვეშ.
+
+Production გადარჩება არეულ შეყვანებს, შეზღუდულ ნებართვებს, ორშაბათის გამონაკლისებსა და პასუხისმგებლობას მას შემდეგ, რაც build team უკან იხევს.
+
+დემოები ოპტიმიზირებულია შეხვედრისთვის; production - გამონაკლისების რიგისთვის.
+
+### რა KPI-ები მნიშვნელოვანია production აგენტებისთვის?
+
+დაიწყეთ reliability-ით (task success, plan adherence), adoption-ით (acceptance და revert rate-ები) და business value-თი (time-to-done, cost per successful task).
+
+ეს სამსვეტიანი framing მიაწერეთ [Google Cloud-ის KPI post-ს](https://cloud.google.com/transform/the-kpis-that-actually-matter-for-production-ai-agents); მეტრიკები ადაპტირეთ თქვენს workflow-ზე.
+
+### რა არის agent washing?
+
+Chatbot-ის, assistant-ის ან RPA პროდუქტის "agentic"-ად გადარქმევა multi-step ხელსაწყოების მოქმედებების გარეშე რეალური კონტროლების ქვეშ.
+იხილეთ [ბაზრის რეალობის](#ბაზრის-რეალობა-უმეტესი-აგენტი-production-არ-არის) სექცია და [Gartner-ის framing](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027).
+
+## შემდეგი ნაბიჯი
+
+დაამაპეთ ერთი რეალური workflow production readiness-ისთვის: ხელსაწყოები, ნებადართული და აკრძალული მოქმედებები, ადამიანის კარიბჭეები, პასუხისმგებელი, ლოგები, pause და სამი KPI სვეტი.
+
+თუ გინდათ დახმარება gated pilot-ის scoping-ში, გამოიყენეთ [გადაწყვეტები](/ge/solutions) ან დაიწყეთ [workflow-ების mapping AI აგენტებისთვის](/ge/blog/map-workflows-for-ai-agents)-ით.
+
+ყალბი აჩქარება არ არის.
+ერთი ნათელი გზა სჯობს ათ ნახევრად განსაზღვრულ აგენტს.

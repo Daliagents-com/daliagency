@@ -1,54 +1,206 @@
 ---
-slug: "multi-agent-vs-single-agent-when-to-use"
-title: "Multi-agent vs single agent: когда orchestration помогает (и когда мешает)"
-description: "Практическое правило для multi-agent systems vs одного tool-using агента: сложность, failure modes и production ownership."
-date: "2026-08-01"
-locale: "ru"
-hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
-keywords: ["multi-agent vs single agent", "multi-agent orchestration", "когда использовать multi-agent systems"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: multi-agent-vs-single-agent-when-to-use
+title: 'Multi-agent vs single agent: когда orchestration помогает (и когда мешает)'
+description: Начните с одного tool-using агента. Multi-agent добавляйте только при
+  реальном разделении ролей, прав или параллельной работы - таблица решений, чеклист
+  и trade-off по стоимости.
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: ru
+hreflangGroup: multi-agent-vs-single-agent-when-to-use
+keywords:
+- multi-agent vs single agent
+- multi-agent orchestration
+- когда использовать multi-agent systems
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/multi-agent-vs-single-agent-when-to-use/hero.jpg
+heroAlt: Сравнение single-agent, single-agent с tools и multi-agent систем по стоимости,
+  задержке, отладке, безопасности и ответственности
+ogImage: /blog/multi-agent-vs-single-agent-when-to-use/og.jpg
 ---
 
 ## Прямой ответ
 
-Начинайте с **одного агента и ясных tools** для одного workflow. Добавляйте multi-agent orchestration только когда роли, permissions или handoffs действительно разделены - и вы готовы владеть failure modes всего графа.
+Начинайте с **одного агента и ясного набора tools** для одного процесса.
+Добавляйте multi-agent orchestration только когда роли, права доступа или стыки между шагами действительно разделены - и вы готовы нести ответственность за сбои всего графа.
+Частый провал: добавлять агентов до того, как ясны процесс, acceptance test и владелец согласования.
+Multi-agent - это налог, который вы платите за реальное разделение, а не апгрейд качества по умолчанию.
 
-## Что люди имеют в виду под multi-agent
+## Что люди имеют в виду под multi-agent (и multi-agent orchestration)
 
-Обычно: planner плюс workers, или специализированные агенты для research, coding и review. В business ops это чаще значит больше moving parts, больше latency и больше мест, где теряется state - не автоматически выше quality.
+В LLM-продуктах multi-agent обычно значит planner или coordinator плюс workers, либо специализированные агенты для research, coding, review или других ролей.
+У каждого агента часто свой context, tools и prompt, и кто-то должен маршрутизировать работу между ними.
 
-## Когда single agent достаточно
+**Multi-agent orchestration** - это слой координации: coordinator (или router) назначает работу, workers выполняются в изолированных потоках или контекстах, а результаты возвращаются для синтеза или следующего шага.
+В терминах платформ это часто выглядит как coordinator плюс специализированные или изолированные workers, которые по умолчанию не делят полную историю разговора ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
 
-Один primary system of record, один approval owner, короткий список tools и ясный standard path. Lead response, inbox triage и document-to-tracker часто лучше shipping'ятся как один gated agent.
+В операционной работе multi-agent чаще значит больше задержку, больше мест, где состояние теряется на стыках, и шире поверхность для eval - не автоматически выше качество.
+Классические multi-agent исследования описывают автономных агентов с локальными представлениями и децентрализованным контролем; production LLM-графы всё равно требуют одного операционного владельца на весь путь.
+
+## Один агент с tools: базовый вариант
+
+![Один агент напрямую подключён к инструментам, а координатор распределяет работу между тремя специализированными агентами](/blog/multi-agent-vs-single-agent-when-to-use/single-vs-multi-coordination.svg)
+
+*Концептуальная топология: multi-agent дизайн добавляет специализацию, но также создаёт маршрутизацию, общее состояние и новые поверхности координации, которым нужен владелец.*
+
+Один tool-using агент - средний путь, с которого большинству команд стоит начинать.
+Одна основная система учёта, один владелец согласования, короткий список tools и ясный стандартный путь обычно сильнее графа агентов, который никто не сможет отладить в понедельник.
+
+Многие гайды вендоров и фреймворков приходят к тому же: начните с одного агента с хорошо спроектированными tools, прежде чем дробить работу по агентам ([LangChain on multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+Production-разборы тоже считают single-agent более простым путём для чётко определённых процессов без жёстких границ безопасности ([Redis: single-agent vs multi-agent](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+Гипотетические операционные примеры, которые чаще лучше выкатывать как одного gated-агента:
+
+1. **Ответ на лид** - прочитать обращение, набросать ответ или CRM-заметку, остановиться на ручной отправке или записи, если действие обращено к клиенту.
+2. **Разбор inbox** - классифицировать, проставить метки и маршрутизировать; человек по-прежнему владеет эскалацией и необратимыми ответами.
+3. **Документ в трекер** - извлечь поля в таблицу или тикет с валидацией и gate согласования до перезаписи production-данных.
+
+Если процесс укладывается в одну систему учёта и одного человека, который может сказать да или нет на рискованные записи, multi-agent обычно преждевременен.
+Когда агенты вообще не тот инструмент - нет стабильного процесса, нет владельца, нет толерантности к частичной автоматизации - см. [когда не стоит использовать AI-агентов](/ru/blog/when-not-to-use-ai-agents).
 
 ## Когда multi-agent может помочь
 
-Жёсткое разделение privileges (read-only research vs write actions), длинные multi-hour jobs с checkpoints, или разные модели на разных стадиях с явными contracts между ними.
+Multi-agent окупается, когда узкое место - один context или один набор прав, а не когда демо нужны лишние блоки на схеме.
 
-## Цена multi-agent theater
+Production-гайд Claude выделяет три оправданных случая: **защита context** (не засорять main thread bulk-retrieval), **параллелизация** (независимые подзадачи, которые можно запускать вместе) и **специализация** (сфокусированные tools или prompts на роль) ([Claude: when and how to use multi-agent systems](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
 
-Сложнее evals, сложнее incident response, неясный ownership и demos, которые впечатляют больше, чем работают на Monday morning tickets.
+На языке ops это переводится так:
 
-## Практическое правило
+- **Жёсткое разделение привилегий** - read-only research-путь не должен делить write credentials с агентом, который обновляет CRM или finance-системы.
+- **Параллельная работа вширь** - несколько независимых источников или очередей, которые перегружали бы один context при последовательном прогоне.
+- **Контракты стадий** - разные модели или роли с явным форматом передачи (например research summary на входе, согласованный write-out на выходе).
+- **Длинные checkpointed jobs** - многочасовая работа, где промежуточное состояние должно выживать, с human- или system-gate между фазами.
 
-Если вы не можете нарисовать workflow на одной странице с одним acceptance test, multi-agent design вас не спасёт. Сначала map, потом topology.
+Enterprise-гайд по adoption ещё строже: multi-agent имеет смысл в основном когда границы security или compliance, multi-team ownership знаний или запланированный multi-domain рост **требуют** разделения; иначе сначала прототипируйте single-agent ([Microsoft Cloud Adoption Framework: single vs multi-agent](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
 
-## Как помогает Dali
+## Сравнительная таблица: single vs single + tools vs multi-agent
 
-Dali начинает с одного production path и gates. См. [solutions](/ru/solutions) и [когда не стоит использовать AI-агентов](/ru/blog/when-not-to-use-ai-agents).
+Как читать эту таблицу для ops-пилота: оптимизируйте то, что одна команда может оценить, согласовать и держать на on-call - не число агентов на схеме архитектуры.
+
+| Измерение | Один агент | Один агент + tools | Multi-agent граф |
+| --- | --- | --- | --- |
+| Стоимость / токены | Самая низкая для узкого Q&A | Умеренная; растёт с tool loops | Самая высокая; часто умножает токены относительно одного агента |
+| Задержка | Обычно самая низкая | Доминируют tool round-trips | Стыки и parallel fan-out добавляют время координации |
+| Отладка | Один trace, один prompt stack | Один агент плюс tool logs | Размазана по агентам, contracts и threads |
+| Границы безопасности | Один permission set (сложнее least-privilege) | Всё ещё один агент; scopes tools аккуратно | Лучшая isolation, если роли и credentials реально разделены |
+| Параллельная работа | Слабо для breadth | Последовательный tool use, если tools сами не parallelize | Сильно, когда подзадачи независимы |
+| Ответственность / on-call | Один путь, один владелец | Всё ещё один владелец, если gates ясны | Нужен владелец **всего графа**, не каждого агента |
+| Поверхность eval | Один путь acceptance test | Успех tools + качество исхода | Eval по ролям плюс end-to-end eval графа |
+
+Production-разборы бьют в те же оси - сложность, отладка, стоимость и нужна ли жёсткая isolation или specialization ([Redis comparison framing](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+## Экономика токенов и эксплуатации (с атрибуцией)
+
+Стоимость токенов - не замер Dali; используйте цифры вендоров как ограниченные наблюдения, а не универсальные законы.
+
+Engineering-пост Anthropic про их multi-agent research system сообщает, что multi-agent setup с Claude Opus 4 как lead и Claude Sonnet 4 subagents **обошёл single-agent Opus 4 на 90.2% на их internal research evaluation**.
+По их данным, agents обычно тратили около **4x** tokens vs chat interactions, а multi-agent systems около **15x** tokens vs chats.
+Они также отмечают, что multi-agent systems нуждаются в task value, достаточно высокой, чтобы окупить прирост performance, и что домены с shared context или тяжёлой real-time coordination (многие coding tasks) сегодня плохо подходят ([Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)).
+
+Product guidance Claude сообщает, что multi-agent implementations **обычно используют около 3-10x больше tokens**, чем single-agent approaches для эквивалентных задач, из-за duplicated context, coordination messages и handoff summaries ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+Экономическая рамка LangChain согласуется: ценность задачи должна покрывать стоимость токенов; стройте multi-agent, когда parallelization, pressure на large context и сложные tool surfaces оправдывают spend ([LangChain: how and when to build multi-agent systems](https://www.langchain.com/blog/how-and-when-to-build-multi-agent-systems)).
+
+**Операционное правило:** платите multi-agent tax только когда бизнес-ценность исхода покрывает токены, задержку и людей, которые будут владеть инцидентами.
+
+## Цена multi-agent theater (топология и ответственность)
+
+**Multi-agent theater** - граф, удобный для демо, который ломается на тикетах в понедельник: много агентов, слабые contracts, нет единого on-call владельца пути.
+
+Цены топологии и ответственности, которые должны убить или отложить multi-agent design:
+
+- **Передача и потеря state** - на каждой границе можно уронить constraints, priorities или partial results («испорченный телефон» между ролями).
+- **Фрагментация eval** - нужны проверки per-agent и full-graph acceptance test; команды часто не выкатывают ни то, ни другое.
+- **Неясная ответственность** - когда ушла плохая CRM-запись, вопрос «какой агент?» неправильный; кто-то должен владеть графом.
+- **Размытие прав** - один общий bag credentials у «specialists» стирает security-причину multi-agent.
+- **Дублирование работы** - workers повторно ищут одни и те же источники без ясных task boundaries (провал, который Anthropic отмечал при слишком vague lead instructions).
+- **Упрощения verifier** - отраслевые гайды предупреждают, что verification subagents могут объявить преждевременную победу после неполных проверок; используйте их только с конкретными критериями ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+Это риски ответственности на этапе решения, а не полная taxonomy production-провалов.
+Для более широкого проектирования против ошибочных tool writes, отсутствующих gates и silent drift см. [режимы отказа production AI-агентов](/ru/blog/production-agent-failure-modes).
+Для проектирования согласования на одном пути см. [human-in-the-loop ИИ-агенты](/ru/blog/human-in-the-loop-ai-agents-explained).
+
+## Чеклист решения: пять вопросов
+
+Ответьте на них, прежде чем добавлять второго агента.
+
+1. **Подзадачи действительно параллелизуемы?** Если каждый шаг нуждается в полном prior context, граф в основном добавляет потери на стыках.
+2. **Отдельные привилегии реально требуют isolation?** Если один service account всё ещё может всё, multi-agent - маскарад, не security.
+3. **Один агент загрязнит context bulk intermediate data?** Если да, focused worker, который возвращает короткий summary, может помочь.
+4. **У каждой роли свой eval и acceptance criteria?** Если success per role нельзя определить, граф вы не прооперируете.
+5. **Один человек может владеть full graph on-call?** Если ответственность - «the agents», multi-agent в production не выкатывайте.
+
+Если большинство ответов - нет, оставайтесь на single-agent с tools и gates.
+
+## Архитектурные паттерны для ops (кратко)
+
+Называйте pattern только когда он соответствует ops-нужде - не как каталог фреймворков для шопинга.
+
+1. **Router (очереди)** - классифицировать входящий ticket или lead и отправить на нужный policy- или tool-path без полной multi-agent conversation.
+2. **Последовательная передача (согласования)** - стадийная работа, где следующая роль или модель открывается только после gate (human или system) на fixed contract.
+3. **Параллельные workers (breadth research)** - fan out независимых lookups или sources, затем synthesize под одним владельцем.
+4. **Verifier subagent (optional)** - отдельный checker для black-box validation, когда criteria explicit и complete, а не формальная галочка без проверки.
+
+LangChain документирует связанные семейства паттернов (subagents, handoffs, router и lighter «skills» composition) и всё равно открывает так: многие задачи лучше как single agent ([LangChain multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+Выберите один pattern, который совпадает с вашей моделью ответственности; не ставьте каталог frameworks, чтобы «чувствовать себя production-ready».
+
+## Практическое правило: сначала карта, потом топология
+
+Если вы не можете нарисовать процесс на одной странице с одним acceptance test, multi-agent design вас не спасёт.
+Сначала картируйте шаги, системы учёта, стоимость сбоя и human gates - потом выбирайте топологию ([как картировать workflow перед AI-агентами](/ru/blog/map-workflows-for-ai-agents)).
+
+Базовый путь:
+
+1. Прототипируйте **одного gated-агента** на одном стандартном пути.
+2. Измеряйте tool errors, human overrides и end-to-end качество завершения.
+3. Дробите только когда границы security или compliance, multi-team ownership или реальная параллельная ширина вынуждают - в духе enterprise-критерия «multi only when mandated» ([Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+4. Даже после split держите одну систему учёта для writes и одного владельца согласования.
+
+## Как подходит к этому Dali
+
+Dali начинает с одного production-пути и gates, а не multi-agent theater.
+Мы картируем процесс, определяем acceptance tests и расширяем топологию только когда privileges, parallel work или границы ответственности этого требуют.
+См. [решения](/ru/solutions) для путей engagement и [когда не стоит использовать AI-агентов](/ru/blog/when-not-to-use-ai-agents), если процесс вообще не готов к агентам.
+Если вы ещё выбираете, кто строит (студия vs внутренняя команда), см. [AI-агентство vs своя команда](/ru/blog/ai-agent-agency-vs-in-house).
 
 ## FAQ
 
-### LangChain или CrewAI обязывают multi-agent?
-Нет. Используйте их как libraries, когда они уменьшают glue code - не как требование для каждого pilot.
+### LangChain, CrewAI или LangGraph обязывают multi-agent?
+
+Нет.
+Используйте их как libraries, когда они уменьшают glue code - не как требование для каждого pilot.
+Один tool-using агент может жить в этих ecosystems без multi-agent graph.
 
 ### Нужен ли planner agent?
-Только если planning - реальная стадия со своим eval. Многие ops-агенты - deterministic routers плюс LLM для языка.
+
+Только если planning - реальная стадия со своим eval и contract.
+Многие ops-агенты - deterministic routers плюс LLM для языка, с людьми на необратимых действиях.
 
 ### Могут sales и support делить одного агента?
-Лучше отдельные pilots и policies. Shared agents размывают permissions и knowledge.
 
+Лучше отдельные pilots и policies.
+Общие агенты размывают permissions, knowledge bases и accountability, когда уходит неверное сообщение клиенту.
 
-<!-- covers GPT questions: 1,3,4,8,9,10 -->
+### Multi-agent всегда лучше single agent?
+
+Нет.
+Primary vendor guidance и enterprise docs оба трактуют multi-agent как situational: полезен для parallel breadth, context isolation или hard boundaries, дорог по tokens и operations в остальных случаях ([Anthropic research system](https://www.anthropic.com/engineering/multi-agent-research-system); [Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them); [Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+
+### Что такое multi-agent orchestration в production-терминах?
+
+Это контролируемый способ, которым агенты координируются: кто планирует, кто исполняет, как возвращаются results и где люди согласуют.
+В product docs это часто значит coordinator с isolated worker threads или sessions, а не один длинный shared chat ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
+Orchestration без владельца - всё ещё theater.
+
+### Когда single agent ломается достаточно жёстко, чтобы оправдать split?
+
+Когда вы упёрлись в доказанные пределы: загрязнение context, которое не лечит better retrieval или summarization, действительно параллельная независимая работа, или границы security и org, которые запрещают один permission set.
+Даже тогда сначала прототипируйте single path, если только эти boundaries не mandate multi-agent с day one.
+
+## Следующий шаг
+
+Картируйте один процесс с одним acceptance test.
+Начинайте single-agent, пока privileges или parallel work не вынудят граф, которым вы можете владеть on-call.
+Поговорите с Dali про gated production-путь на [решениях](/ru/solutions) или читайте [когда не стоит использовать AI-агентов](/ru/blog/when-not-to-use-ai-agents), если процесс не готов.

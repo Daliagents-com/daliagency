@@ -28,10 +28,10 @@ export function buildBlogPostJsonLd(input: {
 
   const personAuthor = {
     "@type": "Person",
-    "@id": `${siteUrl}/#david-hakobyan`,
+    "@id": `${siteUrl}/about#david-hakobyan`,
     name: "David Hakobyan",
     jobTitle: "Founder",
-    url: "https://www.linkedin.com/in/davidhakobyan/",
+    url: `${siteUrl}/about#david-hakobyan`,
     sameAs: ["https://www.linkedin.com/in/davidhakobyan/"],
     worksFor: {
       "@type": "Organization",
@@ -46,6 +46,7 @@ export function buildBlogPostJsonLd(input: {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
+    dateModified: post.updated ?? post.date,
     author: personAuthor,
     publisher: {
       "@type": "Organization",

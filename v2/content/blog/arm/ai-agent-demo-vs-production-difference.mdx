@@ -1,47 +1,182 @@
 ---
-slug: "ai-agent-demo-vs-production-difference"
-title: "AI agent demo vs production. իրական տարբերությունը"
-description: "Հստակ contrast AI agent demo-ների և production համակարգերի միջև. tools, permissions, gates, evaluation և failure handling։"
-date: "2026-07-31"
-locale: "arm"
-hreflangGroup: "ai-agent-demo-vs-production-difference"
-keywords: ["AI agent demo vs production", "production ready AI agent", "chatbot demo vs agent system"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: ai-agent-demo-vs-production-difference
+title: AI agent demo vs production. իրական տարբերությունը
+description: Հստակ հակադրություն AI agent demo-ների և production համակարգերի միջև.
+  tools, permissions, gates, evaluation, failure handling և buyer test, որ vendor-ները
+  չեն անցնում։
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: arm
+hreflangGroup: ai-agent-demo-vs-production-difference
+keywords:
+- AI agent demo vs production
+- production ready AI agent
+- chatbot demo vs agent system
+- AI agent demo և production
+- production-ready AI agent
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/ai-agent-demo-vs-production-difference/hero.jpg
+heroAlt: Փխրուն, բեմադրված AI agent demo՝ հակադրված production համակարգի հետ, որը
+  ունի tools, gates, observability, exceptions և մարդ owner
+ogImage: /blog/ai-agent-demo-vs-production-difference/og.jpg
 ---
 
-## Ուղիղ պատասխան
+Demo-ն տպավորում է meeting-ում։
+Production-ը գոյատևում է վատ input-ների, limited permissions-ի, human gates-ի և երկուշաբթի առավոտվա exceptions-ի միջով։
+Տարբերությունը «chat UI-ի ավելի շատ polish» չէ։
+Այն այն է, թե արդյոք համակարգը դեռ ճիշտ է վարվում ձեր constraints-ի ներքո, երբ ոչ ոք prompt-ները չի բեմադրում։
 
-Demo-ն տպավորում է meeting-ում։ Production-ը գոյատևում է վատ inputs-ի, limited permissions-ի, human gates-ի և Monday morning exceptions-ի միջով։ Գնեք production design, ոչ demo polish։
+Այդ պնդման հետևում կանգնած ամբողջ control set-ի համար սկսեք [production AI agent-ի սահմանումից և architecture-ից](/arm/blog/what-is-a-production-ai-agent)։
+Գնեք production design, ոչ demo polish։
 
-## Demo checklist
+## Demo vs production մի հայացքով
 
-Scripted prompts։ Broad credentials։ Logs չկան։ Owner չկա։
+![AI գործակալի նեղ demo ուղին՝ համեմատած production ուղու հետ, որն ունի վերահսկիչներ, դիտարկելիություն, այլընտրանքային երթուղիներ և վերականգնում](/blog/ai-agent-demo-vs-production-difference/demo-to-production-path.svg)
 
-## Production checklist
+*Հայեցակարգային սխեմա. demo-ն ապացուցում է մեկ հղկված ուղի, իսկ production readiness-ը ավելացնում է վերահսկիչներ, դիտարկելիություն, խափանման ճյուղեր և վերականգնում։*
 
-Real tool scopes։ Failure modes։ Approvals։ Metrics։ Kill switch։ Docs։
+Օգտագործեք այս աղյուսակը, երբ դիտում եք vendor demo կամ վերանայում եք ներքին prototype։
+Այն համադրում է սովորական demo shortcuts-ը այն controls-ին, որոնք production-ին իրականում պետք են։
 
-## Ինչպես են vendor-ները մշուշում սահմանը
+| Չափում | Demo | Production |
+| --- | --- | --- |
+| Input-ներ | Scripted, մաքուր prompt-ներ և happy-path ticket-ներ | Իրական, խառը, թերի և adversarial input-ներ |
+| Permissions / tools | Լայն credentials (հիմնադրի key-եր, admin OAuth) | Least-privilege scope-եր՝ յուրաքանչյուր tool-ի և environment-ի համար |
+| Human gates | Չկան, կամ «approval-ը հետո կավելացնենք» | Approvals անշրջելի գործողությունների վրա (ուղարկել, վճարել, record-ներ փոխել) |
+| Logs / observability | Console output կամ logs չկան | Վերակառուցելի traces. decisions, tools, cost, outcomes |
+| Evaluation | «Լավ է երևում զանգի ժամանակ» | Eval suite go-live-ից առաջ և ամեն model/prompt փոփոխությունից հետո |
+| Failure / cost | Կանգնում է կամ կույրորեն կրկնում է. budget պատմություն չկա | Հայտնի failure mode-եր, fallback-ներ և spend limit-ներ |
+| Ownership / kill switch | Անվանված owner չկա. docs չկան | Անվանված owner, ops metrics, runbook, docs և իրական kill switch |
 
-Demo-ն host են անում ձեր logo theme-ով առանց ձեր constraints-ի։
+*Նշում: Որոշման աղյուսակ AI agent demo հատկությունների և production controls-ի համար։
+Եթե production կողմում տողը դատարկ է, դուք դեռ demo եք նայում։*
 
-## Buyer test
+## Ինչու են demo-ները աշխատում, իսկ production-ը՝ ձախողվում
 
-Խնդրեք replay անել անցյալ ամսվա messy tickets, ոչ clean sample։
+Demo-ները օպտիմիզացված են meeting success-ի համար։
+Ինչ-որ մեկը ընտրում է բարեկամական ticket-ներ, լայն API key-եր և ուղի, որն արդեն լավ է մշակում մոդելը։
+Սենյակը ծափահարում է, որովհետև script-ը աշխատում է։
+
+Production-ը ձախողվում է հակառակ պատճառներով։
+Input-ները չեն ընտրված. տառասխալներ, բացակայող դաշտեր, զայրացած հաճախորդներ, թերի CRM record-ներ և edge case-եր, որոնք ոչ ոք չի փորձարկել։
+Credentials-ը պետք է նեղ լինեն, որպեսզի մեկ tool error-ը չկարողանա ջնջել կամ բացահայտել ավելին, քան պետք է։
+Multi-step agent-ները նաև բազմապատկում են սխալները. յուրաքանչյուր թույլ քայլ բազմապատկում է ռիսկը tool call-երի միջով, և հենց դրա համար է Anthropic-ը խորհուրդ տալիս պարզ composable pattern-ներ, ընդարձակ թեստավորում sandboxed environment-ներում և guardrail-ներ՝ նախքան բաց autonomy-ի վրա հենվելը ([Building effective agents](https://www.anthropic.com/research/building-effective-agents))։
+
+Եզրակացություն. demo-ն, որն աշխատում է միայն happy path-ի վրա, սպասելի է։
+Այդ ուղին «production ready» անվանելը հենց ձախողումն է։
+
+## Chatbot demo vs agent system
+
+Նեղ Q&A chatbot-ը կարող է production-ready լինել ավելի փոքր blast radius-ով։
+Այն պատասխանում է knowledge base-ից, փոխանցում է մարդուն և չի վերագրում ձեր systems of record-ը։
+
+Agent demo tools-ով այլ ռիսկի դաս է։
+Այն կարող է ստեղծել ticket-ներ, թարմացնել CRM դաշտեր, ուղարկել հաղորդագրություններ կամ գործարկել workflow-ներ։
+Հենց սա է chatbot-demo vs agent-system տարբերությունը, որ կարևոր է գնորդների համար. նույն meeting polish-ը, շատ ավելի բարձր հետևանք, երբ permissions-ը իրական են։
+
+Եթե demo-ն միայն չաթում է, գնահատեք այն որպես support surface։
+Եթե demo-ն գործում է, գնահատեք այն որպես համակարգ, որը սխալվելու դեպքում կարող է վնասել մարդկանց և տվյալները։
+
+## Ինչպես են vendor-ները մշուշում սահմանը (agent washing)
+
+Vendor-ները հաճախ ցուցադրում են demo-ն ձեր logo theme-ով, ձեր գույներով և ձեր FAQ-ի նմուշով։
+Դա branding է, ոչ production։
+
+Արդյունաբերական և agency տեքստերում սա երբեմն անվանում են **agent washing**. polished demo-ն ներկայացնել որպես production՝ առանց evaluation-ի, observability-ի, least-privilege tools-ի, failure handling-ի կամ runbook-ի։
+Պարզ տարբերակ. demo ձեր branding-ով, բայց առանց ձեր constraints-ի, դեռ demo է։
+
+Հետևեք այս pattern-ներին.
+
+- Credentials-ը «temporary admin» են, որոնք երբեք չեն նեղացվում scope-ով։
+- Failure-ները մերժվում են որպես «retries-ը phase two-ում կավելացնենք»։
+- Logs-ը կանգնում են chat transcript-ի վրա. tool call-երն ու cost-ը անտեսանելի են։
+- Pilot-ի ավարտից հետո անվանված owner չկա։
+- Միակ «eval»-ը sales call-ից կանաչ checkmark-ներով slide է։
+
+Եթե այդ constraints-ը բացակայում են, դուք գնել եք թատրոն՝ deployment date-ով կցված։
+
+## Buyer tests. հարցեր, որոնք մաքրում են demo-ն
+
+Մի ընդունեք մաքուր sample-ը որպես ապացույց։
+Վարեք test-եր, որ vendor-ը կամ ներքին թիմը հինգ րոպեում չի կարող բեմադրել։
+
+1. **Վերարտադրեք անցյալ ամսվա messy ticket-ները** - ոչ golden path։
+   Ընտրեք իրական exceptions. refunds, policy edge case-եր, թերի data, զայրացած տոն։
+2. **Ցույց տվեք permission scope-երը** - որ tools, որ environment-ներ, least privilege թե admin։
+3. **Kill switch drill** - ով է կանգնեցնում agent-ը mid-run, և որքան է տևում։
+4. **Eval suite-ի գոյություն** - case-եր, pass bar-եր և ինչ է վազում prompt-ի կամ model-ի փոփոխությունից հետո։
+   Տես [ինչպես գնահատել AI agents-ը go-live-ից առաջ](/arm/blog/how-to-evaluate-ai-agents-before-go-live)։
+5. **Վերջին incident-ը կամ failure log-ը** - ինչ է կոտրվել, ինչ արեց agent-ը, ով նկատեց։
+6. **Runbook owner** - անվանված մարդ review queue-ի, on-call-ի և post-incident notes-ի համար։
+7. **Tool failure և budget limit** - ինչ է լինում, երբ API-ն timeout է լինում կամ spend-ը հասնում է cap-ի։
+
+*Ստուգաթերթի նպատակ. buyer հարցեր՝ ստուգելու, թե արդյոք AI agent demo-ն production-ready է։
+Եթե պատասխանները անորոշ են, դուք դեռ demo mode-ում եք։*
+
+## Production signal-ներ, որ արժե պահանջել
+
+Platform whitepaper պետք չէ՝ այս signal-ները պահանջելու համար։
+Դրանք պետք են նախքան հաճախորդի data-ն կամ փողը agent-ի միջով անցնի։
+
+- **Human gates և oversight։** Անշրջելի գործողություններին պետք են approval ուղիներ, ոչ հույս։
+  OpenAI-ի practices-ը agentic systems-ի կառավարման համար շեշտում է accountability-ն և human approval-ը նշանակալի որոշումների համար ([Practices for governing agentic AI systems](https://openai.com/index/practices-for-governing-agentic-ai-systems/))։
+  Gates-ի գործնական design. [human-in-the-loop AI գործակալներ բացատրված](/arm/blog/human-in-the-loop-ai-agents-explained)։
+- **Trajectory-aware evaluation։** Գնահատեք ուղին (tool choice, recovery, clarifying questions), ոչ միայն վերջնական պատասխանը։
+  Google Cloud-ը agent evaluation-ը շրջանակում է ամբողջ trajectory-ների և staged rollout-ի շուրջ՝ sandbox-ից canary, հետո production ([A developer's guide to production-ready AI agents](https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents); [Agent Quality](https://www.kaggle.com/whitepaper-agent-quality))։
+- **Least-privilege tools։** Scoped credentials և authenticated tool access-ը հաղթում են հիմնադրի API key-երին։
+- **Security prompt injection-ի և հարակից LLM ռիսկերի դեմ։** Tool-using agent-ները ժառանգում են OWASP Top 10 for LLM applications-ում կատալոգավորված ռիսկերը, ներառյալ prompt injection-ը և excessive agency-ն ([OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/))։
+- **Staged deploy mindset։** Sandbox ներքին test-եր, canary limited traffic, հետո ավելի լայն production։
+  Ամբողջ architecture խորությունը գտնվում է [production AI agent-ի սահմանման](/arm/blog/what-is-a-production-ai-agent) նյութում, ոչ այստեղ։
+- **Observable failures։** Երբ ինչ-որ բան կոտրվում է, պետք են logs և traces, ոչ հիշողություն։
+  Կապված կլաստերի նյութեր. [production գործակալի ձախողման ռեժիմներ](/arm/blog/production-agent-failure-modes) և [գործակալի դիտարկելիություն. logs և traces](/arm/blog/agent-observability-logs-traces)։
+
+Hybrid pattern-ները տարածված են production-ում. deterministic controls և policy փողի ու compliance քայլերի համար, LLM judgment այնտեղ, որտեղ լեզուն և routing-ը պահանջում են ճկունություն։
+Դա design recommendation է, ոչ ունիվերսալ օրենք - և համընկնում է Anthropic-ի մոտեցման հետ. սկսել պարզից և agent autonomy ավելացնել միայն երբ ավելի պարզ workflow-ները բավարար չեն ([Building effective agents](https://www.anthropic.com/research/building-effective-agents))։
 
 ## Ինչպես է Dali-ն տեղավորվում
 
-Dali-ն ship է անում production path-եր. [solutions](/arm/solutions)։
+Dali-ն առաքում է production ուղիներ. discovery, scoped tools, human gates, evals և ownership handoff-ից հետո - ոչ demo polish, վաճառված որպես go-live։
+Եթե ունեք prototype, որին production design է պետք, տես [լուծումները](/arm/solutions) կամ սկսեք խոսակցություն site CTA-ից։
+
+Մենք այս էջի համար case study չենք հորինի։
+Test-ը նույնն է, ինչ խորհուրդ ենք տալիս վարել ցանկացած vendor-ի վրա. messy ticket-ներ, իրական scope-եր, kill switch, evals, logs։
 
 ## FAQ
 
 ### Կարո՞ղ է demo-ն դառնալ production։
-Միայն gates-ի, permissions-ի և evals-ի redesign-ից հետո։
+
+Այո, բայց միայն gates-ի, permissions-ի և evals-ի redesign-ից հետո - ոչ UI reskin-ից կամ logo swap-ից հետո։
+Մոդելը կարող է մնալ. tools-ի, approvals-ի, observability-ի և ownership-ի շուրջ wrapper-ը սովորաբար պետք է փոխվի։
 
 ### UI polish-ը production signal է՞։
-Թույլ։ Ops design-ն ավելի ուժեղ է։
 
-### Related
-[Ի՞նչ է production AI agent-ը։](/arm/blog/what-is-a-production-ai-agent)։
+Թույլ։
+Ops design-ն ավելի ուժեղ է. scoped tools, failure handling, metrics, kill switch և անվանված owner-ը հաղթում են գեղեցիկ chat shell-ին։
+
+### Ի՞նչ հարցնել vendor-ին live demo-ի ժամանակ։
+
+Սկսեք անցյալ ամսվա messy ticket-ներով։
+Հետո հարցրեք permission scope-երի, kill switch drill-ի, eval suite-ի, վերջին failure log-ի, runbook owner-ի և tool failure-ի կամ budget limit-ի վարքի մասին։
+Եթե հրաժարվում են իրական ticket-ներից, demo-ն վերաբերվեք միայն որպես sales content։
+
+### Chatbot demo-ն նույն ռիսկն ունի՞, ինչ agent demo-ն tools-ով։
+
+Ոչ։
+Նեղ Q&A-ն ունի ավելի փոքր blast radius։
+Tool-using agent-ները կարող են փոխել record-ներ, ծախսել budget և ուղարկել customer-facing հաղորդագրություններ - ուստի production controls-ն ավելի կարևոր են։
+
+### Ինչպե՞ս իմանալ, թե rewrite է պետք, թե harden-in-place։
+
+Եթե demo-ն արդեն ունի scoped tools, logs, evals և հստակ gates, կարող եք ամրացնել տեղում։
+Եթե դա prompt է գումարած լայն credentials և owner չկա, պլանավորեք production wrapper-ի rewrite։
+Scope-ն ու ռիսկը որոշում են ջանքը. «demo vs production աշխատանքի» ազնիվ ունիվերսալ տոկոս չկա։
+
+## Կապված
+
+- [Ի՞նչ է production AI agent-ը։](/arm/blog/what-is-a-production-ai-agent)
+- [Ինչպես գնահատել AI agents-ը go-live-ից առաջ](/arm/blog/how-to-evaluate-ai-agents-before-go-live)
+- [Human-in-the-loop AI գործակալներ բացատրված](/arm/blog/human-in-the-loop-ai-agents-explained)
+- [Production գործակալի ձախողման ռեժիմներ](/arm/blog/production-agent-failure-modes)
+- [Գործակալի դիտարկելիություն. logs և traces](/arm/blog/agent-observability-logs-traces)

@@ -6,6 +6,7 @@ export type BlogCopy = {
   lead: string;
   empty: string;
   minRead: string;
+  updated: string;
   readMore: string;
   backToBlog: string;
   moreArticles: string;
@@ -28,6 +29,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     lead: "Comparisons, tutorials, and field notes from building production agent systems and AI visibility.",
     empty: "No published posts in this language yet.",
     minRead: "min read",
+    updated: "Updated",
     readMore: "Read article",
     backToBlog: "Blog",
     moreArticles: "Related articles",
@@ -39,7 +41,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     ctaTitle: "Map agents to your real workflows",
     ctaBody:
       "We audit how your team works, define where agents belong, and design implementation with human controls.",
-    ctaButton: "Start audit",
+    ctaButton: "Book audit",
     ctaSecondary: "See solutions",
     metaTitle: "Blog | Dali",
     metaDescription:
@@ -51,6 +53,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     lead: "Сравнения, туториалы и заметки о продакшен-агентах и AI-видимости от студии Dali.",
     empty: "Пока нет опубликованных материалов на этом языке.",
     minRead: "мин чтения",
+    updated: "Обновлено",
     readMore: "Читать",
     backToBlog: "Блог",
     moreArticles: "Связанные статьи",
@@ -62,7 +65,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     ctaTitle: "Свяжем агентов с вашими процессами",
     ctaBody:
       "Аудит реальных workflow, точки для агентов и внедрение с human controls.",
-    ctaButton: "Начать аудит",
+    ctaButton: "Записаться на аудит",
     ctaSecondary: "Решения",
     metaTitle: "Блог | Dali",
     metaDescription:
@@ -74,6 +77,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     lead: "შედარებები, ტუტორიალები და შენიშვნები production agent სისტემებსა და AI ხილვადობაზე Dali-სგან.",
     empty: "ამ ენაზე გამოქვეყნებული პოსტები ჯერ არ არის.",
     minRead: "წთ კითხვა",
+    updated: "განახლებულია",
     readMore: "წაიკითხე",
     backToBlog: "ბლოგი",
     moreArticles: "დაკავშირებული სტატიები",
@@ -85,7 +89,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     ctaTitle: "აგენტები რეალურ workflow-ებზე",
     ctaBody:
       "ვამოწმებთ, როგორ მუშაობს გუნდი, ვადგენთ სად სჭირდება აგენტები და ვქმნით იმპლემენტაციას human control-ებით.",
-    ctaButton: "აუდიტის დაწყება",
+    ctaButton: "აუდიტის დაჯავშნა",
     ctaSecondary: "გადაწყვეტები",
     metaTitle: "ბლოგი | Dali",
     metaDescription:
@@ -97,6 +101,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     lead: "Համեմատություններ, ուսուցումներ և նշումներ production agent համակարգերի ու AI տեսանելիության մասին՝ Dali-ից։",
     empty: "Այս լեզվով հրապարակված գրառումներ դեռ չկան։",
     minRead: "րոպե կարդալու",
+    updated: "Թարմացվել է",
     readMore: "Կարդալ",
     backToBlog: "Բլոգ",
     moreArticles: "Առնչվող հոդվածներ",
@@ -108,7 +113,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     ctaTitle: "Գործակալները՝ ձեր իրական workflow-ներում",
     ctaBody:
       "Ստուգում ենք, թե ինչպես է աշխատում թիմը, որոշում՝ որտեղ են պետք գործակալները, և նախագծում ներդրում human control-ներով։",
-    ctaButton: "Սկսել աուդիտ",
+    ctaButton: "Ամրագրել աուդիտ",
     ctaSecondary: "Լուծումներ",
     metaTitle: "Բլոգ | Dali",
     metaDescription:

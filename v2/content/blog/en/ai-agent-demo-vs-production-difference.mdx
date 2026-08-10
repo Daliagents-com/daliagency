@@ -1,47 +1,179 @@
 ---
-slug: "ai-agent-demo-vs-production-difference"
-title: "AI agent demo vs production: the real difference"
-description: "Clear contrast between AI agent demos and production systems: tools, permissions, gates, evaluation, and failure handling."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "ai-agent-demo-vs-production-difference"
-keywords: ["AI agent demo vs production", "production ready AI agent", "chatbot demo vs agent system"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: ai-agent-demo-vs-production-difference
+title: 'AI agent demo vs production: the real difference'
+description: 'Clear contrast between AI agent demos and production systems: tools,
+  permissions, gates, evaluation, failure handling, and a buyer test vendors fail.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: ai-agent-demo-vs-production-difference
+keywords:
+- AI agent demo vs production
+- production ready AI agent
+- chatbot demo vs agent system
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/ai-agent-demo-vs-production-difference/hero.jpg
+heroAlt: A fragile staged AI agent demo contrasted with a production system that has
+  tools, gates, observability, exceptions, and a human owner
+ogImage: /blog/ai-agent-demo-vs-production-difference/og.jpg
 ---
 
-## Direct answer
+A demo impresses in a meeting.
+Production survives bad inputs, limited permissions, human gates, and Monday morning exceptions.
+The gap is not "more polish on the chat UI."
+It is whether the system still behaves under your constraints when nobody is staging the prompts.
 
-A demo impresses in a meeting. Production survives bad inputs, limited permissions, human gates, and Monday morning exceptions. Buy production design, not demo polish.
+For the full control set behind that claim, start with the [production AI agent definition and architecture](/blog/what-is-a-production-ai-agent).
+Buy production design, not demo polish.
 
-## Demo checklist
+## Demo vs production at a glance
 
-Scripted prompts. Broad credentials. No logs. No owner.
+![A narrow AI agent demo path compared with a production path that includes controls, observation, alternate routes, and recovery](/blog/ai-agent-demo-vs-production-difference/demo-to-production-path.svg)
 
-## Production checklist
+*Conceptual diagram: a demo proves one polished path; production readiness adds controls, observability, failure branches, and recovery.*
 
-Real tool scopes. Failure modes. Approvals. Metrics. Kill switch. Docs.
+Use this table when you watch a vendor demo or review an internal prototype.
+It maps the usual demo shortcuts to the controls production actually needs.
 
-## How vendors blur the line
+| Dimension | Demo | Production |
+| --- | --- | --- |
+| Inputs | Scripted, clean prompts and happy-path tickets | Real, messy, incomplete, and adversarial inputs |
+| Permissions / tools | Broad credentials (founder keys, admin OAuth) | Least-privilege scopes per tool and environment |
+| Human gates | None, or "we can add approval later" | Approvals on irreversible actions (send, pay, change records) |
+| Logs / observability | Console output or no logs | Reconstructable traces: decisions, tools, cost, outcomes |
+| Evaluation | "Looks good in the call" | Eval suite before go-live and after every model/prompt change |
+| Failure / cost | Stops or retries blindly; no budget story | Known failure modes, fallbacks, and spend limits |
+| Ownership / kill switch | No named owner; no docs | Named owner, ops metrics, runbook, docs, and a real kill switch |
 
-Hosting the demo on your logo theme without your constraints.
+*Caption: Decision table for AI agent demo traits versus production controls.
+If a row is empty on the production side, you are still looking at a demo.*
 
-## Buyer test
+## Why demos work and production fails
 
-Ask to replay last month's messy tickets, not a clean sample.
+Demos optimize for meeting success.
+Someone picks friendly tickets, broad API keys, and a path the model already handles well.
+The room applauds because the script works.
+
+Production fails for the opposite reasons.
+Inputs are unpicked: typos, missing fields, angry customers, partial CRM records, and edge cases nobody rehearsed.
+Credentials should be narrow, so a single tool error cannot wipe or expose more than it should.
+Multi-step agents also compound mistakes: each weak step multiplies risk across tool calls, which is why Anthropic recommends simple composable patterns, extensive testing in sandboxed environments, and guardrails before you lean on open-ended autonomy ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
+
+Takeaway: a demo that only works on the happy path is expected.
+Calling that path "production ready" is the failure.
+
+## Chatbot demo vs agent system
+
+A narrow Q&A chatbot can be production-ready with a smaller blast radius.
+It answers from a knowledge base, hands off to a human, and does not rewrite your systems of record.
+
+An agent demo with tools is a different risk class.
+It can create tickets, update CRM fields, send messages, or trigger workflows.
+That is the chatbot-demo vs agent-system distinction that matters for buyers: same meeting polish, much higher consequence when permissions are real.
+
+If the demo only chats, judge it as a support surface.
+If the demo acts, judge it as a system that can hurt people and data when it is wrong.
+
+## How vendors blur the line (agent washing)
+
+Vendors often host the demo on your logo theme, your colors, and a sample of your FAQ.
+That is branding, not production.
+
+Industry and agency writing sometimes call this **agent washing**: shipping a polished demo labeled as production without evaluation, observability, least-privilege tools, failure handling, or a runbook.
+Plain version: a demo on your branding without your constraints is still a demo.
+
+Watch for these patterns:
+
+- Credentials are "temporary admin" that never get scoped down.
+- Failures are waved off as "we will add retries in phase two."
+- Logs stop at chat transcript; tool calls and cost are invisible.
+- There is no named owner after the pilot ends.
+- The only "eval" is a slide with green checkmarks from the sales call.
+
+If those constraints are missing, you bought theater with a deployment date attached.
+
+## Buyer tests: questions that scrub the demo
+
+Do not accept a clean sample as proof.
+Run tests a vendor or internal team cannot stage in five minutes.
+
+1. **Replay last month's messy tickets** - not a golden path.
+   Pick real exceptions: refunds, policy edge cases, incomplete data, angry tone.
+2. **Show permission scopes** - which tools, which environments, least privilege or admin?
+3. **Kill switch drill** - who stops the agent mid-run, and how long does it take?
+4. **Eval suite existence** - cases, pass bars, and what runs after a prompt or model change.
+   See [how to evaluate AI agents before go-live](/blog/how-to-evaluate-ai-agents-before-go-live).
+5. **Last incident or failure log** - what broke, what the agent did, who noticed.
+6. **Runbook owner** - named human for review queue, on-call, and post-incident notes.
+7. **Tool failure and budget limit** - what happens when an API times out or spend hits a cap?
+
+*Checklist intent: buyer questions to test whether an AI agent demo is production-ready.
+If answers are vague, you are still in demo mode.*
+
+## Production signals worth requiring
+
+You do not need a platform whitepaper to demand these signals.
+You do need them before customer data or money moves through the agent.
+
+- **Human gates and oversight.** Irreversible actions need approval paths, not hope.
+  OpenAI's practices for governing agentic systems stress accountability and human approval for significant decisions ([Practices for governing agentic AI systems](https://openai.com/index/practices-for-governing-agentic-ai-systems/)).
+  Practical design for gates: [human-in-the-loop AI agents explained](/blog/human-in-the-loop-ai-agents-explained).
+- **Trajectory-aware evaluation.** Judge the path (tool choice, recovery, clarifying questions), not only the final answer.
+  Google Cloud frames agent evaluation around full trajectories and staged rollout from sandbox to canary to production ([A developer's guide to production-ready AI agents](https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents); [Agent Quality](https://www.kaggle.com/whitepaper-agent-quality)).
+- **Least-privilege tools.** Scoped credentials and authenticated tool access beat founder API keys.
+- **Security against prompt injection and related LLM risks.** Tool-using agents inherit risks catalogued in the OWASP Top 10 for LLM applications, including prompt injection and excessive agency ([OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)).
+- **Staged deploy mindset.** Sandbox internal tests, canary limited traffic, then broader production.
+  Full architecture depth lives on the [production AI agent definition](/blog/what-is-a-production-ai-agent) post, not here.
+- **Observable failures.** When something breaks, you need logs and traces, not memory.
+  Related cluster reads: [production agent failure modes](/blog/production-agent-failure-modes) and [agent observability: logs and traces](/blog/agent-observability-logs-traces).
+
+Hybrid patterns are common in production: deterministic controls and policy for money and compliance steps, LLM judgment where language and routing need flexibility.
+That is a design recommendation, not a universal law - and it aligns with Anthropic's push to start simple and add agent autonomy only when simpler workflows are not enough ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
 
 ## How Dali fits
 
-Dali ships production paths: [solutions](/solutions).
+Dali ships production paths: discovery, scoped tools, human gates, evals, and ownership after handoff - not demo polish sold as go-live.
+If you have a prototype that needs production design, see [solutions](/solutions) or start a conversation from the site CTA.
+
+We will not invent a case study for this page.
+The test is the same one we recommend you run on any vendor: messy tickets, real scopes, kill switch, evals, logs.
 
 ## FAQ
 
 ### Can a demo become production?
-Only after redesign for gates, permissions, and evals.
+
+Yes, but only after redesign for gates, permissions, and evals - not after a UI reskin or a logo swap.
+The model may stay; the wrapper around tools, approvals, observability, and ownership usually must change.
 
 ### Is UI polish a production signal?
-Weakly. Ops design is stronger.
 
-### Related
-[What is a production AI agent?](/blog/what-is-a-production-ai-agent).
+Weakly.
+Ops design is stronger: scoped tools, failure handling, metrics, kill switch, and a named owner beat a beautiful chat shell.
+
+### What should I ask a vendor in a live demo?
+
+Lead with last month's messy tickets.
+Then ask for permission scopes, a kill switch drill, the eval suite, a recent failure log, the runbook owner, and behavior on tool failure or budget limit.
+If they refuse real tickets, treat the demo as sales content only.
+
+### Is a chatbot demo the same risk as an agent demo with tools?
+
+No.
+Narrow Q&A has a smaller blast radius.
+Tool-using agents can change records, spend budget, and send customer-facing messages - so production controls matter more.
+
+### How do I know if we need a rewrite vs harden-in-place?
+
+If the demo already has scoped tools, logs, evals, and clear gates, you may harden in place.
+If it is a prompt plus broad credentials and no owner, plan a rewrite of the production wrapper.
+Scope and risk decide effort; there is no honest universal percentage of "demo vs production work."
+
+## Related
+
+- [What is a production AI agent?](/blog/what-is-a-production-ai-agent)
+- [How to evaluate AI agents before go-live](/blog/how-to-evaluate-ai-agents-before-go-live)
+- [Human-in-the-loop AI agents explained](/blog/human-in-the-loop-ai-agents-explained)
+- [Production agent failure modes](/blog/production-agent-failure-modes)
+- [Agent observability: logs and traces](/blog/agent-observability-logs-traces)

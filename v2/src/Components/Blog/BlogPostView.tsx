@@ -44,6 +44,15 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                   className={`${onestText.className} mb-12 flex flex-wrap items-center gap-10 text-body6 uppercase tracking-[0.08em] text-[var(--muted)]`}
                 >
                   <time dateTime={post.date}>{post.date}</time>
+                  {post.updated ? (
+                    <>
+                      <span aria-hidden>·</span>
+                      <span>
+                        {copy.updated} {" "}
+                        <time dateTime={post.updated}>{post.updated}</time>
+                      </span>
+                    </>
+                  ) : null}
                   <span aria-hidden>·</span>
                   <span>
                     {post.readingMinutes} {copy.minRead}
@@ -75,13 +84,20 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                   <p
                     className={`${onestText.className} mt-10 text-body6 text-[var(--muted)]`}
                   >
+                    <Link
+                      href="/about#david-hakobyan"
+                      className="underline underline-offset-4"
+                    >
+                      David Hakobyan
+                    </Link>
+                    {" · "}
                     <a
                       href="https://www.linkedin.com/in/davidhakobyan/"
                       target="_blank"
                       rel="noreferrer"
                       className="underline underline-offset-4"
                     >
-                      David Hakobyan
+                      LinkedIn
                     </a>
                     {" · "}
                     {post.author}
@@ -103,7 +119,7 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                 </figure>
               )}
 
-              <BlogMarkdown content={body} />
+              <BlogMarkdown content={body} locale={locale} />
 
               {faq.length > 0 ? (
                 <BlogFaq title={faqTitle || "FAQ"} items={faq} />

@@ -9,6 +9,7 @@ export type BlogPostMeta = {
   title: string;
   description: string;
   date: string;
+  updated?: string;
   locale: Locale;
   hreflangGroup: string;
   keywords: string[];

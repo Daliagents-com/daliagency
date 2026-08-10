@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Closed production readiness loop for a business AI agent</title>
+  <desc id="desc">Six numbered checkpoints form a continuous loop around a pause control: tools, permissions, approval gates, evaluation, observability, and named ownership.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#246BFD"/></marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity=".14"/></filter>
+    <style>
+      .node{fill:#fff;stroke:#D6DCE8;stroke-width:2;filter:url(#shadow)}
+      .num{font:750 25px Inter,Arial,sans-serif;fill:#fff;text-anchor:middle}
+      .flow{fill:none;stroke:#246BFD;stroke-width:4;marker-end:url(#arrow)}
+      .icon{fill:none;stroke:#111827;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="1200" height="640" rx="28" fill="#F4F6FA"/>
+  <path class="flow" d="M344 172Q470 98 566 142"/>
+  <path class="flow" d="M714 142Q824 106 896 196"/>
+  <path class="flow" d="M944 292Q978 390 884 450"/>
+  <path class="flow" d="M770 504Q640 554 548 500"/>
+  <path class="flow" d="M404 492Q276 518 226 414"/>
+  <path class="flow" d="M204 304Q204 204 292 174"/>
+
+  <g transform="translate(224 106)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#246BFD"/><text class="num" x="70" y="34">1</text><path class="icon" d="M40 63h60M40 82h60M40 101h38"/></g>
+  <g transform="translate(526 80)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#246BFD"/><text class="num" x="70" y="34">2</text><path class="icon" d="M49 70v-13a21 21 0 0142 0v13M43 70h54v40H43z"/></g>
+  <g transform="translate(844 170)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#F06449"/><text class="num" x="70" y="34">3</text><path class="icon" d="M42 82l18 18 40-47"/></g>
+  <g transform="translate(786 418)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#246BFD"/><text class="num" x="70" y="34">4</text><path class="icon" d="M43 86l18 16 37-44M43 58h18M43 112h55"/></g>
+  <g transform="translate(414 418)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#246BFD"/><text class="num" x="70" y="34">5</text><path class="icon" d="M39 105l20-24 18 12 25-42M39 105h65"/></g>
+  <g transform="translate(144 294)"><circle class="node" cx="70" cy="70" r="66"/><circle cx="70" cy="25" r="20" fill="#246BFD"/><text class="num" x="70" y="34">6</text><path class="icon" d="M70 49a22 22 0 110 44 22 22 0 010-44zM35 112c8-18 20-27 35-27s28 9 36 27"/></g>
+
+  <g transform="translate(478 240)" filter="url(#shadow)">
+    <rect width="244" height="146" rx="28" fill="#111827"/>
+    <circle cx="122" cy="58" r="30" fill="#F06449"/>
+    <rect x="110" y="42" width="8" height="32" rx="4" fill="#fff"/>
+    <rect x="126" y="42" width="8" height="32" rx="4" fill="#fff"/>
+    <path d="M67 112h110" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

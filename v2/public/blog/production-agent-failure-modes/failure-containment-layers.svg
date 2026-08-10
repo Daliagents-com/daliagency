@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Layered containment around a production AI agent</title>
+  <desc id="desc">An agent and its tools are surrounded by contract, permission, observation, pause, and human ownership layers.</desc>
+  <rect width="1600" height="900" rx="44" fill="#f4efe4"/>
+  <g transform="translate(800 450)">
+    <circle r="350" fill="#fffaf0" stroke="#d6cdbd" stroke-width="5"/>
+    <circle r="280" fill="#e9f1ff" stroke="#8dbdff" stroke-width="8"/>
+    <circle r="205" fill="#172235" stroke="#2255d6" stroke-width="10"/>
+    <circle r="120" fill="#101826" stroke="#ff6b4a" stroke-width="10"/>
+    <circle r="54" fill="#2255d6"/>
+    <circle cx="-17" cy="-5" r="8" fill="#fffaf0"/><circle cx="17" cy="-5" r="8" fill="#fffaf0"/>
+    <path d="M-25 23c18 17 32 17 50 0" fill="none" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g fill="#fffaf0" stroke="#ff6b4a" stroke-width="7">
+    <rect x="500" y="380" width="105" height="105" rx="24"/>
+    <rect x="995" y="380" width="105" height="105" rx="24"/>
+    <rect x="745" y="175" width="110" height="95" rx="24"/>
+    <rect x="745" y="630" width="110" height="95" rx="24"/>
+  </g>
+  <g fill="none" stroke="#fffaf0" stroke-width="9" stroke-linecap="round">
+    <path d="M530 412h45M530 436h30M530 460h38"/>
+    <path d="M1025 412h45M1025 436h30M1025 460h38"/>
+    <path d="M777 197v50M823 197v50"/>
+    <circle cx="800" cy="678" r="20"/><path d="M800 658v-18M800 716v-18"/>
+  </g>
+  <g transform="translate(350 120)" fill="none" stroke="#2255d6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 42l48-22 48 22v44c0 42-30 70-48 78C30 156 0 128 0 86z"/><path d="M27 82l15 15 29-34"/>
+  </g>
+  <g transform="translate(1150 120)" fill="none" stroke="#2255d6" stroke-width="10" stroke-linecap="round">
+    <path d="M0 66c35-48 100-48 135 0-35 48-100 48-135 0z"/><circle cx="68" cy="66" r="20"/>
+  </g>
+  <g transform="translate(330 680)" fill="none" stroke="#ff6b4a" stroke-width="10" stroke-linecap="round">
+    <circle cx="55" cy="28" r="26"/><path d="M5 104c8-40 92-40 100 0"/>
+  </g>
+  <g transform="translate(1165 680)" fill="none" stroke="#ff6b4a" stroke-width="10" stroke-linecap="round">
+    <path d="M18 90a58 58 0 1 1 82 15"/><path d="M88 80l13 26-29 5"/>
+  </g>
+  <g stroke="#2255d6" stroke-width="8" stroke-dasharray="14 14" fill="none">
+    <path d="M445 235L575 335M1155 235l-130 100M435 700l135-115M1165 700l-135-115"/>
+  </g>
+</svg>
