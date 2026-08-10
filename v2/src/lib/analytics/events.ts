@@ -5,6 +5,7 @@ export const AnalyticsEvent = {
   ConsultationOpen: "consultation_open",
   ConsultationSubmit: "consultation_submit",
   ConsultationError: "consultation_error",
+  ConsultationBooked: "consultation_booked",
   ChecklistRequest: "checklist_request",
   CtaClick: "cta_click",
   PageSectionView: "page_section_view",

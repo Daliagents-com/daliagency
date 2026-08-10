@@ -1,5 +1,5 @@
 // Purpose: Shared consultation intake types, validation, and delivery helpers.
-// Scope: On-site form only - no third-party booking pages.
+// Scope: On-site intake plus the embedded Cal.com booking step.
 import { daliContactEmail } from "@/lib/contact";
 import type { Locale } from "@/i18n/config";
 
@@ -12,6 +12,7 @@ export type ConsultationInterest =
   | "not-sure";
 
 export type ConsultationPayload = {
+  leadId?: string;
   name: string;
   email: string;
   company?: string;
@@ -24,6 +25,15 @@ export type ConsultationPayload = {
 export type ConsultationCopy = {
   title: string;
   subtitle: string;
+  calendarLabel: string;
+  calendarDescription: string;
+  directMessageTitle: string;
+  loadingCalendar: string;
+  calendarErrorTitle: string;
+  calendarErrorBody: string;
+  openCalendar: string;
+  bookedTitle: string;
+  bookedBody: string;
   name: string;
   email: string;
   company: string;
@@ -43,22 +53,32 @@ export type ConsultationCopy = {
 
 export const consultationCopy: Record<Locale, ConsultationCopy> = {
   en: {
-    title: "Start a free workflow audit",
+    title: "Free workflow audit",
     subtitle:
-      "Tell us about one workflow. We’ll reply with next steps — no external booking link.",
+      "Answer 3 short questions or choose a 30-minute call. Leave with 3 ranked opportunities and a fixed price range.",
+    calendarLabel: "Book a video call",
+    calendarDescription: "30 minutes · Video call · Free",
+    directMessageTitle: "Or message David directly",
+    loadingCalendar: "Loading available times…",
+    calendarErrorTitle: "The calendar did not load",
+    calendarErrorBody: "Open the secure Cal.com booking page to choose a time.",
+    openCalendar: "Choose a time",
+    bookedTitle: "Your workflow audit is booked",
+    bookedBody:
+      "The invite is in your inbox. Bring one recurring workflow and the tools it touches.",
     name: "Name",
     email: "Work email",
     company: "Company",
     companyOptional: "optional",
     interest: "What do you need help with?",
-    message: "Describe the workflow",
+    message: "Tell us about the workflow",
     messagePlaceholder:
       "What repeats every week? Which tools? What must stay human-reviewed?",
-    submit: "Send request",
+    submit: "Send 3 answers",
     submitting: "Sending…",
     successTitle: "Request received",
     successBody:
-      "Thanks — we’ll review your note and get back within one business day.",
+      "Thanks - we’ll review your note within one business day. You can also choose a call time now.",
     close: "Close",
     error: "Something went wrong. Check the fields and try again.",
     required: "Required",
@@ -68,42 +88,64 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
       voice: "Voice Agent",
       "vibe-code-rescue": "Vibe-code Rescue",
       custom: "Custom agent system",
-      "not-sure": "Not sure yet — need advice",
+      "not-sure": "Not sure yet - need advice",
     },
   },
   ru: {
     title: "Бесплатный аудит процесса",
     subtitle:
-      "Опишите один процесс. Ответим со следующими шагами — без внешних ссылок.",
+      "Ответьте на 3 коротких вопроса или выберите 30-минутный созвон. Получите 3 приоритетных процесса и фиксированный диапазон цены.",
+    calendarLabel: "Записаться на видеозвонок",
+    calendarDescription: "30 минут · Видеозвонок · Бесплатно",
+    directMessageTitle: "Или напишите Дэвиду напрямую",
+    loadingCalendar: "Загружаем доступное время…",
+    calendarErrorTitle: "Календарь не загрузился",
+    calendarErrorBody:
+      "Откройте защищенную страницу Cal.com и выберите удобное время.",
+    openCalendar: "Выбрать время",
+    bookedTitle: "Аудит процесса забронирован",
+    bookedBody:
+      "Приглашение уже в почте. Подготовьте один повторяющийся процесс и список связанных инструментов.",
     name: "Имя",
     email: "Рабочий email",
     company: "Компания",
     companyOptional: "необязательно",
     interest: "С чем нужна помощь?",
-    message: "Опишите процесс",
+    message: "Расскажите о процессе",
     messagePlaceholder:
       "Что повторяется каждую неделю? Какие инструменты? Что должно остаться на проверке человека?",
-    submit: "Отправить заявку",
+    submit: "Отправить 3 ответа",
     submitting: "Отправляем…",
     successTitle: "Заявка получена",
     successBody:
-      "Спасибо — посмотрим и ответим в течение одного рабочего дня.",
+      "Спасибо - посмотрим и ответим в течение одного рабочего дня. Сейчас можно сразу выбрать время созвона.",
     close: "Закрыть",
     error: "Не удалось отправить. Проверьте поля и попробуйте снова.",
     required: "Обязательно",
     interests: {
-      "conversation-control": "Управление перепиской (лиды или support)",
-      "ops-knowledge": "Ops и знания (docs или Q&A)",
-      voice: "Voice Agent",
-      "vibe-code-rescue": "Vibe-code Rescue",
-      custom: "Кастомная agent-система",
-      "not-sure": "Пока не уверен — нужен совет",
+      "conversation-control": "Входящие лиды или клиентская поддержка",
+      "ops-knowledge": "Операции или база знаний",
+      voice: "Голосовой агент",
+      "vibe-code-rescue": "Спасение ИИ-продукта",
+      custom: "Система под конкретную задачу",
+      "not-sure": "Пока не уверен - нужен совет",
     },
   },
   ge: {
-    title: "უფასო სამუშაო პროცესის აუდიტი",
+    title: "პროცესის უფასო აუდიტი",
     subtitle:
-      "აღწერეთ ერთი პროცესი. გიპასუხებთ შემდეგი ნაბიჯებით — გარე ბმულების გარეშე.",
+      "30 წუთში: 3 პრიორიტეტული პროცესი, პირველი დანერგვა და ფიქსირებული ფასის დიაპაზონი.",
+    calendarLabel: "ვიდეოზარი",
+    calendarDescription: "30 წუთი · ვიდეოზარი · უფასო",
+    directMessageTitle: "ან პირდაპირ მისწერეთ დავითს",
+    loadingCalendar: "ხელმისაწვდომი დრო იტვირთება…",
+    calendarErrorTitle: "კალენდარი ვერ ჩაიტვირთა",
+    calendarErrorBody:
+      "გახსენით Cal.com-ის დაცული გვერდი და აირჩიეთ მოსახერხებელი დრო.",
+    openCalendar: "კალენდრის გახსნა",
+    bookedTitle: "პროცესის აუდიტი დაჯავშნილია",
+    bookedBody:
+      "მოწვევა უკვე თქვენს ელფოსტაშია. მოამზადეთ ერთი განმეორებადი პროცესი და მასთან დაკავშირებული ინსტრუმენტები.",
     name: "სახელი",
     email: "სამუშაო email",
     company: "კომპანია",
@@ -115,8 +157,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     submit: "გაგზავნა",
     submitting: "იგზავნება…",
     successTitle: "მოთხოვნა მიღებულია",
-    successBody:
-      "მადლობა — გადავხედავთ და გიპასუხებთ ერთ სამუშაო დღეში.",
+    successBody: "მადლობა - გადავხედავთ და გიპასუხებთ ერთ სამუშაო დღეში.",
     close: "დახურვა",
     error: "ვერ გაიგზავნა. შეამოწმეთ ველები და სცადეთ თავიდან.",
     required: "სავალდებულო",
@@ -126,13 +167,23 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
       voice: "Voice Agent",
       "vibe-code-rescue": "Vibe-code Rescue",
       custom: "მორგებული agent სისტემა",
-      "not-sure": "ჯერ არ ვიცი — რჩევა მჭირდება",
+      "not-sure": "ჯერ არ ვიცი - რჩევა მჭირდება",
     },
   },
   arm: {
-    title: "Աշխատանքային գործընթացի անվճար աուդիտ",
+    title: "Գործընթացի անվճար աուդիտ",
     subtitle:
-      "Նկարագրեք մեկ գործընթաց։ Կպատասխանենք հաջորդ քայլերով՝ առանց արտաքին հղումների։",
+      "30 րոպեում՝ 3 առաջնահերթ գործընթաց, առաջին ներդրում և ֆիքսված գնի միջակայք։",
+    calendarLabel: "Տեսազանգ",
+    calendarDescription: "30 րոպե · Տեսազանգ · Անվճար",
+    directMessageTitle: "Կամ ուղիղ գրեք Դավիթին",
+    loadingCalendar: "Բեռնվում են հասանելի ժամերը…",
+    calendarErrorTitle: "Օրացույցը չբեռնվեց",
+    calendarErrorBody: "Բացեք Cal.com-ի անվտանգ էջը և ընտրեք հարմար ժամ։",
+    openCalendar: "Բացել օրացույցը",
+    bookedTitle: "Գործընթացի աուդիտն ամրագրված է",
+    bookedBody:
+      "Հրավերն արդեն ձեր էլփոստում է։ Պատրաստեք մեկ կրկնվող գործընթաց և դրա հետ կապված գործիքների ցանկը։",
     name: "Անուն",
     email: "Աշխատանքային email",
     company: "Ընկերություն",
@@ -145,7 +196,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
     submitting: "Ուղարկվում է…",
     successTitle: "Հայտը ստացվել է",
     successBody:
-      "Շնորհակալություն — կդիտարկենք և կպատասխանենք մեկ աշխատանքային օրվա ընթացքում։",
+      "Շնորհակալություն - կդիտարկենք և կպատասխանենք մեկ աշխատանքային օրվա ընթացքում։",
     close: "Փակել",
     error: "Չհաջողվեց ուղարկել։ Ստուգեք դաշտերը և կրկին փորձեք։",
     required: "Պարտադիր",
@@ -155,7 +206,7 @@ export const consultationCopy: Record<Locale, ConsultationCopy> = {
       voice: "Voice Agent",
       "vibe-code-rescue": "Vibe-code Rescue",
       custom: "Անհատական agent համակարգ",
-      "not-sure": "Դեռ վստահ չեմ — խորհուրդ է պետք",
+      "not-sure": "Դեռ վստահ չեմ - խորհուրդ է պետք",
     },
   },
 };
@@ -175,13 +226,15 @@ export function isConsultationInterest(
   return INTEREST_IDS.includes(value as ConsultationInterest);
 }
 
-export function validateConsultationPayload(raw: unknown): {
-  ok: true;
-  data: ConsultationPayload;
-} | {
-  ok: false;
-  error: string;
-} {
+export function validateConsultationPayload(raw: unknown):
+  | {
+      ok: true;
+      data: ConsultationPayload;
+    }
+  | {
+      ok: false;
+      error: string;
+    } {
   if (!raw || typeof raw !== "object") {
     return { ok: false, error: "Invalid payload" };
   }
@@ -225,6 +278,7 @@ export function formatConsultationEmail(data: ConsultationPayload) {
   return {
     subject: `Consultation request · ${data.name}`,
     text: [
+      data.leadId ? `Lead ID: ${data.leadId}` : null,
       `Name: ${data.name}`,
       `Email: ${data.email}`,
       data.company ? `Company: ${data.company}` : null,
@@ -281,8 +335,7 @@ const autoReplyCopy: Record<Locale, AutoReplyCopy> = {
     subject: "Dali - მოთხოვნა მიღებულია",
     greeting: (name) => `გამარჯობა, ${name},`,
     body: "მადლობა შეტყობინებისთვის. ყველა მოთხოვნას ნამდვილი ადამიანი (David) კითხულობს; გიპასუხებთ ერთი სამუშაო დღის განმავლობაში.",
-    questionsIntro:
-      "დროის დასაზოგად, უპასუხეთ ამ წერილს სამი ფაქტით:",
+    questionsIntro: "დროის დასაზოგად, უპასუხეთ ამ წერილს სამი ფაქტით:",
     questions: [
       "რომელ ინსტრუმენტებს ეხება ეს პროცესი დღეს (CRM, ფოსტა, ცხრილები)?",
       "დაახლოებით რამდენ ერთეულს ამუშავებს კვირაში?",

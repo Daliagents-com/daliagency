@@ -32,10 +32,11 @@ export type HomeCopy = {
     resources: string;
   };
   hero: {
-    lines: string[][];
+    title: string;
+    bridge: string;
+    accent: string;
     lead: string;
-    icp: string;
-    promise: string;
+    primaryCta: string;
     secondaryCta: string;
     scroll: string;
   };
@@ -86,15 +87,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       resources: "Resources",
     },
     hero: {
-      lines: [
-        ["Agent", "systems"],
-        ["for", "your"],
-        ["business"],
-      ],
-      lead: "Production AI agents in the tools your team already uses.",
-      icp: "For service businesses with real inbound volume - and founders with AI-built MVPs that need production hardening.",
-      promise: "One workflow · One acceptance test · Fixed price · You own the code",
-      secondaryCta: "See solutions",
+      title: "A 100× improvement,",
+      bridge: "or we",
+      accent: "don't build it.",
+      lead: "Production AI agents for service businesses, built inside your tools. One written acceptance test - no pass, no pay.",
+      primaryCta: "Book a free audit",
+      secondaryCta: "See the work",
       scroll: "Scroll",
     },
     projects: {
@@ -200,15 +198,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       resources: "Ресурсы",
     },
     hero: {
-      lines: [
-        ["Агентские", "системы"],
-        ["для", "вашего"],
-        ["бизнеса"],
-      ],
-      lead: "Рабочие ИИ-агенты в инструментах, которыми команда уже пользуется.",
-      icp: "Для сервисных бизнесов с потоком входящих - и фаундеров с AI-собранными MVP, которым нужен продакшен.",
-      promise: "Один процесс · Один приёмочный тест · Фиксированная цена · Код ваш",
-      secondaryCta: "Смотреть решения",
+      title: "В 100 раз лучше -",
+      bridge: "или мы",
+      accent: "не берёмся.",
+      lead: "AI-агенты для сервисного бизнеса в ваших инструментах. Один процесс, один письменный тест - не прошёл, не платите.",
+      primaryCta: "Получить бесплатный аудит",
+      secondaryCta: "Смотреть работы",
       scroll: "Листайте",
     },
     projects: {
@@ -314,15 +309,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       resources: "რესურსები",
     },
     hero: {
-      lines: [
-        ["აგენტური", "სისტემები"],
-        ["თქვენი"],
-        ["ბიზნესისთვის"],
-      ],
-      lead: "სამუშაო AI აგენტები იმ ხელსაწყოებში, რომლებსაც გუნდი უკვე იყენებს.",
-      icp: "სერვისული ბიზნესებისთვის დიდი შემომავალი ნაკადით - და დამფუძნებლებისთვის, რომელთა AI-ით აწყობილ MVP-ს პროდაქშენი სჭირდება.",
-      promise: "ერთი პროცესი · ერთი მიღების ტესტი · ფიქსირებული ფასი · კოდი თქვენია",
-      secondaryCta: "იხილეთ გადაწყვეტები",
+      title: "100× გაუმჯობესება,",
+      bridge: "ან საქმეს",
+      accent: "არ ვიწყებთ.",
+      lead: "Production AI აგენტები სერვისული ბიზნესებისთვის. ერთი workflow, ერთი წერილობითი acceptance test - თუ ვერ გაიარა, არ იხდით.",
+      primaryCta: "უფასო აუდიტის დაჯავშნა",
+      secondaryCta: "იხილეთ ნამუშევრები",
       scroll: "გადაახვიეთ",
     },
     projects: {
@@ -426,15 +418,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       resources: "Ռեսուրսներ",
     },
     hero: {
-      lines: [
-        ["Գործակալային", "համակարգեր"],
-        ["ձեր"],
-        ["բիզնեսի", "համար"],
-      ],
-      lead: "Արտադրական AI գործակալներ՝ թիմի արդեն օգտագործվող գործիքներում։",
-      icp: "Սերվիսային բիզնեսների համար՝ մեծ մուտքային հոսքով, և հիմնադիրների համար, որոնց AI-ով հավաքած MVP-ն արտադրական ամրացման կարիք ունի։",
-      promise: "Մեկ գործընթաց · Մեկ ընդունման թեստ · Ֆիքսված գին · Կոդը ձերն է",
-      secondaryCta: "Դիտել լուծումները",
+      title: "100× բարելավում,",
+      bridge: "կամ մենք",
+      accent: "չենք կառուցում։",
+      lead: "Production AI գործակալներ ծառայությունների բիզնեսների համար։ Մեկ workflow, մեկ գրավոր acceptance test - չի անցել, չեք վճարում։",
+      primaryCta: "Ամրագրել անվճար աուդիտ",
+      secondaryCta: "Տեսնել աշխատանքները",
       scroll: "Ոլորեք",
     },
     projects: {
