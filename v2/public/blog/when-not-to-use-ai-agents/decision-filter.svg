@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Decision filter for choosing rules, workflow automation, human work, or an AI agent</title>
+  <desc id="desc">Three decision gates route a task toward a deterministic rule, workflow automation, human ownership, or a controlled AI agent.</desc>
+  <rect width="1600" height="900" rx="44" fill="#101826"/>
+  <g fill="#172235" stroke="#8dbdff" stroke-width="7">
+    <path d="M800 95l120 90-120 90-120-90z"/>
+    <path d="M800 340l120 90-120 90-120-90z"/>
+    <path d="M800 585l120 90-120 90-120-90z"/>
+  </g>
+  <g fill="#fffaf0" font-family="Arial, sans-serif" font-size="42" text-anchor="middle" dominant-baseline="central">
+    <text x="800" y="185">1</text><text x="800" y="430">2</text><text x="800" y="675">3</text>
+  </g>
+  <g stroke="#56a0ff" stroke-width="12" fill="none" stroke-linecap="round">
+    <path d="M800 275v65M800 520v65"/>
+    <path d="M680 185H400v90M920 430h280v90M680 675H400v70M920 675h280v70"/>
+  </g>
+  <g fill="#fffaf0" stroke="#2255d6" stroke-width="7">
+    <rect x="250" y="275" width="300" height="180" rx="34"/>
+    <rect x="1050" y="520" width="300" height="180" rx="34"/>
+    <rect x="250" y="700" width="300" height="140" rx="34"/>
+    <rect x="1050" y="700" width="300" height="140" rx="34"/>
+  </g>
+  <g transform="translate(350 315)" fill="none" stroke="#101826" stroke-width="10">
+    <circle cx="50" cy="50" r="38"/><path d="M50 0v22M50 78v22M0 50h22M78 50h22M15 15l16 16M69 69l16 16M85 15L69 31M31 69L15 85"/>
+  </g>
+  <g transform="translate(1150 555)" fill="none" stroke="#101826" stroke-width="10" stroke-linecap="round">
+    <circle cx="50" cy="22" r="22"/><path d="M10 110c5-50 75-50 80 0"/>
+  </g>
+  <g transform="translate(335 722)" fill="none" stroke="#101826" stroke-width="9" stroke-linecap="round">
+    <circle cx="25" cy="50" r="18"/><circle cx="125" cy="50" r="18"/><path d="M43 50h64"/><path d="M73 30l22 20-22 20"/>
+  </g>
+  <g transform="translate(1155 720)">
+    <circle cx="45" cy="50" r="45" fill="#2255d6"/>
+    <circle cx="145" cy="50" r="24" fill="#ff6b4a"/>
+    <path d="M92 50h25" stroke="#101826" stroke-width="10" stroke-linecap="round"/>
+    <path d="M35 45h20M45 35v20" stroke="#fffaf0" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,47 +1,182 @@
 ---
-slug: "ai-agent-demo-vs-production-difference"
-title: "AI agent demo vs production: რეალური განსხვავება"
-description: "ნათელი კონტრასტი AI agent demos-სა და production სისტემებს შორის: tools, permissions, gates, evaluation და failure handling."
-date: "2026-07-31"
-locale: "ge"
-hreflangGroup: "ai-agent-demo-vs-production-difference"
-keywords: ["AI agent demo vs production", "production ready AI agent", "chatbot demo vs agent სისტემა"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: ai-agent-demo-vs-production-difference
+title: 'AI agent demo vs production: რეალური განსხვავება'
+description: 'ნათელი კონტრასტი AI agent demos-სა და production სისტემებს შორის: tools,
+  permissions, gates, evaluation, failure handling და buyer-ტესტი, რომელზეც vendor-ები
+  ვერ გადიან.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: ge
+hreflangGroup: ai-agent-demo-vs-production-difference
+keywords:
+- AI agent demo vs production
+- production ready AI agent
+- chatbot demo vs agent system
+- AI agent demo vs production განსხვავება
+- production-ready AI agent
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/ai-agent-demo-vs-production-difference/hero.jpg
+heroAlt: მყიფე დადგმული AI agent demo კონტრასტში production სისტემასთან, რომელსაც
+  აქვს tools, gates, observability, exceptions და ადამიანი-owner
+ogImage: /blog/ai-agent-demo-vs-production-difference/og.jpg
 ---
 
-## პირდაპირი პასუხი
+Demo შთაბეჭდილებას ტოვებს meeting-ში.
+Production გადარჩება ცუდ inputs-ს, შეზღუდულ permissions-ს, human gates-სა და ორშაბათის დილის exception-ებს.
+განსხვავება არ არის "კიდევ უფრო მეტი polish chat UI-ზე."
+განსხვავება ისაა, იქცევა თუ არა სისტემა თქვენს constraints-ში, როცა არავინ არ ადგამს მზა prompts-ს.
 
-Demo შთაბეჭდილებას ტოვებს meeting-ში. Production გადარჩება ცუდ inputs-ს, შეზღუდულ permissions-ს, human gates-სა და Monday morning exception-ებს. იყიდეთ production დიზაინი, არა demo polish.
+ამ მტკიცების უკან სრული control-ების ნაკრებისთვის დაიწყეთ [production AI agent-ის განსაზღვრებითა და არქიტექტურით](/ge/blog/what-is-a-production-ai-agent).
+იყიდეთ production დიზაინი, არა demo polish.
 
-## Demo checklist
+## Demo vs production ერთი შეხედვით
 
-Scripted prompts. ფართო credentials. Logs არ არის. Owner არ არის.
+![AI აგენტის ვიწრო demo ბილიკი production ბილიკთან შედარებით, სადაც არის კონტროლები, დაკვირვებადობა, ალტერნატიული მარშრუტები და აღდგენა](/blog/ai-agent-demo-vs-production-difference/demo-to-production-path.svg)
 
-## Production checklist
+*კონცეპტუალური სქემა: demo ამტკიცებს ერთ გაპრიალებულ ბილიკს, production readiness კი ამატებს კონტროლებს, დაკვირვებადობას, ჩავარდნის განშტოებებს და აღდგენას.*
 
-რეალური tool scopes. Failure modes. Approvals. Metrics. Kill switch. Docs.
+გამოიყენეთ ეს ცხრილი, როცა უყურებთ vendor demo-ს ან შიდა პროტოტიპს.
+ის ასახავს ჩვეულ demo shortcuts-ს იმ controls-ზე, რაც production-ს რეალურად სჭირდება.
 
-## როგორ ბუნდოვანებენ vendor-ები საზღვარს
+| განზომილება | Demo | Production |
+| --- | --- | --- |
+| Inputs | Scripted, სუფთა prompts და happy-path tickets | რეალური, არეული, არასრული და adversarial inputs |
+| Permissions / tools | ფართო credentials (founder keys, admin OAuth) | Least-privilege scopes თითოეულ tool-სა და environment-ზე |
+| Human gates | არ არის, ან "approval მოგვიანებით დავამატებთ" | Approvals შეუქცევად ქმედებებზე (send, pay, change records) |
+| Logs / observability | Console output ან logs საერთოდ არ არის | Reconstructable traces: decisions, tools, cost, outcomes |
+| Evaluation | "ზარზე კარგად გამოიყურებოდა" | Eval suite go-live-მდე და ყოველი model/prompt ცვლილების შემდეგ |
+| Failure / cost | ჩერდება ან blindly retries; budget-ის ისტორია არ აქვს | ცნობილი failure modes, fallbacks და spend limits |
+| Ownership / kill switch | Named owner არ არის; docs არ არის | Named owner, ops metrics, runbook, docs და რეალური kill switch |
 
-Demo-ს ჰოსტინგი თქვენი logo theme-ით თქვენი შეზღუდვების გარეშე.
+*წარწერა: გადაწყვეტილების ცხრილი AI agent demo თვისებებისა და production controls-ის კონტრასტისთვის.
+თუ production მხარეს სტრიქონი ცარიელია, ჯერ კიდევ demo-ს უყურებთ.*
 
-## მყიდველის ტესტი
+## რატომ მუშაობს demos და რატომ ვერ მუშაობს production
 
-მოითხოვეთ გასული თვის messy tickets-ის replay, არა სუფთა sample.
+Demos ოპტიმიზებულია meeting-ის წარმატებაზე.
+ვიღაც ირჩევს მოსახერხებელ tickets-ს, ფართო API keys-ს და გზას, რომელსაც model უკვე კარგად აგვარებს.
+ოთახი ტაშს უკრავს, რადგან script მუშაობს.
+
+Production ეცემა საპირისპირო მიზეზებით.
+Inputs არ არის შერჩეული: typos, გამოტოვებული fields, გაბრაზებული კლიენტები, ნაწილობრივი CRM records და edge cases, რომლებიც არავის არ უვარჯიშია.
+Credentials უნდა იყოს ვიწრო, რომ ერთმა tool error-მა ვერ წაშალოს ან გამოააშკარაოს იმაზე მეტი, ვიდრე უნდა.
+Multi-step agents ასევე აძლიერებენ შეცდომებს: თითოეული სუსტი ნაბიჯი ამრავლებს რისკს tool calls-ზე, ამიტომ Anthropic გირჩევთ მარტივ composable patterns-ს, ფართო ტესტირებას sandboxed environments-ში და guardrails-ს, სანამ open-ended autonomy-ზე დაეყრდნობით ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
+
+დასკვნა: demo, რომელიც მხოლოდ happy path-ზე მუშაობს, მოსალოდნელია.
+ამ path-ის "production ready"-დ წოდება უკვე წარუმატებლობაა.
+
+## Chatbot demo vs agent system
+
+ვიწრო Q&A chatbot შეიძლება იყოს production-ready უფრო პატარა blast radius-ით.
+ის პასუხობს knowledge base-დან, გადასცემს ადამიანს და არ გადაწერს თქვენს systems of record-ს.
+
+Agent demo tools-ით სხვა რისკის კლასია.
+მას შეუძლია tickets-ის შექმნა, CRM fields-ის განახლება, messages-ის გაგზავნა ან workflows-ის გაშვება.
+ეს არის chatbot-demo vs agent-system განსხვავება, რომელიც მყიდველებისთვის მნიშვნელოვანია: იგივე meeting polish, ბევრად უფრო მაღალი შედეგი, როცა permissions რეალურია.
+
+თუ demo მხოლოდ ჩატშია, შეაფასეთ როგორც support surface.
+თუ demo მოქმედებს, შეაფასეთ როგორც სისტემა, რომელსაც შეუძლია დააზიანოს ადამიანები და data, როცა ცდება.
+
+## როგორ ბუნდოვანებენ vendor-ები საზღვარს (agent washing)
+
+Vendors ხშირად მასპინძლობენ demo-ს თქვენი logo theme-ით, თქვენი ფერებით და თქვენი FAQ-ის ნიმუშით.
+ეს არის branding, არა production.
+
+ინდუსტრიული და სააგენტო ტექსტები ამას ზოგჯერ **agent washing**-ს უწოდებენ: polished demo-ს გაშვება production-ის ეტიკეტით evaluation-ის, observability-ის, least-privilege tools-ის, failure handling-ის ან runbook-ის გარეშე.
+მარტივად: demo თქვენს branding-ზე თქვენი constraints-ის გარეშე მაინც demoა.
+
+დააკვირდით ამ patterns-ს:
+
+- Credentials არის "temporary admin", რომელიც არასოდეს არ ივიწროვდება scope-ით.
+- Failures იშლება ფრაზით "retries phase two-ში დავამატებთ."
+- Logs ჩერდება chat transcript-ზე; tool calls და cost უხილავია.
+- Pilot-ის დასრულების შემდეგ named owner არ არის.
+- ერთადერთი "eval" არის slide მწვანე checkmarks-ით sales call-დან.
+
+თუ ეს constraints აკლია, იყიდეთ თეატრი deployment date-ით.
+
+## Buyer tests: კითხვები, რომლებიც demo-ს ასუფთავებს
+
+არ მიიღოთ სუფთა sample მტკიცებულებად.
+გაუშვით ტესტები, რომელთა დადგმა vendor-ს ან შიდა გუნდს ხუთ წუთში არ შეუძლია.
+
+1. **გასული თვის messy tickets-ის replay** - არა golden path.
+   აირჩიეთ რეალური exceptions: refunds, policy edge cases, incomplete data, angry tone.
+2. **აჩვენეთ permission scopes** - რომელი tools, რომელი environments, least privilege თუ admin?
+3. **Kill switch drill** - ვინ აჩერებს agent-ს mid-run-ზე და რამდენ ხანს სჭირდება?
+4. **Eval suite-ის არსებობა** - cases, pass bars და რა ეშვება prompt ან model change-ის შემდეგ.
+   იხილეთ [როგორ შევაფასოთ AI agents go-live-მდე](/ge/blog/how-to-evaluate-ai-agents-before-go-live).
+5. **ბოლო incident ან failure log** - რა გაფუჭდა, რა გააკეთა agent-მა, ვინ შეამჩნია.
+6. **Runbook owner** - named human review queue-სთვის, on-call-ისა და post-incident notes-ისთვის.
+7. **Tool failure და budget limit** - რა ხდება, როცა API times out ან spend cap-ს ეჯახება?
+
+*ჩეკლისტის დანიშნულება: buyer კითხვები იმის შესამოწმებლად, არის თუ არა AI agent demo production-ready.
+თუ პასუხები ბუნდოვანია, ჯერ კიდევ demo mode-ში ხართ.*
+
+## Production signals, რომელთა მოთხოვნაც ღირს
+
+არ გჭირდებათ platform whitepaper ამ signals-ის მოსათხოვნად.
+გჭირდებათ ისინი, სანამ customer data ან ფული agent-ში გაივლის.
+
+- **Human gates და oversight.** შეუქცევად ქმედებებს სჭირდება approval paths, არა იმედი.
+  OpenAI-ის პრაქტიკები agentic systems-ის მართვისთვის ხაზს უსვამენ accountability-სა და human approval-ს მნიშვნელოვან გადაწყვეტილებებზე ([Practices for governing agentic AI systems](https://openai.com/index/practices-for-governing-agentic-ai-systems/)).
+  Gates-ის პრაქტიკული დიზაინი: [human-in-the-loop AI აგენტები: როგორ მუშაობს](/ge/blog/human-in-the-loop-ai-agents-explained).
+- **Trajectory-aware evaluation.** შეაფასეთ path (tool choice, recovery, clarifying questions), არა მხოლოდ საბოლოო პასუხი.
+  Google Cloud agent evaluation-ს აყალიბებს სრული trajectories-ით და staged rollout-ით sandbox-დან canary-მდე production-მდე ([A developer's guide to production-ready AI agents](https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents); [Agent Quality](https://www.kaggle.com/whitepaper-agent-quality)).
+- **Least-privilege tools.** Scoped credentials და authenticated tool access უკეთესია founder API keys-ზე.
+- **Security prompt injection-ისა და დაკავშირებული LLM რისკების წინააღმდეგ.** Tool-using agents მემკვიდრეობით იღებენ რისკებს OWASP Top 10 for LLM applications-დან, მათ შორის prompt injection-სა და excessive agency-ს ([OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)).
+- **Staged deploy mindset.** Sandbox შიდა ტესტები, canary შეზღუდული traffic, შემდეგ უფრო ფართო production.
+  სრული არქიტექტურული სიღრმე არის [production AI agent-ის განსაზღვრების](/ge/blog/what-is-a-production-ai-agent) პოსტში, არა აქ.
+- **Observable failures.** როცა რაღაც იშლება, გჭირდებათ logs და traces, არა მეხსიერება.
+  დაკავშირებული მასალები კლასტერიდან: [საბრძოლო აგენტების მარცხის რეჟიმები](/ge/blog/production-agent-failure-modes) და [აგენტის დაკვირვებადობა: logs და traces](/ge/blog/agent-observability-logs-traces).
+
+Hybrid patterns ხშირია production-ში: deterministic controls და policy money-სა და compliance steps-ზე, LLM judgment იქ, სადაც language და routing საჭიროებს მოქნილობას.
+ეს არის დიზაინის რეკომენდაცია, არა უნივერსალური კანონი - და ემთხვევა Anthropic-ის მოწოდებას, დაიწყოთ მარტივად და agent autonomy დაამატოთ მხოლოდ მაშინ, როცა უფრო მარტივი workflows საკმარისი არ არის ([Building effective agents](https://www.anthropic.com/research/building-effective-agents)).
 
 ## როგორ ჯდება Dali
 
-Dali აგზავნის production path-ებს: [გადაწყვეტები](/ge/solutions).
+Dali აგზავნის production path-ებს: discovery, scoped tools, human gates, evals და ownership handoff-ის შემდეგ - არა demo polish, რომელიც go-live-ად იყიდება.
+თუ გაქვთ პროტოტიპი, რომელსაც production დიზაინი სჭირდება, იხილეთ [გადაწყვეტები](/ge/solutions) ან დაიწყეთ საუბარი საიტის CTA-დან.
+
+ამ გვერდისთვის case study-ს არ გამოვიგონებთ.
+ტესტი იგივეა, რასაც ნებისმიერ vendor-ზე გირჩევთ: messy tickets, real scopes, kill switch, evals, logs.
 
 ## FAQ
 
-### Demo-დან შეიძლება production გახდეს?
-მხოლოდ redesign-ის შემდეგ gates-ის, permissions-ისა და evals-ისთვის.
+### შეიძლება demo გახდეს production?
 
-### UI polish production სიგნალია?
-სუსტად. Ops დიზაინი უფრო ძლიერია.
+დიახ, მაგრამ მხოლოდ redesign-ის შემდეგ gates-ის, permissions-ისა და evals-ისთვის - არა UI reskin-ის ან logo swap-ის შემდეგ.
+Model შეიძლება დარჩეს; wrapper tools-ის, approvals-ის, observability-ისა და ownership-ის გარშემო ჩვეულებრივ უნდა შეიცვალოს.
 
-### დაკავშირებული
-[რა არის production AI აგენტი?](/ge/blog/what-is-a-production-ai-agent).
+### არის UI polish production signal?
+
+სუსტად.
+Ops დიზაინი უფრო ძლიერია: scoped tools, failure handling, metrics, kill switch და named owner უკეთესია ლამაზ chat shell-ზე.
+
+### რა უნდა ვკითხო vendor-ს live demo-ში?
+
+დაიწყეთ გასული თვის messy tickets-ით.
+შემდეგ მოითხოვეთ permission scopes, kill switch drill, eval suite, ბოლო failure log, runbook owner და ქცევა tool failure-ზე ან budget limit-ზე.
+თუ რეალურ tickets-ს უარყოფენ, demo ჩათვალეთ მხოლოდ sales content-ად.
+
+### არის chatbot demo იგივე რისკი, რაც agent demo tools-ით?
+
+არა.
+ვიწრო Q&A-ს უფრო პატარა blast radius აქვს.
+Tool-using agents-ს შეუძლიათ records-ის შეცვლა, budget-ის დახარჯვა და customer-facing messages-ის გაგზავნა - ამიტომ production controls უფრო მნიშვნელოვანია.
+
+### როგორ გავიგო, გვჭირდება rewrite თუ harden-in-place?
+
+თუ demo-ს უკვე აქვს scoped tools, logs, evals და ნათელი gates, შეიძლება harden-in-place.
+თუ ეს არის prompt ფართო credentials-ით და owner-ის გარეშე, დაგეგმეთ production wrapper-ის rewrite.
+Scope და risk წყვეტს ძალისხმევას; "demo vs production work"-ის პატიოსანი უნივერსალური პროცენტი არ არსებობს.
+
+## დაკავშირებული
+
+- [რა არის production AI agent?](/ge/blog/what-is-a-production-ai-agent)
+- [როგორ შევაფასოთ AI agents go-live-მდე](/ge/blog/how-to-evaluate-ai-agents-before-go-live)
+- [Human-in-the-loop AI აგენტები: როგორ მუშაობს](/ge/blog/human-in-the-loop-ai-agents-explained)
+- [საბრძოლო აგენტების მარცხის რეჟიმები](/ge/blog/production-agent-failure-modes)
+- [აგენტის დაკვირვებადობა: logs და traces](/ge/blog/agent-observability-logs-traces)

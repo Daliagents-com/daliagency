@@ -1,29 +1,81 @@
 ---
-slug: "what-is-a-production-ai-agent"
-title: "Что такое production AI agent?"
-description: "Чем production AI agent отличается от demo: tool contracts, permissions, approval gates, evals, observability, rollout и ownership после handoff."
-date: "2026-08-02"
-locale: "ru"
-hreflangGroup: "what-is-a-production-ai-agent"
-keywords: ["что такое production AI agent", "определение production AI agents", "AI agent vs chatbot"]
-status: "published"
-author: "Dali"
-type: "pillar"
+slug: what-is-a-production-ai-agent
+title: 'Production AI Agents: определение, архитектура и контроли'
+description: Что такое production AI agent, чем он отличается от demo и chatbot, пять
+  свойств production, wrapper-архитектура, failure modes и реальные примеры workflow.
+date: '2026-08-02'
+updated: '2026-08-10'
+locale: ru
+hreflangGroup: what-is-a-production-ai-agent
+keywords:
+- что такое production AI agent
+- определение production AI agents
+- AI agent vs chatbot
+status: published
+author: Dali
+type: pillar
+heroImage: /blog/what-is-a-production-ai-agent/hero.jpg
+heroAlt: Система production AI agent, связывающая бизнес-tools, approval gates, observability,
+  retries и человека-оператора
+ogImage: /blog/what-is-a-production-ai-agent/og.jpg
 ---
 
 ## Прямой ответ
 
-Production AI agent - это система, которая выполняет multi-step работу внутри ваших бизнес-tools, под scoped permissions, с human approval gates на рискованных действиях, eval-сетом, ловящим регрессии, observability, которую вы можете читать, и именованным владельцем после ухода вендора. Модель - лишь один компонент; определение живёт во всём, что обёрнуто вокруг неё. Chat-окно, которое только разговаривает, каким бы впечатляющим оно ни было, - это demo. Слово «production» зарабатывается тем, что происходит, когда вход искажён, API падает по timeout или клиент зол, - а не тем, что происходит на happy path.
+**Production AI agent** - это система, которая выполняет multi-step работу внутри бизнес-tools под scoped permissions, с human approval gates на рискованных действиях, evals, ловящими регрессии, наблюдаемым исполнением и именованным владельцем после handoff.
+Модель - один компонент; определение живёт в архитектуре, обёрнутой вокруг неё.
+Chat-окно, которое только разговаривает, каким бы впечатляющим оно ни было, - это demo.
+
+Под капотом agent обычно ходит по циклу: воспринимает контекст, планирует следующий шаг, действует через tools, наблюдает результат и повторяет, пока цель не достигнута или не сработало условие остановки.
+Этот цикл и есть agent.
+**Production** - это wrapper, который делает цикл безопасным при реальных данных, реальных permissions и реальных последствиях.
+
+Эта статья - технический и информационный pillar: архитектура, контроли и примеры, которые делают agent production-ready.
+Если вопрос организационный или коммерческий - куда такие системы встраиваются, на какой стадии зрелости покупать и как задать scope первого pilot - читайте [production AI agents для бизнеса](/ru/blog/production-ai-agents-for-business).
+Слово «production» зарабатывается тем, что происходит, когда вход искажён, API падает по timeout или клиент зол, а не тем, что происходит на штатном сценарии.
 
 ## Пять свойств, определяющих «production»
 
-1. **Действует через tools, под permissions.** Agent читает и пишет в вашем CRM, inbox, таблицах или тикетах через scoped credentials, с принудительным least privilege. Он работает внутри ваших tools, а не рядом с ними.
-2. **Закрыт gates там, где это важно.** Необратимые действия - отправка, оплата, изменение записей, закрытие тикетов - идут через human approval, пока доказательства не оправдают ослабление. Gates проектируются, а не прикручиваются потом.
-3. **Оценивается непрерывно.** Eval-сет кодирует, как выглядит хороший выход; regression-проверки прогоняются перед любым изменением prompt или модели. Без этого качество дрейфует незаметно.
-4. **Наблюдаем.** Logs и traces показывают, что agent видел, решил и сделал, - и читаются вашей командой без вендора на звонке. Инциденты диагностируются за минуты, а не восстанавливаются по памяти.
-5. **Имеет владельца.** Именованный человек ведёт review queue, смотрит метрики и может нажать stop switch. Софт без владельца деградирует в источник рисков.
+1. **Действует через tools, под permissions.** Agent читает и пишет в вашем CRM, inbox, таблицах или тикетах через scoped credentials, с принудительным least privilege.
+   Он работает внутри ваших tools, а не рядом с ними.
+2. **Закрыт gates там, где это важно.** Необратимые действия - отправка, оплата, изменение записей, закрытие тикетов - идут через human approval, пока доказательства не оправдают ослабление.
+   Gates проектируются, а не прикручиваются потом.
+3. **Оценивается непрерывно.** Eval-сет кодирует, как выглядит хороший выход; regression-проверки прогоняются перед любым изменением prompt или модели.
+   Без этого качество дрейфует незаметно.
+4. **Наблюдаем.** Logs и traces показывают, что agent видел, решил и сделал, - и читаются вашей командой без вендора на звонке.
+   Инциденты диагностируются за минуты, а не восстанавливаются по памяти.
+5. **Имеет владельца.** Именованный человек ведёт review queue, смотрит метрики и может нажать stop switch.
+   Софт без владельца деградирует в источник рисков.
 
 Уберите любое из пяти - и у вас нечто слабее production: многообещающий прототип, рискованная автоматизация или ничейная обуза.
+
+Gates ложатся на спектр autonomy простым языком: **assisted** (человек ведёт; agent готовит драфт или предлагает), **semi-autonomous** (agent действует на низкорисковых шагах; человек утверждает высокорисковые) и **supervised** (agent идёт по пути с непрерывным мониторингом, sampling и stop switch).
+Полная unattended autonomy - не цель по умолчанию для production business workflows.
+Как approval queues и escalation работают на практике, см. [human-in-the-loop AI agents](/ru/blog/human-in-the-loop-ai-agents-explained).
+
+## Как работает agent (цикл)
+
+Полезная ментальная модель - замкнутый цикл, а не один prompt.
+Исследования generic agents описывают plan-and-act cycling; production-shaped цикл добавляет grounded context и permission gate перед side effects tool:
+
+1. **Бизнес-вход** - запрос, событие или элемент очереди, который запускает run.
+2. **Grounded context (обоснованный контекст)** - retrieval политик и источников, чтобы следующий шаг опирался на реальные данные.
+3. **Plan and validate (план и проверка)** - выбрать следующее безопасное действие или tool call.
+4. **Permission gate (шлюз разрешений)** - human approval, когда действие рискованное; низкорисковые шаги могут проходить по policy.
+5. **Tool execution (выполнение tool)** - scoped, по возможности idempotent read или write под credentials.
+6. **Observe and improve (наблюдение и улучшение)** - прочитать результаты, trace, evaluate, retry или stop, затем цикл при необходимости.
+
+Исследования interleaved reasoning and acting (ReAct) формализуют ядро plan-and-act: модель думает, делает действие, наблюдает и продолжает, а не только выдаёт финальный ответ ([ReAct paper](https://arxiv.org/pdf/2210.03629)).
+Определения платформ описывают ту же форму: agents преследуют цели, используют tools и сочетают planning с action ([AWS on AI agents](https://aws.amazon.com/what-is/ai-agents/), [Google Cloud on AI agents](https://cloud.google.com/discover/what-are-ai-agents)).
+Tool use / function calling - примитив, который превращает текст в side effects в реальных системах ([Anthropic tool use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview)).
+
+![Цикл production agent: бизнес-вход, grounded context (обоснованный контекст), plan and validate, permission gate, tool execution, observe and improve](/blog/what-is-a-production-ai-agent/production-agent-loop.svg)
+
+*Шесть стадий production-shaped цикла; permission gate сидит внутри цикла, а evals, traces, ownership и stop switch покрывают весь путь.*
+
+Цикл необходим.
+Его недостаточно.
+Без полного набора из пяти свойств у вас всё ещё demo, который может зациклиться, перерасходовать бюджет или записать не в ту запись.
 
 ## Demo agent vs production agent
 
@@ -38,56 +90,180 @@ Production AI agent - это система, которая выполняет m
 | Rollout | Сразу на всех | Shadow mode, затем canary, затем масштаб |
 | После запуска | Ничья работа | Именованный владелец, runbook, on-call story |
 
-Колонка demo не является неправильной для demo. Она становится неправильной в момент, когда через систему текут реальные данные клиентов или реальные деньги.
+Колонка demo не является неправильной для demo.
+Она становится неправильной в момент, когда через систему текут реальные данные клиентов или реальные деньги.
+Операционные страшилки, которые появляются, когда команды пропускают этот разрыв, - в [demo vs production](/ru/blog/ai-agent-demo-vs-production-difference).
+
+## Production AI agent vs chatbot
+
+| Измерение | Chatbot | Production AI agent |
+| --- | --- | --- |
+| Основная работа | Разговаривать и отвечать | Доводить multi-step работу до цели |
+| Side effects | Обычно read-only ответы | Reads и writes через tools под permissions |
+| Control flow | Scripted intents или free chat | Планирует следующие шаги из целей и observations |
+| Качественная планка | Полезный разговор | Acceptance tests, evals и override metrics |
+| Ownership | Часто content- или support-поверхность | Именованный владелец, review queue, stop switch |
+| Что оценивать | UI и тон | Gate map, tool contracts, traces, handoff |
+
+Chatbot может сидеть на том же семействе моделей, что и agent.
+Граница - действие, permissions и control, а не branding.
+Если система только разговаривает, относитесь к ней как к surface, а не как к production agent.
 
 ## Анатомия wrapper
 
-Внимание достаётся модели; работу делает wrapper. Production build включает:
+Внимание достаётся модели; работу делает wrapper.
+Production build включает:
 
 - **Tool contracts.** Явные определения того, что может делать каждый tool call, с валидацией входов и выходов.
-- **Scoping permissions.** Service accounts на каждую integration, минимальные scopes, план ротации, secrets в менеджере, а не в коде.
+Предпочитайте немного tools, строго типизированные schemas и idempotent writes, где возможно.
+- **Permission scoping.** Service accounts на каждую integration, минимальные scopes, план ротации, secrets в менеджере, а не в коде.
+- **Session and memory.** Short-term session state для текущего run; long-term memory или retrieval только когда workflow это требует, с правилами retention и доступа.
 - **Approval gates и review queue.** Определённый список gated-действий, queue, с которой люди реально работают, и критерии ослабления gates со временем.
 - **Обработка исключений.** Timeouts, retries с idempotency и dead-letter путь, чтобы упавшая работа была видимой, а не потерянной.
 - **Eval-сет.** Репрезентативные кейсы, включая граничные и отказные, с порогами прохождения, привязанными к acceptance tests.
 - **Tracing и monitoring.** Каждый запуск реконструируем от начала до конца; алерты на error rate, latency и cost.
+Agent-платформы считают tracing model calls, tools, handoffs и guardrails first-class operational signal ([OpenAI agents guide](https://developers.openai.com/api/docs/guides/agents), [agents observability](https://developers.openai.com/api/docs/guides/agents/integrations-observability)).
+- **Cost и token signals.** Мониторьте spend и token use как operational alerts, а не только как месячную строку бюджета post factum.
+Ставьте thresholds под ваш workflow; не выдумывайте универсальные числа.
 - **Versioning и rollout.** Prompts и конфиги версионируются как код; shadow mode и canary перед полным трафиком.
 - **Stop switch и runbook.** Одно задокументированное действие ставит agent на паузу; runbook говорит, кто что делает, когда срабатывают алерты.
 - **Handoff-пакет.** Документация, план по credentials, обучение и условия выхода, чтобы знание пережило отношения с вендором.
 
+![Слои production readiness: grounded model и tool contracts, safety и action controls, observability и evaluation, operational ownership](/blog/what-is-a-production-ai-agent/production-readiness-layers.svg)
+
+*Четыре вложенных слоя; каждая внешняя полоса контролирует failure mode, который модель не решает одна.*
+
+Протоколы interoperability вроде [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro) могут стандартизировать, как apps подключают tools и данные.
+Это полезная обвязка.
+Они не заменяют gates, evals, ownership или stop switch.
+
+## Типичные failure modes
+
+Эти отказы - причина, по которой существуют пять свойств.
+Каталог здесь короткий; глубина - в гайде по failure modes.
+
+- **Бесконечные циклы / нет iteration caps** - agent перепланирует бесконечно без timeout или step budget.
+- **Unscoped credentials** - общий admin key превращает одно плохое действие в широкий радиус поражения.
+- **Silent quality drift** - prompts или модели меняются без eval suite, и неверные выходы выглядят нормально, пока не заметят клиенты.
+- **Runaway tool spend** - рекурсивные tool calls сжигают tokens или платные APIs без cost alert.
+- **Missing или broken tools** - agent выдумывает шаги или плохо fails closed, когда integration лежит.
+- **Multi-agent cascade** - лишние agents усиливают ошибки там, где хватило бы одного gated path.
+
+Паттерны защиты от этих modes - в [production agent failure modes](/ru/blog/production-agent-failure-modes).
+
+## Evaluation, observability и security
+
+Относитесь к ним как к трём тонким требованиям, затем уходите в глубину по ссылкам.
+
+**Evaluation.**
+Держите offline acceptance suite и гоняйте regression перед каждым изменением prompt, tool или модели.
+Добавляйте trajectory review, когда важен путь: смотрите, что agent сделал шаг за шагом, а не только финальный текст.
+Сэмплируйте live traffic на drift после go-live (online evaluation) и оставляйте human review в loop для high-stakes суждений ([Microsoft lesson on agents in production](https://microsoft.github.io/ai-agents-for-beginners/10-ai-agents-production/), [AWS on evaluating agentic systems](https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-real-world-lessons-from-building-agentic-systems-at-amazon/)).
+Исследовательские программы также изучают evaluation probes и machine-readable audit trails для agentic systems ([NIST evaluation probes for agentic AI](https://www.nist.gov/programs-projects/building-evaluation-probes-agentic-ai)); это research direction, а не compliance badge.
+Полный go-live метод: [как оценивать AI agents перед go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live).
+
+**Observability.**
+Нужны logs и traces, которые реконструируют, что agent видел, какие tools вызывал, что они вернули и что решил человек.
+Если отладить run может только вендор, системой вы не владеете.
+Глубина: [agent observability: logs and traces](/ru/blog/agent-observability-logs-traces).
+
+**Security.**
+Принудительный least privilege на каждый tool credential.
+Sandbox или review tools и skills, прежде чем они могут работать на production paths.
+Аудит tool results, а не только model text.
+Держите stop switch, который именованный владелец может нажать без звонка вендору.
+
+## Примеры production AI agent
+
+Иллюстративные паттерны workflow, не case studies:
+
+| Workflow | Действие agent | Контроль человека | Production evidence |
+| --- | --- | --- | --- |
+| Lead response | Квалифицирует lead, обогащает account, готовит и отправляет ответ | Approval для sensitive или high-value outbound | Точность ответов, время ответа, override rate, cost per resolved lead |
+| Client inbox | Классифицирует запросы, достаёт account context, обновляет ticket | Escalation при policy conflicts и нестандартных кейсах | Resolution rate, возраст очереди, число инцидентов, алерты на token spend |
+| Operations documents | Извлекает поля, валидирует записи, обновляет ERP или spreadsheet | Approval для financial или destructive writes | Точность полей, доля дублей, coverage traces, override rate |
+| Knowledge assistant | Достаёт internal sources и готовит cited answer | Человек владеет финальным решением, когда совет влияет на бизнес | Валидность citations, доля без ответа, алерты на устаревшие источники |
+
+Это production-примеры только когда controls и evidence реальны.
+Тот же workflow без scoped tools, failure handling и ownership - всё ещё прототип.
+
 ## Surfaces - это не система
 
-Chat, email, тикеты, voice, WhatsApp, background jobs - это точки входа, а не архитектура. Одно и то же production-ядро может обслуживать несколько surfaces, а красивый chat UI может сидеть поверх пустоты. Когда вендор показывает surface, спросите, что под ним: карта gates, eval-сет, хранилище traces. Surface - последние 10 процентов; покупатели, оценивающие surfaces, покупают demos.
+Chat, email, тикеты, voice, WhatsApp, background jobs - это точки входа, а не архитектура.
+Одно и то же production-ядро может обслуживать несколько surfaces, а красивый chat UI может сидеть поверх пустоты.
+Когда вендор показывает surface, спросите, что под ним: карта gates, eval-сет, хранилище traces.
+Surface - последние 10 процентов; покупатели, оценивающие surfaces, покупают demos.
 
 ## Как строится production agent
 
-Путь, который надёжно производит свойства выше: сначала discovery и карта workflow, включая исключения; acceptance tests, письменно согласованные до build; pilot, построенный с включёнными gates с первого дня; evals, прогнанные против acceptance tests; shadow mode на реальном трафике без действий; canary на маленьком срезе с gates; затем масштаб, где решения об ослаблении gates принимаются на доказательствах. Команды, прыгающие из build сразу в полный трафик, - источник большинства agent-страшилок; разница разобрана в [demo vs production](/ru/blog/ai-agent-demo-vs-production-difference).
+Путь, который надёжно производит свойства выше:
+
+1. Сначала discovery и карта workflow, включая exceptions.
+2. Acceptance tests, письменно согласованные до build.
+3. Pilot, построенный с включёнными gates с первого дня.
+4. Evals, прогнанные против acceptance tests.
+5. Shadow mode на реальном трафике без действий.
+6. Canary на маленьком срезе с gates.
+7. Масштаб, где решения об ослаблении gates принимаются на доказательствах.
+
+Команды, прыгающие из build сразу в полный трафик, - источник большинства agent-страшилок.
+Разница разобрана в [demo vs production](/ru/blog/ai-agent-demo-vs-production-difference).
 
 ## Что это значит для вашей организации
 
-Production agent меняет работу людей, а не только tooling. Кто-то на вашей стороне владеет качеством после ухода вендора: ведёт review queue, читает недельные метрики, решает, когда ослаблять gates, и оплачивает строку LLM usage, которая теперь сидит в вашем бюджете. Если до старта build внутри компании нельзя назвать никого на эту роль, вы не готовы покупать production agent - вы готовы купить demo, а разочароваться можно и дешевле.
+Production agent меняет работу людей, а не только tooling.
+Кто-то на вашей стороне владеет качеством после ухода вендора: ведёт review queue, читает недельные метрики, решает, когда ослаблять gates, и оплачивает строку LLM usage, которая теперь сидит в вашем бюджете.
+Если до старта build внутри компании нельзя назвать никого на эту роль, вы не готовы покупать production agent - вы готовы купить demo, а разочароваться можно и дешевле.
 
 В проектах Dali большая часть инженерии - это не вызов модели: основное усилие уходит на approval gates, интеграции, evals и мониторинг.
 
 ## Как помогает Dali
 
-Dali строит production-путь с самого начала: discovery, gates, evals, observability и handoff внутри scope pilot, поверх chat-, email- и background-job-поверхностей. Смотрите [solutions](/ru/solutions) о том, как устроен pilot.
+Dali строит production-путь с самого начала: discovery, gates, evals, observability и handoff внутри scope pilot, поверх chat-, email- и background-job-поверхностей.
+Если у вас есть один scoped workflow и владелец review queue, начинайте с production-shaped pilot, а не с demo.
+Смотрите [solutions](/ru/solutions) о том, как устроен pilot, и [production AI agents для бизнеса](/ru/blog/production-ai-agents-for-business) про org fit и scope первого pilot.
 
 ## FAQ
 
 ### Copilots - это production agents?
-Могут быть. Copilot, который готовит драфты, пока человек утверждает каждое действие, - фактически полностью gated agent, и это легитимный production-паттерн, часто правильная первая стадия. Он становится production agent в полном смысле, когда выполняет контролируемые действия через tool contracts с остальным wrapper вокруг - evals, traces, владелец.
+
+Могут быть.
+Copilot, который готовит драфты, пока человек утверждает каждое действие, - фактически полностью gated agent, и это легитимный production-паттерн, часто правильная первая стадия.
+Он становится production agent в полном смысле, когда выполняет контролируемые действия через tool contracts с остальным wrapper вокруг - evals, traces, владелец.
 
 ### Нужны ли production agents multi-agent графы?
-Нет. Один хорошо спроектированный agent-путь с чистыми tool contracts и gates бьёт оркестрированный рой без них - и его несравнимо легче оценивать, трейсить и отлаживать. Multi-agent-дизайны зарабатывают свою сложность, только когда один путь доказуемо не тянет workflow. Не доверяйте вендорам, которые начинают с диаграммы графа.
+
+Нет.
+Один хорошо спроектированный agent-путь с чистыми tool contracts и gates бьёт оркестрированный рой без них - и его несравнимо легче оценивать, трейсить и отлаживать.
+Multi-agent-дизайны зарабатывают свою сложность, только когда один путь доказуемо не тянет workflow.
+Не доверяйте вендорам, которые начинают с диаграммы графа.
 
 ### RAG-чатбот - это production agent?
-Сам по себе нет. Retrieval заземляет то, что система говорит; production agents определяются тем, что они делают. RAG-ассистент, который только отвечает на вопросы, - это поверхность знаний. Добавьте tool-действия, permissions, gates и ownership - и та же система пересекает границу на agent-территорию.
+
+Сам по себе нет.
+Retrieval заземляет то, что система говорит; production agents определяются тем, что они делают.
+RAG-ассистент, который только отвечает на вопросы, - это поверхность знаний.
+Добавьте tool-действия, permissions, gates и ownership - и та же система пересекает границу на agent-территорию.
 
 ### Сколько обычно занимает путь до production?
-Для одного scoped workflow на существующих tools типичные рыночные сроки - от нескольких недель до пары месяцев; главные драйверы - доступ к integrations, качество данных и скорость, с которой ваша сторона ревьюит gated-выход. Тот, кто обещает production за дни, переопределяет слово «production».
+
+Для одного scoped workflow на существующих tools типичные рыночные сроки - от нескольких недель до нескольких месяцев; главные драйверы - доступ к integrations, качество данных и скорость, с которой ваша сторона ревьюит gated-выход.
+Тот, кто обещает production за дни, переопределяет слово «production».
 
 ### Нужен ли fine-tuning для production?
-Обычно не для старта. Большинство бизнес-workflows достигают порогов acceptance сильным prompting, retrieval и дизайном tools на frontier-моделях. Fine-tuning - более поздняя оптимизация для узких высокообъёмных паттернов, оправданная данными evals, а не интуицией.
+
+Обычно не для старта.
+Большинство бизнес-workflows достигают порогов acceptance сильным prompting, retrieval и дизайном tools на frontier-моделях.
+Fine-tuning - более поздняя оптимизация для узких высокообъёмных паттернов, оправданная данными evals, а не интуицией.
+
+### Chat UI сам по себе - production agent?
+
+Нет.
+Chat UI - это surface.
+Без tool contracts, gates, evals, observability и именованного владельца это всё ещё demo - даже если модель отличная.
 
 ### Смежные материалы
+
 О бизнес-стороне этих систем - что они меняют операционно и как задать scope первого pilot - смотрите [production AI agents для бизнеса](/ru/blog/production-ai-agents-for-business).
+Про дизайн approval - [human-in-the-loop AI agents](/ru/blog/human-in-the-loop-ai-agents-explained).
+Про разрыв demo vs production - [demo vs production](/ru/blog/ai-agent-demo-vs-production-difference).

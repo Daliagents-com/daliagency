@@ -15,6 +15,11 @@ const nextConfig = {
       ["vibe-code-rescue", "rescue-and-migration"],
     ];
     const localePrefixes = ["", "/ru", "/ge", "/arm"];
+    const hitlRedirects = localePrefixes.map((prefix) => ({
+      source: `${prefix}/blog/human-approval-gates-for-ai-agents`,
+      destination: `${prefix}/blog/human-in-the-loop-ai-agents-explained`,
+      permanent: true,
+    }));
     const legacyRedirects = localePrefixes.flatMap((prefix) =>
       legacyPilotMap.flatMap(([from, to]) => [
         {
@@ -54,6 +59,7 @@ const nextConfig = {
         destination: "/solutions",
         permanent: false,
       },
+      ...hitlRedirects,
       ...uniqueLegacy,
     ];
   },

@@ -1,50 +1,290 @@
 ---
-slug: "agent-observability-logs-traces"
-title: "Գործակալի դիտարկելիություն. մատյաններ, հետքեր և ինչ պահել"
-description: "Ինչ գրանցել իրական շահագործման AI գործակալների համար՝ առանց տոկենների մեջ խեղդվելու և գաղտնիքների արտահոսքի։"
-date: "2026-08-01"
-locale: "arm"
-hreflangGroup: "agent-observability-logs-traces"
-keywords: ["AI agent observability","AI agent tracing","logging AI agent tool calls"]
-status: "published"
-author: "Dali"
-type: "tutorial"
+slug: agent-observability-logs-traces
+title: Գործակալի դիտարկելիություն. ինչ գրանցել, հետագծել և պահել production-ում
+description: Production logging քաղաքականություն AI գործակալների համար. նվազագույն
+  event schema, redaction, retention, OTel mapping և միջադեպի վերակառուցելիության
+  շեմը։
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: arm
+hreflangGroup: agent-observability-logs-traces
+keywords:
+- AI գործակալի դիտարկելիություն
+- AI գործակալի հետագծում
+- tool call-երի գրանցում AI գործակալների համար
+status: published
+author: Dali
+type: tutorial
+heroImage: /blog/agent-observability-logs-traces/hero.jpg
+heroAlt: Կառուցվածքային մատյաններ և trace span-եր production AI գործակալի run-ի համար
+ogImage: /blog/agent-observability-logs-traces/og.jpg
 ---
 
-## Ուղիղ պատասխան
+Յուրաքանչյուր production AI գործակալի run-ի համար գրանցեք **կառուցվածքային իրադարձություններ**. request id, tool name, args (redacted), results status, approvals, model ids, latency և cost։
+Հում prompt-ները և ամբողջական completion-ները պահեք միայն հստակ retention rules-ի տակ։
+Եթե այդ իրադարձություններից չեք կարող վերակառուցել միջադեպը, դուք չեք հասնում [production AI գործակալի ճարտարապետության](/arm/blog/what-is-a-production-ai-agent) շեմին։
 
-Log արեք **structured events**. request id, tool name, args (redacted), results status, approvals, model ids, latency, cost։ Raw prompts պահեք միայն retention rules-ի տակ։ Եթե չեք կարող reconstruct անել incident, դուք production չեք։
+Այս էջը **production logging քաղաքականություն** է, ոչ թե հարթակների գնումների ցուցակ։
+Օգտագործեք այն LangSmith, Phoenix, Datadog կամ plain OpenTelemetry միացնելուց առաջ, որպեսզի իրադարձությունները գոյություն ունենան նույնիսկ եթե sink-ը փոխվի։
 
-## Minimum viable trace
+## Ինչ է գործակալի դիտարկելիությունը (և ինչ չէ)
 
-Correlation id across steps, who/what triggered the run, tools attempted, gate decisions, final side effects։
+![Հետագծման հինգ կապակցված փուլերը միացնում են մուտքային համատեքստը, մոդելի որոշումը, գործիքի կանչը, հաստատումը և համակարգի փոփոխությունը](/blog/agent-observability-logs-traces/trace-reconstruction-map.svg)
 
-## Redaction
+*Դիտարկելիությունը օգտակար է, երբ օպերատորները կարող են վերականգնել, թե ինչ է գործակալը տեսել, որոշել, կանչել և փոխել։*
 
-Strip արեք secrets, tokens, full card numbers, unnecessary PII logs-ից, որ ship են լինում third parties։
+AI գործակալի դիտարկելիությունը end-to-end վարքի մոնիտորինգի պրակտիկա է, ներառյալ LLM կանչերը և tool փոխազդեցությունները, որպեսզի կարողանաք բացատրել, թե ինչ է արել գործակալը և ինչու է run-ը ձախողվել կամ շեղվել (drift)։
+Այդ սահմանումը համընկնում է արդյունաբերական նյութերի ձևակերպման հետ. end-to-end agentic journey-ներ, ոչ միայն դասական infra չափորոշիչներ ([IBM on AI agent observability](https://www.ibm.com/think/insights/ai-agent-observability))։
 
-## Metrics
+Այն ավելի լայն է, քան դասական APM-ը։
+APM-ն ասում է, որ ծառայությունը up էր, request-ը դանդաղ էր, կամ dependency-ն ժամանակը սպառեց (timeout)։
+Գործակալի run-երը նաև ճյուղավորվում են, ցիկլ են անում, կանչում են tools և փոխում իրական համակարգեր։
 
-Success, exceptions, human overrides, p95 latency, $ per successful completion։
+Այն ավելի լայն է, քան միայն LLM դիտարկելիությունը։
+LLM observability-ն կենտրոնանում է մեկ model call-ի վրա. prompt, completion, tokens, latency, cost։
+Գործակալի դիտարկելիությունը ծածկում է այդ կանչերի շուրջ control loop-ը. plan, tool I/O, gate որոշումներ, retries և վերջնական side effects ([ClickHouse on agent vs LLM observability](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability))։
 
-## Privacy tradeoff
+Սեմանտիկ ձախողումը failure mode է, որը օպերատորները բաց են թողնում HTTP-only dashboard-ներով։
+**Հիպոթետիկ օրինակ.** order-status գործակալը վերադարձնում է HTTP 200, յուրաքանչյուր tool հայտնում է `ok`, և հաճախորդը միևնույն է ստանում է սխալ refund գումար, որովհետև downstream գնացել է սխալ order id։
+Արձանագրային հաջողությունը թաքցրել է business failure-ը։
+Պետք են journey + tool I/O + decisions + side effects, ոչ միայն model tokens։
 
-Ավելի շատ logging օգնում է debug-ին և կարող է ավելացնել compliance burden - սահմանեք retention explicit։
+**Եզրակացություն.** եթե ձեր telemetry-ն ավարտվում է «մոդելը կանչվեց, 200 OK»-ով, դուք գործակալը չեք դիտարկում։
+
+## Նվազագույն կենսունակ trace
+
+Production run-ը պետք է կախված լինի մեկ correlation identity-ից յուրաքանչյուր քայլում։
+
+Նվազագույն viable trace բովանդակություն.
+
+1. **Correlation / run identity** - `request_id` և `run_id`, ընդհանուր յուրաքանչյուր span-ի կամ event-ի համար։
+2. **Trigger** - ով կամ ինչ է սկսել run-ը (user, webhook, cron, այլ համակարգ) և business intent-ը, երբ հայտնի է։
+3. **Tools attempted** - անուն, redacted args, status, latency և error class ձախողման դեպքում։
+4. **Gate decisions** - approve, deny, escalate կամ auto-allow, նշելով ով է որոշել։
+5. **Final side effects** - ինչ է իրականում փոխվել (ticket updated, email sent, row written) կամ հստակ «no mutation» ելք։
+
+Ընտրովի multi-step ձև մեկ request-ի համար.
+
+```text
+run (correlation id)
+├── plan / model step
+├── execute_tool (lookup)
+├── gate (human or policy)
+├── execute_tool (mutation)
+└── final response + side_effect_summary
+```
+
+Ծառի բոլոր span-երը կիսում են նույն `request_id` / `run_id`-ը։
+
+OpenTelemetry GenAI walkthrough-ները հաճախ ցույց են տալիս նման ծառ. root agent invoke child chat և tool span-երով ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/))։
+Այդ ձևը կարող եք նախ իրականացնել կառուցվածքային մատյաններով։
+Tracer-ի brand-ը երկրորդական է։
+
+**Հիպոթետիկ օրինակ (չվերակառուցելի).** support-ը էսկալացնում է վատ refund։
+Մատյաններում կա «tool succeeded» և model id, բայց չկա `run_id`, չկան tool args և չկա gate record։
+Չեք կարող ապացուցել, թե ինչ է հաստատվել և ինչ է գրվել։
+Այդ run-ը չի անցնում վերակառուցելիության շեմը, նույնիսկ եթե uptime-ը նորմալ էր երևում։
+
+**Եզրակացություն.** correlation + trigger + tools + gates + side effects-ը run-ի նվազագույն պատմությունն է։
+
+## Նվազագույն event schema
+
+Նախ թողարկեք փոքր, կայուն field հավաքածու, հետո հետապնդեք dashboard-ներ։
+
+| Դաշտ | Նպատակ | Redaction նշում | Օրինակային value type |
+| --- | --- | --- | --- |
+| `request_id` | Արտաքին կամ API request identity | Սովորաբար անվտանգ | string UUID |
+| `run_id` | Գործակալի մեկ execution ծառ | Սովորաբար անվտանգ | string UUID |
+| `agent_id` | Որ գործակալը կամ տարբերակը | Սովորաբար անվտանգ | string / semver |
+| `tool_name` | Կանչված tool կամ action | Սովորաբար անվտանգ | string |
+| `args_redacted` | Մուտքեր secret/PII strip-ից հետո | Redaction-ը **պարտադիր** է | object / JSON string |
+| `result_status` | ok, error, timeout, partial | Նախընտրեք status codes, ոչ full bodies | enum + short error class |
+| `approval_id` | Կապ human կամ policy gate-ի հետ | Խուսափեք free-text rationale-ից PII-ով | string / null |
+| `human_override` | Արդյոք մարդը փոխել է ուղին | Անվտանգ boolean կամ reason code | bool / enum |
+| `model_id` | Քայլի համար օգտագործված մոդել | Սովորաբար անվտանգ | string |
+| `latency_ms` | Քայլի կամ run-ի տևողություն | Անվտանգ | int |
+| `cost_units` | Tokens կամ $, վերագրվող քայլին | Ագրեգացրեք, երբ հնարավոր է | number |
+| `side_effect_summary` | Ինչ է փոխվել systems of record-ում | Ամփոփեք. երբեք մի արտահանեք secrets | short string / structured codes |
+
+Նվազագույն structured fields, որոնք պետք է արտադրել յուրաքանչյուր production գործակալի run-ի համար։
+
+Միայն պատկերավոր schema (ոչ client log).
+
+```json
+{
+  "request_id": "req_01J...",
+  "run_id": "run_01J...",
+  "agent_id": "support-refund-v3",
+  "tool_name": "lookup_order",
+  "args_redacted": { "order_id": "ORD-4417" },
+  "result_status": "ok",
+  "approval_id": null,
+  "human_override": false,
+  "model_id": "example-model",
+  "latency_ms": 312,
+  "cost_units": 0.002,
+  "side_effect_summary": "none"
+}
+```
+
+Մարդկային approvals և overrides-ը լիարժեք իրադարձություններ են, ոչ ծանոթագրություններ։
+IBM-ոճի event ցուցակները human handoff-ը դիտարկում են որպես ազդանշան, որը պետք է գրանցել failed tool calls-ի և LLM calls-ի հետ միասին ([IBM event types](https://www.ibm.com/think/insights/ai-agent-observability))։
+Gate դիզայնի համատեքստի համար տեսեք [human-in-the-loop AI գործակալներ բացատրված](/arm/blog/human-in-the-loop-ai-agents-explained)։
+Tool սահմանների կարգապահության համար տեսեք [անվտանգ tool calling բիզնես գործակալների համար](/arm/blog/safe-tool-calling-for-business-agents)։
+
+**Եզրակացություն.** սահմանեք schema-ն մեկ անգամ. հետո համապատասխանեցրեք այն այն sink-ին, որն օգտագործում եք։
+
+## Redaction և third-party արտահանում
+
+Հանեք secrets, API tokens, session cookies, ամբողջական card numbers (PAN) և ավելորդ PII, մինչև մատյանները լքեն ձեր control plane-ը։
+Դա ներառում է SaaS observability արտադրանքները, vendor agent tracers, shared Slack dumps և ticket attachments։
+
+Հստակ որոշեք, թե ինչ կարող է դուրս գալ VPC-ի կամ account սահմանից.
+
+| Տվյալների դաս | Default | Նշումներ |
+| --- | --- | --- |
+| Correlation ids, tool names, statuses, latencies | Կարող է արտահանվել | Core debug առանց content-ի |
+| Redacted tool args / result codes | Կարող է արտահանվել | Նախընտրեք allowlists, ոչ raw dumps |
+| Raw prompts / completions | Internal կամ միայն opt-in | Բարձր զգայունություն. տես retention |
+| Secrets, tokens, full PAN | Երբեք չպահել մատյաններում | Արգելափակեք emitter-ում կամ collector-ում |
+| Free-text user messages PII-ով | Internal + redact | Մի պատճենեք public sinks-ում |
+
+OpenTelemetry GenAI պրակտիկան default-ով անջատում է content capture-ը prompts, completions և tool bodies-ի համար, որովհետև այդ content-ը զգայուն է. full capture-ը opt-in է ([OTel content capture default](https://opentelemetry.io/blog/2026/genai-observability/))։
+Հավասարեցրեք product settings-ը այդ դիրքին, նույնիսկ եթե դեռ OTel-ի վրա չեք։
+
+Կապված privacy ընթերցում այս կայքում. [PII և GDPR logging AI գործակալների համար](/arm/blog/pii-gdpr-logging-for-ai-agents)։
+
+**Եզրակացություն.** third-party sinks-ը նախ ստանում են metadata և redacted structure, ոչ full conversation dumps։
+
+## Retention մատրիցա
+
+Ավելի շատ logging օգնում է debug-ին և կարող է ավելացնել compliance բեռը։
+Սահմանեք retention-ը հստակ՝ ըստ տվյալների դասի, ոչ թե «պահել ամեն ինչ forever» կամ «նմուշառել ամեն ինչ զրոյի»։
+
+| Տվյալների դաս | Debug window | Audit window | Never store |
+| --- | --- | --- | --- |
+| Structured events (ids, tool name, status, gates, latency, cost) | Կարճ operational պատուհան (օրերից մի քանի շաբաթ. սահմանեք per environment) | Ավելի երկար, եթե պետք է dispute-ի կամ change control-ի համար | - |
+| Redacted tool I/O summaries | Համընկնում է debug window-ի հետ | Երկարացրեք միայն եթե side effects-ը audit scope-ում են | Full secret-bearing payloads |
+| Raw prompts / completions | Միայն time-boxed investigation | Հազվադեպ. policy-gated | Default store ամեն token-ի |
+| Model/tool metadata (model id, versions) | Հավասարեցրեք structured events-ին | Հաճախ օգտակար են ավելի երկար | - |
+| Secrets, full PAN, raw credentials | - | - | **Երբեք** մատյաններում կամ traces-ում |
+| Human approval records | Operational | Հաճախ ավելի երկար, քան debug spans | Free-text notes չկապված PII-ով |
+
+Retention դիրքը ըստ տվյալների դասի. debug window, audit window և never-store։
+
+Սա ընդհանուր օպերատորական ուղեցույց է, ոչ իրավասությանը կապված իրավական պահանջ։
+Կարգավորվող ոլորտներին պետք են counsel և սեփական policy owners։
+Ինժեներական կանոնը միևնույն է մնում. raw prompts և completions-ը մնում են explicit retention-ի տակ, ոչ թե «գրանցեք ամեն ինչ, որովհետև storage-ը էժան է»։
+
+**Եզրակացություն.** debug window, audit window և never-store-ը երեք տարբեր որոշումներ են։
+
+## Չափորոշիչներ, որոնք կարևոր են production-ում
+
+Նախ հետևեք փոքր ops հավաքածուի, հետո vanity token charts-ի.
+
+- **Success rate** - run-ի business success, ոչ միայն HTTP 200։
+- **Exceptions / tool error rate** - ըստ tool-ի և error class-ի։
+- **Human overrides** - rate և reason codes. spikes-ը հաճախ նշանակում են semantic failure կամ weak gates։
+- **p95 latency** - per run և per critical tool։
+- **Cost per successful completion** - dollars կամ token-derived units բաժանված successes-ի վրա, ոչ ամեն partial attempt-ի։
+
+Token usage-ը cost driver է և capacity signal։
+Ինքնին quality score չէ։
+Vendor platforms-ը սովորաբար ցույց են տալիս token usage, latency percentiles, errors և cost agent traces-ի համար ([LangSmith observability](https://www.langchain.com/langsmith/observability). նման թեմաներ կան OSS և APM stack-երում, օրինակ [Arize Phoenix](https://arize.com/docs/phoenix))։
+Դրանք վերցրեք որպես օգտակար inputs. Dali-ի production շեմը մնում է **success, overrides և reconstructability**-ի վրա։
+
+Overrides-ը զուգորդվում են semantic failure-ի հետ։
+Եթե մարդիկ մշտապես վերագրում են գործակալի outcome-ը, համակարգը ձախողվում է, նույնիսկ երբ traces-ը կանաչ են։
+Հարակից failure patterns-ի համար տեսեք [production գործակալի ձախողման ռեժիմներ](/arm/blog/production-agent-failure-modes)։
+
+**Եզրակացություն.** չափեք ավարտված աշխատանքի որակը և միջամտության բեռը, ոչ միայն tokens։
+
+## OpenTelemetry կամուրջ (ընտրովի, նախ structure)
+
+OpenTelemetry-ի GenAI աշխատանքը նպատակ ունի ստանդարտացնել, թե ինչպես են ձևավորվում agent և model telemetry-ն, որպեսզի թիմերը ավելի քիչ կախված լինեն մեկ framework-ի private format-ից ([OTel on AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/). կենդանի conventions [semantic-conventions-genai](https://github.com/open-telemetry/semantic-conventions-genai) repository-ում)։
+
+Երբ OTel-ը համապատասխանում է ձեր stack-ին, մտավոր համապատասխանեցրեք նվազագույն schema-ն GenAI-style operations-ի վրա, օրինակ root agent invoke և child tool execution (`invoke_agent` և `execute_tool` ընթացիկ GenAI walkthrough-ներում) ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/))։
+Attribute անունները և stability մակարդակները զարգանում են։
+Մի կոշտ սառեցրեք ամեն attribute string-ը runbooks-ում առանց conventions repo-ն implementation պահին վերաստուգելու։
+
+Content capture-ը prompts և tool bodies-ի համար պետք է մնա default-off / opt-in, համապատասխան OTel-ի sensitive-data guidance-ին, որը մեջբերվել է վերևում։
+
+OpenTelemetry-ը պարտադիր չէ սկսելու համար։
+Կառուցվածքային իրադարձությունները կայուն id-ներով արդեն ավելի լավ են, քան դատարկ backlog-ը «tracing կավելացնենք հետո»։
+Structure-ն ավելի կարևոր է, քան tracer-ի brand-ը։
+OSS և commercial tools-ը (Phoenix, LangSmith, MLflow-style stacks, cloud APM) կարող են նստել մաքուր event model-ի վրա. դրանցից ոչ մեկը չի փոխարինում այն քաղաքականությանը, թե ինչ եք արտադրում և պահպանում։
+
+Hyperscaler best-practice ցուցակները հաճախ continuous evaluation-ը և production monitoring-ը դնում են կողք կողքի ([Azure agent observability practices](https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/))։
+Evals-ը առանձին design խնդիր է։
+Այս էջը մնում է logs, traces, redaction և retention-ի վրա։
+Եթե հետո պետք է go-live evaluation ուղի, օգտագործեք [ինչպես գնահատել AI գործակալները go-live-ից առաջ](/arm/blog/how-to-evaluate-ai-agents-before-go-live) որպես հարևան թեմա, ոչ որպես runtime events-ի փոխարինող։
+
+**Եզրակացություն.** OTel-ը օգտակար բառապաշարային կամուրջ է. պահանջը ձեր նվազագույն schema-ն է։
+
+## Sampling և storage զգուշություն
+
+Ագրեսիվ sampling-ը կարող է ջնջել հենց այն rare run-երը, որոնք պետք են միջադեպից հետո։
+Agent traces-ը high-cardinality են և հաճախ wide. ամեն ինչը coarse metrics-ի մեջ գլորելը կորցնում է tool args, gate outcomes և side-effect summaries։
+
+Նախընտրեք.
+
+- Միշտ պահել structured metadata յուրաքանչյուր production run-ի համար, որը կարող է փոխել state։
+- Ժամանակային սահմանափակում դրեք heavy content-ի վրա (prompts, մեծ tool bodies), ոչ թե պատահականորեն բաց թողեք critical runs։
+- Առանձնացրեք «full fidelity mutable paths-ի համար» և «lighter telemetry read-only assistants-ի համար», եթե cost-ը ստիպում է split։
+
+Մի ընկալեք vendor-ի storage-size կամ query-speed պնդումները որպես ունիվերսալ փաստեր ձեր workload-ի համար։
+Չափեք ձեր սեփական volume-ը schema-ն կայունանալուց հետո։
+
+**Եզրակացություն.** նմուշառեք vanity-ն, ոչ audit trail-ը side-effecting tools-ի համար։
 
 ## Ինչպես է Dali-ն տեղավորվում
 
-Dali-ն ներառում է logging expectations pilots-ում. [solutions](/arm/solutions)։
+Dali-ն ներառում է logging սպասումներ production pilots-ում, ներառյալ correlation, tool-call կառուցվածք, approvals, redaction և retention policy scale-out-ից առաջ։
+Դա գործակալներ թողարկելու մաս է engineering և operations կարգապահությամբ, ոչ dashboard, որը կպցվում է առաջին միջադեպից հետո։
+
+Եթե ուզում եք logging և approval gates, նախագծված pilot-ի մեջ, ոչ կպցված առաջին միջադեպից հետո, սկսեք [լուծումներից](/arm/solutions)։
+Եթե դեռ սահմանում եք, թե ինչ է նշանակում «production» գործակալների համար, սկսեք [ինչ է production AI գործակալը](/arm/blog/what-is-a-production-ai-agent)։
 
 ## FAQ
 
-### Պե՞տք է պահել ամեն token։
-Սովորաբար ոչ։ Պահեք hashes կամ truncated spans, քանի դեռ չեք investigate անում։
+### Պե՞տք է պահել ամեն token (կամ full prompts և completions)։
 
-### OpenTelemetry agents-ի համար՞։
-Օգտակար է, եթե համապատասխանում է stack-ին. structure-ն ավելի կարևոր է, քան tracer-ի brand-ը։
+Սովորաբար ոչ։
+Պահեք hashes, truncated spans կամ metadata, քանի դեռ ակտիվ investigation չեք անում։
+Full prompts և completions-ը զգայուն են և թանկ. պահեք դրանք կարճ, explicit retention window-ի տակ, երբ ընդհանրապես պետք են։
+Այդ դիրքը համընկնում է OTel-ի default-off content capture-ին GenAI telemetry-ի համար ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/))։
 
-### Related
-[Agent incident response](/arm/blog/agent-incident-response-and-liability)
+### OpenTelemetry-ը պարտադի՞ր է AI գործակալի դիտարկելիության համար։
 
+Ոչ։
+OTel-ը օգտակար է, երբ համապատասխանում է stack-ին և նվազեցնում է framework lock-in-ը shared semantic conventions-ի միջոցով ([OTel AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/); [GenAI conventions repo](https://github.com/open-telemetry/semantic-conventions-genai))։
+Structure-ն ավելի կարևոր է, քան tracer-ի brand-ը։
+Սկսեք նվազագույն event schema-ից, նույնիսկ եթե առաջին sink-ը plain JSON logs է։
 
-<!-- covers GPT questions: 29,30,31 -->
+### Ո՞րն է տարբերությունը agent observability-ի և LLM observability-ի միջև։
+
+LLM observability-ն կենտրոնանում է առանձին model calls-ի վրա։
+Agent observability-ն ծածկում է multi-step journey-ն. planning, tools, gates, retries և side effects այդ calls-ի շուրջ ([ClickHouse comparison](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability); [IBM definition](https://www.ibm.com/think/insights/ai-agent-observability))։
+Model-level fields-ը միևնույն է պետք են ավելի մեծ run-ի ներսում։
+
+### Ո՞ր fields-ը պետք է գրանցել tool calls-ի համար։
+
+Նվազագույնը. `tool_name`, `args_redacted`, `result_status`, latency, correlation ids (`request_id` / `run_id`) և links to approvals, երբ tool-ը կարող է փոխել state։
+Ավելացրեք կարճ `side_effect_summary`, երբ ինչ-որ բան փոխվել է մոդելից դուրս։
+Մի գրանցեք raw secrets tool payloads-ի ներսում։
+
+### Որքա՞ն ժամանակ պետք է պահել agent traces։
+
+Օգտագործեք retention matrix. կարճ debug window heavy content-ի համար, ավելի երկար audit window structured events-ի և approval records-ի համար, երբ disputes-ը կարևոր են, և never-store secrets-ի և full PAN-ի համար։
+Չկա մեկ ունիվերսալ թիվ, որը համապատասխանում է ամեն ոլորտին։
+Սահմանեք պատուհանները security և compliance owners-ի հետ, հետո կիրառեք դրանք pipeline-ում։
+
+## Կապված
+
+Երբ traces-ը ցույց են տալիս failure, անցեք telemetry-ից process. [գործակալի միջադեպային արձագանք և պատասխանատվություն](/arm/blog/agent-incident-response-and-liability)։
+
+Ճարտարապետության շեմ և սահմանում. [ինչ է production AI գործակալը](/arm/blog/what-is-a-production-ai-agent)։
+
+Հաստատումներ որպես իրադարձություններ. [human-in-the-loop AI գործակալներ բացատրված](/arm/blog/human-in-the-loop-ai-agents-explained)։
+
+Ձախողման օրինաչափություններ, որոնք դիտարկելիությունը պետք է բացահայտի. [production գործակալի ձախողման ռեժիմներ](/arm/blog/production-agent-failure-modes)։

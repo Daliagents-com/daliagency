@@ -36,6 +36,7 @@ function normalizeMeta(data: Record<string, unknown>, fallbackLocale: Locale): B
     title: String(data.title ?? "").trim(),
     description: String(data.description ?? "").trim(),
     date: String(data.date ?? "").trim(),
+    updated: data.updated ? String(data.updated).trim() : undefined,
     locale,
     hreflangGroup: String(data.hreflangGroup ?? slug).trim() || slug,
     keywords: asStringArray(data.keywords),

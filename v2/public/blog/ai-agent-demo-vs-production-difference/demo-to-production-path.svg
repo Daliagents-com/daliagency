@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Demo path compared with a production readiness path</title>
+  <desc id="desc">A narrow perfect-path demo on the left and a production system with controls, alternate paths, observation, and recovery on the right.</desc>
+  <rect width="1600" height="900" rx="44" fill="#f4efe4"/>
+  <rect x="70" y="70" width="570" height="760" rx="34" fill="#fffaf0" stroke="#d6cdbd" stroke-width="4"/>
+  <rect x="680" y="70" width="850" height="760" rx="34" fill="#101826"/>
+  <path d="M180 650 C270 530 310 420 420 340 S520 220 560 160" fill="none" stroke="#2255d6" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="180" cy="650" r="42" fill="#2255d6"/>
+  <circle cx="350" cy="410" r="42" fill="#2255d6"/>
+  <circle cx="560" cy="160" r="42" fill="#2255d6"/>
+  <path d="M165 650h30M180 635v30M335 410h30M350 395v30" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"/>
+  <path d="M542 160l12 13 26-31" fill="none" stroke="#fffaf0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M800 650 C875 570 900 510 990 470 S1120 370 1190 300 S1340 220 1420 165" stroke="#56a0ff" stroke-width="18"/>
+    <path d="M990 470 C1080 540 1190 580 1320 570" stroke="#ff6b4a" stroke-width="12" stroke-dasharray="18 18"/>
+    <path d="M1190 300 C1260 350 1360 385 1430 405" stroke="#56a0ff" stroke-width="10" stroke-dasharray="14 16"/>
+    <path d="M1320 570 C1380 530 1410 480 1430 405" stroke="#ff6b4a" stroke-width="10"/>
+  </g>
+  <g fill="#172235" stroke="#8dbdff" stroke-width="5">
+    <circle cx="800" cy="650" r="48"/>
+    <circle cx="990" cy="470" r="48"/>
+    <circle cx="1190" cy="300" r="48"/>
+    <circle cx="1420" cy="165" r="48"/>
+  </g>
+  <g fill="#fffaf0" font-family="Arial, sans-serif" font-size="30" text-anchor="middle" dominant-baseline="central">
+    <text x="800" y="650">1</text><text x="990" y="470">2</text><text x="1190" y="300">3</text><text x="1420" y="165">4</text>
+  </g>
+  <g transform="translate(910 145)" fill="none" stroke="#ff6b4a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 34l38-18 38 18v35c0 34-24 56-38 63C24 125 0 103 0 69z"/><path d="M22 66l12 12 23-27"/>
+  </g>
+  <g transform="translate(1010 665)" fill="none" stroke="#56a0ff" stroke-width="10" stroke-linecap="round">
+    <path d="M0 44c28-38 80-38 108 0-28 38-80 38-108 0z"/><circle cx="54" cy="44" r="15"/>
+  </g>
+  <g transform="translate(1245 650)" fill="none" stroke="#ff6b4a" stroke-width="10" stroke-linecap="round">
+    <path d="M20 68a48 48 0 1 1 70 14"/><path d="M79 63l12 20-23 5"/>
+  </g>
+  <g transform="translate(1390 350)" fill="none" stroke="#fffaf0" stroke-width="9">
+    <rect x="0" y="0" width="86" height="86" rx="20"/><path d="M28 22v42M58 22v42"/>
+  </g>
+</svg>

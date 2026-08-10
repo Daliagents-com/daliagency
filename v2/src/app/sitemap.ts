@@ -28,7 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogPostEntries = locales.flatMap((locale) =>
     getPublishedPosts(locale).map((post) => ({
       url: absoluteUrl(blogPath(locale, post.slug)),
-      ...(post.date ? { lastModified: post.date } : {}),
+      ...(post.updated ?? post.date
+        ? { lastModified: post.updated ?? post.date }
+        : {}),
     })),
   );
   const routes = [

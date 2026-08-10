@@ -1,54 +1,207 @@
 ---
-slug: "multi-agent-vs-single-agent-when-to-use"
-title: "Multi-agent vs single agent: როდის ეხმარება orchestration (და როდის ზიანს აყენებს)"
-description: "პრაქტიკული წესი multi-agent სისტემებისა და ერთი tool-using აგენტისთვის: სირთულე, failure modes და production ownership."
-date: "2026-08-01"
-locale: "ge"
-hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
-keywords: ["multi-agent vs single agent", "multi-agent orchestration", "როდის გამოვიყენოთ multi-agent სისტემები"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: multi-agent-vs-single-agent-when-to-use
+title: 'Multi-agent vs single agent: როდის ეხმარება orchestration (და როდის ზიანს
+  აყენებს)'
+description: დაიწყეთ ერთი tool-using აგენტით. Multi-agent დაამატეთ მხოლოდ რეალური
+  როლების, უფლებების ან პარალელური გაყოფისთვის, რომელთაც ფლობთ - decision table, ჩეკლისტი
+  და cost trade-off-ები.
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: ge
+hreflangGroup: multi-agent-vs-single-agent-when-to-use
+keywords:
+- multi-agent vs single agent
+- multi-agent orchestration
+- როდის გამოვიყენოთ multi-agent სისტემები
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/multi-agent-vs-single-agent-when-to-use/hero.jpg
+heroAlt: შედარება ერთი აგენტის, tools-იანი ერთი აგენტისა და multi-agent სისტემების
+  ღირებულების, დაყოვნების, გამართვის, უსაფრთხოებისა და პასუხისმგებლობის ღერძებზე
+ogImage: /blog/multi-agent-vs-single-agent-when-to-use/og.jpg
 ---
 
 ## პირდაპირი პასუხი
 
-დაიწყეთ **ერთი აგენტით და მკაფიო tools-ით** ერთი workflow-სთვის. Multi-agent orchestration დაამატეთ მხოლოდ მაშინ, როცა roles, permissions ან handoffs მართლაც განცალკევებულია - და შეგიძლიათ მთელი graph-ის failure modes-ის ფლობა.
+დაიწყეთ **ერთი აგენტით და მკაფიო tools-ით** ერთი workflow-სთვის.
+Multi-agent orchestration დაამატეთ მხოლოდ მაშინ, როცა როლები, უფლებები ან გადაცემები მართლაც განცალკევებულია - და შეგიძლიათ მთელი გრაფის მარცხის რეჟიმების ფლობა.
+ხშირი მარცხის რეჟიმი: აგენტების დამატება მანამდე, სანამ workflow, acceptance test და დამტკიცების მფლობელი მკაფიო არ არის.
+Multi-agent არის ფასი, რომელსაც იხდით რეალური განცალკევების საჭიროებისთვის, და არა quality-ის ნაგულისხმევი განახლება.
 
-## რას გულისხმობენ multi-agent-ში
+## რას გულისხმობენ multi-agent-ში (და multi-agent orchestration-ში)
 
-ჩვეულებრივ: planner plus workers, ან specialized აგენტები research-ის, coding-ისა და review-ისთვის. Business ops-ში ეს ხშირად ნიშნავს მეტ moving parts-ს, მეტ latency-ს და მეტ ადგილს, სადაც state იკარგება - არა ავტომატურად უფრო მაღალ quality-ს.
+LLM პროდუქტის სამუშაოში multi-agent ჩვეულებრივ ნიშნავს planner-ს ან coordinator-ს პლუს workers-ს, ან სპეციალიზებულ აგენტებს research-ის, coding-ის, review-ის ან სხვა როლებისთვის.
+თითოეულ აგენტს ხშირად აქვს საკუთარი context, tools და prompt, და სამუშაო მათ შორის უნდა მარშრუტიზდეს.
 
-## როდის საკმარისია single agent
+**Multi-agent orchestration** არის ეს კოორდინაციის ფენა: coordinator (ან router) ანაწილებს სამუშაოს, workers მუშაობენ იზოლირებულ threads-ში ან contexts-ში, და შედეგები ბრუნდება სინთეზისთვის ან შემდეგი ნაბიჯისთვის.
+პლატფორმის ტერმინებში ეს ხშირად გამოიყურება როგორც coordinator პლუს სპეციალიზებული ან იზოლირებული workers, რომლებიც ნაგულისხმევად არ იზიარებენ სრულ conversation history-ს ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
 
-ერთი primary system of record, ერთი approval owner, მოკლე tool list და მკაფიო standard path. Lead response, inbox triage და document-to-tracker ხშირად უკეთ იშლება როგორც ერთი gated agent.
+ბიზნეს ops-ში multi-agent ხშირად ნიშნავს მეტ დაყოვნებას, მეტ ადგილს, სადაც მდგომარეობა იკარგება გადაცემებზე, და უფრო დიდ ზედაპირს შეფასებისთვის - არა ავტომატურად უფრო მაღალ ხარისხს.
+კლასიკური multi-agent კვლევა აღწერს ავტონომიურ აგენტებს ლოკალური ხედვითა და დეცენტრალიზებული კონტროლით; production LLM გრაფებს მაინც სჭირდება ერთი ოპერაციული მფლობელი მთელი გზისთვის.
+
+## ერთი აგენტი tools-ით: ნაგულისხმევი არჩევანი
+
+![ერთი აგენტი პირდაპირ უკავშირდება ინსტრუმენტებს, ხოლო კოორდინატორი სამუშაოს სამ სპეციალიზებულ აგენტს უნაწილებს](/blog/multi-agent-vs-single-agent-when-to-use/single-vs-multi-coordination.svg)
+
+*კონცეპტუალური ტოპოლოგია: multi-agent დიზაინი ამატებს სპეციალიზაციას, მაგრამ ასევე ქმნის მარშრუტიზაციის, გაზიარებული მდგომარეობისა და კოორდინაციის ახალ ზედაპირებს, რომლებსაც მფლობელი სჭირდება.*
+
+ერთი tool-using აგენტი არის შუა გზა, რომლითაც უმეტესმა გუნდმა უნდა დაიწყოს.
+ერთი ძირითადი system of record, ერთი დამტკიცების მფლობელი, მოკლე tool სია და მკაფიო სტანდარტული გზა ჩვეულებრივ სჯობს აგენტების გრაფს, რომელსაც ორშაბათს ვერავინ გამართავს.
+
+ბევრი vendor-ისა და framework-ის გიდი იგივე ადგილას ჩერდება: დაიწყეთ ერთი აგენტით კარგად დაპროექტებული tools-ით, სანამ სამუშაოს აგენტებზე გაყოფთ ([LangChain on multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+Production trade-off სტატიებიც single-agent-ს განიხილავენ როგორც უფრო მარტივ გზას კარგად განსაზღვრული workflow-ებისთვის მკაცრი უსაფრთხოების საზღვრების გარეშე ([Redis: single-agent vs multi-agent](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+ჰიპოთეტური ops მაგალითები, რომლებიც ხშირად უკეთ მუშაობს პროდუქციაში როგორც ერთი gated agent:
+
+1. **Lead response** - წაიკითხე inquiry, დაწერე draft პასუხი ან CRM შენიშვნა, გაჩერდი ადამიანის გაგზავნაზე ან ჩაწერაზე, როცა მოქმედება კლიენტისკენაა მიმართული.
+2. **Inbox triage** - კლასიფიკაცია, label და მარშრუტიზაცია; ადამიანი მაინც ფლობს escalation-ებსა და შეუქცევად პასუხებს.
+3. **Document-to-tracker** - ამოიღე ველები sheet-ში ან ticket-ში ვალიდაციითა და approval gate-ით, სანამ რამე production მონაცემს გადაწერს.
+
+თუ workflow ერგება ერთ system of record-ს და ერთ ადამიანს, რომელსაც შეუძლია თქვას დიახ ან არა რისკიან ჩაწერებზე, multi-agent ჩვეულებრივ ნაადრევია.
+როცა აგენტები საერთოდ არასწორი ინსტრუმენტია - არ არის სტაბილური პროცესი, არ არის მფლობელი, არ არის ტოლერანტობა ნაწილობრივი ავტომატიზაციისთვის - იხილეთ [როდის არ გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents).
 
 ## როდის შეიძლება multi-agent დაეხმაროს
 
-მკაცრი privileges-ის გამიჯვნა (read-only research vs write actions), გრძელი multi-hour jobs checkpoints-ით, ან სხვადასხვა models სხვადასხვა stages-ისთვის explicit contracts-ით მათ შორის.
+Multi-agent თავის ხარჯს ამართლებს, როცა bottleneck არის ერთი context ან ერთი უფლებების ნაკრები, და არა როცა დემოს მეტი ყუთები სჭირდება.
 
-## Multi-agent theater-ის ფასი
+Claude-ის production guidance გამოყოფს სამ გამართლებულ შემთხვევას: **context protection** (არ დააბინძურო მთავარი thread bulk retrieval-ით), **parallelization** (დამოუკიდებელი subtask-ები, რომლებიც ერთად შეიძლება გაეშვას), და **specialization** (ფოკუსირებული tools ან prompts თითოეულ როლზე) ([Claude: when and how to use multi-agent systems](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
 
-უფრო რთული evals, უფრო რთული incident response, გაურკვეველი ownership და demos, რომლებიც უფრო აღაფრთოვანებენ, ვიდრე ორშაბათის დილის tickets-ზე მუშაობენ.
+Ops ენაზე ეს აისახება ასე:
 
-## პრაქტიკული წესი
+- **მკაცრი უფლებების განცალკევება** - მხოლოდ-წაკითხვის research გზა არ უნდა იზიარებდეს ჩაწერის credentials-ს იმ აგენტთან, რომელიც CRM-ს ან finance სისტემებს აახლებს.
+- **Breadth-first პარალელური სამუშაო** - რამდენიმე დამოუკიდებელი წყარო ან queue, რომლებიც სერიული გაშვებისას ერთ context-ს გადატვირთავდნენ.
+- **ეტაპის კონტრაქტები** - სხვადასხვა models ან როლები მკაფიო გადაცემის ფორმატით (მაგალითად research summary შემოსვლაზე, დამტკიცებული write-out გასვლაზე).
+- **გრძელი checkpoint-იანი სამუშაოები** - მრავალსაათიანი სამუშაო, სადაც შუალედური მდგომარეობა უნდა გადარჩეს, ადამიანის ან სისტემის gate-ით ეტაპებს შორის.
 
-თუ workflow-ს ერთ გვერდზე ერთი acceptance test-ით ვერ დახატავთ, multi-agent design არ გადაგარჩენთ. ჯერ map, შემდეგ topology.
+Enterprise adoption guidance კიდევ უფრო მკაცრია: multi-agent დაიწყეთ ძირითადად მაშინ, როცა უსაფრთხოების ან compliance საზღვრები, მრავალგუნდიანი ცოდნის მფლობელობა ან დაგეგმილი multi-domain ზრდა **მოითხოვს** განცალკევებას; წინააღმდეგ შემთხვევაში ჯერ prototype-ით single-agent ([Microsoft Cloud Adoption Framework: single vs multi-agent](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+
+## შედარების ცხრილი: single vs single + tools vs multi-agent
+
+როგორ წაიკითხოთ ეს ცხრილი ops pilot-ისთვის: ოპტიმიზაცია იმისა, რისი შეფასება, დამტკიცება და on-call ერთ გუნდს შეუძლია - და არა იმისა, რამდენი აგენტი ჩანს არქიტექტურის დიაგრამაზე.
+
+| განზომილება | ერთი აგენტი | ერთი აგენტი + tools | Multi-agent გრაფი |
+| --- | --- | --- | --- |
+| ღირებულება / tokens | ყველაზე დაბალი ვიწრო Q&A-სთვის | ზომიერი; იზრდება tool loops-თან | ყველაზე მაღალი; ხშირად ამრავლებს tokens-ს ერთ აგენტთან შედარებით |
+| დაყოვნება | ჩვეულებრივ ყველაზე დაბალი | დომინირებს tool round-trips | გადაცემები და პარალელური fan-out ამატებენ კოორდინაციის დროს |
+| გამართვა | ერთი trace, ერთი prompt stack | ერთი აგენტი პლუს tool logs | დანაწევრებული agents, contracts და threads-ზე |
+| უსაფრთხოების საზღვრები | ერთი უფლებების ნაკრები (უფრო რთული least-privilege) | მაინც ერთი აგენტი; tools-ის scopes ფრთხილად | უკეთესი იზოლაცია, თუ როლები და credentials მართლაც გაყოფილია |
+| პარალელური სამუშაო | სუსტი სიგანისთვის | თანმიმდევრული tool use, თუ tools თვითონ არ პარალელდება | ძლიერი, როცა subtask-ები დამოუკიდებელია |
+| პასუხისმგებლობა / on-call | ერთი გზა, ერთი მფლობელი | მაინც ერთი მფლობელი, თუ gate-ები მკაფიოა | სჭირდება მფლობელი **მთელი გრაფისა**, არა თითოეული აგენტისა |
+| Eval ზედაპირი | ერთი acceptance test გზა | Tool წარმატება + შედეგის ხარისხი | თითოეული როლის eval-ები პლუს end-to-end graph eval-ები |
+
+Production სტატიები ხაზს უსვამენ იგივე ღერძებს - სირთულე, გამართვა, ღირებულება და გჭირდებათ თუ არა მკაცრი საზღვრები ან სპეციალიზაცია ([Redis comparison framing](https://redis.io/blog/single-agent-vs-multi-agent-systems/)).
+
+## Token-ებისა და ops-ის ეკონომიკა (ატრიბუციით)
+
+Token-ების ღირებულება არ არის Dali-ს გაზომვა; გამოიყენეთ vendor რიცხვები როგორც scoped დაკვირვებები, და არა უნივერსალური კანონები.
+
+Anthropic-ის engineering პოსტი მათ multi-agent research system-ზე იუწყება, რომ multi-agent setup Claude Opus 4-ით როგორც lead და Claude Sonnet 4 subagents-ით **გაასწრო single-agent Opus 4-ს 90.2%-ით მათ internal research evaluation-ზე**.
+მათ მონაცემებში agents ჩვეულებრივ იყენებდნენ დაახლოებით **4x** tokens chat interactions-თან შედარებით, ხოლო multi-agent systems დაახლოებით **15x** tokens chats-თან შედარებით.
+ისინი ასევე აღნიშნავენ, რომ multi-agent systems-ს სჭირდება task value საკმარისად მაღალი performance gain-ის ასანაზღაურებლად, და რომ domains, რომლებსაც სჭირდებათ shared context ან მძიმე real-time კოორდინაცია (ბევრი coding tasks), დღეს ცუდად ერგება ([Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)).
+
+Claude-ის product guidance იუწყება, რომ multi-agent implementations **ჩვეულებრივ იყენებენ დაახლოებით 3-10x მეტ tokens-ს**, ვიდრე single-agent approaches ექვივალენტური tasks-ისთვის, duplicated context-ის, კოორდინაციის შეტყობინებებისა და handoff summary-ების გამო ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+LangChain-ის economic framing თანხვედრაშია: task value უნდა ფარავდეს token cost-ს; ააშენეთ multi-agent, როცა parallelization, დიდი context pressure და რთული tool surfaces ამართლებენ ხარჯს ([LangChain: how and when to build multi-agent systems](https://www.langchain.com/blog/how-and-when-to-build-multi-agent-systems)).
+
+**Ops წესი:** გადაიხადეთ multi-agent ფასი მხოლოდ მაშინ, როცა შედეგის ბიზნეს ღირებულება ფარავს tokens-ს, დაყოვნებას და ადამიანებს, რომლებიც ინციდენტებს ფლობენ.
+
+## Multi-agent theater-ის ფასი (ტოპოლოგია და პასუხისმგებლობა)
+
+**Multi-agent theater** არის დემოზე მოსახერხებელი გრაფი, რომელიც ორშაბათის ტიკეტებზე იშლება: ბევრი აგენტი, სუსტი კონტრაქტები, არ არის ერთი on-call მფლობელი გზისა.
+
+ტოპოლოგიისა და პასუხისმგებლობის ხარჯები, რომლებმაც უნდა მოკლან ან გადადონ multi-agent დიზაინი:
+
+- **გადაცემა და მდგომარეობის დაკარგვა** - თითოეულ საზღვარზე შეიძლება ჩამოვარდეს შეზღუდვები, პრიორიტეტები ან ნაწილობრივი შედეგები («გაფუჭებული ტელეფონი» როლებს შორის).
+- **Eval-ის დანაწევრება** - გჭირდებათ თითოეული აგენტის შემოწმებები და სრული გრაფის acceptance test; გუნდები ხშირად არცერთს არ გამოაქვთ პროდუქციაში.
+- **გაურკვეველი პასუხისმგებლობა** - როცა ცუდი CRM ჩაწერა პროდუქციაში გადის, «რომელი აგენტი?» არასწორი კითხვაა; ვიღაცამ უნდა ფლობდეს გრაფს.
+- **უფლებების გაბუნდოვანება** - ერთი საერთო credential bag «სპეციალისტებზე» შლის multi-agent-ის უსაფრთხოების მიზეზს.
+- **დუბლირებული სამუშაო** - workers ხელახლა ეძებენ იგივე წყაროებს მკაფიო task საზღვრების გარეშე (მარცხი, რომელიც Anthropic-მა აღნიშნა, როცა lead instructions ძალიან ბუნდოვანი იყო).
+- **Verifier-ის შემოკლებები** - industry guidance აფრთხილებს, რომ verification subagents-მა შეიძლება ნაადრევი გამარჯვება გამოაცხადონ არასრული შემოწმებების შემდეგ; გამოიყენეთ მხოლოდ კონკრეტული კრიტერიუმებით ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)).
+
+ეს არის გადაწყვეტილების დროის პასუხისმგებლობის რისკები, და არა სრული production მარცხის ტაქსონომია.
+უფრო ფართო დიზაინისთვის არასწორი tool ჩაწერების, გამოტოვებული gate-ებისა და ჩუმი drift-ის წინააღმდეგ იხილეთ [საბრძოლო აგენტების მარცხის რეჟიმები](/ge/blog/production-agent-failure-modes).
+დამტკიცების დიზაინისთვის ერთ გზაზე იხილეთ [human-in-the-loop AI აგენტები](/ge/blog/human-in-the-loop-ai-agents-explained).
+
+## გადაწყვეტილების ჩეკლისტი: ხუთი კითხვა
+
+უპასუხეთ ამათ, სანამ მეორე აგენტს დაამატებთ.
+
+1. **Subtask-ები მართლაც პარალელებადია?** თუ ყოველ ნაბიჯს სჭირდება სრული წინა context, გრაფი ძირითადად ამატებს გადაცემის დანაკარგს.
+2. **ცალკე უფლებები მართლაც მოითხოვს იზოლაციას?** თუ ერთი service account მაინც ყველაფერს აკეთებს, multi-agent არის მასხარობა, და არა უსაფრთხოება.
+3. **ერთი აგენტი დააბინძურებდა context-ს bulk შუალედური მონაცემებით?** თუ კი, ფოკუსირებული worker, რომელიც აბრუნებს მოკლე summary-ს, შეიძლება დაეხმაროს.
+4. **თითოეულ როლს სჭირდება საკუთარი eval და acceptance criteria?** თუ წარმატებას თითოეულ როლზე ვერ განსაზღვრავთ, გრაფს ვერ მართავთ.
+5. **ერთ ადამიანს შეუძლია სრული გრაფის on-call პასუხისმგებლობა?** თუ მფლობელობა არის «the agents», multi-agent production-ში არ გაიტანოთ.
+
+თუ უმეტესი პასუხი არის არა, დარჩით single-agent-ზე tools-ითა და gate-ებით.
+
+## არქიტექტურული პატერნები ops-ისთვის (მოკლედ)
+
+დაარქვით პატერნს მხოლოდ მაშინ, როცა ის აისახება ops საჭიროებაზე - და არა როგორც framework-ების სავაჭრო სია.
+
+1. **Router (queues)** - კლასიფიკაცია შემოსული ticket-ისა ან lead-ისა და გაშვება სწორ policy ან tool გზაზე სრული multi-agent საუბრის გარეშე.
+2. **თანმიმდევრული გადაცემა (დამტკიცებები)** - ეტაპობრივი სამუშაო ისე, რომ შემდეგი როლი ან model გაიხსნას მხოლოდ gate-ის შემდეგ (ადამიანი ან სისტემა) ფიქსირებულ კონტრაქტზე.
+3. **პარალელური workers (სიგანის research)** - fan out დამოუკიდებელი lookups ან წყაროები, შემდეგ სინთეზი ერთი მფლობელის ქვეშ.
+4. **Verifier subagent (არასავალდებულო)** - ცალკე შემმოწმებელი black-box ვალიდაციისთვის, როცა კრიტერიუმები explicit და სრულია, და არა ფორმალური შტამპი.
+
+LangChain დოკუმენტირებს related pattern families-ს (subagents, handoffs, router და lighter «skills» composition) და მაინც იწყებს ასე: ბევრი task უკეთესია როგორც single agent ([LangChain multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture)).
+აირჩიეთ ერთი პატერნი, რომელიც ემთხვევა თქვენს პასუხისმგებლობის მოდელს; არ დააინსტალიროთ frameworks-ის კატალოგი, რომ production-ready იგრძნოთ თავი.
+
+## პრაქტიკული წესი: ჯერ რუკა, შემდეგ ტოპოლოგია
+
+თუ workflow-ს ერთ გვერდზე ერთი acceptance test-ით ვერ დახატავთ, multi-agent დიზაინი არ გადაგარჩენთ.
+ჯერ დახაზეთ ნაბიჯები, systems of record, მარცხის ფასი და ადამიანის gate-ები - შემდეგ აირჩიეთ ტოპოლოგია ([როგორ დავმაპოთ workflow AI აგენტებამდე](/ge/blog/map-workflows-for-ai-agents)).
+
+ნაგულისხმევი გზა:
+
+1. Prototype **ერთი gated agent** ერთ სტანდარტულ გზაზე.
+2. გაზომეთ tool შეცდომები, ადამიანის overrides და end-to-end completion ხარისხი.
+3. გაყავით მხოლოდ მაშინ, როცა უსაფრთხოების ან compliance საზღვრები, მრავალგუნდიანი მფლობელობა ან რეალური პარალელური სიგანე აიძულებს - enterprise კრიტერიუმთან შესაბამისად «multi only when mandated» ([Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+4. გაყოფის შემდეგაც შეინარჩუნეთ ერთი system of record ჩაწერებისთვის და ერთი დამტკიცების მფლობელი.
 
 ## როგორ ჯდება Dali
 
-Dali იწყებს ერთი production path-ით და gates-ით. იხილეთ [გადაწყვეტები](/ge/solutions) და [როდის არ გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents).
+Dali იწყებს ერთი production გზითა და gate-ებით, და არა multi-agent theater-ით.
+ჩვენ ვადგენთ workflow-ის რუკას, ვადგენთ acceptance tests-ს და ვაფართოებთ ტოპოლოგიას მხოლოდ მაშინ, როცა უფლებები, პარალელური სამუშაო ან პასუხისმგებლობის საზღვრები ამას მოითხოვს.
+იხილეთ [გადაწყვეტები](/ge/solutions) engagement paths-ისთვის, და [როდის არ გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents), თუ პროცესი საერთოდ არ არის მზად აგენტებისთვის.
+თუ ჯერ კიდევ ირჩევთ, ვინ ააშენებს (studio vs internal team), იხილეთ [AI agent სააგენტო vs in-house](/ge/blog/ai-agent-agency-vs-in-house).
 
 ## FAQ
 
-### LangChain ან CrewAI აიძულებს multi-agent-ს?
-არა. გამოიყენეთ როგორც libraries, როცა glue code-ს ამცირებენ - არა როგორც მოთხოვნა ყოველი pilot-ისთვის.
+### LangChain, CrewAI ან LangGraph აიძულებს multi-agent-ს?
+
+არა.
+გამოიყენეთ ისინი როგორც libraries, როცა glue code-ს ამცირებენ - და არა როგორც მოთხოვნა ყოველი pilot-ისთვის.
+ერთი tool-using აგენტი შეიძლება ცხოვრობდეს ამ ecosystems-ში multi-agent გრაფის გარეშე.
 
 ### Planner agent სავალდებულოა?
-მხოლოდ თუ planning რეალური stage-ია საკუთარი eval-ით. ბევრი ops agent არის deterministic routers plus LLM ენისთვის.
 
-### Sales და support-ს შეუძლიათ ერთი აგენტის გაზიარება?
-უპირატესობა მიეცით separate pilots-სა და policies-ს. Shared agents blur-ავენ permissions-სა და knowledge-ს.
+მხოლოდ თუ planning არის რეალური ეტაპი საკუთარი eval-ითა და კონტრაქტით.
+ბევრი ops agent არის deterministic routers პლუს LLM ენისთვის, ადამიანებით შეუქცევად მოქმედებებზე.
 
+### შეიძლება sales-მა და support-მა ერთი აგენტი გაიზიარონ?
 
-<!-- covers GPT questions: 1,3,4,8,9,10 -->
+უპირატესობა მიეცით ცალკე pilots-სა და policies-ს.
+გაზიარებული აგენტები ბუნდოვნებენ უფლებებს, knowledge bases-ს და იმას, ვინ არის ანგარიშვალდებული, როცა არასწორი კლიენტის შეტყობინება გადის.
+
+### Multi-agent ყოველთვის სჯობს single agent-ს?
+
+არა.
+Primary vendor guidance და enterprise docs ორივე multi-agent-ს განიხილავენ როგორც სიტუაციურს: სასარგებლო პარალელური სიგანის, context იზოლაციის ან მკაცრი საზღვრებისთვის, ძვირი tokens-სა და operations-ში სხვა შემთხვევებში ([Anthropic research system](https://www.anthropic.com/engineering/multi-agent-research-system); [Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them); [Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents)).
+
+### რა არის multi-agent orchestration production ტერმინებში?
+
+ეს არის კონტროლირებული გზა, რომლითაც აგენტები კოორდინირდებიან: ვინ გეგმავს, ვინ ასრულებს, როგორ ბრუნდება შედეგები, და სად ამტკიცებენ ადამიანები.
+Product docs-ში ეს ხშირად ნიშნავს coordinator-ს იზოლირებული worker threads-ით ან sessions-ით, და არა ერთ გრძელ shared chat-ს ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)).
+Orchestration პასუხისმგებლობის გარეშე მაინც theater-ია.
+
+### როდის იშლება single agent საკმარისად მძიმედ, რომ გაყოფა გამართლდეს?
+
+როცა დაეჯახებით დამტკიცებულ ლიმიტებს: context დაბინძურება, რომელსაც უკეთესი retrieval ან summarization ვერ ასწორებს, მართლაც პარალელური დამოუკიდებელი სამუშაო, ან უსაფრთხოებისა და ორგანიზაციული საზღვრები, რომლებიც ერთ უფლებების ნაკრებს კრძალავენ.
+მაშინაც კი, ჯერ prototype single path, თუ მხოლოდ ეს საზღვრები არ მოითხოვენ multi-agent-ს პირველივე დღიდან.
+
+## შემდეგი ნაბიჯი
+
+დახაზეთ ერთი workflow ერთი acceptance test-ით.
+დაიწყეთ single-agent-ით, სანამ უფლებები ან პარალელური სამუშაო არ აიძულებს გრაფს, რომელსაც on-call ფლობთ.
+ისაუბრეთ Dali-სთან gated production გზაზე [გადაწყვეტებზე](/ge/solutions), ან წაიკითხეთ [როდის არ გამოიყენოთ AI აგენტები](/ge/blog/when-not-to-use-ai-agents), თუ workflow არ არის მზად.

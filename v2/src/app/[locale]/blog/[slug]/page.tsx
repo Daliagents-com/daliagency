@@ -67,6 +67,7 @@ export async function generateMetadata({
       url: `https://daliagents.com${blogPath(locale, slug)}`,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
       authors: [post.author],
       images: post.ogImage || post.heroImage
         ? [post.ogImage || post.heroImage!]

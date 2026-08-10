@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Human approval gate before an AI agent side effect</title>
+  <desc id="desc">An agent plan and evidence pack reach a pause gate where a human can approve execution, reject the action, or send it back for revision.</desc>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="34" markerHeight="34" refX="30" refY="17" orient="auto"><path d="M0 0L34 17L0 34Z" fill="#8dbdff"/></marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#020713" flood-opacity=".34"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="44" fill="#101826"/>
+  <g filter="url(#shadow)">
+    <g transform="translate(90 315)">
+      <rect width="250" height="270" rx="30" fill="#172235" stroke="#314158" stroke-width="4"/>
+      <circle cx="125" cy="104" r="54" fill="none" stroke="#f4efe4" stroke-width="9"/>
+      <circle cx="105" cy="94" r="8" fill="#8dbdff"/>
+      <circle cx="145" cy="94" r="8" fill="#8dbdff"/>
+      <path d="M98 128c18 14 36 14 54 0M125 158v54" fill="none" stroke="#f4efe4" stroke-width="9" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(430 315)">
+      <rect width="250" height="270" rx="30" fill="#172235" stroke="#314158" stroke-width="4"/>
+      <rect x="68" y="54" width="114" height="145" rx="14" fill="none" stroke="#f4efe4" stroke-width="9"/>
+      <path d="M91 91h68M91 127h68M91 163h38" stroke="#8dbdff" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="164" cy="204" r="26" fill="#ef6b5b"/>
+      <path d="M151 204l9 9 19-22" fill="none" stroke="#101826" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <path d="M340 450h80M680 450h120" stroke="#8dbdff" stroke-width="12" marker-end="url(#arrow)"/>
+  <g transform="translate(820 235)" filter="url(#shadow)">
+    <path d="M215 0l215 215-215 215L0 215Z" fill="#172235" stroke="#ef6b5b" stroke-width="9"/>
+    <circle cx="215" cy="155" r="63" fill="none" stroke="#f4efe4" stroke-width="9"/>
+    <circle cx="215" cy="137" r="25" fill="#8dbdff"/>
+    <path d="M163 199c12-34 92-34 104 0" fill="none" stroke="#8dbdff" stroke-width="13" stroke-linecap="round"/>
+    <rect x="158" y="246" width="114" height="72" rx="18" fill="#101826" stroke="#f4efe4" stroke-width="7"/>
+    <path d="M190 268v29M240 268v29" stroke="#ef6b5b" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <path d="M1250 450h120" stroke="#67d6a5" stroke-width="12" marker-end="url(#arrow)"/>
+  <g transform="translate(1380 320)" filter="url(#shadow)">
+    <rect width="150" height="260" rx="28" fill="#172235" stroke="#67d6a5" stroke-width="7"/>
+    <path d="M35 116l31 31 56-70" fill="none" stroke="#67d6a5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M75 176v42" stroke="#f4efe4" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <path d="M1035 665v90c0 46-36 70-88 70H550c-48 0-75-26-75-67V640" fill="none" stroke="#ef6b5b" stroke-width="10" stroke-dasharray="18 16" marker-end="url(#arrow)"/>
+  <g transform="translate(916 740)">
+    <circle cx="0" cy="0" r="42" fill="#172235" stroke="#ef6b5b" stroke-width="7"/>
+    <path d="M-15-15l30 30M15-15l-30 30" stroke="#ef6b5b" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

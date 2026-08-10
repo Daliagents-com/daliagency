@@ -1,50 +1,290 @@
 ---
-slug: "agent-observability-logs-traces"
-title: "აგენტის დაკვირვებადობა: ჟურნალები, ტრასები და რა შევინახოთ"
-description: "რა უნდა ჩაიწეროს საბრძოლო AI აგენტებისთვის ისე, რომ ტოკენებში არ დაიხრჩოთ და საიდუმლოები არ გაჟონოს."
-date: "2026-08-01"
-locale: "ge"
-hreflangGroup: "agent-observability-logs-traces"
-keywords: ["AI agent observability","AI agent tracing","AI agent tool calls-ის logging"]
-status: "published"
-author: "Dali"
-type: "tutorial"
+slug: agent-observability-logs-traces
+title: 'აგენტის დაკვირვებადობა: რა უნდა დალოგოთ, ტრასიროთ და შეინახოთ production-ში'
+description: 'Production logging-ის პოლიტიკა AI აგენტებისთვის: მინიმალური event schema,
+  redaction, retention, OTel mapping და ინციდენტის აღდგენადობის ზღვარი.'
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: ge
+hreflangGroup: agent-observability-logs-traces
+keywords:
+- AI agent observability
+- აგენტის დაკვირვებადობა
+- აგენტის ტრასირება
+- tool call ლოგირება
+status: published
+author: Dali
+type: tutorial
+heroImage: /blog/agent-observability-logs-traces/hero.jpg
+heroAlt: სტრუქტურირებული ლოგები და trace span-ები production AI აგენტის გაშვებისთვის
+ogImage: /blog/agent-observability-logs-traces/og.jpg
 ---
 
-## პირდაპირი პასუხი
+ყოველი production AI აგენტის გაშვებისთვის დაალოგეთ **სტრუქტურირებული events**: request id, tool name, args (redacted), results status, approvals, model ids, latency და cost.
+ნედლი prompt-ები და სრული completion-ები შეინახეთ მხოლოდ ცალსახა retention rules-ის ქვეშ.
+თუ ამ events-ით ინციდენტის აღდგენა არ შეგიძლიათ, თქვენ არ აკმაყოფილებთ [production AI აგენტის არქიტექტურის](/ge/blog/what-is-a-production-ai-agent) ზღვარს.
 
-Log-ეთ **structured events**: request id, tool name, args (redacted), results status, approvals, model ids, latency, cost. Raw prompts შეინახეთ მხოლოდ retention rules-ის ქვეშ. თუ incident-ის reconstruct ვერ შეგიძლიათ, production არ ხართ.
+ეს გვერდი არის **production logging-ის პოლიტიკა** და არა პლატფორმების შესყიდვის სია.
+გამოიყენეთ ის LangSmith-ის, Phoenix-ის, Datadog-ის ან plain OpenTelemetry-ის მიერთებამდე, რომ events არსებობდეს sink-ის შეცვლის შემთხვევაშიც.
 
-## Minimum viable trace
+## რა არის აგენტის დაკვირვებადობა (და რა არ არის)
 
-Correlation id steps-ზე, who/what triggered the run, tools attempted, gate decisions, final side effects.
+![დაკავშირებული კვალის ხუთი ეტაპი აერთიანებს საწყის კონტექსტს, მოდელის გადაწყვეტილებას, ინსტრუმენტის გამოძახებას, დამტკიცებასა და სისტემის ცვლილებას](/blog/agent-observability-logs-traces/trace-reconstruction-map.svg)
 
-## Redaction
+*დაკვირვებადობა სასარგებლოა, როდესაც ოპერატორებს შეუძლიათ აღადგინონ, რა დაინახა, გადაწყვიტა, გამოიძახა და შეცვალა აგენტმა.*
 
-ამოიღეთ secrets, tokens, full card numbers, unnecessary PII logs-იდან, რომლებიც third parties-ში მიდის.
+AI აგენტის დაკვირვებადობა არის end-to-end აგენტის ქცევის მონიტორინგის პრაქტიკა, LLM გამოძახებებისა და tool ურთიერთქმედებების ჩათვლით, რათა ახსნათ, რა გააკეთა აგენტმა და რატომ ჩავარდა ან drift-ში წავიდა run.
+ეს განმარტება ემთხვევა იმას, როგორ ჩარჩოავენ თემას ინდუსტრიული მასალები: end-to-end agentic journeys და არა მხოლოდ კლასიკური infra მეტრიკები ([IBM on AI agent observability](https://www.ibm.com/think/insights/ai-agent-observability)).
 
-## Metrics
+ეს უფრო ფართოა, ვიდრე კლასიკური APM.
+APM გეუბნებათ, რომ სერვისი იყო up, request იყო ნელი, ან dependency timeout-ზე გავიდა.
+აგენტის გაშვებები კიდევ იტოტება, იციკლება, იძახებს tools-ს და ცვლის რეალურ სისტემებს.
 
-Success, exceptions, human overrides, p95 latency, $ per successful completion.
+ეს უფრო ფართოა, ვიდრე მხოლოდ LLM დაკვირვებადობა.
+LLM observability ფოკუსირებულია ერთ model call-ზე: prompt, completion, tokens, latency, cost.
+აგენტის დაკვირვებადობა ფარავს control loop-ს ამ გამოძახებების გარშემო: plan, tool I/O, gate გადაწყვეტილებები, retries და საბოლოო side effects ([ClickHouse on agent vs LLM observability](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability)).
 
-## Privacy tradeoff
+სემანტიკური ჩავარდნა არის failure mode, რომელსაც ოპერატორები გამოტოვებენ HTTP-only dashboard-ებით.
+**ჰიპოთეტური მაგალითი:** order-status აგენტი აბრუნებს HTTP 200-ს, ყოველი tool აცხადებს `ok`-ს, და კლიენტი მაინც იღებს არასწორ refund თანხას, რადგან downstream-ში არასწორი order id გადავიდა.
+პროტოკოლური წარმატება დამალა business failure.
+გჭირდებათ journey + tool I/O + decisions + side effects და არა მხოლოდ model tokens.
 
-მეტი logging ეხმარება debug-ს და შეიძლება გაზარდოს compliance burden - განსაზღვრეთ retention explicitly.
+**დასკვნა:** თუ ტელემეტრია მთავრდება ფრაზაზე „მოდელი გამოიძახეს, 200 OK“, თქვენ აგენტს არ აკვირდებით.
+
+## მინიმალური სიცოცხლისუნარიანი ტრასა
+
+Production run უნდა ეყრდნობოდეს ერთ correlation identity-ს ყოველ ნაბიჯზე.
+
+ტრასის მინიმალური შიგთავსი:
+
+1. **Correlation / run identity** - `request_id` და `run_id`, საერთო ყოველი span-ის ან event-ისთვის.
+2. **Trigger** - ვინ ან რამ დაიწყო run (user, webhook, cron, სხვა სისტემა) და business intent, როცა ცნობილია.
+3. **Tools attempted** - სახელი, redacted args, status, latency და error class ჩავარდნისას.
+4. **Gate decisions** - approve, deny, escalate ან auto-allow, იმით, ვინც გადაწყვიტა.
+5. **Final side effects** - რა რეალურად შეიცვალა (ticket updated, email sent, row written) ან ცალსახა „no mutation“ შედეგი.
+
+ოფციონალური multi-step ფორმა ერთი request-ისთვის:
+
+```text
+run (correlation id)
+├── plan / model step
+├── execute_tool (lookup)
+├── gate (human or policy)
+├── execute_tool (mutation)
+└── final response + side_effect_summary
+```
+
+ხეში ყველა span იზიარებს ერთსა და იმავე `request_id` / `run_id`-ს.
+
+OpenTelemetry GenAI walkthrough-ებში ხშირად ჩანს მსგავსი ხე: root agent invoke child chat და tool span-ებით ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
+ამ ფორმის განხორციელება პირველ რიგში structured logs-ით შეგიძლიათ.
+Tracer-ის ბრენდი მეორეხარისხოვანია.
+
+**ჰიპოთეტური მაგალითი (არაღდგენადი):** support აესკალირებს ცუდ refund-ს.
+ლოგებში ჩანს „tool succeeded“ და model id, მაგრამ არ არის `run_id`, არ არის tool args და არ არის gate record.
+ვერ დაამტკიცებთ, რა იყო approved და რა ჩაიწერა.
+ასეთი run ვერ გადის აღდგენადობის ზღვარს, მაშინაც კი, თუ uptime ნორმალურად გამოიყურებოდა.
+
+**დასკვნა:** correlation + trigger + tools + gates + side effects არის run-ის მინიმალური ისტორია.
+
+## მინიმალური event schema
+
+ჯერ გაუშვით პატარა, სტაბილური ველების ნაკრები, შემდეგ დაედევნეთ dashboard-ებს.
+
+| ველი | დანიშნულება | Redaction შენიშვნა | მნიშვნელობის ტიპი (მაგალითი) |
+| --- | --- | --- | --- |
+| `request_id` | გარე ან API request identity | ჩვეულებრივ უსაფრთხოა | string UUID |
+| `run_id` | აგენტის ერთი შესრულების ხე | ჩვეულებრივ უსაფრთხოა | string UUID |
+| `agent_id` | რომელი აგენტი ან ვერსია | ჩვეულებრივ უსაფრთხოა | string / semver |
+| `tool_name` | გამოძახებული tool ან action | ჩვეულებრივ უსაფრთხოა | string |
+| `args_redacted` | შეყვანები secret/PII strip-ის შემდეგ | Redaction **სავალდებულოა** | object / JSON string |
+| `result_status` | ok, error, timeout, partial | უპირატესობა status codes-ს full bodies-თან შედარებით | enum + short error class |
+| `approval_id` | კავშირი human ან policy gate-თან | არ ჩააშენოთ free-text rationale PII-ით | string / null |
+| `human_override` | შეცვალა თუ არა ადამიანმა გზა | უსაფრთხო boolean ან reason code | bool / enum |
+| `model_id` | ნაბიჯზე გამოყენებული მოდელი | ჩვეულებრივ უსაფრთხოა | string |
+| `latency_ms` | ნაბიჯის ან run-ის ხანგრძლივობა | უსაფრთხო | int |
+| `cost_units` | Tokens ან $ ნაბიჯზე | აგრეგაცია, როცა შესაძლებელია | number |
+| `side_effect_summary` | რა შეიცვალა systems of record-ში | მოკლედ; არასდროს ჩაწეროთ secrets | short string / structured codes |
+
+მინიმალური structured fields, რომლებიც უნდა გაიგზავნოს ყოველი production agent run-ისთვის.
+
+მხოლოდ ილუსტრაციული schema (არ არის client log):
+
+```json
+{
+  "request_id": "req_01J...",
+  "run_id": "run_01J...",
+  "agent_id": "support-refund-v3",
+  "tool_name": "lookup_order",
+  "args_redacted": { "order_id": "ORD-4417" },
+  "result_status": "ok",
+  "approval_id": null,
+  "human_override": false,
+  "model_id": "example-model",
+  "latency_ms": 312,
+  "cost_units": 0.002,
+  "side_effect_summary": "none"
+}
+```
+
+ადამიანის approvals და overrides არის სრულფასოვანი events და არა სქოლიოები.
+IBM-სტილის event სიები human handoff-ს განიხილავს სიგნალად, რომელიც უნდა დაიჭიროთ failed tool calls-თან და LLM calls-თან ერთად ([IBM event types](https://www.ibm.com/think/insights/ai-agent-observability)).
+Gate დიზაინის კონტექსტისთვის იხილეთ [human-in-the-loop AI აგენტები ახსნილია](/ge/blog/human-in-the-loop-ai-agents-explained).
+Tool საზღვრების დისციპლინისთვის იხილეთ [უსაფრთხო tool calling ბიზნეს აგენტებისთვის](/ge/blog/safe-tool-calling-for-business-agents).
+
+**დასკვნა:** განსაზღვრეთ schema ერთხელ; შემდეგ მიუსადაგეთ ნებისმიერ sink-ს, რომელსაც გამოიყენებთ.
+
+## Redaction და third-party გაგზავნა
+
+ამოიღეთ secrets, API tokens, session cookies, ბარათის სრული ნომრები (PAN) და ზედმეტი PII მანამ, სანამ ლოგები დატოვებენ თქვენს control plane-ს.
+ეს ეხება SaaS observability პროდუქტებს, vendor agent tracers-ს, shared Slack dumps-ს და ticket attachments-ს.
+
+ცალსახად გადაწყვიტეთ, რა შეიძლება გავიდეს VPC-ის ან account-ის საზღვარზე:
+
+| მონაცემთა კლასი | ნაგულისხმევი | შენიშვნები |
+| --- | --- | --- |
+| Correlation ids, tool names, statuses, latencies | შეიძლება გაიგზავნოს | Core debug content-ის გარეშე |
+| Redacted tool args / result codes | შეიძლება გაიგზავნოს | უპირატესობა allowlist-ებს raw dumps-თან შედარებით |
+| Raw prompts / completions | მხოლოდ internal ან opt-in | მაღალი მგრძნობელობა; იხილეთ retention |
+| Secrets, tokens, full PAN | არასდროს შეინახოთ ლოგებში | დაბლოკეთ emitter-ზე ან collector-ზე |
+| Free-text user messages PII-ით | Internal + redact | არ გადაიტანოთ public sinks-ში |
+
+OpenTelemetry GenAI პრაქტიკა ნაგულისხმევად თიშავს content capture-ს prompts-ის, completions-ის და tool bodies-ისთვის, რადგან ეს content მგრძნობიარეა; full capture არის opt-in ([OTel content capture default](https://opentelemetry.io/blog/2026/genai-observability/)).
+გაასწორეთ product settings ამ პოზასთან, მაშინაც კი, თუ ჯერ OTel-ზე არ ხართ.
+
+დაკავშირებული privacy მასალა ამ საიტზე: [PII და GDPR logging AI აგენტებისთვის](/ge/blog/pii-gdpr-logging-for-ai-agents).
+
+**დასკვნა:** third-party sinks პირველ რიგში იღებენ metadata-ს და redacted structure-ს და არა სრულ conversation dumps-ს.
+
+## Retention მატრიცა
+
+მეტი logging ეხმარება debug-ს და შეიძლება გაზარდოს შესაბამისობის (compliance) ტვირთი.
+განსაზღვრეთ retention ცალსახად მონაცემთა კლასის მიხედვით და არა „შეინახე ყველაფერი forever“ ან „დაასემპლე ყველაფერი ნულამდე“.
+
+| მონაცემთა კლასი | Debug window | Audit window | Never store |
+| --- | --- | --- | --- |
+| Structured events (ids, tool name, status, gates, latency, cost) | მოკლე operational ფანჯარა (დღეები რამდენიმე კვირამდე; დააყენეთ per environment) | უფრო გრძელი, თუ საჭიროა dispute-ის ან change control-ისთვის | - |
+| Redacted tool I/O summaries | Debug window-ის ტოლი | გააგრძელეთ მხოლოდ თუ side effects audit-ის scope-შია | Full secret-bearing payloads |
+| Raw prompts / completions | მხოლოდ time-boxed investigation | იშვიათად; policy-gated | Default store ყოველი token-ისთვის |
+| Model/tool metadata (model id, versions) | Structured events-თან გასწორება | ხშირად სასარგებლოა უფრო დიდხანს | - |
+| Secrets, full PAN, raw credentials | - | - | **არასდროს** logs-ში ან traces-ში |
+| Human approval records | Operational | ხშირად უფრო გრძელი, ვიდრე debug spans | Free-text notes უცხო PII-ით |
+
+Retention პოზა მონაცემთა კლასის მიხედვით: debug window, audit window და never-store.
+
+ეს არის ზოგადი ოპერატორის სახელმძღვანელო და არა კონკრეტული იურისდიქციის სამართლებრივი მოთხოვნა.
+რეგულირებად ინდუსტრიებს სჭირდებათ counsel და საკუთარი policy owners.
+ინჟინერული წესი მაინც რჩება: raw prompts და completions რჩება explicit retention-ის ქვეშ და არა „დაალოგე ყველაფერი, რადგან storage იაფია“.
+
+**დასკვნა:** debug window, audit window და never-store არის სამი განსხვავებული გადაწყვეტილება.
+
+## მეტრიკები, რომლებიც მნიშვნელოვანია production-ში
+
+ჯერ თვალყური ადევნეთ პატარა ops ნაკრებს, ზედაპირულ token charts-ამდე:
+
+- **Success rate** - run-ის business success და არა მხოლოდ HTTP 200.
+- **Exceptions / tool error rate** - tool-ის და error class-ის მიხედვით.
+- **Human overrides** - rate და reason codes; spikes ხშირად ნიშნავს semantic failure-ს ან სუსტ gates-ს.
+- **p95 latency** - per run და per critical tool.
+- **Cost per successful completion** - dollars ან token-derived units გაყოფილი successes-ზე და არა ყოველ partial attempt-ზე.
+
+Token usage არის cost driver და capacity signal.
+თავისთავად ეს არ არის quality score.
+Vendor პლატფორმები ჩვეულებრივ აჩვენებენ token usage-ს, latency percentiles-ს, errors-ს და cost-ს agent traces-ისთვის ([LangSmith observability](https://www.langchain.com/langsmith/observability); მსგავსი თემები ჩანს OSS და APM stack-ებში, მაგალითად [Arize Phoenix](https://arize.com/docs/phoenix)).
+მიიღეთ ისინი როგორც სასარგებლო inputs; Dali-ის production ზღვარი რჩება **success, overrides და reconstructability**-ზე.
+
+Overrides დაკავშირებულია semantic failure-თან.
+თუ ადამიანები მუდმივად ცვლიან აგენტის outcome-ს, სისტემა ჩავარდნილია, მაშინაც კი, როცა traces მწვანედ გამოიყურება.
+მიმდებარე ჩავარდნის პატერნები: [production აგენტის ჩავარდნის რეჟიმები](/ge/blog/production-agent-failure-modes).
+
+**დასკვნა:** გაზომეთ დასრულებული სამუშაოს ხარისხი და ჩარევის დატვირთვა და არა მხოლოდ tokens.
+
+## OpenTelemetry ხიდი (ოფციონალური, ჯერ structure)
+
+OpenTelemetry-ის GenAI სამუშაო მიზნად ისახავს აგენტისა და მოდელის telemetry-ის ფორმის სტანდარტიზაციას, რათა გუნდები ნაკლებად იყვნენ მიბმული ერთი framework-ის private format-ზე ([OTel on AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/); ცოცხალი conventions რეპოზიტორიაში [semantic-conventions-genai](https://github.com/open-telemetry/semantic-conventions-genai)).
+
+როცა OTel ერგება თქვენს stack-ს, გონებრივად მიუსადაგეთ minimum schema GenAI-style ოპერაციებს, როგორიცაა root agent invoke და child tool execution (მაგალითად `invoke_agent` და `execute_tool` მიმდინარე GenAI walkthrough-ებში) ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
+Attribute სახელები და stability დონეები ვითარდება.
+არ ჩააფიქსიროთ ყოველი attribute string runbooks-ში conventions repo-ის ხელახალი შემოწმების გარეშე implementation-ის მომენტში.
+
+Content capture prompts-ისა და tool bodies-ისთვის უნდა დარჩეს default-off / opt-in, OTel-ის sensitive-data guidance-ის შესაბამისად, რომელიც ზემოთაა ციტირებული.
+
+OpenTelemetry-ის დასაწყებად არ გჭირდებათ.
+Structured events სტაბილური ids-ით უკვე უკეთესია ცარიელ backlog-ზე „tracing-ს მოგვიანებით დავამატებთ“.
+Structure უფრო მნიშვნელოვანია, ვიდრე tracer-ის ბრენდი.
+OSS და commercial tools (Phoenix, LangSmith, MLflow-style stacks, cloud APM) შეიძლება იჯდეს სუფთა event model-ზე; არცერთი მათგანი არ ცვლის პოლიტიკას იმისა, რასაც აგენერირებთ და ინახავთ.
+
+Hyperscaler best-practice სიები ხშირად continuous evaluation-სა და production monitoring-ს ერთმანეთის გვერდით აყენებს ([Azure agent observability practices](https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/)).
+Evals არის ცალკე design ამოცანა.
+ეს გვერდი რჩება logs-ზე, traces-ზე, redaction-სა და retention-ზე.
+თუ მოგვიანებით გჭირდებათ go-live evaluation path, გამოიყენეთ [როგორ შევაფასოთ AI აგენტები go-live-მდე](/ge/blog/how-to-evaluate-ai-agents-before-go-live) როგორც მეზობელი თემა და არა runtime events-ის შემცვლელი.
+
+**დასკვნა:** OTel არის სასარგებლო ტერმინოლოგიური ხიდი; requirement არის თქვენი minimum schema.
+
+## Sampling და storage სიფრთხილე
+
+აგრესიულმა sampling-მა შეიძლება წაშალოს სწორედ ის rare runs, რომლებიც ინციდენტის შემდეგ გჭირდებათ.
+Agent traces არის high-cardinality და ხშირად wide; ყველაფრის coarse metrics-ში ჩაკეცვა კარგავს tool args-ს, gate outcomes-ს და side-effect summaries-ს.
+
+უპირატესობა მიანიჭეთ:
+
+- ყოველთვის შეინახოთ structured metadata ყოველი production run-ისთვის, რომელსაც შეუძლია state-ის მუტაცია.
+- Time-box heavy content (prompts, large tool bodies) და არა შემთხვევით გადაყაროთ კრიტიკული runs.
+- გაყავით „full fidelity mutable paths-ისთვის“ და „lighter telemetry read-only assistants-ისთვის“, თუ cost აიძულებს split-ს.
+
+არ მიიღოთ vendor-ის storage-size ან query-speed claims როგორც უნივერსალური ფაქტები თქვენი workload-ისთვის.
+გაზომეთ საკუთარი volume schema-ს სტაბილიზაციის შემდეგ.
+
+**დასკვნა:** დაასემპლეთ ზედაპირული მეტრიკები და არა audit trail side-effecting tools-ისთვის.
 
 ## როგორ ჯდება Dali
 
-Dali მოიცავს logging expectations-ს pilots-ში: [გადაწყვეტები](/ge/solutions).
+Dali production pilots-ში ჩადებს logging expectations-ს, მათ შორის correlation-ს, tool-call structure-ს, approvals-ს, redaction-სა და retention policy-ს scale-out-მდე.
+ეს არის აგენტების მიწოდების ნაწილი engineering და operations დისციპლინით და არა dashboard, რომელიც პირველი ინციდენტის შემდეგ მიეკრობა.
+
+თუ გინდათ logging და approval gates pilot-ში ჩაშენებული და არა პირველი ინციდენტის შემდეგ მიბმული, დაიწყეთ [გადაწყვეტებიდან](/ge/solutions).
+თუ ჯერ განსაზღვრავთ, რას ნიშნავს „production“ აგენტებისთვის, დაიწყეთ [რა არის production AI აგენტი](/ge/blog/what-is-a-production-ai-agent).
 
 ## FAQ
 
-### უნდა შევინახოთ ყოველი token?
-ჩვეულებრივ არა. შეინახეთ hashes ან truncated spans, თუ არ იძიებთ.
+### უნდა შევინახოთ ყოველი token (ან სრული prompts და completions)?
 
-### OpenTelemetry აგენტებისთვის?
-სასარგებლოა, თუ stack-ს ერგება; structure უფრო მნიშვნელოვანია, ვიდრე tracer-ის brand.
+ჩვეულებრივ არა.
+შეინახეთ hashes, truncated spans ან metadata, თუ აქტიურად არ იძიებთ.
+Full prompts და completions მგრძნობიარეა და ძვირია; შეინახეთ ისინი მოკლე, ცალსახა retention window-ის ქვეშ, როცა საერთოდ გჭირდებათ.
+ეს პოზა ემთხვევა OTel-ის default-off content capture-ს GenAI telemetry-სთვის ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
 
-### დაკავშირებული
-[Agent incident response](/ge/blog/agent-incident-response-and-liability)
+### არის თუ არა OpenTelemetry სავალდებულო AI აგენტის დაკვირვებადობისთვის?
 
+არა.
+OTel სასარგებლოა, როცა ერგება stack-ს და ამცირებს framework lock-in-ს shared semantic conventions-ით ([OTel AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/); [GenAI conventions repo](https://github.com/open-telemetry/semantic-conventions-genai)).
+Structure უფრო მნიშვნელოვანია, ვიდრე tracer-ის ბრენდი.
+დაიწყეთ minimum event schema-ით, მაშინაც კი, თუ პირველი sink არის plain JSON logs.
 
-<!-- covers GPT questions: 29,30,31 -->
+### რა განსხვავებაა agent observability-სა და LLM observability-ს შორის?
+
+LLM observability ფოკუსირებულია ცალკეულ model calls-ზე.
+Agent observability ფარავს multi-step journey-ს: planning, tools, gates, retries და side effects ამ გამოძახებების გარშემო ([ClickHouse comparison](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability); [IBM definition](https://www.ibm.com/think/insights/ai-agent-observability)).
+Model-level fields მაინც გჭირდებათ უფრო დიდი run-ის შიგნით.
+
+### რომელი fields უნდა დავალოგოთ tool calls-ისთვის?
+
+მინიმუმ: `tool_name`, `args_redacted`, `result_status`, latency, correlation ids (`request_id` / `run_id`) და კავშირები approvals-თან, როცა tool-ს შეუძლია state-ის მუტაცია.
+დაამატეთ მოკლე `side_effect_summary`, როცა რაღაც შეიცვალა მოდელის გარეთ.
+არ დაალოგოთ raw secrets tool payloads-ის შიგნით.
+
+### რამდენ ხანს უნდა შევინახოთ agent traces?
+
+გამოიყენეთ retention matrix: მოკლე debug window heavy content-ისთვის, უფრო გრძელი audit window structured events-ისა და approval records-ისთვის, როცა disputes მნიშვნელოვანია, და never-store secrets-ისა და full PAN-ისთვის.
+არ არსებობს ერთი უნივერსალური რიცხვი, რომელიც ყველა ინდუსტრიას ერგება.
+დააყენეთ ფანჯრები security და compliance owners-თან ერთად, შემდეგ აღასრულეთ pipeline-ში.
+
+## დაკავშირებული
+
+როცა traces აჩვენებს failure-ს, გადადით telemetry-დან process-ზე: [აგენტის ინციდენტზე რეაგირება და პასუხისმგებლობა](/ge/blog/agent-incident-response-and-liability).
+
+არქიტექტურის ზღვარი და განმარტება: [რა არის production AI აგენტი](/ge/blog/what-is-a-production-ai-agent).
+
+დამტკიცებები (approvals) როგორც events: [human-in-the-loop AI აგენტები ახსნილია](/ge/blog/human-in-the-loop-ai-agents-explained).
+
+ჩავარდნის პატერნები, რომლებიც დაკვირვებადობამ უნდა გამოავლინოს: [production აგენტის ჩავარდნის რეჟიმები](/ge/blog/production-agent-failure-modes).

@@ -1,54 +1,206 @@
 ---
-slug: "multi-agent-vs-single-agent-when-to-use"
-title: "Multi-agent vs single agent. երբ orchestration-ը օգնում է (և երբ վնասում)"
-description: "Գործնական կանոն multi-agent համակարգերի և մեկ tool-using agent-ի միջև. complexity, failure modes և production ownership։"
-date: "2026-08-01"
-locale: "arm"
-hreflangGroup: "multi-agent-vs-single-agent-when-to-use"
-keywords: ["multi-agent vs single agent", "multi-agent orchestration", "when to use multi-agent systems"]
-status: "published"
-author: "Dali"
-type: "comparison"
+slug: multi-agent-vs-single-agent-when-to-use
+title: Multi-agent vs single agent. երբ orchestration-ը օգնում է (և երբ վնասում)
+description: Սկսեք մեկ tool-օգտագործող agent-ով։ Multi-agent ավելացրեք միայն իրական
+  դերի, իրավասության կամ զուգահեռ բաժանումների համար, որոնք կարող եք տիրապետել - որոշման
+  աղյուսակ, checklist և արժեքի փոխզիջումներ։
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: arm
+hreflangGroup: multi-agent-vs-single-agent-when-to-use
+keywords:
+- multi-agent vs single agent
+- multi-agent orchestration
+- երբ օգտագործել multi-agent systems
+status: published
+author: Dali
+type: comparison
+heroImage: /blog/multi-agent-vs-single-agent-when-to-use/hero.jpg
+heroAlt: Համեմատություն single-agent, single-agent with tools և multi-agent համակարգերի
+  միջև արժեքի, ուշացման, վրիպակահանման, անվտանգության և սեփականության առանցքներով
+ogImage: /blog/multi-agent-vs-single-agent-when-to-use/og.jpg
 ---
 
 ## Ուղիղ պատասխան
 
-Սկսեք **մեկ agent-ով և հստակ tools-ով** մեկ workflow-ի համար։ Multi-agent orchestration ավելացրեք միայն երբ roles-ը, permissions-ը կամ handoff-երը իրականում առանձին են - և կարող եք տիրապետել ամբողջ graph-ի failure modes-ին։
+Սկսեք **մեկ agent-ով և հստակ tools-ով** մեկ workflow-ի համար։
+Multi-agent orchestration ավելացրեք միայն երբ դերերը, թույլտվությունները կամ փոխանցումները իսկապես առանձին են - և կարող եք տիրապետել ամբողջ graph-ի ձախողման ռեժիմներին։
+Հաճախակի ձախողման ռեժիմ է agents ավելացնելը նախքան workflow-ը, ընդունման թեստը և հաստատման սեփականատերը հստակ կլինեն։
+Multi-agent-ը հարկ է, որ վճարում եք իրական տարանջատման կարիքի համար, ոչ թե լռելյայն որակի բարելավում։
 
-## Ինչ են մարդիկ հասկանում multi-agent-ով
+## Ինչ են մարդիկ հասկանում multi-agent-ով (և multi-agent orchestration-ով)
 
-Սովորաբար. planner plus workers, կամ specialized agents research-ի, coding-ի և review-ի համար։ Business ops-ում դա հաճախ նշանակում է ավելի շատ moving parts, ավելի շատ latency և ավելի շատ տեղեր state կորցնելու - ոչ ավտոմատ կերպով ավելի բարձր որակ։
+LLM product աշխատանքում multi-agent-ը սովորաբար նշանակում է planner կամ coordinator plus workers, կամ specialized agents հետազոտության, կոդավորման, review-ի կամ այլ դերերի համար։
+Յուրաքանչյուր agent հաճախ ունի իր համատեքստը, tools-ը և prompt-ը, և ինչ-որ բան պետք է աշխատանքը բաշխի նրանց միջև։
 
-## Երբ single agent-ը բավարար է
+**Multi-agent orchestration**-ը այդ համակարգման շերտն է. coordinator-ը (կամ router-ը) նշանակում է աշխատանք, workers-ը աշխատում են մեկուսացված threads-ում կամ համատեքստերում, և արդյունքները վերադառնում են սինթեզի կամ հաջորդ քայլի համար։
+Platform տերմիններով դա հաճախ նման է coordinator-ի plus specialized կամ մեկուսացված workers-ի, որոնք լռելյայն չեն կիսում conversation-ի ամբողջ պատմությունը ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration))։
 
-Մեկ primary system of record, մեկ approval owner, կարճ tool list և հստակ standard path։ Lead response, inbox triage և document-to-tracker հաճախ ավելի լավ ship են լինում որպես մեկ gated agent։
+Բիզնես ops-ում multi-agent-ը հաճախ նշանակում է ավելի շատ ուշացում, ավելի շատ տեղեր, որտեղ վիճակը կորում է փոխանցումների վրա, և ավելի մեծ մակերես գնահատելու համար - ոչ ավտոմատ կերպով ավելի բարձր որակ։
+Դասական multi-agent հետազոտությունը նկարագրում է autonomous agents տեղական տեսակետներով և ապակենտրոնացված կառավարմամբ. production LLM graph-ները միևնույն է պահանջում են մեկ գործառնական սեփականատեր ամբողջ ուղու համար։
+
+## Մեկ agent tools-ով. լռելյայն տարբերակը
+
+![Մեկ գործակալը ուղղակիորեն միանում է գործիքներին, իսկ համակարգողը աշխատանքը բաշխում է երեք մասնագիտացված գործակալների միջև](/blog/multi-agent-vs-single-agent-when-to-use/single-vs-multi-coordination.svg)
+
+*Հայեցակարգային տոպոլոգիա. multi-agent նախագիծը ավելացնում է մասնագիտացում, բայց նաև ստեղծում է երթուղավորման, ընդհանուր վիճակի և համակարգման նոր մակերեսներ, որոնք սեփականատեր են պահանջում։*
+
+Մեկ tool-օգտագործող agent-ը միջին գոտին է, որից թիմերի մեծ մասը պետք է սկսի։
+Մեկ հիմնական system of record, մեկ հաստատման սեփականատեր, կարճ tool ցուցակ և հստակ ստանդարտ ուղի սովորաբար հաղթում են agents-ի graph-ին, որը ոչ ոք չի կարող վրիպակահանել երկուշաբթի։
+
+Շատ vendor և framework ուղեցույցներ նույն տեղում են վայրէջք անում. սկսեք մեկ agent-ով լավ նախագծված tools-ով, նախքան աշխատանքը agents-ի վրա բաժանելը ([LangChain on multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture))։
+Production փոխզիջումների գրառումները նույնպես single-agent-ը դիտարկում են որպես ավելի պարզ ուղի լավ սահմանված workflows-ի համար առանց կոշտ անվտանգության սահմանների ([Redis: single-agent vs multi-agent](https://redis.io/blog/single-agent-vs-multi-agent-systems/))։
+
+Հիպոթետիկ ops օրինակներ, որոնք հաճախ ավելի լավ են թողարկվում որպես մեկ gated agent.
+
+1. **Lead response** - կարդալ հարցումը, կազմել պատասխանի կամ CRM նշման նախագիծ, կանգնել մարդու ուղարկման կամ գրառման վրա, երբ գործողությունը հաճախորդին է ուղղված։
+2. **Inbox triage** - դասակարգել, պիտակավորել և ուղղորդել. մարդը դեռ տիրապետում է էսկալացիաներին և անշրջելի պատասխաններին։
+3. **Document-to-tracker** - դաշտեր հանել sheet կամ ticket մեջ վալիդացիայով և հաստատման դարպասով, նախքան production տվյալները վերագրելը։
+
+Եթե workflow-ը տեղավորվում է մեկ system of record-ում և մեկ մարդու մեջ, ով կարող է ասել այո կամ ոչ ռիսկային գրառումներին, multi-agent-ը սովորաբար վաղաժամ է։
+Երբ agents-ը ընդհանրապես սխալ գործիք են - չկա կայուն գործընթաց, չկա սեփականատեր, չկա հանդուրժողականություն մասնակի ավտոմատացման նկատմամբ - տես [երբ չօգտագործել AI agents](/arm/blog/when-not-to-use-ai-agents)։
 
 ## Երբ multi-agent-ը կարող է օգնել
 
-Privileges-ի խիստ տարանջատում (read-only research vs write actions), երկար multi-hour jobs checkpoints-ով, կամ տարբեր models տարբեր stages-ի համար explicit contracts-ով նրանց միջև։
+Multi-agent-ը արդարացնում է իր արժեքը, երբ խցանումը մեկ համատեքստ է կամ մեկ թույլտվությունների հավաքածու, ոչ երբ demo-ին ավելի շատ արկղեր են պետք։
 
-## Multi-agent theater-ի արժեքը
+Claude-ի production ուղեցույցը շրջանակում է երեք արդարացված դեպք. **համատեքստի պաշտպանություն** (չաղտոտել հիմնական thread-ը զանգվածային retrieval-ով), **զուգահեռացում** (անկախ ենթաառաջադրանքներ, որոնք կարող են միասին աշխատել), և **մասնագիտացում** (կենտրոնացված tools կամ prompts յուրաքանչյուր դերի համար) ([Claude: when and how to use multi-agent systems](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them))։
 
-Ավելի դժվար evals, ավելի դժվար incident response, անորոշ ownership և demos, որոնք ավելի շատ տպավորում են, քան Monday morning tickets-ի վրա աշխատում։
+Ops լեզվով դա քարտեզագրվում է այսպես.
 
-## Գործնական կանոն
+- **Կոշտ իրավասությունների տարանջատում** - read-only հետազոտական ուղին չպետք է կիսի write credentials այն agent-ի հետ, որը թարմացնում է CRM կամ ֆինանսական համակարգեր։
+- **Լայնությամբ զուգահեռ աշխատանք** - մի քանի անկախ աղբյուրներ կամ հերթեր, որոնք կխեղաթյուրեին մեկ համատեքստը, եթե հաջորդական աշխատեին։
+- **Փուլային պայմանագրեր** - տարբեր models կամ դերեր հստակ փոխանցման ձևաչափով (օրինակ հետազոտական ամփոփում մուտքում, հաստատված write-out)։
+- **Երկար checkpoint-ված աշխատանքներ** - բազմաժամյա աշխատանք, որտեղ միջանկյալ վիճակը պետք է գոյատևի, մարդու կամ համակարգի դարպասով փուլերի միջև։
 
-Եթե չեք կարող workflow-ը նկարել մեկ էջի վրա մեկ acceptance test-ով, multi-agent design-ը ձեզ չի փրկի։ Նախ map արեք, հետո ընտրեք topology։
+Enterprise ընդունման ուղեցույցն ավելի խիստ է. multi-agent սկսեք հիմնականում երբ անվտանգության կամ համապատասխանության սահմանները, բազմաթիմային գիտելիքի սեփականությունը կամ պլանավորված բազմադոմեն աճը **պարտադրում են** տարանջատում. հակառակ դեպքում նախ նախատիպեք single-agent ([Microsoft Cloud Adoption Framework: single vs multi-agent](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents))։
 
-## Ինչպես է Dali-ն տեղավորվում
+## Համեմատական աղյուսակ. single vs single + tools vs multi-agent
 
-Dali-ն սկսում է մեկ production path-ով և gates-ով։ Տես [solutions](/arm/solutions) և [երբ չօգտագործել AI agents](/arm/blog/when-not-to-use-ai-agents)։
+Ինչպես կարդալ այս աղյուսակը ops pilot-ի համար. օպտիմալացրեք այն, ինչ մեկ թիմը կարող է գնահատել, հաստատել և on-call պահել - ոչ այն, թե քանի agent է ցույց տալիս architecture diagram-ը։
+
+| Առանցք | Մեկ agent | Մեկ agent + tools | Multi-agent graph |
+| --- | --- | --- | --- |
+| Արժեք / tokens | Ամենացածրը նեղ Q&A-ի համար | Միջին. աճում է tool loops-ով | Ամենաբարձրը. հաճախ բազմապատկում է tokens vs մեկ agent |
+| Ուշացում | Սովորաբար ամենացածրը | Tool round-trips-ն են գերակշռում | Փոխանցումները և զուգահեռ fan-out-ը ավելացնում են համակարգման ժամանակ |
+| Վրիպակահանում | Մեկ trace, մեկ prompt stack | Մեկ agent plus tool logs | Ֆրագմենտացված agents-ի, պայմանագրերի և threads-ի վրայով |
+| Անվտանգության սահմաններ | Մեկ թույլտվությունների հավաքածու (ավելի դժվար least-privilege) | Դեռ մեկ agent. զգուշորեն սահմանափակում է tools-ի scopes-ը | Ավելի լավ մեկուսացում, եթե դերերն ու credentials-ը իսկապես բաժանված են |
+| Զուգահեռ աշխատանք | Թույլ լայնության համար | Հաջորդական tool օգտագործում, եթե tools-ը չեն զուգահեռացնում | Ուժեղ, երբ ենթաառաջադրանքները անկախ են |
+| Սեփականություն / on-call | Մեկ ուղի, մեկ սեփականատեր | Դեռ մեկ սեփականատեր, եթե դարպասները հստակ են | Պետք է **ամբողջ graph**-ի սեփականատեր, ոչ յուրաքանչյուր agent-ի |
+| Eval մակերես | Մեկ ընդունման թեստի ուղի | Tool success + արդյունքի որակ | Per-role evals plus end-to-end graph evals |
+
+Production գրառումները շեշտում են նույն առանցքները - բարդություն, վրիպակահանում, արժեք, և արդյոք պետք են կոշտ սահմաններ կամ մասնագիտացում ([Redis comparison framing](https://redis.io/blog/single-agent-vs-multi-agent-systems/))։
+
+## Token և ops տնտեսագիտություն (աղբյուրներով)
+
+Token արժեքը Dali-ի չափում չէ. օգտագործեք vendor թվերը որպես scoped դիտարկումներ, ոչ համընդհանուր օրենքներ։
+
+Anthropic-ի engineering post-ը իրենց multi-agent research system-ի մասին հաղորդում է, որ multi-agent setup-ը Claude Opus 4-ով որպես lead և Claude Sonnet 4 subagents-ով **գերազանցել է single-agent Opus 4-ը 90.2%-ով իրենց ներքին research evaluation-ում**։
+Նրանց տվյալներում agents-ը տիպիկ օգտագործել են մոտ **4x** tokens chat interactions-ի համեմատ, իսկ multi-agent systems-ը մոտ **15x** tokens chats-ի համեմատ։
+Նրանք նաև նշում են, որ multi-agent systems-ին պետք է task value բավականաչափ բարձր, որպեսզի վճարի performance gain-ի համար, և որ domains-ը, որոնք պահանջում են shared context կամ heavy real-time coordination (շատ coding tasks), այսօր վատ են տեղավորվում ([Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system))։
+
+Claude-ի product ուղեցույցը հաղորդում է, որ multi-agent implementations-ը **տիպիկ օգտագործում են մոտ 3-10x ավելի tokens**, քան single-agent approaches-ը equivalent tasks-ի համար, duplicated context-ից, coordination messages-ից և handoff summaries-ից ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them))։
+
+LangChain-ի տնտեսական շրջանակը համահունչ է. task value-ն պետք է ծածկի token արժեքը. կառուցեք multi-agent, երբ զուգահեռացումը, մեծ համատեքստի ճնշումը և բարդ tool մակերեսները արդարացնում են ծախսը ([LangChain: how and when to build multi-agent systems](https://www.langchain.com/blog/how-and-when-to-build-multi-agent-systems))։
+
+**Ops կանոն.** վճարեք multi-agent հարկը միայն երբ արդյունքի բիզնես արժեքը ծածկում է tokens-ը, ուշացումը և այն մարդկանց, ովքեր կտիրապետեն միջադեպերին։
+
+## Multi-agent theater-ի ծախսերը (տոպոլոգիա և սեփականություն)
+
+**Multi-agent theater**-ը demo-հարմար graph է, որ ձախողվում է երկուշաբթի օրվա տիկետների վրա. շատ agents, թույլ պայմանագրեր, ուղու մեկ on-call սեփականատեր չկա։
+
+Տոպոլոգիայի և սեփականության ծախսեր, որոնք պետք է սպանեն կամ հետաձգեն multi-agent դիզայնը.
+
+- **Փոխանցում և վիճակի կորուստ** - յուրաքանչյուր սահման կարող է կորցնել սահմանափակումներ, առաջնահերթություններ կամ մասնակի արդյունքներ («փչացած հեռախոս» դերերի միջև)։
+- **Eval ֆրագմենտացիա** - պետք են per-agent ստուգումներ և full-graph ընդունման թեստ. թիմերը հաճախ թողարկում են ոչ մեկը։
+- **Անհասկանալի սեփականություն** - երբ վատ CRM գրառում է թողարկվում, «որ agent-ը» սխալ հարց է. ինչ-որ մեկը պետք է տիրապետի graph-ին։
+- **Թույլտվությունների խառնում** - մեկ ընդհանուր credential պայուսակ «մասնագետների» վրայով ջնջում է multi-agent-ի անվտանգության պատճառը։
+- **Կրկնակի աշխատանք** - workers-ը նորից որոնում են նույն աղբյուրները առանց հստակ task սահմանների (ձախողում, որ Anthropic-ը նշել է, երբ lead instructions-ը չափազանց մշուշոտ էին)։
+- **Verifier կրճատումներ** - industry ուղեցույցը զգուշացնում է, որ verification subagents-ը կարող են վաղաժամ հաղթանակ հայտարարել թերի ստուգումներից հետո. օգտագործեք դրանք միայն կոնկրետ չափորոշիչներով ([Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them))։
+
+Սրանք որոշման պահի սեփականության ռիսկեր են, ոչ full production failure taxonomy։
+Ավելի լայն դիզայնի համար սխալ tool գրառումների, բացակա դարպասների և լուռ drift-ի դեմ տես [մարտական AI գործակալների ձախողման ռեժիմներ](/arm/blog/production-agent-failure-modes)։
+Մեկ ուղու վրա հաստատման դիզայնի համար տես [human-in-the-loop AI agent-ներ](/arm/blog/human-in-the-loop-ai-agents-explained)։
+
+## Որոշման checklist. հինգ հարց
+
+Պատասխանեք սրանց, նախքան երկրորդ agent ավելացնելը։
+
+1. **Ենթաառաջադրանքները իսկապե՞ս զուգահեռացելի են։** Եթե յուրաքանչյուր քայլին պետք է ամբողջ նախորդ համատեքստը, graph-ը հիմնականում ավելացնում է փոխանցման կորուստ։
+2. **Առանձին իրավասությունները իսկապե՞ս պահանջում են մեկուսացում։** Եթե մեկ service account-ը դեռ կարող է անել ամեն ինչ, multi-agent-ը զգեստ է, ոչ անվտանգություն։
+3. **Մեկ agent-ը կաղտոտե՞ր իր համատեքստը զանգվածային միջանկյալ տվյալներով։** Եթե այո, կենտրոնացված worker, որ վերադարձնում է կարճ ամփոփում, կարող է օգնել։
+4. **Յուրաքանչյուր դերին պետք է իր eval և ընդունման չափորոշիչնե՞ր։** Եթե չեք կարող հաջողություն սահմանել յուրաքանչյուր դերի համար, չեք կարող շահագործել graph։
+5. **Կարո՞ղ է մեկ մարդ տիրապետել ամբողջ graph-ին on-call։** Եթե սեփականությունը «agents-ն են», multi-agent մի թողարկեք production։
+
+Եթե պատասխանների մեծ մասը ոչ է, մնացեք single-agent with tools և դարպասներով։
+
+## Ճարտարապետական օրինաչափություններ ops-ի համար (կարճ)
+
+Անվանեք օրինաչափությունը միայն երբ այն համապատասխանում է ops կարիքին - ոչ որպես framework գնումների ցուցակ։
+
+1. **Router (հերթեր)** - դասակարգեք մուտքային ticket կամ lead և ուղարկեք ճիշտ policy կամ tool ուղի առանց ամբողջ multi-agent conversation-ի։
+2. **Հաջորդական փոխանցում (հաստատումներ)** - փուլավորեք աշխատանքը այնպես, որ հաջորդ դերը կամ model-ը բացվի միայն դարպասից հետո (մարդ կամ համակարգ) ֆիքսված պայմանագրի վրա։
+3. **Զուգահեռ workers (լայն հետազոտություն)** - բաշխեք անկախ որոնումներ կամ աղբյուրներ, հետո ամփոփեք մեկ սեփականատիրոջ տակ։
+4. **Verifier subagent (ըստ ցանկության)** - առանձին ստուգիչ black-box վալիդացիայի համար, երբ չափորոշիչները հստակ և ամբողջական են, ոչ ձևական դրոշմ։
+
+LangChain-ը փաստաթղթավորում է related pattern families (subagents, handoffs, router և lighter "skills" composition) և դեռ սկսում է. շատ tasks լավագույնն են որպես single agent ([LangChain multi-agent architecture](https://www.langchain.com/blog/choosing-the-right-multi-agent-architecture))։
+Ընտրեք մեկ օրինաչափություն, որ համապատասխանում է ձեր սեփականության մոդելին. մի տեղադրեք frameworks-ի catalog, որպեսզի production-ready զգաք։
+
+## Գործնական կանոն. նախ քարտեզ, հետո տոպոլոգիա
+
+Եթե չեք կարող workflow-ը նկարել մեկ էջի վրա մեկ ընդունման թեստով, multi-agent դիզայնը ձեզ չի փրկի։
+Նախ քարտեզագրեք քայլերը, systems of record-ը, ձախողման արժեքը և մարդու դարպասները - հետո ընտրեք տոպոլոգիան ([workflow-ների քարտեզագրում AI գործակալների համար](/arm/blog/map-workflows-for-ai-agents))։
+
+Լռելյայն ուղի.
+
+1. Նախատիպեք **single gated agent** մեկ ստանդարտ ուղու վրա։
+2. Չափեք tool սխալները, մարդու overrides-ը և end-to-end ավարտի որակը։
+3. Բաժանեք միայն երբ անվտանգության կամ համապատասխանության սահմանները, բազմաթիմային սեփականությունը կամ իրական զուգահեռ լայնությունը ստիպում են - համահունչ enterprise «multi միայն երբ պարտադրված է» չափորոշիչներին ([Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents))։
+4. Պահեք մեկ system of record գրառումների համար և մեկ հաստատման սեփականատեր նույնիսկ բաժանումից հետո։
+
+## Ինչպես է Dali-ն մոտենում սրան
+
+Dali-ն սկսում է մեկ production ուղով և դարպասներով, ոչ multi-agent theater-ով։
+Մենք քարտեզագրում ենք workflow-ը, սահմանում ընդունման թեստեր և ընդլայնում տոպոլոգիան միայն երբ իրավասությունները, զուգահեռ աշխատանքը կամ սեփականության սահմանները պահանջում են։
+Տես [լուծումներ](/arm/solutions) engagement ուղիների համար, և [երբ չօգտագործել AI agents](/arm/blog/when-not-to-use-ai-agents), եթե գործընթացը ընդհանրապես պատրաստ չէ agents-ի։
+Եթե դեռ ընտրում եք, թե ով է կառուցում (studio vs ներքին թիմ), տես [AI agent գործակալություն vs in-house](/arm/blog/ai-agent-agency-vs-in-house)։
 
 ## FAQ
 
-### LangChain-ը կամ CrewAI-ն պարտադրո՞ւմ են multi-agent։
-Ոչ։ Օգտագործեք դրանք որպես libraries, երբ նվազեցնում են glue code-ը - ոչ որպես պահանջ ամեն pilot-ի համար։
+### LangChain-ը, CrewAI-ն կամ LangGraph-ը պարտադրո՞ւմ են multi-agent։
+
+Ոչ։
+Օգտագործեք դրանք որպես libraries, երբ նվազեցնում են glue code-ը - ոչ որպես պահանջ ամեն pilot-ի համար։
+Մեկ tool-օգտագործող agent կարող է ապրել այդ ecosystems-ում առանց multi-agent graph-ի։
 
 ### Planner agent-ը պարտադի՞ր է։
-Միայն եթե planning-ը իրական stage է իր սեփական eval-ով։ Շատ ops agents deterministic routers են plus LLM language-ի համար։
+
+Միայն եթե պլանավորումը իրական փուլ է իր սեփական eval-ով և պայմանագրով։
+Շատ ops agents deterministic routers են plus LLM լեզվի համար, մարդկանցով անշրջելի գործողությունների վրա։
 
 ### Կարո՞ղ են sales-ը և support-ը կիսել մեկ agent։
-Նախընտրեք առանձին pilots և policies։ Shared agents-ը խառնում են permissions-ը և knowledge-ը։
 
+Նախընտրեք առանձին pilots և policies։
+Shared agents-ը խառնում են թույլտվությունները, knowledge bases-ը և այն, թե ով է պատասխանատու, երբ սխալ հաճախորդային հաղորդագրություն է դուրս գալիս։
 
-<!-- covers GPT questions: 1,3,4,8,9,10 -->
+### Multi-agent-ը միշտ ավելի լա՞վ է, քան single agent-ը։
+
+Ոչ։
+Primary vendor ուղեցույցը և enterprise docs-ը երկուսն էլ multi-agent-ը դիտարկում են որպես իրավիճակային. օգտակար զուգահեռ լայնության, համատեքստի մեկուսացման կամ կոշտ սահմանների համար, ծախսատար tokens-ում և operations-ում հակառակ դեպքում ([Anthropic research system](https://www.anthropic.com/engineering/multi-agent-research-system); [Claude multi-agent guidance](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them); [Microsoft CAF](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents))։
+
+### Ի՞նչ է multi-agent orchestration-ը production տերմիններով։
+
+Դա agents-ի համակարգման վերահսկվող եղանակն է. ով է պլանավորում, ով է կատարում, ինչպես են արդյունքները վերադառնում, և որտեղ են մարդիկ հաստատում։
+Product docs-ում դա հաճախ նշանակում է coordinator մեկուսացված worker threads-ով կամ sessions-ով, ոչ մեկ երկար shared chat ([Claude Platform multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration))։
+Orchestration առանց սեփականության դեռ theater է։
+
+### Ե՞րբ է single agent-ը բավականաչափ կոշտ ձախողվում, որ արդարացնի բաժանումը։
+
+Երբ հարվածում եք ապացուցված սահմաններին. համատեքստի աղտոտում, որը չեք կարող շտկել ավելի լավ retrieval-ով կամ ամփոփմամբ, իսկական զուգահեռ անկախ աշխատանք, կամ անվտանգության և կազմակերպական սահմաններ, որոնք արգելում են մեկ թույլտվությունների հավաքածու։
+Նույնիսկ այդ դեպքում նախ նախատիպեք single ուղին, եթե այդ սահմանները առաջին օրվանից չեն պարտադրում multi-agent։
+
+## Հաջորդ քայլ
+
+Քարտեզագրեք մեկ workflow մեկ ընդունման թեստով։
+Սկսեք single-agent, եթե իրավասությունները կամ զուգահեռ աշխատանքը չեն ստիպում graph, որին կարող եք on-call տիրապետել։
+Խոսեք Dali-ի հետ gated production ուղու մասին [լուծումներ](/arm/solutions)-ում, կամ կարդացեք [երբ չօգտագործել AI agents](/arm/blog/when-not-to-use-ai-agents), եթե workflow-ը պատրաստ չէ։

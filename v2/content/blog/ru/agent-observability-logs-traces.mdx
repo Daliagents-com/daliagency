@@ -1,50 +1,289 @@
 ---
-slug: "agent-observability-logs-traces"
-title: "Наблюдаемость агента: журналы, трассы и что хранить"
-description: "Что логировать для боевых ИИ-агентов, не захлебнувшись токенами и не утекая секретами."
-date: "2026-08-01"
-locale: "ru"
-hreflangGroup: "agent-observability-logs-traces"
-keywords: ["AI agent observability","AI agent tracing","logging AI agent tool calls"]
-status: "published"
-author: "Dali"
-type: "tutorial"
+slug: agent-observability-logs-traces
+title: 'Наблюдаемость агента: что логировать, трассировать и хранить в production'
+description: 'Политика логирования production AI-агентов: минимальная схема событий,
+  redaction, retention, маппинг на OTel и планка восстанавливаемости инцидента.'
+date: '2026-08-01'
+updated: '2026-08-10'
+locale: ru
+hreflangGroup: agent-observability-logs-traces
+keywords:
+- наблюдаемость AI-агента
+- трассировка AI-агента
+- логирование tool calls AI-агента
+status: published
+author: Dali
+type: tutorial
+heroImage: /blog/agent-observability-logs-traces/hero.jpg
+heroAlt: Структурированные логи и span-трассы для production-запуска AI-агента
+ogImage: /blog/agent-observability-logs-traces/og.jpg
 ---
 
-## Прямой ответ
+Логируйте **структурированные события** для каждого production-запуска AI-агента: request id, имя tool, args (после redaction), статус результата, approvals, model ids, latency и cost.
+Сырые промпты и полные completion храните только по явным правилам retention.
+Если по этим событиям нельзя восстановить инцидент, вы не проходите планку [production-архитектуры AI-агента](/ru/blog/what-is-a-production-ai-agent).
 
-Логируйте **structured events**: request id, tool name, args (redacted), results status, approvals, model ids, latency, cost. Raw prompts храните только under retention rules. Если вы не можете восстановить incident, вы не production.
+Эта страница - **политика production-логирования**, а не список платформ для покупки.
+Используйте её до подключения LangSmith, Phoenix, Datadog или plain OpenTelemetry, чтобы события существовали даже если sink сменится.
 
-## Minimum viable trace
+## Что такое observability агента (и чем она не является)
 
-Correlation id across steps, who/what triggered the run, tools attempted, gate decisions, final side effects.
+![Пять связанных этапов трассировки соединяют входной контекст, решение модели, вызов инструмента, согласование и изменение системы](/blog/agent-observability-logs-traces/trace-reconstruction-map.svg)
 
-## Redaction
+*Наблюдаемость полезна, когда операторы могут восстановить, что агент увидел, решил, вызвал и изменил.*
 
-Убирайте secrets, tokens, full card numbers, unnecessary PII из logs, которые уходят third parties.
+Observability AI-агента - это практика мониторинга end-to-end поведения агента, включая LLM-вызовы и взаимодействия с tools, чтобы объяснить, что агент сделал и почему run упал или ушёл в drift.
+Это определение совпадает с тем, как тему формулируют отраслевые материалы: end-to-end agentic journeys, а не только классические infra-метрики ([IBM on AI agent observability](https://www.ibm.com/think/insights/ai-agent-observability)).
 
-## Metrics
+Это шире, чем классический APM.
+APM говорит, что сервис был up, запрос был медленным или dependency отвалился по timeout.
+Запуски агента ещё ветвятся, зацикливаются, вызывают tools и меняют реальные системы.
 
-Success, exceptions, human overrides, p95 latency, $ per successful completion.
+Это шире, чем observability только LLM.
+LLM observability фокусируется на одном вызове модели: prompt, completion, tokens, latency, cost.
+Observability агента покрывает control loop вокруг этих вызовов: plan, tool I/O, решения gate, retries и финальные side effects ([ClickHouse on agent vs LLM observability](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability)).
 
-## Privacy tradeoff
+Семантический сбой - тот failure mode, который операторы пропускают с HTTP-only дашбордами.
+**Гипотетический пример:** агент статуса заказа возвращает HTTP 200, каждый tool сообщает `ok`, а клиент всё равно получает неверную сумму refund, потому что downstream ушёл id неправильного заказа.
+Протокольный успех скрыл business failure.
+Нужны journey + tool I/O + decisions + side effects, а не только model tokens.
 
-Больше logging помогает debug и может увеличить compliance burden - define retention explicitly.
+**Вывод:** если телеметрия заканчивается на «модель вызвана, 200 OK», вы не наблюдаете агента.
 
-## Как помогает Dali
+## Минимально жизнеспособная трасса
 
-Dali включает logging expectations в pilots: [solutions](/ru/solutions).
+Production-run должен опираться на одну correlation identity на каждом шаге.
+
+Минимальное содержимое трассы:
+
+1. **Correlation / run identity** - `request_id` и `run_id`, общие для каждого span или event.
+2. **Trigger** - кто или что запустило run (user, webhook, cron, другая система) и business intent, когда он известен.
+3. **Tools attempted** - имя, redacted args, status, latency и error class при ошибке.
+4. **Gate decisions** - approve, deny, escalate или auto-allow, с указанием, кто решил.
+5. **Final side effects** - что реально изменилось (ticket updated, email sent, row written) или явный исход «no mutation».
+
+Опциональная multi-step форма для одного запроса:
+
+```text
+run (correlation id)
+├── plan / model step
+├── execute_tool (lookup)
+├── gate (human or policy)
+├── execute_tool (mutation)
+└── final response + side_effect_summary
+```
+
+Все spans в дереве делят один и тот же `request_id` / `run_id`.
+
+В walkthrough OpenTelemetry GenAI часто показывают похожее дерево: root agent invoke с child chat и tool spans ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
+Эту форму можно сначала реализовать через structured logs.
+Бренд tracer вторичен.
+
+**Гипотетический пример (невосстановимо):** support эскалирует bad refund.
+В логах - «tool succeeded» и model id, но нет `run_id`, нет tool args и нет gate record.
+Нельзя доказать, что было approved и что было записано.
+Такой run не проходит планку reconstructability, даже если uptime выглядел нормально.
+
+**Вывод:** correlation + trigger + tools + gates + side effects - минимальная история run.
+
+## Минимальная схема события
+
+Сначала поставьте небольшой стабильный набор полей, потом гонитесь за дашбордами.
+
+| Поле | Назначение | Заметка по redaction | Тип значения (пример) |
+| --- | --- | --- | --- |
+| `request_id` | Внешний или API request identity | Обычно безопасно | string UUID |
+| `run_id` | Одно дерево исполнения агента | Обычно безопасно | string UUID |
+| `agent_id` | Какой агент или версия | Обычно безопасно | string / semver |
+| `tool_name` | Tool или action | Обычно безопасно | string |
+| `args_redacted` | Входы после strip secrets/PII | Redaction **обязателен** | object / JSON string |
+| `result_status` | ok, error, timeout, partial | Предпочитайте status codes, а не full bodies | enum + short error class |
+| `approval_id` | Связь с human или policy gate | Не встраивайте free-text rationale с PII | string / null |
+| `human_override` | Менял ли человек путь | Безопасный boolean или reason code | bool / enum |
+| `model_id` | Модель шага | Обычно безопасно | string |
+| `latency_ms` | Длительность шага или run | Безопасно | int |
+| `cost_units` | Tokens или $ на шаг | Агрегируйте, когда можно | number |
+| `side_effect_summary` | Что изменилось в systems of record | Кратко; никогда не dump secrets | short string / structured codes |
+
+Минимальные structured fields, которые нужно эмитить на каждый production-run агента.
+
+Только иллюстративная схема (не client log):
+
+```json
+{
+  "request_id": "req_01J...",
+  "run_id": "run_01J...",
+  "agent_id": "support-refund-v3",
+  "tool_name": "lookup_order",
+  "args_redacted": { "order_id": "ORD-4417" },
+  "result_status": "ok",
+  "approval_id": null,
+  "human_override": false,
+  "model_id": "example-model",
+  "latency_ms": 312,
+  "cost_units": 0.002,
+  "side_effect_summary": "none"
+}
+```
+
+Человеческие approvals и overrides - полноценные события, а не сноски.
+Списки событий в стиле IBM трактуют human handoff как сигнал, который стоит захватывать вместе с failed tool calls и LLM calls ([IBM event types](https://www.ibm.com/think/insights/ai-agent-observability)).
+Контекст по дизайну gate: [human-in-the-loop AI-агенты](/ru/blog/human-in-the-loop-ai-agents-explained).
+Дисциплина границ tools: [безопасный tool calling для бизнес-агентов](/ru/blog/safe-tool-calling-for-business-agents).
+
+**Вывод:** определите схему один раз; позже смапьте её на любой sink.
+
+## Redaction и отправка third-party
+
+Убирайте secrets, API tokens, session cookies, полные номера карт (PAN) и лишний PII до того, как логи покинут ваш control plane.
+Это относится и к SaaS observability-продуктам, vendor agent tracers, shared Slack dumps и ticket attachments.
+
+Явно решите, что может выйти за границу VPC или account:
+
+| Класс данных | По умолчанию | Заметки |
+| --- | --- | --- |
+| Correlation ids, tool names, statuses, latencies | Можно отправлять | Core debug без content |
+| Redacted tool args / result codes | Можно отправлять | Предпочитайте allowlists, а не raw dumps |
+| Raw prompts / completions | Только internal или opt-in | Высокая чувствительность; см. retention |
+| Secrets, tokens, full PAN | Никогда не хранить в логах | Блокируйте на emitter или collector |
+| Free-text user messages с PII | Internal + redact | Не зеркальте в public sinks |
+
+Практика OpenTelemetry GenAI по умолчанию выключает content capture для prompts, completions и tool bodies, потому что content чувствителен; full capture - opt-in ([OTel content capture default](https://opentelemetry.io/blog/2026/genai-observability/)).
+Выровняйте product settings под эту позу, даже если вы ещё не на OTel.
+
+Связанное privacy-чтение на сайте: [PII и GDPR-логирование для AI-агентов](/ru/blog/pii-gdpr-logging-for-ai-agents).
+
+**Вывод:** third-party sinks сначала получают metadata и redacted structure, а не full conversation dumps.
+
+## Матрица retention
+
+Больше логирования помогает debug и может увеличить нагрузку на compliance.
+Задавайте retention явно по классу данных, а не «хранить всё forever» или «сэмплировать всё в ноль».
+
+| Класс данных | Debug window | Audit window | Never store |
+| --- | --- | --- | --- |
+| Structured events (ids, tool name, status, gates, latency, cost) | Короткое operational окно (дни - несколько недель; задайте per environment) | Дольше, если нужно для dispute или change control | - |
+| Redacted tool I/O summaries | Как debug window | Удлиняйте только если side effects в scope audit | Full secret-bearing payloads |
+| Raw prompts / completions | Только time-boxed investigation | Редко; policy-gated | Default store каждого token |
+| Model/tool metadata (model id, versions) | Как structured events | Часто полезны дольше | - |
+| Secrets, full PAN, raw credentials | - | - | **Никогда** в logs или traces |
+| Human approval records | Operational | Часто дольше, чем debug spans | Free-text notes с чужим PII |
+
+Позиция по retention по классу данных: debug window, audit window и never-store.
+
+Это общая операторская рекомендация, а не правовой мандат для конкретной юрисдикции.
+Регулируемым отраслям нужны counsel и собственные policy owners.
+Инженерное правило всё равно держится: raw prompts и completions - под explicit retention, а не «логируем всё, потому что storage дешёвый».
+
+**Вывод:** debug window, audit window и never-store - три разных решения.
+
+## Метрики, которые важны в production
+
+Сначала маленький ops-набор, потом показушные графики токенов:
+
+- **Success rate** - business success run, а не только HTTP 200.
+- **Exceptions / tool error rate** - по tool и error class.
+- **Human overrides** - rate и reason codes; spikes часто значат semantic failure или weak gates.
+- **p95 latency** - per run и per critical tool.
+- **Cost per successful completion** - dollars или token-derived units, делённые на successes, а не на каждый partial attempt.
+
+Token usage - cost driver и capacity signal.
+Сам по себе это не quality score.
+Vendor platforms обычно показывают token usage, latency percentiles, errors и cost для agent traces ([LangSmith observability](https://www.langchain.com/langsmith/observability); похожие темы есть в OSS и APM-стеках, например [Arize Phoenix](https://arize.com/docs/phoenix)).
+Берите это как полезные inputs; production-планка Dali - на **success, overrides и reconstructability**.
+
+Overrides связаны с semantic failure.
+Если люди постоянно переписывают outcome агента, система проваливается, даже когда traces зелёные.
+Смежные failure patterns: [режимы сбоев production-агентов](/ru/blog/production-agent-failure-modes).
+
+**Вывод:** меряйте качество завершённой работы и нагрузку вмешательств, а не только tokens.
+
+## Мост OpenTelemetry (опционально, сначала structure)
+
+Работа GenAI в OpenTelemetry стандартизирует форму telemetry для агентов и моделей, чтобы команды меньше зависели от private format одного framework ([OTel on AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/); живые conventions в репозитории [semantic-conventions-genai](https://github.com/open-telemetry/semantic-conventions-genai)).
+
+Когда OTel подходит вашему стеку, мысленно смапьте minimum schema на GenAI-style operations вроде root agent invoke и child tool execution (например `invoke_agent` и `execute_tool` в текущих GenAI walkthroughs) ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
+Имена attribute и уровни stability эволюционируют.
+Не замораживайте каждую attribute string в runbooks без перепроверки conventions repo на момент implementation.
+
+Content capture для prompts и tool bodies должен оставаться default-off / opt-in, в духе OTel guidance по sensitive data, цитированного выше.
+
+OpenTelemetry не обязателен, чтобы начать.
+Structured events со stable ids уже лучше пустого бэклога «tracing добавим потом».
+Structure важнее бренда tracer.
+OSS и commercial tools (Phoenix, LangSmith, MLflow-style stacks, cloud APM) могут сидеть поверх чистой event model; ни один из них не заменяет политику того, что вы эмитите и храните.
+
+Списки best practices hyperscalers часто ставят continuous evaluation и production monitoring рядом ([Azure agent observability practices](https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/)).
+Evals - отдельная design-задача.
+Эта страница остаётся на logs, traces, redaction и retention.
+Если позже нужен go-live evaluation path, соседняя тема: [как оценивать AI-агентов перед go-live](/ru/blog/how-to-evaluate-ai-agents-before-go-live), а не замена runtime events.
+
+**Вывод:** OTel - полезный мост терминов; requirement - ваша minimum schema.
+
+## Sampling и осторожность со storage
+
+Агрессивный sampling может удалить именно rare runs, которые нужны после инцидента.
+Трассы агента имеют высокую кардинальность и часто широкие; сворачивание всего в coarse metrics теряет tool args, gate outcomes и side-effect summaries.
+
+Предпочитайте:
+
+- Всегда хранить structured metadata для каждого production-run, который может мутировать state.
+- Time-box heavy content (prompts, large tool bodies), а не случайно дропать critical runs.
+- Разделять «full fidelity для mutable paths» и «lighter telemetry для read-only assistants», если cost вынуждает split.
+
+Не воспринимайте vendor claims про storage-size или query-speed как универсальные факты для вашего workload.
+Меряйте свой volume после того, как схема стабильна.
+
+**Вывод:** сэмплируйте показуху, а не аудиторский след для tools, которые меняют state.
+
+## Как вписывается Dali
+
+Dali закладывает ожидания по логированию в production pilots, включая correlation, структуру tool-call, approvals, redaction и retention policy до scale-out.
+Это часть поставки агентов с дисциплиной engineering и operations, а не dashboard, прикрученный после первого инцидента.
+
+Если нужны logging и approval gates, спроектированные в pilot, а не прикрученные после первого инцидента, начните с [решений](/ru/solutions).
+Если ещё определяете, что значит «production» для агентов, начните с [что такое production AI-агент](/ru/blog/what-is-a-production-ai-agent).
 
 ## FAQ
 
-### Хранить каждый token?
-Обычно нет. Храните hashes или truncated spans, unless investigating.
+### Нужно ли хранить каждый token (или full prompts и completions)?
 
-### OpenTelemetry для agents?
-Полезно, если fits your stack; structure важнее brand of tracer.
+Обычно нет.
+Храните hashes, truncated spans или metadata, если вы не в активном investigation.
+Full prompts и completions чувствительны и дороги; держите их под коротким explicit retention window, когда они вообще нужны.
+Эта позиция согласуется с default-off content capture OTel для GenAI telemetry ([OTel GenAI observability](https://opentelemetry.io/blog/2026/genai-observability/)).
 
-### Связанное
-[Agent incident response](/ru/blog/agent-incident-response-and-liability)
+### Обязателен ли OpenTelemetry для observability AI-агента?
 
+Нет.
+OTel полезен, когда вписывается в стек и снижает framework lock-in через shared semantic conventions ([OTel AI agent observability](https://opentelemetry.io/blog/2025/ai-agent-observability/); [GenAI conventions repo](https://github.com/open-telemetry/semantic-conventions-genai)).
+Structure важнее бренда tracer.
+Начните с minimum event schema, даже если первый sink - plain JSON logs.
 
-<!-- covers GPT questions: 29,30,31 -->
+### В чём разница между agent observability и LLM observability?
+
+LLM observability фокусируется на отдельных model calls.
+Agent observability покрывает multi-step journey: planning, tools, gates, retries и side effects вокруг этих calls ([ClickHouse comparison](https://clickhouse.com/resources/engineering/what-is-ai-agent-observability); [IBM definition](https://www.ibm.com/think/insights/ai-agent-observability)).
+Model-level fields всё равно нужны внутри большего run.
+
+### Какие поля логировать для tool calls?
+
+Минимум: `tool_name`, `args_redacted`, `result_status`, latency, correlation ids (`request_id` / `run_id`) и links to approvals, когда tool может мутировать state.
+Добавляйте короткий `side_effect_summary`, когда что-то изменилось вне модели.
+Не логируйте raw secrets внутри tool payloads.
+
+### Как долго хранить agent traces?
+
+Используйте retention matrix: короткий debug window для heavy content, более длинный audit window для structured events и approval records, когда важны disputes, и never-store для secrets и full PAN.
+Нет одного universal number, который подходит каждой отрасли.
+Задайте окна с security и compliance owners, затем enforce в pipeline.
+
+## Связанное
+
+Когда traces показывают failure, переходите от telemetry к process: [реакция на инциденты агента и ответственность](/ru/blog/agent-incident-response-and-liability).
+
+Планка архитектуры и определение: [что такое production AI-агент](/ru/blog/what-is-a-production-ai-agent).
+
+Согласования как события: [human-in-the-loop AI-агенты](/ru/blog/human-in-the-loop-ai-agents-explained).
+
+Паттерны сбоев, которые observability должна вскрывать: [режимы сбоев production-агентов](/ru/blog/production-agent-failure-modes).
