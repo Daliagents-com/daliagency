@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import React, { type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import type { Content, Emphasis, Image, Paragraph, Root } from "mdast";
 import { onestText, syneText } from "@/assets/fonts";
 import type { Locale } from "@/i18n/config";
+import BlogMedia from "./BlogMedia";
 
 type BlogMarkdownProps = {
   content: string;
@@ -14,6 +14,14 @@ type BlogMarkdownProps = {
 type Heading = {
   id: string;
   label: string;
+};
+
+type ImageParagraph = Paragraph & {
+  children: [Image];
+};
+
+type CaptionParagraph = Paragraph & {
+  children: [Emphasis];
 };
 
 const tocLabels: Record<Locale, string> = {
@@ -63,10 +71,60 @@ function childrenText(value: ReactNode): string {
   return "";
 }
 
+function isImageParagraph(node: Content): node is ImageParagraph {
+  return (
+    node.type === "paragraph" &&
+    node.children.length === 1 &&
+    node.children[0]?.type === "image"
+  );
+}
+
+function isCaptionParagraph(node: Content): node is CaptionParagraph {
+  return (
+    node.type === "paragraph" &&
+    node.children.length === 1 &&
+    node.children[0]?.type === "emphasis"
+  );
+}
+
+function mdastText(node: Content): string {
+  if (node.type === "text" || node.type === "inlineCode") return node.value;
+  if ("children" in node && Array.isArray(node.children)) {
+    return node.children.map((child) => mdastText(child)).join(" ");
+  }
+  return "";
+}
+
+function promoteImageCaptions(children: Content[]): void {
+  for (let index = 0; index < children.length; index += 1) {
+    const current = children[index];
+    const next = children[index + 1];
+
+    if (current && next && isImageParagraph(current) && isCaptionParagraph(next)) {
+      const caption = mdastText(next.children[0]).replace(/\s+/g, " ").trim();
+      if (caption && !current.children[0].title) {
+        current.children[0].title = caption;
+        children.splice(index + 1, 1);
+      }
+    }
+
+    if (current && "children" in current && Array.isArray(current.children)) {
+      promoteImageCaptions(current.children as Content[]);
+    }
+  }
+}
+
+function remarkImageCaptions() {
+  return (tree: Root) => {
+    promoteImageCaptions(tree.children);
+  };
+}
+
 export default function BlogMarkdown({ content, locale }: BlogMarkdownProps) {
   if (!content.trim()) return null;
   const headings = extractHeadings(content);
   let h2Index = 0;
+  let mediaIndex = 0;
 
   return (
     <div className={`${onestText.className} blog-prose max-w-none text-[var(--text)]`}>
@@ -93,7 +151,7 @@ export default function BlogMarkdown({ content, locale }: BlogMarkdownProps) {
         </nav>
       ) : null}
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkImageCaptions]}
         components={{
           h2: ({ children }) => {
             const id = headings[h2Index]?.id ?? headingSlug(childrenText(children));
@@ -109,7 +167,7 @@ export default function BlogMarkdown({ content, locale }: BlogMarkdownProps) {
           },
           h3: ({ children }) => (
             <h3
-              className={`${syneText.className} mt-28 mb-12 text-body3 font-medium text-[var(--text)]`}
+              className={`${syneText.className} mt-32 mb-12 text-body3 font-medium text-[var(--text)]`}
             >
               {children}
             </h3>
@@ -159,34 +217,16 @@ export default function BlogMarkdown({ content, locale }: BlogMarkdownProps) {
           ),
           img: ({ src, alt, title }) => {
             if (!src) return null;
-            const localImage = src.startsWith("/");
             return (
-              <figure
-                className="my-28 block overflow-hidden border border-black/10 bg-white/40"
-              >
-                {localImage ? (
-                  <Image
-                    src={src}
-                    alt={alt || ""}
-                    width={1600}
-                    height={900}
-                    sizes="(max-width: 1024px) 100vw, 48rem"
-                    className="h-auto w-full object-contain"
-                  />
-                ) : (
-                  <img
-                    src={src}
-                    alt={alt || ""}
-                    loading="lazy"
-                    className="h-auto w-full object-contain"
-                  />
-                )}
-                {title ? (
-                  <figcaption className="block border-t border-black/10 px-14 py-10 text-body6 leading-relaxed text-[var(--muted)]">
-                    {title}
-                  </figcaption>
-                ) : null}
-              </figure>
+              <div className="my-32">
+                <BlogMedia
+                  src={src}
+                  alt={alt || ""}
+                  caption={title || undefined}
+                  figureNumber={(mediaIndex += 1)}
+                  variant="body"
+                />
+              </div>
             );
           },
           table: ({ children }) => (

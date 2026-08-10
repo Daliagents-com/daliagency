@@ -1,47 +1,164 @@
 ---
-slug: "how-to-choose-production-ai-agent-partner"
-title: "How to choose a production AI agent partner"
-description: "Selection guide for a production AI agent partner: engineering depth, ops discipline, pilot design, and transfer of ownership."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "how-to-choose-production-ai-agent-partner"
-keywords: ["production AI agent partner", "choose AI agent company", "AI agent implementation partner"]
-status: "published"
-author: "Dali"
-type: "tutorial"
+slug: how-to-choose-production-ai-agent-partner
+title: How to choose a production AI agent partner
+description: 'Choose a production AI agent partner with evidence, not claims: workflow
+  boundary, permission matrix, trace sample, eval set, rollback drill, incident owner,
+  and handoff manifest.'
+date: '2026-07-31'
+updated: '2026-08-10'
+locale: en
+hreflangGroup: how-to-choose-production-ai-agent-partner
+keywords:
+- production AI agent partner
+- choose AI agent company
+- AI agent implementation partner
+status: published
+author: Dali
+type: tutorial
+category: buying-partners
 ---
 
 ## Direct answer
 
-Choose a partner who can ship one production path with gates, logs, and handoff - not a partner who only presents multi-agent theater.
+Do not approve a production rollout just because the demos look polished.
 
-## Production means irreversible actions are controlled
+Choose the partner that can show a production evidence gate for one real workflow.
 
-Email, CRM writes, payments, admin, and public posts need explicit rules.
+That gate should prove the workflow boundary, the permission model, the logging path, the evaluation bar, the failure drill, the support owner, and the handoff package.
 
-## Partner checklist
+[IBM frames deployment](https://www.ibm.com/think/topics/ai-agent-deployment) as moving from prototype or testing into real-world operation.
 
-Workflow mapping skill. Tool integration honesty. Evaluation plan. Security basics. Documentation quality.
+[Dataiku's production-ready guidance](https://www.dataiku.com/blog/how-to-build-production-ready-ai-agents) adds monitoring, access controls, rollback, and measurable success.
 
-## Pilot design as the filter
+[OpenAI's practical guide](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) is also useful because it keeps the discussion on workflows where agentic behavior actually makes sense.
 
-If they cannot propose a fixed pilot with an acceptance test, they are not ready for production work.
+If the workflow is still a rules engine problem, use software or internal automation first.
 
-## Culture fit
+## Use the right page for the right job
 
-They should challenge bad automation ideas, not sell unlimited autonomy.
+This page is not the shortlist builder.
+
+Use [how to hire an AI agent agency](/blog/how-to-hire-an-ai-agent-agency) for shortlist creation and early vendor conversations.
+
+Use [how to compare AI agent agencies](/blog/how-to-compare-ai-agent-agencies) for finalist scoring.
+
+Use [best AI automation agency criteria (2026)](/blog/best-ai-automation-agency-criteria-2026) for early filtering.
+
+Use [red flags when hiring an AI agent company](/blog/red-flags-when-hiring-ai-agent-company) for disqualifiers.
+
+This page is for the moment after a preferred partner exists and a paid discovery, prototype, or pilot has produced workflow-specific evidence.
+
+It helps the buyer decide whether the partner can pass a production-readiness gate before production acceptance, rollout approval, or a phase-two production commitment.
+
+## The production evidence gate
+
+Ask the partner to produce these artifacts for one workflow.
+
+| Artifact | What it proves | Buyer verification | Production gate blocker |
+| --- | --- | --- | --- |
+| Workflow boundary | The partner understands the exact path being automated. | Compare the document against your current SOP or ticket trail. | No single workflow, or scope still described as a platform. |
+| Permission matrix | The partner knows which actions need least privilege or approval. | Check who can trigger reads, writes, sends, refunds, or deletes. | Shared admin access or no named gate owner. |
+| Representative trace | The partner can show what a real run looks like. | Review one end-to-end sample with inputs, tool calls, and output. | No readable trace, or logs are not exportable. |
+| Eval set and pass bar | The partner can measure quality instead of guessing. | Inspect the test cases, scoring notes, and threshold. | No named pass condition or no test set. |
+| Rollback drill | The partner can stop or revert the workflow when it fails. | Ask them to demonstrate the failure path in writing. | No rollback path, or rollback depends on heroics. |
+| Incident owner | Someone owns the next step when the system is wrong. | Confirm the named contact, response window, and escalation path. | Support is "best effort" only. |
+| Handoff manifest | The partner has documented the artifacts, access, and operating knowledge required for handoff. | Review docs, runbook, prompt inventory, eval notes, and access list. | Handoff is described as informal or optional. |
+
+Dali does not treat the engagement as production ready until the partner can produce all of those artifacts for the workflow under review.
+
+## What to ask before production acceptance
+
+- Show the workflow boundary as a written artifact.
+- Show the permission matrix for every risky action.
+- Show one representative trace from start to finish.
+- Show the eval set and the pass bar.
+- Show the rollback drill.
+- Show the named incident owner and support window.
+- Show the handoff manifest.
+
+These are not sales questions.
+
+They are production-acceptance questions.
+
+## Why this gate exists
+
+[NIST's AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) frames AI work as trust and risk management, not novelty.
+
+[OWASP's 2026 agentic Top 10](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) gives buyers current security language for autonomous agent systems.
+
+[Gartner's warning about agent washing](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) is useful even without the headline number because it reminds buyers that many products sound more agentic than they are.
+
+That is why a partner checklist is not enough.
+
+What matters is whether the partner can show evidence that a real workflow is controlled, inspectable, and supportable.
+
+## Dali's recommendations
+
+Dali recommends using one workflow per gate.
+
+Dali recommends asking for the evidence pack before you accept a pilot as production ready.
+
+Dali recommends blocking production acceptance or a phase-two commitment if the partner cannot show the trace, the pass bar, and the rollback path.
+
+Dali does not recommend scoring the partner on generic "innovation" language.
+
+## A compact decision rule
+
+```text
+boundary -> permissions -> trace -> eval -> rollback -> owner -> handoff
+```
+
+If one step is missing, the buyer does not have production evidence yet.
+
+If the partner can only show a demo, the buyer still has a demo.
+
+## What not to confuse this with
+
+- Not the hiring page.
+- Not the comparison page.
+- Not the criteria page.
+- Not the red-flags page.
+
+Those pages help a buyer reach a shortlist.
+
+This page helps the buyer decide whether a preferred partner has enough evidence for a production commitment.
 
 ## How Dali fits
 
-Dali's pilots are built as production paths. Review [vibe-code rescue](/solutions/vibe-code-rescue) and other [solutions](/solutions).
+Bring one real workflow, one current SOP, and one named approver.
+
+Use [solutions](/solutions) if you want Dali to help turn the workflow into a scoped engagement.
+
+Related reading:
+
+- [How to hire an AI agent agency](/blog/how-to-hire-an-ai-agent-agency)
+- [How to compare AI agent agencies](/blog/how-to-compare-ai-agent-agencies)
+- [Best AI automation agency criteria (2026)](/blog/best-ai-automation-agency-criteria-2026)
+- [Red flags when hiring an AI agent company](/blog/red-flags-when-hiring-ai-agent-company)
+- [AI agent agency pricing: what to expect](/blog/ai-agent-agency-pricing-what-to-expect)
 
 ## FAQ
 
 ### Do we need ML PhDs on the vendor team?
-Usually no. You need systems thinking, integrations, and ops.
 
-### Is multi-agent architecture a must?
-No. Many wins are one well-gated agent path.
+The evidence gate does not require a specific degree.
 
-### How do we test a partner quickly?
-Paid audit on one workflow with written findings.
+It requires the team to demonstrate systems thinking, integrations, evaluation discipline, and operational ownership.
+
+### Is multi-agent architecture required?
+
+No.
+
+[OpenAI recommends maximizing a single agent first](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) before adding orchestration that may not be necessary.
+
+### Can we test a partner quickly?
+
+Yes.
+
+Dali treats a paid audit as sufficient only when it produces the evidence artifacts needed for the next decision.
+
+### Should the partner own the whole rollout?
+
+Dali recommends that the partner own the part it can support cleanly.
+
+Dali recommends that the buyer retain ownership of the business decision, approvals, and final operating model.

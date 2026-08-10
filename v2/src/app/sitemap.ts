@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { locales, localizedLocales, localizePath } from "@/i18n/config";
+import { blogCategoryPath } from "@/i18n/blog";
 import { projectSlugs } from "@/i18n/projects";
 import { solutionSlugs } from "@/Components/Solutions/solutionContent";
 import { blogPath, getPublishedPosts } from "@/lib/blog/loadPosts";
+import { isBlogCategoryId, listBlogCategories } from "@/lib/blog/categories";
 import { absoluteUrl } from "@/lib/seo/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -33,6 +35,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : {}),
     })),
   );
+  const categoryEntries = locales.flatMap((locale) =>
+    listBlogCategories()
+      .filter((category) => {
+        const count = getPublishedPosts(locale).filter(
+          (post) => isBlogCategoryId(post.category ?? "") && post.category === category.id,
+        ).length;
+        return count >= 4;
+      })
+      .map((category) => ({
+        url: absoluteUrl(blogCategoryPath(locale, category.id)),
+      })),
+  );
   const routes = [
     "",
     "/about",
@@ -47,6 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...routes.map((route) => ({
       url: absoluteUrl(route || "/"),
     })),
+    ...categoryEntries,
     ...blogPostEntries,
   ];
 }

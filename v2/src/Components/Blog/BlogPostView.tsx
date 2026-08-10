@@ -1,15 +1,20 @@
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/Components/Container/Container";
 import { onestText, syneText } from "@/assets/fonts";
 import type { Locale } from "@/i18n/config";
 import { localizePath } from "@/i18n/config";
-import type { BlogPost } from "@/lib/blog/types";
+import type { PublishedBlogPost } from "@/lib/blog/types";
 import { blogPath } from "@/lib/blog/loadPosts";
-import { blogCopy } from "@/i18n/blog";
+import {
+  blogCategoryPath,
+  blogCopy,
+  getBlogCategoryCopy,
+  getBlogTypeLabel,
+} from "@/i18n/blog";
 import BlogMarkdown from "./BlogMarkdown";
 import BlogFaq from "./BlogFaq";
 import BlogRelated from "./BlogRelated";
+import BlogMedia from "./BlogMedia";
 import ChecklistMagnet from "@/Components/LeadMagnet/ChecklistMagnet";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { parseBlogBody } from "@/lib/blog/parseFaq";
@@ -17,7 +22,7 @@ import { checklistPackSlugs } from "@/lib/checklist";
 
 type BlogPostViewProps = {
   locale: Locale;
-  post: BlogPost;
+  post: PublishedBlogPost;
 };
 
 export default function BlogPostView({ locale, post }: BlogPostViewProps) {
@@ -58,7 +63,14 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
                     {post.readingMinutes} {copy.minRead}
                   </span>
                   <span aria-hidden>·</span>
-                  <span>{post.type}</span>
+                  <Link
+                    href={blogCategoryPath(locale, post.category)}
+                    className="text-[var(--accent)] underline-offset-4 hover:underline"
+                  >
+                    {getBlogCategoryCopy(locale, post.category).label}
+                  </Link>
+                  <span aria-hidden>·</span>
+                  <span>{getBlogTypeLabel(locale, post.type)}</span>
                 </div>
                 <h1
                   className={`${syneText.className} text-body1 font-medium tracking-tight text-[var(--text)] md:text-title3`}
@@ -106,17 +118,17 @@ export default function BlogPostView({ locale, post }: BlogPostViewProps) {
               </header>
 
               {Boolean(post.heroImage) && (
-                <figure className="mb-32 overflow-hidden border border-black/10 bg-white/40">
-                  <Image
+                <div className="mb-32">
+                  <BlogMedia
                     src={post.heroImage as string}
                     alt={post.heroAlt || post.title}
                     width={1920}
                     height={1080}
-                    className="h-auto w-full object-cover"
                     sizes="(max-width: 1024px) 100vw, 48rem"
                     priority
+                    variant="hero"
                   />
-                </figure>
+                </div>
               )}
 
               <BlogMarkdown content={body} locale={locale} />

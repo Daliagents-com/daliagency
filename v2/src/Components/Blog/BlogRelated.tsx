@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { onestText, syneText } from "@/assets/fonts";
 import type { Locale } from "@/i18n/config";
 import { blogPath } from "@/lib/blog/loadPosts";
 import { getRelatedPosts } from "@/lib/blog/relatedPosts";
-import { blogCopy } from "@/i18n/blog";
+import { blogCopy, getBlogTypeLabel } from "@/i18n/blog";
+import BlogMedia from "./BlogMedia";
 
 type BlogRelatedProps = {
   locale: Locale;
@@ -40,21 +40,21 @@ export default function BlogRelated({ locale, currentSlug }: BlogRelatedProps) {
               className="group block transition-opacity hover:opacity-75"
             >
               {post.heroImage ? (
-                <span className="mb-10 block overflow-hidden border border-black/10">
-                  <Image
+                <div className="mb-10">
+                  <BlogMedia
                     src={post.heroImage}
                     alt={post.heroAlt || post.title}
                     width={640}
                     height={360}
-                    className="h-auto w-full object-cover"
                     sizes="16rem"
+                    variant="card"
                   />
-                </span>
+                </div>
               ) : null}
               <span
                 className={`${onestText.className} block text-body6 uppercase tracking-[0.08em] text-[var(--muted)]`}
               >
-                {post.type}
+                {getBlogTypeLabel(locale, post.type)}
               </span>
               <span
                 className={`${syneText.className} mt-6 block text-body5 font-medium leading-snug text-[var(--text)] md:text-body4`}
