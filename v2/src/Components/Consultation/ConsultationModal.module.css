@@ -1,76 +1,153 @@
-/* Purpose: On-site consultation dialog styles. */
+/* Purpose: Focused Cal.com workflow-audit booking dialog styles. */
 
-.overlay {
+.layer {
   position: fixed;
   inset: 0;
   z-index: 80;
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: rgba(10, 12, 16, 0.48);
-  backdrop-filter: blur(6px);
+  background: rgba(8, 12, 10, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.focusLock {
+  width: min(58rem, 100%);
 }
 
 .dialog {
-  width: min(32rem, 100%);
-  max-height: min(92vh, 44rem);
-  overflow: auto;
-  border: 1px solid rgba(17, 19, 18, 0.1);
-  border-radius: 12px;
+  display: flex;
+  width: 100%;
+  max-height: min(44rem, calc(100dvh - 2rem));
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(17, 19, 18, 0.12);
+  border-radius: 16px;
   background: #fff;
   box-shadow:
-    0 1px 0 rgba(17, 24, 39, 0.04),
-    0 24px 64px rgba(17, 24, 39, 0.18);
+    0 1px 0 rgba(17, 24, 39, 0.05),
+    0 28px 80px rgba(17, 24, 39, 0.24);
   color: #111312;
+}
+
+.dialog[data-view="intake"] {
+  width: min(38rem, 100%);
+  margin-inline: auto;
 }
 
 .header {
   display: flex;
+  flex: 0 0 auto;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 1.25rem 0.75rem;
+  gap: 1.25rem;
+  padding: 1.15rem 1.25rem 1rem;
   border-bottom: 1px solid rgba(17, 19, 18, 0.08);
 }
 
-.title {
+.header > div {
+  min-width: 0;
+}
+
+.title,
+.subtitle,
+.meta {
   margin: 0;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
   line-height: 1.2;
 }
 
 .subtitle {
-  margin: 0.4rem 0 0;
-  color: #5c6360;
-  font-size: 0.88rem;
+  max-width: 41rem;
+  margin-top: 0.35rem;
+  color: #59605d;
+  font-size: 0.82rem;
   line-height: 1.45;
+}
+
+.meta {
+  margin-top: 0.65rem;
+  color: #1e3a8a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
 }
 
 .iconClose {
   display: grid;
   width: 2rem;
   height: 2rem;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   place-items: center;
-  border: 1px solid rgba(17, 19, 18, 0.1);
+  border: 0;
   border-radius: 8px;
-  background: #f6f6f5;
-  color: #111312;
+  background: #f4f5f3;
+  color: #59605d;
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
 }
 
 .iconClose:hover {
-  background: #ececeb;
+  background: #e9ebe8;
+  color: #111312;
+}
+
+.iconClose:focus-visible,
+.contactLink:focus-visible,
+.modeSwitch button:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+.modeSwitch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid rgba(17, 19, 18, 0.08);
+  background: #f7f7f5;
+}
+
+.modeSwitch button {
+  min-height: 2.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  background: transparent;
+  color: #59605d;
+  font-size: 0.76rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.modeSwitch button[data-active="true"] {
+  border-color: rgba(30, 58, 138, 0.18);
+  background: #fff;
+  color: #1e3a8a;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
 }
 
 .form {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.9rem;
+  min-height: 0;
+  overflow-y: auto;
   padding: 1rem 1.25rem 1.25rem;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 }
 
 .field {
@@ -86,13 +163,10 @@
 }
 
 .field em {
-  color: #9aa19e;
+  color: #8a918e;
+  font-size: 0.68rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.72rem;
-}
-
-.optional {
   text-transform: lowercase;
 }
 
@@ -106,7 +180,7 @@
   background: #fafaf9;
   color: #111312;
   font: inherit;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   outline: none;
   transition:
     border-color 0.15s ease,
@@ -123,32 +197,190 @@
 }
 
 .field textarea {
+  min-height: 6rem;
   resize: vertical;
-  min-height: 6.5rem;
 }
 
-.actions {
+.actions,
+.statusActions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.55rem;
-  margin-top: 0.25rem;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.body {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+}
+
+.calendarPanel {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.calendarShell {
+  position: relative;
+  min-height: 34rem;
+  padding: 0.25rem;
+  background: #fff;
+}
+
+.calendar {
+  width: 100%;
+  min-height: 33.5rem;
+  overflow: auto;
+}
+
+.calendarError {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 1rem;
+  min-height: 28rem;
+  padding: 2rem;
+}
+
+.directContact {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0.6rem 1.25rem;
+  border-top: 1px solid rgba(17, 19, 18, 0.08);
+  background: #f7f7f5;
+  color: #656c68;
+  font-size: 0.74rem;
+}
+
+.directContact > span {
+  flex: 0 0 auto;
+  font-weight: 600;
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.contactLink {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1.9rem;
+  border: 1px solid rgba(17, 19, 18, 0.12);
+  border-radius: 999px;
+  padding: 0.35rem 0.55rem;
+  background: #fff;
+  color: #1e3a8a;
+  font: inherit;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.contactLink:hover {
+  border-color: rgba(30, 58, 138, 0.32);
+  background: #f3f6ff;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: #fff;
+  color: #5c6360;
+  font-size: 0.84rem;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(30, 58, 138, 0.16);
+  border-top-color: #1e3a8a;
+  border-radius: 999px;
+  animation: spin 0.75s linear infinite;
+}
+
+.statusPanel {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  width: min(32rem, 100%);
+  margin: auto;
+  padding: clamp(2.5rem, 8vw, 5.5rem) 1.25rem;
+}
+
+.statusMark {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 999px;
+  background: #e9f8ee;
+  color: #16783a;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.statusTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.statusBody {
+  margin: 0;
+  color: #5c6360;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .primary,
 .secondary {
   display: inline-flex;
+  min-height: 2.5rem;
   align-items: center;
   justify-content: center;
-  min-height: 2.6rem;
+  margin-top: 0.2rem;
+  border: 1px solid transparent;
   border-radius: 8px;
-  padding: 0.65rem 1rem;
-  font-size: 0.82rem;
+  padding: 0.62rem 0.9rem;
+  font-size: 0.76rem;
   font-weight: 650;
   letter-spacing: 0.02em;
+  text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid transparent;
 }
 
 .primary {
@@ -156,12 +388,12 @@
   color: #fff;
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover {
   background: #172a66;
 }
 
 .primary:disabled {
-  opacity: 0.65;
+  opacity: 0.6;
   cursor: wait;
 }
 
@@ -172,47 +404,113 @@
 }
 
 .secondary:hover {
-  background: #f6f6f5;
+  background: #f4f5f3;
 }
 
-.error {
-  margin: 0;
-  border: 1px solid rgba(185, 28, 28, 0.25);
-  border-radius: 8px;
-  padding: 0.65rem 0.75rem;
-  background: #fef2f2;
-  color: #991b1b;
-  font-size: 0.82rem;
-  line-height: 1.4;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.success {
-  display: grid;
-  gap: 0.75rem;
-  padding: 1.5rem 1.25rem 1.35rem;
-}
+@media (max-width: 700px) {
+  .layer {
+    overflow: hidden;
+    padding: 0;
+    background: #fff;
+    backdrop-filter: none;
+  }
 
-.successTitle {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+  .dialog {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
 
-.successBody {
-  margin: 0;
-  color: #5c6360;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  .dialog[data-view="intake"] {
+    width: 100%;
+  }
+
+  .focusLock {
+    width: 100%;
+    height: 100%;
+  }
+
+  .header {
+    padding: 0.9rem 1rem 0.8rem;
+  }
+
+  .modeSwitch {
+    padding: 0.55rem 1rem;
+  }
+
+  .form {
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .title {
+    font-size: 1.05rem;
+  }
+
+  .subtitle {
+    max-width: 31rem;
+    font-size: 0.76rem;
+  }
+
+  .meta {
+    margin-top: 0.5rem;
+    font-size: 0.64rem;
+  }
+
+  .calendarShell,
+  .calendar {
+    min-height: 36rem;
+  }
+
+  .directContact {
+    padding-inline: 1rem;
+  }
 }
 
 @media (max-width: 520px) {
-  .actions {
+  .directContact {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-block: 0.55rem;
+  }
+
+  .contactLinks {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .subtitle {
+    max-width: 17rem;
+  }
+
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions,
+  .statusActions {
     flex-direction: column-reverse;
   }
 
   .primary,
   .secondary {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.5s;
   }
 }

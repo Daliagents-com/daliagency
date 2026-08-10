@@ -6,6 +6,10 @@ import type { Locale } from "@/i18n/config";
 // Brand inbox on the canonical domain (privateemail.com hosting).
 // Requires the hello@ alias to exist in the privateemail panel before deploy.
 export const daliContactEmail = "hello@daliagents.com";
+export const daliTelegramUrl = "https://t.me/aisceptic0";
+export const daliWhatsAppUrl = "https://wa.me/995568863212";
+export const daliLinkedInUrl = "https://www.linkedin.com/in/davidhakobyan/";
+export const daliXUrl = "https://x.com/larseen66";
 
 export function buildMailtoHref(subject: string, body: string) {
   return `mailto:${daliContactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
