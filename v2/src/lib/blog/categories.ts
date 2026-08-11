@@ -1,11 +1,11 @@
 export const BLOG_CATEGORIES = [
   {
     id: "agent-foundations",
-    expectedPublishedCount: 8,
+    expectedPublishedCount: 9,
   },
   {
     id: "implementation-operations",
-    expectedPublishedCount: 20,
+    expectedPublishedCount: 22,
   },
   {
     id: "security-governance",
@@ -13,7 +13,7 @@ export const BLOG_CATEGORIES = [
   },
   {
     id: "use-cases-workflows",
-    expectedPublishedCount: 21,
+    expectedPublishedCount: 23,
   },
   {
     id: "buying-partners",

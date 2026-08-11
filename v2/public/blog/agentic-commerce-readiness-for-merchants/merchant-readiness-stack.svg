@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Merchant readiness stack for agentic commerce</title>
+  <desc id="desc">Nine-row diagram: an agent surface sits above eight numbered merchant layers. Bottom-up: catalog, price and inventory, identity and consent, cart, scoped payment, fulfillment and returns, support, and an audit spine that runs beside the stack.</desc>
+  <rect width="1600" height="900" fill="#FCFCFA"/>
+  <rect x="48" y="48" width="1504" height="804" rx="16" fill="#F5F7FB" stroke="#111312" stroke-opacity="0.12"/>
+
+  <!-- Agent surface (top, unnumbered) -->
+  <g transform="translate(160 88)">
+    <rect width="1120" height="96" rx="18" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <rect x="18" y="18" width="60" height="60" rx="14" fill="#E9EDFF"/>
+    <!-- agent: node cluster -->
+    <circle cx="48" cy="40" r="8" fill="#1E3A8A"/>
+    <circle cx="34" cy="58" r="6" fill="#1E3A8A" opacity="0.7"/>
+    <circle cx="62" cy="58" r="6" fill="#1E3A8A" opacity="0.7"/>
+    <path d="M48 48v4M42 54l6-6 6 6" fill="none" stroke="#1E3A8A" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- chat surface lines -->
+    <path d="M110 38h180M110 58h120" stroke="#687170" stroke-width="8" stroke-linecap="round"/>
+    <rect x="320" y="28" width="220" height="40" rx="12" fill="#E9EDFF"/>
+    <circle cx="344" cy="48" r="8" fill="#1E3A8A"/>
+    <path d="M364 48h150" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
+    <!-- confirmation gate -->
+    <circle cx="1040" cy="48" r="22" fill="#E6F4EF" stroke="#2F7D68" stroke-width="3"/>
+    <path d="M1028 48l8 8 16-18" fill="none" stroke="#2F7D68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Connector agent -> stack -->
+  <path d="M720 184v22" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+  <path d="M710 198l10 12 10-12" fill="none" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+
+  <!-- Audit spine rail (layer 8 visual, left) -->
+  <g transform="translate(160 220)">
+    <rect width="88" height="568" rx="18" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="44" cy="36" r="22" fill="#E9EDFF"/>
+    <text x="44" y="44" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">8</text>
+    <!-- spine chain of evidence nodes -->
+    <path d="M44 78v450" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round" opacity="0.25"/>
+    <circle cx="44" cy="100" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="44" cy="170" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="44" cy="240" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="44" cy="310" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="44" cy="380" r="9" fill="#2F7D68" stroke="#2F7D68" stroke-width="3"/>
+    <circle cx="44" cy="450" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="44" cy="520" r="9" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <!-- link ticks -->
+    <path d="M35 100h18M35 170h18M35 240h18M35 310h18M35 450h18M35 520h18" stroke="#1E3A8A" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+    <path d="M38 380l4 4 8-10" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Horizontal layers 1-7 (bottom foundation = catalog) -->
+  <!-- Layer positions from top of stack area: y base 220, each h=74, gap=8 -->
+  <!-- order top->bottom after agent: 7 support, 6 fulfill, 5 payment, 4 cart, 3 identity, 2 price/inv, 1 catalog -->
+
+  <!-- 7 Support -->
+  <g transform="translate(268 220)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">7</text>
+    <!-- headset -->
+    <path d="M140 44c0-16 12-28 28-28s28 12 28 28" fill="none" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round"/>
+    <rect x="132" y="40" width="16" height="22" rx="5" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <rect x="188" y="40" width="16" height="22" rx="5" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <path d="M204 52c4 10 12 16 22 16" fill="none" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
+    <!-- ticket link dots -->
+    <circle cx="280" cy="37" r="6" fill="#1E3A8A"/>
+    <path d="M292 37h40" stroke="#687170" stroke-width="4" stroke-linecap="round"/>
+    <rect x="340" y="24" width="48" height="26" rx="6" fill="#F5F7FB" stroke="#687170" stroke-width="2.5"/>
+    <path d="M350 37h28" stroke="#687170" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- 6 Fulfillment + returns -->
+  <g transform="translate(268 302)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">6</text>
+    <!-- package -->
+    <path d="M140 22l36-12 36 12v32l-36 12-36-12z" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M140 22l36 12 36-12M176 34v32" fill="none" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round"/>
+    <!-- return arrow -->
+    <path d="M250 44c8 14 28 18 44 8" fill="none" stroke="#B24C35" stroke-width="4" stroke-linecap="round"/>
+    <path d="M286 42l10 8-12 4" fill="none" stroke="#B24C35" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 5 Scoped payment -->
+  <g transform="translate(268 384)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#FFE8E2"/>
+    <text x="42" y="45" text-anchor="middle" fill="#B24C35" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">5</text>
+    <!-- payment card -->
+    <rect x="130" y="18" width="88" height="56" rx="8" fill="#F5F7FB" stroke="#1E3A8A" stroke-width="3"/>
+    <path d="M130 34h88" stroke="#1E3A8A" stroke-width="8"/>
+    <path d="M142 50h28M142 58h18" stroke="#687170" stroke-width="4" stroke-linecap="round"/>
+    <!-- scope ring / lock -->
+    <circle cx="260" cy="37" r="22" fill="none" stroke="#2F7D68" stroke-width="4"/>
+    <rect x="250" y="34" width="20" height="16" rx="3" fill="#E6F4EF" stroke="#2F7D68" stroke-width="3"/>
+    <path d="M254 34v-6a6 6 0 0112 0v6" fill="none" stroke="#2F7D68" stroke-width="3" stroke-linecap="round"/>
+    <!-- limited grant marks -->
+    <path d="M300 30h48M300 44h36M300 58h28" stroke="#687170" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <!-- 4 Cart -->
+  <g transform="translate(268 466)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">4</text>
+    <!-- cart -->
+    <path d="M132 24h14l12 36h56" fill="none" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M154 36h54l-6 18H160z" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="166" cy="64" r="5" fill="#1E3A8A"/>
+    <circle cx="198" cy="64" r="5" fill="#1E3A8A"/>
+    <!-- line items -->
+    <path d="M240 30h80M240 44h64M240 58h48" stroke="#687170" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- 3 Identity + consent -->
+  <g transform="translate(268 548)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">3</text>
+    <!-- person -->
+    <circle cx="156" cy="28" r="12" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <path d="M134 58c4-14 14-20 22-20s18 6 22 20" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
+    <!-- consent check shield -->
+    <path d="M220 18l28 8v16c0 14-10 24-28 30-18-6-28-16-28-30V26z" fill="#E6F4EF" stroke="#2F7D68" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M208 38l8 8 16-16" fill="none" stroke="#2F7D68" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 2 Price + inventory -->
+  <g transform="translate(268 630)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">2</text>
+    <!-- price tag -->
+    <path d="M132 28h40l24 18-24 18h-40a10 10 0 01-10-10V38a10 10 0 0110-10z" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="144" cy="46" r="4" fill="#1E3A8A"/>
+    <!-- inventory bars / boxes -->
+    <rect x="220" y="42" width="18" height="20" rx="3" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2.5"/>
+    <rect x="244" y="30" width="18" height="32" rx="3" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2.5"/>
+    <rect x="268" y="20" width="18" height="42" rx="3" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2.5"/>
+    <!-- stock state dots -->
+    <circle cx="314" cy="46" r="7" fill="#2F7D68"/>
+    <circle cx="336" cy="46" r="7" fill="#B24C35" opacity="0.85"/>
+  </g>
+
+  <!-- 1 Catalog (foundation) -->
+  <g transform="translate(268 712)">
+    <rect width="1012" height="74" rx="14" fill="#FFFFFF" stroke="#111312" stroke-opacity="0.16" stroke-width="2"/>
+    <circle cx="42" cy="37" r="22" fill="#E9EDFF"/>
+    <text x="42" y="45" text-anchor="middle" fill="#1E3A8A" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="20" font-weight="700">1</text>
+    <!-- product grid feed -->
+    <rect x="130" y="16" width="36" height="42" rx="6" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <rect x="138" y="24" width="20" height="14" rx="3" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="2"/>
+    <path d="M138 46h20M138 52h12" stroke="#687170" stroke-width="3" stroke-linecap="round"/>
+    <rect x="176" y="16" width="36" height="42" rx="6" fill="#F5F7FB" stroke="#1E3A8A" stroke-width="3"/>
+    <rect x="184" y="24" width="20" height="14" rx="3" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="2"/>
+    <path d="M184 46h20M184 52h12" stroke="#687170" stroke-width="3" stroke-linecap="round"/>
+    <rect x="222" y="16" width="36" height="42" rx="6" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <rect x="230" y="24" width="20" height="14" rx="3" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="2"/>
+    <path d="M230 46h20M230 52h12" stroke="#687170" stroke-width="3" stroke-linecap="round"/>
+    <!-- feed rows -->
+    <path d="M290 28h90M290 42h70M290 56h50" stroke="#687170" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Spine-to-layer ticks -->
+  <g stroke="#1E3A8A" stroke-width="3" stroke-linecap="round" opacity="0.22">
+    <path d="M248 257h20"/>
+    <path d="M248 339h20"/>
+    <path d="M248 421h20"/>
+    <path d="M248 503h20"/>
+    <path d="M248 585h20"/>
+    <path d="M248 667h20"/>
+    <path d="M248 749h20"/>
+  </g>
+</svg>

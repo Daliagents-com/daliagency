@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Protocol boundary map for agent collaboration and tool access</title>
+  <desc id="desc">Two independent agent nodes link horizontally. Each agent links vertically to its own tool and data nodes. A smaller dotted path shows a direct application-to-API alternative.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 1L10 6L0 11Z" fill="#1E3A8A"/>
+    </marker>
+    <marker id="arrow-blue-start" markerWidth="12" markerHeight="12" refX="2" refY="6" orient="auto-start-reverse">
+      <path d="M0 1L10 6L0 11Z" fill="#1E3A8A"/>
+    </marker>
+    <marker id="arrow-ink" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0 1L9 5L0 9Z" fill="#111312"/>
+    </marker>
+    <marker id="arrow-coral" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0 1L9 5L0 9Z" fill="#F06449"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1600" height="900" fill="#FCFCFA"/>
+  <rect x="48" y="48" width="1504" height="804" rx="20" fill="#F5F7FB" stroke="#111312" stroke-opacity="0.12" stroke-width="2"/>
+
+  <!-- Direct API alternative (small, left) -->
+  <g transform="translate(120 330)">
+    <!-- App silhouette: simple rounded rect -->
+    <rect x="0" y="0" width="88" height="72" rx="14" fill="#FFFFFF" stroke="#111312" stroke-width="3" stroke-opacity="0.55"/>
+    <path d="M22 28h44M22 44h28" stroke="#111312" stroke-width="5" stroke-linecap="round" stroke-opacity="0.45"/>
+    <!-- Dotted direct path -->
+    <path d="M44 88v96" fill="none" stroke="#F06449" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="3 10" marker-end="url(#arrow-coral)"/>
+    <!-- API silhouette: small diamond -->
+    <g transform="translate(44 230)">
+      <path d="M0-34L34 0L0 34L-34 0Z" fill="#FFFFFF" stroke="#F06449" stroke-width="3.5"/>
+      <circle r="8" fill="#F06449"/>
+    </g>
+    <!-- Confirmation that this path is intentionally small/simple -->
+    <circle cx="44" cy="-28" r="10" fill="#2F7D68"/>
+  </g>
+
+  <!-- Soft vertical separator between direct path and protocol map -->
+  <path d="M280 160v580" stroke="#111312" stroke-opacity="0.08" stroke-width="2" stroke-dasharray="8 14"/>
+
+  <!-- Horizontal agent-to-agent link (distinct dashed dual rail) -->
+  <g fill="none" stroke="#1E3A8A" stroke-linecap="round">
+    <path d="M560 300H1040" stroke-width="5" stroke-dasharray="16 12" marker-start="url(#arrow-blue-start)" marker-end="url(#arrow-blue)"/>
+    <path d="M560 318H1040" stroke-width="2.5" stroke-opacity="0.35" stroke-dasharray="6 10"/>
+  </g>
+  <!-- Midpoint exchange glyph (protocol-neutral) -->
+  <g transform="translate(800 309)">
+    <circle r="18" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <path d="M-7-4h14M-7 4h14" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left agent node -->
+  <g transform="translate(480 300)">
+    <circle r="78" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="4"/>
+    <circle r="48" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle r="18" fill="#1E3A8A"/>
+    <circle cx="-10" cy="-4" r="3.5" fill="#FCFCFA"/>
+    <circle cx="10" cy="-4" r="3.5" fill="#FCFCFA"/>
+    <path d="M-12 8c8 10 16 10 24 0" fill="none" stroke="#FCFCFA" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="-62" r="16" fill="#1E3A8A"/>
+    <text x="0" y="-56" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">1</text>
+  </g>
+
+  <!-- Right agent node -->
+  <g transform="translate(1120 300)">
+    <circle r="78" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="4"/>
+    <circle r="48" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle r="18" fill="#1E3A8A"/>
+    <circle cx="-10" cy="-4" r="3.5" fill="#FCFCFA"/>
+    <circle cx="10" cy="-4" r="3.5" fill="#FCFCFA"/>
+    <path d="M-12 8c8 10 16 10 24 0" fill="none" stroke="#FCFCFA" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="-62" r="16" fill="#1E3A8A"/>
+    <text x="0" y="-56" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">2</text>
+  </g>
+
+  <!-- Vertical agent-to-tool/data links (solid, distinct from horizontal) -->
+  <g fill="none" stroke="#111312" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.7">
+    <!-- Left agent forks -->
+    <path d="M480 378V460"/>
+    <path d="M480 460H360"/>
+    <path d="M480 460H600"/>
+    <path d="M360 460V520" marker-end="url(#arrow-ink)"/>
+    <path d="M600 460V520" marker-end="url(#arrow-ink)"/>
+    <!-- Right agent forks -->
+    <path d="M1120 378V460"/>
+    <path d="M1120 460H1000"/>
+    <path d="M1120 460H1240"/>
+    <path d="M1000 460V520" marker-end="url(#arrow-ink)"/>
+    <path d="M1240 460V520" marker-end="url(#arrow-ink)"/>
+  </g>
+
+  <!-- Left tool node (wrench silhouette on rounded square) -->
+  <g transform="translate(360 590)">
+    <rect x="-54" y="-54" width="108" height="108" rx="22" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <g fill="none" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-18-18l12 12"/>
+      <path d="M-26-10a14 14 0 1010-10"/>
+      <path d="M-6-6l28 28"/>
+      <path d="M14 22l8-8M22 14l8-8"/>
+    </g>
+    <circle cx="0" cy="-70" r="14" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="0" y="-65" text-anchor="middle" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">3</text>
+  </g>
+
+  <!-- Left data node (cylinder) -->
+  <g transform="translate(600 590)">
+    <ellipse cx="0" cy="-36" rx="46" ry="18" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M-46-36v52" fill="none" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M46-36v52" fill="none" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <ellipse cx="0" cy="16" rx="46" ry="18" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M-24-8h48M-18 8h36" stroke="#687170" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="0" cy="-70" r="14" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="0" y="-65" text-anchor="middle" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">4</text>
+  </g>
+
+  <!-- Right tool node -->
+  <g transform="translate(1000 590)">
+    <rect x="-54" y="-54" width="108" height="108" rx="22" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <g fill="none" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-18-18l12 12"/>
+      <path d="M-26-10a14 14 0 1010-10"/>
+      <path d="M-6-6l28 28"/>
+      <path d="M14 22l8-8M22 14l8-8"/>
+    </g>
+    <circle cx="0" cy="-70" r="14" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="0" y="-65" text-anchor="middle" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">3</text>
+  </g>
+
+  <!-- Right data node -->
+  <g transform="translate(1240 590)">
+    <ellipse cx="0" cy="-36" rx="46" ry="18" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M-46-36v52" fill="none" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M46-36v52" fill="none" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <ellipse cx="0" cy="16" rx="46" ry="18" fill="#FFFFFF" stroke="#111312" stroke-width="3.5" stroke-opacity="0.55"/>
+    <path d="M-24-8h48M-18 8h36" stroke="#687170" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="0" cy="-70" r="14" fill="#E9EDFF" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="0" y="-65" text-anchor="middle" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">4</text>
+  </g>
+
+  <!-- Green confirmation marks: combined pattern (horizontal + verticals) is valid -->
+  <g fill="#2F7D68">
+    <circle cx="800" cy="220" r="11"/>
+    <path d="M794 220l4 4 10-12" fill="none" stroke="#FCFCFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="480" cy="720" r="9"/>
+    <circle cx="1120" cy="720" r="9"/>
+  </g>
+</svg>

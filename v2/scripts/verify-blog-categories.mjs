@@ -10,6 +10,8 @@ const expectedAssignments = {
   "agent-incident-response-and-liability": "security-governance",
   "agent-observability-logs-traces": "implementation-operations",
   "agent-orchestration-for-agencies": "implementation-operations",
+  "agentic-ai-vs-generative-ai": "agent-foundations",
+  "agentic-commerce-readiness-for-merchants": "use-cases-workflows",
   "ai-agent-agency-armenia-yerevan": "buying-partners",
   "ai-agent-agency-for-marketing-agencies": "buying-partners",
   "ai-agent-agency-for-small-business": "buying-partners",
@@ -30,6 +32,7 @@ const expectedAssignments = {
   "ai-automation-agency-vs-software-vendor": "buying-partners",
   "ai-consulting-vs-implementation": "buying-partners",
   "ai-visibility-system-for-agencies": "seo-visibility",
+  "ai-voice-agents-for-business": "use-cases-workflows",
   "best-ai-agent-agencies-how-to-evaluate": "buying-partners",
   "best-ai-automation-agency-criteria-2026": "buying-partners",
   "browser-agents-computer-use-risks": "security-governance",
@@ -40,6 +43,7 @@ const expectedAssignments = {
   "client-inbox-agent-operations": "use-cases-workflows",
   "client-side-secrets-and-price-config": "vibe-coding-engineering",
   "component-registry-agent-workflow": "use-cases-workflows",
+  "context-engineering-for-ai-agents": "implementation-operations",
   "cors-and-analytics-data-exposure": "vibe-coding-engineering",
   "cost-of-bad-ai-agent-implementation": "implementation-operations",
   "customer-service-claude-agent-jobs": "use-cases-workflows",
@@ -66,6 +70,7 @@ const expectedAssignments = {
   "llm-cost-and-model-choice-for-agents": "implementation-operations",
   "map-workflows-for-ai-agents": "implementation-operations",
   "marketing-agency-ops-agent-pattern": "use-cases-workflows",
+  "mcp-vs-a2a": "implementation-operations",
   "measuring-ai-agent-ops": "implementation-operations",
   "multi-agent-vs-single-agent-when-to-use": "implementation-operations",
   "multi-language-seo-georgia-armenia": "seo-visibility",
@@ -118,8 +123,8 @@ const publishedByLocale = Object.fromEntries(
   locales.map((locale) => [locale, getPublishedPosts(locale)]),
 );
 
-if (expectedSlugs.length !== 107) {
-  errors.push(`expected manifest size 107, got ${expectedSlugs.length}`);
+if (expectedSlugs.length !== 112) {
+  errors.push(`expected manifest size 112, got ${expectedSlugs.length}`);
 }
 
 for (const locale of locales) {

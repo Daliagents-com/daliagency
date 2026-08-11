@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Production voice agent control loop</title>
+  <desc id="desc">Seven numbered stages form a closed loop: audio capture, speech understanding, policy decision, scoped tool action, speech output, measurement, and a coral human-escalation side path that rejoins measurement.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#1E3A8A"/>
+    </marker>
+    <marker id="arrow-coral" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#B24C35"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#2F7D68"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1600" height="900" rx="28" fill="#FCFCFA"/>
+  <rect x="48" y="48" width="1504" height="804" rx="20" fill="#F5F7FB" stroke="#111312" stroke-opacity="0.10" stroke-width="2"/>
+
+  <!-- Main loop flow paths (1-2-3-4-5-7-1); node centers below -->
+  <!-- 1:(320,250) 2:(620,160) 3:(980,160) 4:(1280,360) 5:(1120,640) 7:(420,640) 6:(800,760) -->
+  <g fill="none" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M390 210 C480 140 530 130 555 145"/>
+    <path d="M685 160 C780 160 860 160 915 160"/>
+    <path d="M1045 200 C1140 240 1210 280 1240 310"/>
+    <path d="M1240 420 C1220 500 1180 560 1155 595"/>
+    <path d="M1055 680 C900 720 700 720 520 680"/>
+    <path d="M360 595 C300 500 290 380 305 310"/>
+  </g>
+
+  <!-- Human escalation side path: from decision (3) down to human (6), then rejoin measurement (7) -->
+  <path d="M980 245 C980 380 900 560 840 700" fill="none" stroke="#B24C35" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="14 12" marker-end="url(#arrow-coral)"/>
+  <path d="M740 760 C620 760 520 720 470 690" fill="none" stroke="#B24C35" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="14 12" marker-end="url(#arrow-coral)"/>
+
+  <!-- Node 1: Audio capture (microphone) -->
+  <g transform="translate(250 180)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#1E3A8A"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">1</text>
+    <!-- mic capsule -->
+    <rect x="56" y="48" width="28" height="42" rx="14" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M44 78v4c0 16 12 28 26 28s26-12 26-28v-4" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70 110v16M56 126h28" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Node 2: Speech understanding (waveform into text lines) -->
+  <g transform="translate(550 90)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#1E3A8A"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">2</text>
+    <!-- waveform -->
+    <path d="M36 78v0M44 68v20M52 58v40M60 70v16M68 52v52" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round"/>
+    <!-- arrow to text -->
+    <path d="M78 78h12" fill="none" stroke="#111312" stroke-width="4" stroke-linecap="round"/>
+    <path d="M86 70l10 8-10 8" fill="none" stroke="#111312" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- text lines -->
+    <path d="M104 62h22M104 78h22M104 94h14" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Node 3: Decision under policy (branch / diamond with check) -->
+  <g transform="translate(910 90)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#1E3A8A"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">3</text>
+    <!-- decision diamond -->
+    <path d="M70 48l28 28-28 28-28-28z" fill="none" stroke="#111312" stroke-width="5" stroke-linejoin="round"/>
+    <!-- policy check mark inside -->
+    <path d="M58 76l10 10 16-20" fill="none" stroke="#2F7D68" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Node 4: Scoped tool action (wrench + bounded box) -->
+  <g transform="translate(1210 290)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#1E3A8A"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">4</text>
+    <!-- scoped frame -->
+    <rect x="40" y="50" width="60" height="52" rx="8" fill="none" stroke="#111312" stroke-width="4" stroke-dasharray="8 6"/>
+    <!-- wrench -->
+    <path d="M52 62c6-6 16-6 20 0l18 18-10 10-18-18c-6-4-6-14 0-18z" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78 88l16 16" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="98" cy="108" r="6" fill="none" stroke="#111312" stroke-width="4"/>
+  </g>
+
+  <!-- Node 5: Speech output (speaker) -->
+  <g transform="translate(1050 570)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#1E3A8A"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">5</text>
+    <!-- speaker body -->
+    <path d="M42 66h16l22-16v48l-22-16H42z" fill="none" stroke="#111312" stroke-width="5" stroke-linejoin="round"/>
+    <!-- sound waves -->
+    <path d="M90 58c10 10 10 34 0 44M104 48c16 16 16 58 0 74" fill="none" stroke="#111312" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Node 7: Measurement (bar chart with check) - green accent on number -->
+  <g transform="translate(350 570)">
+    <circle cx="70" cy="70" r="70" fill="#FFFFFF" stroke="#2F7D68" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#2F7D68"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">7</text>
+    <!-- chart bars -->
+    <path d="M44 108V78M62 108V62M80 108V70M98 108V52" fill="none" stroke="#111312" stroke-width="7" stroke-linecap="round"/>
+    <!-- baseline -->
+    <path d="M38 110h68" fill="none" stroke="#111312" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Node 6: Human escalation (person) - coral side path -->
+  <g transform="translate(730 690)">
+    <circle cx="70" cy="70" r="70" fill="#FFE8E2" stroke="#B24C35" stroke-width="3"/>
+    <circle cx="70" cy="22" r="18" fill="#B24C35"/>
+    <text x="70" y="29" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">6</text>
+    <!-- person head + body -->
+    <circle cx="70" cy="62" r="14" fill="none" stroke="#B24C35" stroke-width="5"/>
+    <path d="M42 112c8-22 18-32 28-32s20 10 28 32" fill="none" stroke="#B24C35" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Soft center anchor: headset / voice session (no words) -->
+  <g transform="translate(700 360)" opacity="0.92">
+    <circle cx="100" cy="80" r="72" fill="#FFFFFF" stroke="#1E3A8A" stroke-opacity="0.28" stroke-width="3"/>
+    <!-- headset band -->
+    <path d="M58 78c0-28 18-46 42-46s42 18 42 46" fill="none" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round"/>
+    <!-- ear cups -->
+    <rect x="48" y="72" width="20" height="32" rx="8" fill="none" stroke="#1E3A8A" stroke-width="5"/>
+    <rect x="132" y="72" width="20" height="32" rx="8" fill="none" stroke="#1E3A8A" stroke-width="5"/>
+    <!-- mic boom -->
+    <path d="M148 100c8 18 4 30-8 36" fill="none" stroke="#1E3A8A" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="136" cy="138" r="6" fill="#1E3A8A"/>
+  </g>
+</svg>
