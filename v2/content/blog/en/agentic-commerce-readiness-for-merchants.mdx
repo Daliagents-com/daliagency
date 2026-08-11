@@ -1,0 +1,201 @@
+---
+slug: agentic-commerce-readiness-for-merchants
+title: 'Agentic commerce readiness for merchants: a checklist'
+description: Check the systems of record, permissions, payment scope, failure modes,
+  and audit evidence needed before shopping agents can discover, cart, and buy.
+date: '2026-08-11'
+updated: '2026-08-11'
+locale: en
+hreflangGroup: agentic-commerce-readiness-for-merchants
+keywords:
+- agentic commerce
+- merchant readiness
+- Universal Commerce Protocol
+- Agentic Commerce Protocol
+- agent checkout
+status: published
+author: Dali
+type: article
+category: use-cases-workflows
+heroImage: /blog/agentic-commerce-readiness-for-merchants/hero.jpg
+heroAlt: Merchant readiness stack from product feed through cart, scoped payment,
+  fulfillment, and audit evidence
+ogImage: /blog/agentic-commerce-readiness-for-merchants/og.jpg
+---
+
+Agentic commerce is ready for a merchant only when product, price, inventory, identity, consent, cart, payment, fulfillment, returns, support, and audit trails are machine-readable, permissioned, and owned.
+A fluent product chat is not readiness.
+Shopping agents need systems of record they can query and actions they may take under tight scopes, with a human-confirmable path for spend and identity-sensitive steps.
+
+Not every announced capability is open to every merchant today.
+Google's Universal Commerce Protocol (UCP) surfaces, OpenAI product-feed onboarding for ChatGPT, and Stripe agentic-commerce seller tooling each describe eligibility, waitlists, regional limits, or partner approval.
+Treat announcements as direction.
+Treat your catalog, order, payment, and support systems as the work.
+
+## What agentic commerce changes
+
+In ordinary ecommerce, a shopper browses your site or app, builds a cart, and pays in your checkout.
+In agentic commerce, an AI agent helps discover products, assemble a cart, and complete a purchase on the shopper's behalf, often inside another surface such as AI Mode in Search, Gemini, or ChatGPT.
+
+Google describes UCP as an open standard so agents and merchant systems can work across discovery, buying, and post-purchase support, with the retailer remaining merchant of record on Google's agentic checkout path for eligible retailers ([Google announcement](https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/), [Merchant UCP guide](https://developers.google.com/merchant/ucp)).
+OpenAI and Stripe co-developed the Agentic Commerce Protocol (ACP) so agents, people, and businesses can complete purchases while the merchant stays merchant of record for fulfillment, returns, and support ([OpenAI Instant Checkout](https://openai.com/index/buy-it-in-chatgpt/), [ACP repository](https://github.com/agentic-commerce-protocol/agentic-commerce-protocol)).
+Stripe defines agentic commerce as AI agents supporting transactions between buyers and sellers, with seller paths to share catalogs and accept agentic payments ([Stripe agentic commerce](https://docs.stripe.com/agentic-commerce)).
+
+The production question for you is not "which model is smartest."
+It is which systems of record an agent may read, which actions it may take, what fails when data is stale, and what evidence you keep when something goes wrong.
+That is the same production boundary we use for [production AI agents for business](/blog/production-ai-agents-for-business) and [what a production AI agent is](/blog/what-is-a-production-ai-agent).
+
+## Merchant readiness stack
+
+Agents sit on top of merchant systems.
+They do not replace the catalog, inventory ledger, payment processor, OMS, or support tools.
+
+![Language-neutral merchant readiness stack: product feed and inventory, price engine, identity and consent, cart and checkout, scoped payment grant, fulfillment and returns, support, and audit log under an agent surface](/blog/agentic-commerce-readiness-for-merchants/merchant-readiness-stack.svg)
+
+*Figure: merchant readiness stack for agentic commerce.
+The agent surface is only usable when each lower layer has a system of record, a scoped permission, and evidence you can retrieve after the order.*
+
+Map the buy path before you integrate a surface.
+[Map workflows for AI agents](/blog/map-workflows-for-ai-agents) is the right planning habit: name the systems, write permissions, and define the stop conditions before you expand autonomy.
+
+## Production readiness table
+
+Use this table as the decision surface for go / no-go on agent-led discovery, cart, and purchase.
+Permissions are what the agent may do.
+Evidence is what you must be able to prove after the fact.
+
+| Commerce stage | Required system of record | Agent permission | Failure mode | Evidence |
+| --- | --- | --- | --- | --- |
+| Catalog discovery | Product information management / Merchant Center or agent product feed (SKU, title, description, images, attributes, landing URL) | Read published catalog rows only; no inventing SKUs or attributes | Wrong product shown, prohibited item surfaced, broken landing link | Feed validation logs, disapproval / import errors, SKU-to-URL map ([Merchant Center product data](https://support.google.com/merchants/answer/7052112), [OpenAI product feeds](https://developers.openai.com/commerce/guides/get-started), [Stripe product feed](https://docs.stripe.com/agentic-commerce/product-feed)) |
+| Price | Pricing engine or ERP price book (list, sale, currency, tax treatment, promotion window) | Read current sellable price; optional read of allowed promotions | Quoted price differs from charged price; checkout fails or customer disputes | Price feed timestamps, sale windows, tax configuration, checkout quote snapshot ([Stripe sell-through-agents](https://docs.stripe.com/agentic-commerce/for-sellers), [Stripe product feed](https://docs.stripe.com/agentic-commerce/product-feed)) |
+| Inventory | Warehouse / OMS available-to-promise quantity and availability state | Read availability; reserve only through controlled checkout create, not free-form stock edits | Oversell, ghost stock, agent keeps offering OOS items after restock lag | Inventory feed cadence, reservation IDs, reject reasons on create checkout ([Stripe inventory guidance](https://docs.stripe.com/agentic-commerce/for-sellers)) |
+| Identity / account | Customer identity store (guest vs account, loyalty link if offered) | Read only what the shopper authorized; link accounts only via explicit flows | Order under wrong profile; loyalty or address mix-up | Auth method, account-link consent record, customer ID on order ([UCP account-linking roadmap context](https://developers.google.com/merchant/ucp), [UCP roadmap](https://ucp.dev/documentation/roadmap/)) |
+| Consent | Policy + UX for data sharing and purchase confirmation | Act only after shopper confirmation for purchase-critical steps | Silent purchase, oversharing PII, unclear mandate | Confirmation UI events, mandate / token scope, data-minimization log ([OpenAI trust notes](https://openai.com/index/buy-it-in-chatgpt/), [AP2](https://ap2-protocol.org/), [PII logging guidance](/blog/pii-gdpr-logging-for-ai-agents)) |
+| Cart | Cart / checkout service (line items, shipping options, taxes, discounts) | Create and update cart within schema; cannot invent shipping rates | Partial cart, invalid combo, tax miscalc | Cart ID, line-item snapshot, shipping and tax lines ([ACP](https://github.com/agentic-commerce-protocol/agentic-commerce-protocol), [UCP checkout paths](https://developers.google.com/merchant/ucp)) |
+| Payment | Payment processor + token / mandate service | Charge only within scoped token or closed payment mandate; no raw card storage in the agent | Over-charge attempt, reused token, revoked grant still accepted | Shared payment token or mandate ID, amount/currency/expiry limits, payment intent ID ([Stripe SPTs](https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens), [AP2 mandates](https://ap2-protocol.org/)) |
+| Fulfillment | OMS / WMS order object | Write order create from approved checkout only; no free warehouse moves | Paid but unfulfilled, duplicate fulfill | `checkout.session.completed` (or equivalent) webhook receipt, order ID, SKU quantities ([Stripe order webhooks](https://docs.stripe.com/agentic-commerce/for-sellers)) |
+| Returns | RMA / returns policy system | Initiate return only under policy rules; refund through payment system of record | Policy mismatch across agent channel vs site | Return authorization ID, refund ID, policy version on order |
+| Support | Helpdesk / CRM case system | Read order status; refund or cancel only with role-scoped tools and gates | Agent promises refund the stack cannot execute | Ticket ID linked to order ID, tool allowlist, approval trail ([safe tool calling](/blog/safe-tool-calling-for-business-agents), [human-in-the-loop](/blog/human-in-the-loop-ai-agents-explained)) |
+| Audit | Immutable event log across agent, feed, checkout, payment, OMS | Append-only write of decision and tool events; no delete of financial trail | Cannot explain a charge, dispute, or agent error | Trace ID spanning agent session → cart → payment → order ([agent observability](/blog/agent-observability-logs-traces), [AP2 accountability goals](https://ap2-protocol.org/)) |
+
+If a row is empty in your stack, you are not ready for that stage on an agent surface.
+Discovery-only modes exist for a reason: Stripe's product feed can mark products with `disable_checkout` so agents can show items while purchase returns to your site link ([Stripe product feed](https://docs.stripe.com/agentic-commerce/product-feed)).
+That is a valid intermediate state, not a failure.
+
+## Catalog, price, and inventory
+
+Agent surfaces inherit your data quality.
+Google Merchant Center still requires accurate id, title, description, link, image, price, and availability style attributes for shopping eligibility, and bad data causes disapprovals or wrong display ([product data specification](https://support.google.com/merchants/answer/7052112)).
+UCP on Google is designed to reuse Merchant Center shopping feeds for discovery reach on AI Mode and Gemini for eligible merchants ([Merchant UCP guide](https://developers.google.com/merchant/ucp)).
+OpenAI's ACP path starts by sharing a structured product feed so ChatGPT can index titles, descriptions, images, price, and availability, and feed onboarding is currently available to approved partners ([OpenAI get started](https://developers.openai.com/commerce/guides/get-started)).
+Stripe's seller path requires a catalog feed plus ongoing inventory and price updates so agents do not sell stale offers; Stripe's seller docs recommend frequent inventory and pricing refreshes (they cite roughly every 15 minutes in many cases as guidance, not a universal law) and clean product deletion when items leave the catalog ([Stripe for sellers](https://docs.stripe.com/agentic-commerce/for-sellers)).
+
+**Dali recommendation:** make one product ID the spine across site, Merchant Center, agent feeds, and OMS.
+If variants use different IDs without a stable group key, agents will mis-bundle size and color.
+
+**Hypothetical example:** a store shows "in stock" on the agent surface for six hours after the warehouse hits zero because only the website CMS was updated.
+The failure is feed ownership, not model intelligence.
+
+## Identity, consent, and payment scope
+
+Agent-led payments break the old assumption that a human always clicks buy on a trusted page.
+The Agent Payments Protocol (AP2) states the open problems as authorization, authenticity of user intent, and accountability, and uses verifiable checkout and payment mandates so trust rests on cryptographic proof of intent rather than model inference alone ([AP2](https://ap2-protocol.org/)).
+OpenAI's Instant Checkout design keeps the user in control with explicit confirmation before purchase, minimizes data shared to what the order needs, and uses payment tokens authorized for specific amounts and merchants ([OpenAI Instant Checkout](https://openai.com/index/buy-it-in-chatgpt/)).
+Stripe Shared Payment Tokens (SPTs) give sellers a scoped grant to a customer's payment method with usage and expiration limits; agents can revoke grants, and sellers charge through normal PaymentIntents using the granted token ([Stripe SPTs](https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens)).
+SPT availability is documented for the US, Canada, and listed European countries, not as a global default ([Stripe SPTs](https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens)).
+
+**Dali recommendation:** never give an agent a reusable full payment method when a scoped token or closed mandate exists.
+Treat payment tools as the highest tier in [safe tool calling for business agents](/blog/safe-tool-calling-for-business-agents).
+Pair that with [human-in-the-loop](/blog/human-in-the-loop-ai-agents-explained) for high-value or high-risk orders until your dispute and fraud playbooks are proven.
+
+For secrets and webhook hygiene on AI-built storefronts, see [payments and secrets on vibe apps](/blog/payments-and-secrets-on-vibe-apps) and [public webhooks and payment risks](/blog/public-webhooks-and-payment-risks).
+
+## Cart, checkout, and merchant of record
+
+Both major public stacks emphasize that the merchant remains merchant of record: Google states you keep customer relationships and data under UCP integrations ([Merchant UCP guide](https://developers.google.com/merchant/ucp)), and OpenAI states merchants keep payments (via their processor path), fulfillment, returns, and support while ChatGPT passes order details over ACP ([OpenAI Instant Checkout](https://openai.com/index/buy-it-in-chatgpt/)).
+UCP documents native checkout with Google AI surfaces and an optional embedded path for approved merchants with complex branding ([Merchant UCP guide](https://developers.google.com/merchant/ucp)).
+ACP is maintained by OpenAI and Stripe as a beta open standard with checkout, payment, cart, feed, and order-related specifications ([ACP repository](https://github.com/agentic-commerce-protocol/agentic-commerce-protocol)).
+UCP's public roadmap is explicitly directional and non-committal on delivery dates for loyalty, multi-market expansion, and new verticals ([UCP roadmap](https://ucp.dev/documentation/roadmap/)).
+
+**Dali recommendation:** choose the checkout path that preserves your tax, discount, shipping, and fraud rules instead of reimplementing them inside a prompt.
+If your cart rules are only encoded in a theme's JavaScript, an agent cannot honor them reliably.
+
+**Hypothetical example:** free shipping above a threshold exists only in the storefront UI.
+An agent builds a sub-threshold cart, charges correctly for shipping on one surface and incorrectly on another, and support inherits the argument.
+Encode the rule in the checkout service of record.
+
+## Fulfillment, returns, and support
+
+When the agent finishes checkout, your OMS still owns pick, pack, ship, and exceptions.
+Stripe's seller guide expects you to listen for completed checkout sessions and fulfill from that event, including expanded line-item and shipping fields ([Stripe for sellers](https://docs.stripe.com/agentic-commerce/for-sellers)).
+Returns and refunds remain policy-bound operations on your payment and RMA systems, not free-form agent speech.
+
+Support agents (human or AI) need the same order ID, payment status, and policy version the checkout wrote.
+If the agent channel cannot open a ticket with those keys, you will re-ask the customer for screenshots.
+For general production failure patterns around tool misuse and missing gates, see [production agent failure modes](/blog/production-agent-failure-modes).
+For liability and incident handling when an agent acts wrong, see [agent incident response and liability](/blog/agent-incident-response-and-liability).
+
+## Failure modes that matter more than demos
+
+These are the failures that burn trust faster than a slow page load.
+
+1. **Stale catalog or price** - agent quotes a sale that expired or a SKU that no longer ships.
+2. **Inventory lag** - oversell or perpetual out-of-stock on the agent surface after restock.
+3. **Ungated payment authority** - agent holds broader payment power than the shopper authorized.
+4. **Policy drift** - shipping, returns, or prohibited-product rules differ between site and agent channel ([OpenAI prohibited products policy](https://developers.openai.com/commerce/guides/get-started)).
+5. **Webhook / fulfill race** - payment succeeds, order create fails, or duplicate fulfill runs without idempotency.
+6. **No audit spine** - you cannot reconstruct session → cart → token → order for a dispute.
+7. **Demo-only integration** - happy-path sandbox without tax, partial inventory, or revoke-token tests ([demo vs production](/blog/ai-agent-demo-vs-production-difference)).
+
+## Production checklist (Dali recommendations)
+
+Use this as an internal go-live gate, not as a promise of traffic.
+
+1. **Own the IDs** - one SKU spine across site, feeds, cart, and OMS.
+2. **Publish a complete feed** - required product fields valid; landing URLs return success; images public.
+3. **Separate product, price, and inventory update paths** - refresh inventory and price on a cadence that matches how fast your stock moves; follow your provider's feed docs.
+4. **Define agent permissions by stage** - read catalog; create cart; charge only with scoped token or closed mandate; fulfill only from signed checkout events.
+5. **Confirm purchase-critical steps** - shopper-visible confirmation for pay, ship-to, and high-risk categories.
+6. **Configure tax and shipping in systems of record** - incomplete tax setup is a documented checkout failure class on Stripe's seller path ([Stripe for sellers](https://docs.stripe.com/agentic-commerce/for-sellers)).
+7. **Wire fulfillment webhooks with idempotency** - one paid session maps to one order create.
+8. **Align returns and support macros** - same policy text and refund tooling for agent-origin orders.
+9. **Log the chain** - feed version, cart snapshot, mandate/token IDs, payment ID, order ID, support ticket ID ([agent observability](/blog/agent-observability-logs-traces)).
+10. **Connect only eligible surfaces** - complete waitlists, regional eligibility, and agent connection approvals before marketing the channel.
+11. **Run failure drills** - OOS mid-checkout, price change mid-session, token revoke, duplicate webhook.
+12. **Name an owner** - commerce ops plus engineering on-call for feed and payment incidents.
+
+## FAQ
+
+### Is agentic commerce the same as putting a chatbot on my storefront?
+
+No.
+A storefront chatbot that answers FAQ text is not the same as an agent that reads live catalog and inventory, builds a cart, and completes payment under scoped credentials.
+The second path needs systems of record and audit evidence from the table above.
+
+### Do I need every protocol at once (UCP, ACP, AP2, MCP)?
+
+No.
+Pick the surfaces your customers already use and the integration path your stack can support.
+UCP documents compatibility with AP2, A2A, and MCP ([Merchant UCP guide](https://developers.google.com/merchant/ucp)).
+ACP is a separate OpenAI/Stripe-maintained standard for agent checkout and related commerce interactions ([ACP repository](https://github.com/agentic-commerce-protocol/agentic-commerce-protocol)).
+Start from merchant readiness, then protocol binding.
+
+### Can we launch discovery without in-agent checkout?
+
+Yes, when your provider supports discovery-only or site-redirect purchase.
+Stripe documents `disable_checkout` for feed items that should be shown but completed on your product URL ([Stripe product feed](https://docs.stripe.com/agentic-commerce/product-feed)).
+That is often the safer first production slice.
+
+### Will enabling Instant Checkout or UCP guarantee more sales?
+
+No source reviewed for this article supports a universal conversion or revenue guarantee.
+Access, eligibility, assortment quality, price competitiveness, and operational reliability still dominate outcomes.
+Do not plan finance models on unstated lift percentages.
+
+## Next step with Dali
+
+If you already run real catalog, cart, payment, and order systems, and you want agent surfaces without demo-grade risk, start from [solutions](/solutions) with one concrete channel goal.
+Bring your feed owners, payment provider, OMS webhook map, and the rows of the readiness table you cannot fill today.
+We help design production agent paths - permissions, gates, evidence, and failure drills - not slideware about shopping bots.
+
+For the broader production frame, continue with [production AI agents for business](/blog/production-ai-agents-for-business) and [production agent failure modes](/blog/production-agent-failure-modes).

@@ -1,0 +1,237 @@
+---
+slug: mcp-vs-a2a
+title: 'MCP vs A2A: choose the protocol boundary, not a brand war'
+description: Compare MCP, A2A, and direct APIs by purpose, discovery, authorization,
+  long-running work, failure modes, and the boundary each one should own.
+date: '2026-08-11'
+updated: '2026-08-11'
+locale: en
+hreflangGroup: mcp-vs-a2a
+keywords:
+- MCP vs A2A
+- Model Context Protocol
+- Agent2Agent protocol
+- A2A protocol
+- agent interoperability
+status: published
+author: Dali
+type: comparison
+category: implementation-operations
+heroImage: /blog/mcp-vs-a2a/hero.jpg
+heroAlt: 'Diagram of protocol boundaries: direct APIs, MCP tool and data servers,
+  and A2A collaboration between independent agents'
+ogImage: /blog/mcp-vs-a2a/og.jpg
+---
+
+**MCP** standardizes how an AI application connects to tools, data sources, and related context.
+**A2A** standardizes how independent agents discover each other and collaborate on tasks without sharing internal memory or tool implementations.
+A **direct API** is often enough when one team owns one closed integration and does not need portable discovery across hosts or vendors.
+Many production systems will use **both**: A2A between agents, MCP from each agent to its tools.
+
+These are different boundaries, not rival framework brands.
+Protocol details below were checked against primary documentation on **2026-08-11**.
+Specs continue to evolve, so re-read the current MCP and A2A pages before you freeze a design.
+
+## What each protocol is for
+
+### Model Context Protocol (MCP)
+
+MCP is an open standard for connecting AI applications to external systems such as data sources, tools, and workflows ([MCP intro, docs path 2026-07-28](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro)).
+The architecture is host / client / server: the AI application is the host, each server connection is handled by a client, and servers expose context ([MCP architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)).
+Servers can expose **tools** (callable actions), **resources** (contextual data), and **prompts** (reusable templates) ([MCP architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)).
+The data layer uses JSON-RPC 2.0.
+Transports include **stdio** for local process communication and **Streamable HTTP** for remote servers, with optional Server-Sent Events for streaming ([MCP architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)).
+
+MCP does not replace your agent framework, approval policy, or evaluation system.
+It standardizes how context and tools are discovered and invoked across compatible clients.
+
+### Agent2Agent protocol (A2A)
+
+A2A is an open protocol for communication and interoperability between independent, often opaque agentic applications ([A2A home](https://a2a-protocol.org/latest/); [A2A specification](https://a2a-protocol.org/latest/specification/)).
+Google announced A2A on **2025-04-09** and stated that it complements MCP, which provides tools and context to agents ([Google A2A announcement](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)).
+On **2025-06-23**, the project moved under the Linux Foundation with major technology collaborators ([Google donation post](https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/); [Linux Foundation launch](https://www.linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents)).
+When checked on 2026-08-11, the A2A docs listed latest released specification version **1.0.0** ([A2A specification](https://a2a-protocol.org/latest/specification/)).
+
+Core A2A elements include an **Agent Card** (JSON capability metadata), **tasks** (stateful units of work), **messages**, **parts**, and **artifacts** ([A2A key concepts](https://a2a-protocol.org/latest/topics/key-concepts/)).
+Agents can interact with request/response plus polling, streaming via Server-Sent Events, and push notifications for long-running work ([A2A key concepts](https://a2a-protocol.org/latest/topics/key-concepts/); [Google A2A announcement](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)).
+Remote agents stay opaque: collaborators should not need each other's internal memory, tools, or proprietary logic ([A2A home](https://a2a-protocol.org/latest/); [A2A specification](https://a2a-protocol.org/latest/specification/)).
+
+Official A2A guidance is explicit: use MCP for tools, use A2A for agents ([A2A home](https://a2a-protocol.org/latest/); [A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/)).
+Google's **2026-03-18** developer guide draws the same line: MCP for tools and data, A2A for discovery and collaboration between agents, including Agent Cards at a well-known URL such as `/.well-known/agent-card.json` ([Developer's Guide to AI Agent Protocols](https://developers.googleblog.com/developers-guide-to-ai-agent-protocols/)).
+
+## Protocol boundary map
+
+![Map of protocol boundaries: a user and client agent, MCP links from an agent to tool and data servers, A2A links between independent agents, and a direct API path for a single owned integration](/blog/mcp-vs-a2a/protocol-boundary-map.svg)
+
+*Language-neutral map: MCP is the vertical tool and data boundary; A2A is the horizontal agent-to-agent boundary; a direct API is the simple path when one application owns a closed integration.*
+
+If you are still choosing whether one agent is enough before you pick protocols, start with [multi-agent vs single agent](/blog/multi-agent-vs-single-agent-when-to-use).
+If you are still choosing frameworks rather than connection protocols, see [open frameworks and assistants](/blog/open-frameworks-and-assistants-when-to-use).
+
+## Comparison table
+
+How to read this table: pick the boundary that matches the participants and ownership model, not the logo that showed up in a demo.
+
+Protocol behavior rows reflect primary documentation checked on **2026-08-11**.
+
+| Dimension | MCP | A2A | Direct API (owned integration) |
+| --- | --- | --- | --- |
+| Purpose | Connect an AI application to tools, data sources, and related context | Let independent agents discover, message, and collaborate on tasks | Call a specific service your app already owns |
+| Participants | Host (AI app), MCP client, MCP server | User, A2A client agent, A2A server (remote agent) | Your application and the target API |
+| Discovery | Server capability discovery; list tools/resources/prompts | Agent Card metadata (identity, skills, endpoint, auth requirements) | Your code and docs; no agent card standard required |
+| Transport | JSON-RPC data layer; stdio and Streamable HTTP (optional SSE) | HTTP(S); JSON-RPC and other bindings; SSE streaming; optional push webhooks | Whatever the API already uses (REST, gRPC, SDK, queue) |
+| Task model | Tool/resource/prompt primitives; optional Tasks extension for long-running handles | Stateful **Task** lifecycle with messages, artifacts, multi-turn context | Your own request/response or job model |
+| Authorization boundary | Server and host must enforce auth; security guidance forbids token passthrough and stresses least privilege | Auth requirements declared on Agent Card; credentials typically via standard HTTP schemes; agents stay opaque | Your API gateway, OAuth, service accounts, and scopes |
+| Streaming / long-running work | Notifications and progress utilities; Tasks extension for durable work | Designed for long-running tasks: polling, SSE streaming, push notifications | Only if you build async jobs and status endpoints |
+| Failure handling | Tool/execution errors and security failure classes in guidance; client must handle missing capabilities and auth failures | Spec-defined task errors (not found, not cancelable, unsupported operation, content type, auth failures) plus terminal task states | Your HTTP codes, retries, and DLQ design |
+| When not to use it | Do not use MCP as a substitute for multi-agent collaboration or as a free security control | Do not use A2A as a tool-call protocol or to wrap a simple private API | Avoid proliferating one-off APIs when many hosts need the same portable tool surface |
+
+Sources for the protocol columns: [MCP architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture), [MCP security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices), [A2A key concepts](https://a2a-protocol.org/latest/topics/key-concepts/), [A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/), [A2A specification](https://a2a-protocol.org/latest/specification/), [Google A2A announcement](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/), [Google developer guide (2026-03-18)](https://developers.googleblog.com/developers-guide-to-ai-agent-protocols/).
+
+## When a direct API is simpler
+
+**Recommendation:** keep a direct API when all of the following are true.
+
+1. One application owns the integration end to end.
+2. The tool surface is small and stable.
+3. You do not need multiple AI hosts (for example desktop, IDE, chat product, and ops agent) to share the same portable server.
+4. You already have auth, logging, and on-call for that API.
+
+A protocol earns its keep when discovery, reuse, or cross-team interoperability matter more than the cost of another surface to secure and monitor.
+Google's own protocol guide frames the practical rule as adding protocols when you need them, starting with tools and data access rather than installing every standard on day one ([Developer's Guide to AI Agent Protocols](https://developers.googleblog.com/developers-guide-to-ai-agent-protocols/)).
+
+Hypothetical example: a single support agent in your backend that only creates tickets in your own helpdesk API can stay on a private function tool.
+You do not need MCP or A2A for that path.
+
+Hypothetical counterexample: the same ticket actions must be available to Claude Desktop, an internal ops agent, and a coding assistant.
+Then a shared MCP server (with real auth and least privilege) is a stronger fit than three bespoke wrappers.
+
+## Combined architecture: both protocols at once
+
+Official A2A documentation describes the complementary pattern directly: an agentic app may use A2A to talk to other agents, while each agent uses MCP for its own tools and resources ([A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/)).
+
+A useful mental model:
+
+```
+User / client agent
+        |
+        | A2A (tasks, messages, artifacts)
+        v
+  Remote specialist agent
+        |
+        | MCP (tools, resources)
+        v
+  APIs, databases, files, SaaS systems
+```
+
+The A2A docs' auto-repair shop scenario makes the split concrete: multi-turn conversation and supplier collaboration stay on A2A, while diagnostic scanners and manuals are MCP tools ([A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/)).
+That is the boundary decision, not a brand preference.
+
+Remote-agent messages and tool results still compete for runtime attention.
+Design their retention and expiry with the [context engineering lifecycle](/blog/context-engineering-for-ai-agents) instead of dumping every payload into the model window.
+
+For production meaning of "agent" versus demo chat, see [what is a production AI agent](/blog/what-is-a-production-ai-agent).
+
+## Failure modes that matter more than the acronyms
+
+Protocols do not remove operational failure.
+They move where failure shows up.
+
+### MCP-side failure modes
+
+MCP security guidance treats **token passthrough** as an anti-pattern: servers must not accept tokens that were not issued for the MCP server itself ([MCP security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices)).
+The same guidance covers **confused deputy** risks in proxy OAuth setups, **SSRF** during metadata discovery, **session hijacking**, unsafe local server startup, and over-broad scopes ([MCP security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices)).
+
+Operator consequences if you ignore that guidance:
+
+- One over-scoped tool becomes a blast radius across every host that connected to the server.
+- Audit logs lose the true client identity when tokens are forwarded blindly.
+- "MCP enabled" becomes a false sense of safety.
+
+For practical tool gates, pair this page with [safe tool calling for business agents](/blog/safe-tool-calling-for-business-agents) and [prompt injection defenses for tool agents](/blog/prompt-injection-defenses-for-tool-agents).
+
+### A2A-side failure modes
+
+A2A assumes remote agents are opaque collaborators, not transparent tool functions ([A2A specification](https://a2a-protocol.org/latest/specification/)).
+That creates different failure modes:
+
+- **Task ownership drift:** a long-running task completes, fails, cancels, or waits for input, and nobody owns the terminal state.
+- **Capability mismatch:** the Agent Card promised a skill the remote agent cannot actually fulfill under your auth or content types.
+- **Opaque handoff loss:** constraints disappear across multi-turn messages if your contracts are weak.
+- **Auth theater:** discovery is public-ish, but authorization for real skills is incomplete.
+
+**Recommendation:** if you introduce A2A, assign an owner for the whole task path, not only for each agent binary.
+Topology still matters; protocol choice does not replace [multi-agent ownership discipline](/blog/multi-agent-vs-single-agent-when-to-use).
+
+### Shared production failure modes
+
+These appear whether you use MCP, A2A, both, or neither:
+
+- Missing human gates on irreversible writes.
+- No evaluation for the end-to-end workflow.
+- No traces that connect model decisions to tool or remote-agent outcomes.
+
+Design against those with [production agent failure modes](/blog/production-agent-failure-modes) and [agent observability](/blog/agent-observability-logs-traces).
+
+## Decision checklist
+
+Use this as a go / no-go filter before you implement either protocol.
+
+1. **What is the other party?**
+   A structured tool or data system points to MCP or a direct API.
+   An independent agent with its own reasoning and skills points to A2A.
+2. **Who owns auth and blast radius?**
+   If you cannot name the authorization boundary, do not expose the surface.
+3. **Do multiple hosts need the same tools?**
+   Yes favors MCP.
+   No favors a private API or in-process tools.
+4. **Do agents from different teams or vendors need to collaborate without sharing internals?**
+   Yes favors A2A.
+   No favors a single agent with tools.
+5. **Is the work long-running with status, artifacts, or human wait states?**
+   A2A is designed for that class of task.
+   MCP can support long-running work via extensions and notifications, but it is still a tool/context protocol, not a peer agent mesh.
+6. **Can you observe and cancel the work?**
+   If you cannot log, revoke, or stop the path, the protocol choice is premature.
+7. **Is a simpler path available?**
+   Prefer the thinnest boundary that meets the requirement.
+
+## FAQ
+
+### Are MCP and A2A competitors?
+
+No, not according to the primary protocol literature.
+Google's A2A launch and the official A2A docs both position A2A as complementary to MCP ([Google A2A announcement](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/); [A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/)).
+
+### Can I expose an agent as if it were an MCP tool?
+
+Sometimes a well-defined skill can look tool-like, and A2A docs note that an A2A server could expose some skills in an MCP-compatible way.
+They also state that A2A's strength is flexible, stateful collaboration beyond typical tool invocation ([A2A and MCP](https://a2a-protocol.org/latest/topics/a2a-and-mcp/)).
+**Recommendation:** do not collapse peer agents into tools just to avoid learning a second boundary.
+
+### Do I need both protocols for a first pilot?
+
+Usually no.
+**Recommendation:** start with the boundary your pilot actually crosses.
+Most first production agents need safe tools more than a multi-vendor agent mesh.
+Add A2A when independent agents and discovery become a real requirement ([Developer's Guide to AI Agent Protocols](https://developers.googleblog.com/developers-guide-to-ai-agent-protocols/)).
+
+### Does choosing MCP or A2A pick my framework?
+
+No.
+A2A is explicitly not an agent development kit, and MCP is a connection protocol rather than an orchestration runtime ([A2A home](https://a2a-protocol.org/latest/); [MCP intro](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro)).
+Choose frameworks separately from protocol boundaries.
+
+## Next step
+
+Map one workflow on paper:
+
+1. which systems are tools or data sources;
+2. which participants are independent agents;
+3. which actions are irreversible and need human gates;
+4. who owns auth, logs, and cancellation.
+
+Then pick MCP, A2A, a direct API, or a combined stack from those boundaries.
+
+If you want help turning that map into a gated production path, talk to Dali on [solutions](/solutions).
+Bring the workflow, the systems of record, and the approval rules - not a preferred protocol brand.
