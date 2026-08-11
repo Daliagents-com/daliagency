@@ -1,53 +1,267 @@
 ---
-slug: "what-is-vibe-coding"
-title: "What is vibe coding? Building products by describing them in natural language"
-description: "Vibe coding means shipping UI and workflows by talking to AI builders in plain language - power, limits, and when real engineering starts."
-date: "2026-08-01"
-locale: "en"
-hreflangGroup: "what-is-vibe-coding"
-keywords: ["what is vibe coding", "vibe coding definition", "AI vibe coding"]
-status: "published"
-author: "Dali"
-type: "tutorial"
+slug: what-is-vibe-coding
+title: What Is Vibe Coding? Meaning, Benefits, Risks, and Limits
+description: Vibe coding uses natural-language instructions to build software with
+  AI. Learn the workflow, best uses, risks, and production-readiness checks.
+date: '2026-08-01'
+updated: '2026-08-11'
+locale: en
+hreflangGroup: what-is-vibe-coding
+keywords:
+- what is vibe coding
+- vibe coding meaning
+- vibe coding vs traditional coding
+- is vibe coding safe
+status: published
+author: Dali
+type: pillar
 category: vibe-coding-engineering
-heroImage: "/blog/what-is-vibe-coding/hero.jpg"
-heroAlt: "What is vibe coding? Building products by describing them in natural language"
-ogImage: "/blog/what-is-vibe-coding/og.jpg"
+heroImage: /blog/what-is-vibe-coding/hero.jpg
+heroAlt: A product builder describing an application while an AI coding system assembles
+  interface and workflow components
+ogImage: /blog/what-is-vibe-coding/og.jpg
 ---
 
 ## Direct answer
 
-Vibe coding is building software by describing desired behavior in natural language to an AI builder (for example a no-code/AI site tool), instead of writing every line by hand. It is great for prototypes and first versions. It is not automatic production readiness.
+**Vibe coding is a way to build software by describing the desired product or change in natural language and letting an AI coding tool generate or modify the code.**
+The person guides the result through prompts, previews, and corrections instead of writing every implementation detail by hand.
 
-## What this means in practice
+It is especially useful for prototypes, internal tools, landing pages, and early product experiments.
+It does not remove the need for engineering when the application handles authentication, payments, private data, permissions, or other consequences that must work reliably.
 
-- Start from a real business workflow, not from a model brand.
-- Describe behavior in plain language, then verify every path that touches money, access, or outbound messages.
-- Keep a human path for non-standard cases.
+The important distinction is not whether AI wrote the code.
+It is whether anyone verified the behavior, understood the critical paths, and created a safe way to operate the application after launch.
 
-## What good looks like
+## What vibe coding means
 
-- Clear standard vs non-standard routing
-- Knowledge base the assistant can actually use
-- Session memory only where intended
-- Secrets never in client JavaScript
-- Logs and a stop switch
+In ordinary software development, a developer translates requirements into architecture, code, tests, deployment configuration, and operational controls.
+In vibe coding, much of that translation begins inside a conversation with an AI tool.
 
-## What bad looks like
+A typical instruction might be:
 
-- "It works in the preview" without production checks
-- Tokens and webhooks left public
-- No human handoff for exceptions
-- Thin machine-translated pages sold as localization
+> Build a customer portal where a user can sign in, view open invoices, and request a payment-plan review.
 
-## How Dali handles this
+The tool may create components, routes, database calls, and styling, then show a preview.
+The builder reacts to what is visible and continues with instructions such as:
 
-Dali is an AI agent systems studio: we take vibe prototypes seriously, then harden them into production systems with gates, tools, and ownership. Related: [production AI agents](/blog/production-ai-agents-for-business), [approval gates](/blog/human-approval-gates-for-ai-agents).
+> Make the invoice table easier to scan, add an empty state, and ask for confirmation before submitting the request.
+
+This feedback loop is the useful part of vibe coding.
+It compresses the distance between an idea and something interactive.
+
+The risk appears when a convincing surface is mistaken for a complete system.
+A preview can look finished while authorization, data isolation, retries, logging, backups, and failure handling remain incomplete.
+
+## How vibe coding works
+
+The workflow has four practical stages:
+
+1. **Describe the outcome.**
+   State the user, job, inputs, outputs, constraints, and non-standard cases.
+2. **Generate a working slice.**
+   Let the tool create the smallest path that demonstrates the idea.
+3. **Inspect and correct.**
+   Run the path, examine the generated code, test edge cases, and refine the instructions.
+4. **Pass a production gate.**
+   Verify security, data, permissions, tests, deployment, monitoring, and ownership before real users depend on it.
+
+![Four-stage vibe coding path from intent to generated product, verification, and production gate](/blog/what-is-vibe-coding/vibe-coding-production-boundary.svg "The fast loop creates a product surface; verification and production controls determine whether it is safe to rely on.")
+
+The first three stages are where the speed comes from.
+The fourth stage is where responsibility returns.
+
+GitHub's guidance for reviewing AI-generated code recommends functional checks, validation against the intended architecture, dependency review, automated analysis, and human oversight ([GitHub Docs](https://docs.github.com/en/copilot/tutorials/review-ai-generated-code)).
+That is a useful baseline regardless of which AI builder produced the change.
+
+## Vibe coding vs traditional coding
+
+| Dimension | Vibe coding | Traditional coding |
+| --- | --- | --- |
+| Primary interface | Natural-language instructions and visual feedback | Source code, technical specifications, and direct implementation |
+| First useful output | Often a working preview or narrow product slice | Often a designed and implemented module or feature |
+| Main strength | Rapid exploration and iteration | Explicit control, maintainability, and predictable engineering practice |
+| Main failure mode | A plausible surface hides unverified behavior | Delivery takes longer or over-engineers an unproven idea |
+| Knowledge required | Product judgment, prompt clarity, and the ability to test what was generated | Software design, implementation, testing, deployment, and operations |
+| Best fit | Prototype, proof of concept, internal tool, disposable experiment | Core systems, regulated workflows, complex data, high reliability, long ownership |
+| Code ownership | Possible, but only if the team can inspect and maintain the output | Usually designed around explicit repository and maintenance ownership |
+
+These are not opposing camps.
+A strong product team can use vibe coding for exploration and conventional engineering for the critical path.
+
+## What vibe coding is good for
+
+### Prototypes that answer one question
+
+A prototype should reduce uncertainty.
+
+Examples include:
+
+- Will users understand this onboarding flow?
+- Does the team want this dashboard layout?
+- Can this API support the proposed interaction?
+- Is the workflow useful before we invest in a full build?
+
+If the prototype answers the question, it has done its job even if the implementation is later replaced.
+
+### Internal tools with bounded impact
+
+A small internal tool can be a good fit when the user group is known, the data is non-sensitive, and a manual fallback exists.
+
+The word "bounded" matters.
+A tool that can delete records, expose private customer data, or write to finance systems is not low-risk merely because only employees can open it.
+
+### Interface and workflow exploration
+
+Vibe coding is strong at producing something concrete enough to discuss.
+Stakeholders can react to an actual flow instead of debating a document.
+
+That makes it valuable for design sprints, usability testing, and early process mapping.
+
+### Disposable scripts and one-time transformations
+
+AI-generated scripts can save time when the input is controlled, the result can be checked, and a failed run has limited consequences.
+
+Run them on copies of data first.
+Do not give a one-time script broad production credentials because the task feels temporary.
+
+## Where vibe coding reaches its limit
+
+Use risk, not visual polish, to decide when engineering depth is required.
+
+| Product surface | Prototype may be enough when | Engineering gate is required when |
+| --- | --- | --- |
+| Authentication | Fake users or a closed demo | Real accounts, password reset, sessions, roles, or social login exist |
+| Database | Disposable sample data | Customer records, migrations, tenancy, retention, or recovery matter |
+| Payments | Simulated checkout | Money can move, refunds can occur, or webhook events change business state |
+| Admin tools | Read-only demo data | The interface can modify users, permissions, content, or system settings |
+| API credentials | Mock responses | Real tokens, third-party accounts, or billable APIs are connected |
+| AI features | Output is manually reviewed | The model can send, publish, update, approve, or deny something |
+| Deployment | Temporary preview | Availability, backups, alerts, rollback, and ownership are expected |
+
+OWASP's current web application risk list includes broken access control, security misconfiguration, supply-chain failures, authentication failures, and logging failures ([OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/)).
+These risks are not unique to AI-built software.
+They are easy to miss when the development loop is driven mainly by whether the preview looks right.
+
+## Is vibe coding safe?
+
+Vibe coding can be safe for an appropriately scoped task.
+The workflow itself is not a security control and not a vulnerability category.
+
+Safety depends on what the application can do and how the generated implementation is verified.
+
+Use this minimum gate before connecting real users or real data:
+
+- **Access control:** Enforce permissions on the server, not only by hiding buttons in the interface.
+OWASP recommends least privilege and deny-by-default access decisions ([OWASP A01:2025](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/)).
+- **Secrets:** Keep API keys and tokens in managed secrets or environment variables, never in browser code or a committed repository.
+Replit documents encrypted secret storage and warns against hard-coding credentials ([Replit Secrets](https://docs.replit.com/core-concepts/project-editor/app-setup/secrets)).
+- **Dependencies:** Confirm that packages exist, are maintained, and use compatible licenses.
+- **Tests:** Cover sign-in, permissions, money, destructive actions, and the main recovery path.
+- **Failure handling:** Decide what users see when an API times out, a webhook arrives twice, or a database write fails halfway.
+- **Logs and alerts:** Record enough to reconstruct an incident without logging sensitive values.
+- **Deployment:** Separate the editor preview from the deployed environment, and use durable storage for durable data.
+Replit's publishing documentation, for example, describes deployment as a separate snapshot and advises against relying on the deployment filesystem for application data ([Replit Publishing](https://docs.replit.com/learn/projects-and-artifacts/replit-deployments)).
+- **Ownership:** Name the person who can roll back, rotate a key, restore data, and decide whether the application stays online.
+
+For the full sequence, use the [vibe prototype to production checklist](/blog/from-vibe-prototype-to-production-checklist).
+
+## A better way to prompt a vibe-coded product
+
+Do not ask for the entire product in one opaque jump.
+Build reviewable slices.
+
+Use a sequence like this:
+
+1. **Define the user and job.**
+   "A support manager reviews unresolved billing tickets each morning."
+2. **Define the happy path.**
+   "Show the queue, open one ticket, and draft a reply from approved policy text."
+3. **Define the boundaries.**
+   "Do not issue refunds, close accounts, or expose payment details."
+4. **Define the exception path.**
+   "If the policy is missing or contradictory, route the ticket to a human with the source excerpts."
+5. **Define the evidence.**
+   "Log the source IDs, draft, reviewer decision, and final action."
+6. **Add one integration at a time.**
+   Verify each tool and permission before adding the next one.
+
+This makes the generated system easier to inspect and gives the AI less room to silently invent architecture.
+
+## Keep, harden, or rewrite?
+
+You do not need to rewrite every vibe-coded application.
+
+### Keep it
+
+Keep the implementation when the code is understandable, the architecture fits the product, critical paths have tests, dependencies are acceptable, and the team can maintain it.
+
+### Harden it
+
+Harden the existing application when the product logic is sound but the system lacks controls such as server-side authorization, secret management, tests, monitoring, backups, rate limits, or a safe deployment process.
+
+### Rewrite the critical path
+
+Rewrite only the parts whose behavior or ownership cannot be trusted.
+Common candidates are authentication, tenant isolation, payment state, destructive admin actions, and data migrations.
+
+The decision should follow evidence from the repository and running system.
+It should not follow embarrassment about how the first version was built.
+
+## What production readiness adds
+
+Vibe coding can create the product surface and parts of the implementation.
+Production readiness adds the wrapper that makes the system dependable:
+
+- scoped permissions;
+- approval gates for risky actions;
+- repeatable evals and tests;
+- logs, traces, and alerts;
+- retries and idempotency;
+- rollout and rollback;
+- a named operator and handoff documentation.
+
+That is the same distinction explained in [what is a production AI agent](/blog/what-is-a-production-ai-agent), although a vibe-coded application does not need to contain an agent.
+
+For narrower fixes, see [protecting API tokens](/blog/protecting-api-tokens-in-vibe-coded-apps), [testing and CI/CD](/blog/testing-ci-cd-for-vibe-coded-apps), and the [vibe-coded site hardening checklist](/blog/vibe-coded-site-hardening-checklist).
+
+## How Dali approaches vibe-coded products
+
+Dali starts with evidence from the running product and repository.
+We map the critical paths, identify which parts are safe to keep, contain urgent exposure, and harden or rebuild only where the risk justifies it.
+
+If you already have a working prototype, the useful next step is a production-readiness review, not an automatic rewrite.
+See [solutions](/solutions) for the delivery model.
 
 ## FAQ
 
-### Is vibe coding useless?
-No. It is a fast way to get a working surface. It becomes dangerous only when it is treated as finished production.
+### Who coined the term vibe coding?
 
-### Do you rewrite everything?
-Not always. Sometimes we harden. Sometimes we isolate and rebuild the critical path.
+The phrase became widely associated with Andrej Karpathy's description of building by giving natural-language instructions to an AI coding system and accepting the resulting code with limited direct inspection.
+Today people also use the term more broadly for conversational AI-assisted product development, so the intended level of code review should be stated rather than assumed.
+
+### Is vibe coding the same as no-code?
+
+No.
+No-code tools usually expose a predefined visual model and managed components.
+Vibe coding can generate ordinary source code and can reach beyond a fixed visual builder, but that flexibility also creates more implementation to inspect and maintain.
+
+### Do I need to know programming to vibe code?
+
+You can create a prototype without deep programming knowledge.
+For production use, someone still needs enough engineering and security judgment to verify the generated system, especially around identity, data, integrations, and failure handling.
+
+### Can vibe coding build a real SaaS product?
+
+Yes, but the generation method does not determine readiness.
+A real SaaS product still needs tenant isolation, server-side authorization, migrations, billing state, monitoring, recovery, and an accountable maintenance process.
+
+### Should I trust tests written by the same AI that wrote the code?
+
+Treat them as a useful starting point, not independent proof.
+Review whether the tests express the real business rules, add adversarial and failure cases, and run end-to-end tests against the deployed behavior.
+
+### When should I bring in an engineer?
+
+Bring in engineering depth before the application handles real identity, private or regulated data, money, irreversible actions, multi-tenant permissions, or business-critical availability.
+Bring it in earlier if nobody on the team can explain how the generated system works.

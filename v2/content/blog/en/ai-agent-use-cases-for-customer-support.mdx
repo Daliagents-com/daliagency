@@ -1,48 +1,363 @@
 ---
-slug: "ai-agent-use-cases-for-customer-support"
-title: "AI agent use cases for customer support"
-description: "Support AI agent use cases that work in production: deflection with sources, triage, drafts, and escalations - not unsupervised refunds."
-date: "2026-07-31"
-locale: "en"
-hreflangGroup: "ai-agent-use-cases-for-customer-support"
-keywords: ["AI agents customer support", "support AI agent use cases", "customer service AI agents"]
-status: "published"
-author: "Dali"
-type: "article"
+slug: ai-agent-use-cases-for-customer-support
+title: 'AI Agents for Customer Service: 7 Use Cases and a Pilot Plan'
+description: Choose practical AI agent use cases for customer service, set human approval
+  boundaries, design handoffs, and measure a safe support pilot.
+date: '2026-07-31'
+updated: '2026-08-11'
+locale: en
+hreflangGroup: ai-agent-use-cases-for-customer-support
+keywords:
+- AI agents for customer service
+- AI agent use cases for customer support
+- customer service AI agents
+- AI support agent
+status: published
+author: Dali
+type: article
 category: use-cases-workflows
+heroImage: /blog/ai-agent-use-cases-for-customer-support/hero.jpg
+heroAlt: Customer support queue moving through knowledge retrieval, AI triage, approval
+  gates, and human handoff
+ogImage: /blog/ai-agent-use-cases-for-customer-support/og.jpg
 ---
 
 ## Direct answer
 
-For support, use agents to triage, draft grounded replies, and escalate cleanly. Keep refunds, legal promises, and account takeovers behind human approval.
+The best first use cases for **AI agents in customer service** are ticket triage, grounded answers from approved sources, reply drafting, conversation summaries, context collection before handoff, and low-risk account lookups.
 
-## Works well
+Start with work that is repetitive, language-heavy, easy to verify, and reversible.
+Keep refunds, cancellations, security changes, legal commitments, and other high-impact actions behind a human approval gate until real evaluation data supports a different policy.
 
-FAQ with citations. Intent triage. Draft replies from approved knowledge. Summaries for agents.
+The goal is not to remove the support team from the loop.
+It is to give customers faster help on standard cases and give human agents a cleaner, better-informed queue for everything else.
 
-## Needs gates
+## Seven practical customer service use cases
 
-Credits, cancellations, privacy requests, security account changes.
+| Use case | What the agent does | Recommended starting autonomy | Evidence to monitor |
+| --- | --- | --- | --- |
+| 1. Ticket triage | Detects intent, urgency, language, product area, and routing attributes | Acts on routing, with sampled review | Routing accuracy, reassignment rate, queue age |
+| 2. Grounded answers | Retrieves approved support content and answers with source links | Answers low-risk intents; escalates when sources are missing or conflicting | Supported-answer rate, citation validity, reopen rate |
+| 3. Reply drafts | Produces a draft inside the agent workspace | Human sends | Edit distance, reviewer acceptance, handle time |
+| 4. Conversation summaries | Compresses the thread, actions tried, customer state, and open question | Writes an internal note | Missing-critical-fact rate, human correction rate |
+| 5. Handoff preparation | Collects required fields and routes the case with context | Acts on intake and routing | Handoff completeness, bounce rate, time to human response |
+| 6. Read-only account lookup | Retrieves order, subscription, delivery, or entitlement state | Answers under scoped read permission | Lookup accuracy, permission errors, stale-data incidents |
+| 7. Gated procedures | Proposes a credit, cancellation, reschedule, or account change | Human approves the action | Approval rate, rejection reason, incident count, rollback use |
 
-## Knowledge requirements
+The table describes a recommended rollout pattern, not a universal maturity model.
+Each company should set autonomy from the consequence of a wrong action, the reversibility of the action, and its ability to detect failure.
 
-Approved sources beat scraping the whole internet. Version and own the corpus.
+## 1. Ticket triage and routing
 
-## Metrics
+Triage is a strong first use case because the agent can improve queue flow without speaking for the company or changing customer state.
 
-First response time, resolution quality, escalation rate, CSAT - with baselines.
+Useful outputs include:
+
+- intent and sub-intent;
+- product area;
+- language;
+- sentiment or urgency signal;
+- customer tier or region from trusted account data;
+- target team;
+- reason for the route.
+
+Do not route from model output alone when a deterministic rule is available.
+For example, an account's plan, country, or contract tier should come from the system of record.
+The model is better used for the unstructured part, such as understanding what the customer is asking.
+
+A good triage trace lets a reviewer see the original message, extracted attributes, deterministic data, chosen route, and confidence or fallback reason.
+
+## 2. Grounded answers from approved knowledge
+
+A support agent should answer from a controlled source set, not from general model memory or an unrestricted web search.
+
+The source set may include:
+
+- help-center articles;
+- current pricing and plan rules;
+- return, refund, and cancellation policies;
+- product release notes;
+- service-status information;
+- account-specific data that the customer is authorized to see;
+- internal resolution procedures.
+
+The agent needs a defined response when the source is missing, stale, or contradictory.
+That response should be to ask a clarifying question or escalate, not to fill the gap with a plausible policy.
+
+Current Intercom documentation, for example, treats selected knowledge sources, answer inspection, triage, and human handoff as distinct product capabilities ([Fin AI Agent explained](https://www.intercom.com/help/en/articles/7120684-fin-ai-agent-explained), [knowledge sources](https://www.intercom.com/help/en/articles/9440354-knowledge-sources-to-power-ai-agents-and-self-serve-support)).
+This is one product implementation of a broader design principle: the business owns the corpus and the agent must expose enough evidence to review its use.
+
+For a detailed source-ownership checklist, see [knowledge base for a site AI assistant](/blog/knowledge-base-for-site-ai-assistant).
+
+## 3. Reply drafting for human agents
+
+Drafting is often the safest way to introduce generative output into an existing support operation.
+
+The AI agent can retrieve the relevant policy, summarize the customer context, and prepare a response in the team's tone.
+The human agent checks the facts and sends it.
+
+Drafting is especially useful when:
+
+- responses require several source lookups;
+- agents repeatedly rewrite the same policy in different contexts;
+- language quality or localization slows the queue;
+- a case is sensitive enough to require judgment but structured enough to prepare.
+
+Measure more than whether reviewers click "accept."
+Track material corrections, missing facts, policy mistakes, and whether the reviewer had to perform the same research again.
+
+## 4. Conversation summaries and internal notes
+
+Long threads create work before the human can even begin resolving the issue.
+
+A useful handoff summary should contain:
+
+- the customer's current goal;
+- verified account or order context;
+- what the customer already tried;
+- answers or actions already given;
+- the source or policy used;
+- the unresolved decision;
+- urgency and promised follow-up, if any.
+
+Avoid summaries that only restate sentiment.
+The receiving agent needs decision context and evidence.
+
+## 5. Intake before human handoff
+
+An AI agent can collect missing information before routing a case.
+
+For a damaged delivery, that might include the order ID, item, delivery date, damage type, and image attachment.
+For a technical issue, it might include product version, environment, reproduction steps, and the exact error.
+
+The intake must remain proportionate.
+Do not make an upset customer repeat information that already exists in the conversation or account record.
+
+The handoff itself is a contract between the AI path and the human queue.
+At minimum, pass:
+
+```text
+customer_goal
+verified_identity_and_account_context
+intent_and_route_reason
+sources_used
+actions_already_attempted
+open_question_or_required_decision
+risk_or_policy_flags
+conversation_summary
+```
+
+Intercom's current escalation documentation shows a concrete version of this separation: rules or guidance decide when escalation happens, while workflows decide what happens after the escalation ([Intercom escalation guidance and rules](https://www.intercom.com/help/en/articles/12396892-manage-fin-ai-agent-s-escalation-guidance-and-rules)).
+
+## 6. Read-only account and order lookup
+
+Support becomes more useful when the agent can retrieve current customer state.
+
+Start with read-only tools that return a small, typed result such as:
+
+- order status;
+- delivery estimate;
+- subscription plan;
+- invoice availability;
+- service entitlement;
+- known incident status.
+
+Scope the credential to exactly the records and fields required.
+Filter results server-side so a model cannot request another customer's data by changing an identifier.
+
+Log which tool was called and which policy allowed the result to be shown, but do not copy unnecessary personal data into model traces.
+
+## 7. Gated account actions and procedures
+
+An agent can eventually participate in procedures that change customer state.
+The first release should separate proposing an action from executing it.
+
+| Action | Starting policy | Why |
+| --- | --- | --- |
+| Resend a public help article | Agent may act | Low impact and reversible |
+| Update a non-sensitive preference | Agent may propose or act under policy | Limited scope, but identity still matters |
+| Apply a small policy-defined credit | Agent proposes; human approves | Financial effect and policy exceptions |
+| Cancel a subscription | Human approves | Revenue impact, retention context, and possible irreversibility |
+| Issue a refund | Human approves | Money movement and fraud risk |
+| Change email, MFA, or account ownership | Specialized human path | Account-takeover risk |
+| Make a legal or regulatory commitment | Qualified human path | High stakes and jurisdiction-specific judgment |
+
+OpenAI's agent-building guide recommends human intervention when failure thresholds are exceeded and before high-risk actions such as cancellations, large refunds, or payments ([OpenAI practical guide](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/)).
+
+Some support platforms now expose the same pattern directly.
+Intercom documents a procedure step that pauses for human review on sensitive or high-risk decisions ([human-in-the-loop approvals](https://www.intercom.com/help/en/articles/14468561-human-in-the-loop-approvals-for-fin-procedures)).
+
+For the full control model, read [human-in-the-loop AI agents explained](/blog/human-in-the-loop-ai-agents-explained).
+
+## A production-shaped support flow
+
+![Customer request flowing through approved knowledge, triage, low-risk answer or action, approval gate, and human handoff](/blog/ai-agent-use-cases-for-customer-support/support-agent-control-flow.svg "A support agent should have an explicit route for missing evidence, risky actions, and customer requests for a person.")
+
+A useful support flow is:
+
+1. Verify channel, identity, and available account context.
+2. Classify the customer's intent and required risk level.
+3. Retrieve only approved sources and scoped tool data.
+4. Draft an answer or proposed action.
+5. Validate policy, permissions, and output format.
+6. Answer directly if the path is low-risk and supported.
+7. Pause for approval if the action changes money, identity, access, or an important account state.
+8. Escalate with structured context when evidence is missing, the customer asks for a person, or a retry limit is reached.
+9. Record the outcome for evaluation and improvement.
+
+The agent should not hide its uncertainty behind a longer response.
+If it cannot establish the relevant fact or policy, the correct action is a clean handoff.
+
+## Knowledge, tools, and permissions required
+
+Before building the conversation, define the operating inputs.
+
+### Knowledge
+
+- Which sources may be used for customer-facing answers?
+- Who owns each source?
+- How quickly must a policy change become available to the agent?
+- What happens when two sources conflict?
+- Can the agent show or cite the source to the customer?
+
+### Tools
+
+- Which systems can the agent read?
+- Which actions can it propose?
+- Which actions can it execute?
+- Are writes idempotent so a retry cannot create two refunds or two tickets?
+- What does each tool return on permission error, timeout, or missing data?
+
+### Permissions
+
+- Is identity verified before account-specific data is retrieved?
+- Does each integration use a scoped service account?
+- Are sensitive fields filtered before model use and logging?
+- Is every risky action tied to an approval policy?
+- Can an operator disable the action path without taking the entire support channel offline?
+
+NIST's Generative AI Profile frames risk management as an ongoing governance, measurement, and monitoring process rather than a one-time model choice ([NIST AI 600-1](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf)).
+That is the right mental model for a support agent whose policies, products, and customer behavior change over time.
+
+## How to design the first pilot
+
+Choose one queue or intent family.
+Do not launch across the entire help center at once.
+
+A strong first pilot has:
+
+- enough recurring volume to produce evaluation cases;
+- a written, current source set;
+- a clear owner on the support team;
+- a manual fallback;
+- low-risk initial actions;
+- a baseline from the current human process;
+- explicit acceptance and stop conditions.
+
+### Recommended rollout
+
+1. Build an offline evaluation set from representative historical cases.
+2. Test retrieval, routing, response, refusal, and escalation separately.
+3. Run in shadow mode on live cases without answering customers.
+4. Compare agent decisions with real support outcomes.
+5. Release to one narrow intent with human review.
+6. Expand only when the evidence stays acceptable across normal and difficult cases.
+
+OpenAI's eval tooling formalizes the idea of a repeatable dataset plus testing criteria ([OpenAI Evals](https://platform.openai.com/docs/api-reference/evals)).
+The exact platform is optional.
+The repeatability is not.
+
+## What to measure
+
+Do not declare success from answer volume alone.
+
+| Metric | What it tells you | Guard against |
+| --- | --- | --- |
+| Supported-answer rate | How often an answer is backed by the required source | Counting fluent but unsupported replies |
+| Routing accuracy | Whether the case reaches the right queue | Hiding reassignments after the first route |
+| Confirmed resolution | Whether the customer's problem was actually resolved | Treating abandonment as success |
+| Reopen rate | Whether the issue returned after apparent resolution | Closing cases too early |
+| Human escalation rate | How often the agent transfers control | Optimizing the number without judging escalation quality |
+| Handoff completeness | Whether the receiving agent gets the required context | Passing a long summary that omits the key decision |
+| Approval rejection rate | How often a proposed action is rejected | Ignoring why reviewers reject it |
+| Incident count and severity | Whether the agent caused or amplified harm | Averaging severe events into normal quality metrics |
+| Cost per confirmed resolution | Full operating cost for a successful outcome | Looking only at model tokens |
+
+Set thresholds from your baseline, policy, and risk tolerance.
+There is no honest universal target for every support operation.
+
+For a full evaluation method, see [how to evaluate AI agents before go-live](/blog/how-to-evaluate-ai-agents-before-go-live).
+For the event record behind these metrics, see [agent observability: logs and traces](/blog/agent-observability-logs-traces).
+
+## Common failure modes
+
+### Automating the wrong queue
+
+A queue with unstable policy or many exceptions is a poor first target even if its volume is high.
+
+### Treating the help center as automatically correct
+
+An agent can faithfully repeat a stale or contradictory policy.
+Source ownership and update cadence are part of the system.
+
+### Measuring containment instead of resolution
+
+Keeping a customer away from a human is not success if the answer is wrong or the customer gives up.
+
+### Hiding the human path
+
+Customers should be able to request a person.
+The system also needs its own escalation triggers for missing evidence, repeated failure, sensitive topics, and high-impact actions.
+
+### Giving write access too early
+
+A read-only account lookup and a refund tool may sit beside each other in the interface, but they have very different blast radii.
+
+### Sending a context-free handoff
+
+If the human must reread the whole conversation and repeat every lookup, the handoff is not complete.
 
 ## How Dali fits
 
-Support-oriented pilots: [solutions](/solutions).
+Dali scopes support pilots around one queue, one owned source set, and explicit action boundaries.
+The pilot includes evaluation cases, approval and escalation paths, observable runs, and a handoff that the support team can operate.
+
+Relevant product patterns are available in [solutions](/solutions).
+See [solutions](/solutions) for the delivery model.
 
 ## FAQ
 
-### Should the bot talk to every customer on day one?
-Start with a narrow intent set and shadow mode if needed.
+### Is an AI customer service agent just a chatbot?
 
-### What about voice?
-Treat as a separate pilot with transfer rules.
+Not necessarily.
+A chatbot primarily provides a conversation surface.
+An agent can also retrieve account state, route work, use tools, and take controlled actions inside a workflow.
+Those extra capabilities require permissions, evaluation, logs, and clear human control.
 
-### Related pilots
-[Client inbox](/solutions/client-inbox) and [knowledge assistant](/solutions/knowledge-assistant).
+### What is the safest first customer service use case?
+
+Reply drafting or ticket triage is often a good starting point because a human can review the result and the agent does not need broad write access.
+The right choice still depends on your source quality, queue volume, and failure consequences.
+
+### Should an AI agent be allowed to issue refunds?
+
+Start with a proposal and human approval.
+Later autonomy should be limited by explicit policy, verified identity, amount or account constraints, audit logs, and evidence from real evaluations.
+
+### What should trigger a human handoff?
+
+Triggers should include a direct customer request, missing or conflicting sources, repeated failure, identity or security changes, high-impact actions, policy exceptions, and any topic that requires qualified human judgment.
+
+### Can one agent cover chat, email, and voice?
+
+The same knowledge and control layer can support several channels, but each channel needs its own evaluation.
+Voice adds interruption, latency, transcription, and transfer behavior that should be treated as a separate release surface.
+
+### How do we prevent hallucinated support policies?
+
+Restrict the agent to approved sources, require source evidence, define a refuse-or-escalate path for missing information, and test with cases where the correct answer is intentionally absent.
+
+### Do AI agents reduce support costs?
+
+They can reduce work on suitable tasks, but the result depends on resolution quality, review labor, platform and model costs, maintenance, and incidents.
+Measure cost per confirmed resolution against the current baseline instead of assuming savings from automation volume.

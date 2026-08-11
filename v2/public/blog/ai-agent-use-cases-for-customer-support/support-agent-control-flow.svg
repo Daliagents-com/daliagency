@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Customer support agent control flow</title>
+  <desc id="desc">A customer request moves through five numbered stages with low-risk resolution, an approval gate, and human handoff.</desc>
+  <rect width="1600" height="900" fill="#FCFCFA"/>
+  <rect x="48" y="48" width="1504" height="804" rx="16" fill="#F5F7FB" stroke="#111312" stroke-opacity="0.12"/>
+  <rect x="48" y="48" width="1504" height="72" rx="16" fill="#FFFFFF"/>
+  <path d="M48 120h1504" stroke="#111312" stroke-opacity="0.12"/>
+  <text x="88" y="93" fill="#687170" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="3">FIG. 02 / CONTROL FLOW</text>
+  <text x="1450" y="93" text-anchor="end" fill="#1E3A8A" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="700" letter-spacing="3">DALI</text>
+  <path d="M188 424h1115" stroke="#1E3A8A" stroke-opacity="0.24" stroke-width="10" stroke-linecap="round"/>
+  <g fill="#FFFFFF" stroke="#1E3A8A" stroke-width="5">
+    <rect x="110" y="275" width="220" height="300" rx="20"/>
+    <rect x="400" y="275" width="220" height="300" rx="20"/>
+    <rect x="690" y="275" width="220" height="300" rx="20"/>
+    <rect x="980" y="275" width="220" height="300" rx="20"/>
+    <rect x="1270" y="275" width="220" height="300" rx="20"/>
+  </g>
+  <g font-family="IBM Plex Mono, monospace" font-size="26" font-weight="700" text-anchor="middle" fill="#1E3A8A">
+    <text x="150" y="327">1</text><text x="440" y="327">2</text><text x="730" y="327">3</text><text x="1020" y="327">4</text><text x="1310" y="327">5</text>
+  </g>
+  <g fill="#E9EDFF">
+    <circle cx="220" cy="430" r="72"/>
+    <circle cx="510" cy="430" r="72"/>
+    <circle cx="800" cy="430" r="72"/>
+    <circle cx="1090" cy="430" r="72"/>
+    <circle cx="1380" cy="430" r="72"/>
+  </g>
+  <path d="M175 407c10-33 80-33 90 0v65h-90z" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <circle cx="220" cy="379" r="22" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <path d="M470 390h80v28h-80zM458 440h104v34H458z" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <path d="M760 382h80v96h-80zM775 407h50M775 432h50M775 457h32" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1090 360l66 26v51c0 49-28 79-66 96-38-17-66-47-66-96v-51z" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <path d="M1063 433l20 20 39-47" fill="none" stroke="#2F7D68" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1337 407c10-33 80-33 90 0v65h-90z" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <circle cx="1382" cy="379" r="22" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="6"/>
+  <path d="M1220 424h30" stroke="#B24C35" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1239 408l19 16-19 16" fill="none" stroke="#B24C35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1220 424c50 0 50 205 160 205" fill="none" stroke="#B24C35" stroke-width="7" stroke-dasharray="16 14"/>
+  <rect x="1270" y="610" width="220" height="92" rx="14" fill="#FFE8E2" stroke="#B24C35" stroke-width="4"/>
+  <path d="M1340 658h80" stroke="#B24C35" stroke-width="9" stroke-linecap="round"/>
+  <path d="M1404 642l20 16-20 16" fill="none" stroke="#B24C35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 424h40M630 424h40M920 424h40" stroke="#1E3A8A" stroke-width="10" stroke-linecap="round"/>
+  <path d="M365 408l19 16-19 16M655 408l19 16-19 16M945 408l19 16-19 16" fill="none" stroke="#1E3A8A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
