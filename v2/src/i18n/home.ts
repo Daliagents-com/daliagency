@@ -2,8 +2,35 @@ import type { Locale } from "./config";
 
 type ServiceCardCopy = {
   title: string;
+  price: string;
   description: string;
+  cta: string;
 };
+
+type AlternativeOptionCopy = {
+  title: string;
+  body: string;
+  ours?: boolean;
+};
+
+type DeliveryStepCopy = {
+  day: string;
+  body: string;
+  stamp: string;
+  lines: { item: string; state: string }[];
+};
+
+type AcceptanceCheckCopy = {
+  criterion: string;
+  condition: string;
+  evidence: string;
+};
+
+type PricingPartCopy = {
+  text: string;
+  href?: string;
+};
+
 
 type ProjectCardCopy = {
   tagline: string;
@@ -40,6 +67,45 @@ export type HomeCopy = {
     secondaryCta: string;
     scroll: string;
   };
+  ctaGift: string;
+  manifesto: {
+    label: string;
+    state: string;
+    heading: string;
+    body: string;
+    decision: string;
+    passLabel: string;
+    passBody: string;
+    failLabel: string;
+    failBody: string;
+    checksLabel: string;
+    checksNote: string;
+    columns: {
+      criterion: string;
+      condition: string;
+      evidence: string;
+    };
+    checks: AcceptanceCheckCopy[];
+    statusLabel: string;
+    status: string;
+    statusValue: string;
+    invoiceLabel: string;
+    dueLabel: string;
+    dueOpen: string;
+    dueClosed: string;
+  };
+  deliveryPath: {
+    label: string;
+    steps: DeliveryStepCopy[];
+  };
+  alternatives: {
+    heading: string;
+    options: AlternativeOptionCopy[];
+  };
+  pricing: {
+    label: string;
+    parts: PricingPartCopy[];
+  };
   projects: {
     heading: string;
     previous: string;
@@ -54,6 +120,7 @@ export type HomeCopy = {
     coFounder: string;
   };
   services: {
+    label: string;
     heading: string;
     body: string;
     contact: string;
@@ -95,6 +162,130 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       secondaryCta: "See the work",
       scroll: "Scroll",
     },
+
+    ctaGift:
+      "30 minutes with the person who builds the system. Leave with three ranked workflows, a first pass condition, and a fixed price range.",
+
+    manifesto: {
+      label: "Acceptance protocol",
+      state: "Terms locked before build",
+      heading: "We do not ask you to trust a promise. We show you how the work will be accepted.",
+      body: "The test is written before we build. The invoice waits for it.",
+      decision: "Did every written condition pass?",
+      passLabel: "Pass",
+      passBody: "Launch the workflow. Invoice unlocked.",
+      failLabel: "Fail",
+      failBody: "Fix and rerun. Nothing to pay.",
+      checksLabel: "What we measure",
+      checksNote: "Exact values are agreed with you",
+      columns: {
+        criterion: "Criterion",
+        condition: "Written condition",
+        evidence: "Evidence",
+      },
+      checks: [
+        {
+          criterion: "Outcome quality",
+          condition: "Target agreed before development",
+          evidence: "Held-out leads",
+        },
+        {
+          criterion: "Speed and cost",
+          condition: "Maximum limits fixed in scope",
+          evidence: "Timestamped run log",
+        },
+        {
+          criterion: "Sensitive actions",
+          condition: "Human approval is mandatory",
+          evidence: "Tool-call trace",
+        },
+        {
+          criterion: "Payment",
+          condition: "Every written gate must pass",
+          evidence: "Acceptance report",
+        },
+      ],
+      statusLabel: "Commercial rule",
+      status: "Pass first. Invoice second.",
+      statusValue: "Written into scope",
+      invoiceLabel: "Invoice",
+      dueLabel: "Due",
+      dueOpen: "Unlocked",
+      dueClosed: "$0",
+    },
+
+    deliveryPath: {
+      label: "How the test runs",
+      steps: [
+        {
+          day: "Real leads",
+          body: "A representative sample, locked before we write code.",
+          stamp: "Frozen sample",
+          lines: [
+            { item: "#14 inbound", state: "locked" },
+            { item: "#27 missed call", state: "locked" },
+            { item: "#31 renewal", state: "locked" },
+          ],
+        },
+        {
+          day: "Control run",
+          body: "The agent works. Clients never see it.",
+          stamp: "Shadow log",
+          lines: [
+            { item: "Draft reply", state: "not sent" },
+            { item: "CRM note", state: "not sent" },
+            { item: "Refund ask", state: "held" },
+          ],
+        },
+        {
+          day: "Human review",
+          body: "You compare the log to the written gates.",
+          stamp: "Your review",
+          lines: [
+            { item: "Quality vs target", state: "you confirm" },
+            { item: "Speed and cost", state: "you confirm" },
+            { item: "Sensitive action", state: "you decide" },
+          ],
+        },
+      ],
+    },
+
+    alternatives: {
+      heading: "Three ways to get an agent into production.",
+      options: [
+        {
+          title: "DIY with a no-code builder",
+          body: "Fast prototype. Then silent failures at 2 a.m., no evals, nobody watching. Free until it costs you a client.",
+        },
+        {
+          title: "Hire an ML engineer",
+          body: "$8-15k/mo, months to the first workflow, and you still need someone to own operations.",
+        },
+        {
+          title: "Dali",
+          body: "One workflow live against a written acceptance test. From $1,900 fixed. Human gates from day one. You own the code.",
+          ours: true,
+        },
+      ],
+    },
+
+    pricing: {
+      label: "Pricing",
+      parts: [
+        { text: "Start", href: "/starter" },
+        { text: " at $199/mo. " },
+        { text: "Subscribe", href: "/hire" },
+        { text: " from $300/mo - built and run for you. " },
+        { text: "Build", href: "/solutions" },
+        { text: " a lane from $1,900 fixed. " },
+        { text: "Rescue", href: "/solutions/rescue-and-migration" },
+        { text: " a failing system from $1,900. " },
+        { text: "Keep it healthy", href: "/care" },
+        {
+          text: " from $390/mo. Every fixed package ships against a written test - no pass, no pay.",
+        },
+      ],
+    },
     projects: {
       heading: "Selected systems and products",
       previous: "Previous projects",
@@ -110,32 +301,45 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       coFounder: "Co-founder",
     },
     services: {
-      heading: "From process discovery to production agent systems",
-      body: "We map how your company works, pick high-value agent paths, and define tools plus human controls before we build.",
-      contact: "Start a free audit",
+      label: "Services",
+      heading: "Choose how you want to start with Dali",
+      body: "Start with a packaged agent, commission one fixed workflow, rescue an existing system, or keep production healthy. Every route has a clear scope, price, and next step.",
+      contact: "Find my best workflow - free",
       cards: [
         {
-          title: "Conversation control",
+          title: "Starter",
+          price: "$199/mo",
           description:
-            "Inbound leads or client support in one supervised inbox shell.",
+            "One packaged agent for a narrow recurring task. Setup is included.",
+          cta: "See Starter",
         },
         {
-          title: "Ops & knowledge systems",
+          title: "Subscription",
+          price: "From $300/mo",
           description:
-            "Documents-to-actions or internal Q&A with audit and human gates.",
+            "An agent we build, run, and continuously improve for you.",
+          cta: "See Subscription",
         },
         {
-          title: "Agent-first products",
-          description: "Agents do the core product work, not just chat.",
-        },
-        {
-          title: "AI visibility systems",
-          description: "GEO, SEO, and content systems for search and AI answers.",
-        },
-        {
-          title: "Vibe-code rescue",
+          title: "Fixed build",
+          price: "From $1,900 fixed",
           description:
-            "Triage secrets, payments, and admin on AI-built MVPs, then harden with gates and a handoff.",
+            "One workflow, one acceptance test, shipped inside the tools you already use.",
+          cta: "Choose a solution",
+        },
+        {
+          title: "Rescue & Migration",
+          price: "From $1,900 fixed",
+          description:
+            "Stabilize a failing agent, migrate an aging API, or harden an AI-built MVP.",
+          cta: "See Rescue",
+        },
+        {
+          title: "Agent Care",
+          price: "From $390/mo",
+          description:
+            "Monitoring, evals, guardrails, and ongoing production ownership.",
+          cta: "See Care",
         },
       ],
     },
@@ -206,6 +410,130 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       secondaryCta: "Смотреть работы",
       scroll: "Листайте",
     },
+
+    ctaGift:
+      "30 минут с тем, кто строит систему. Уйдёте с тремя приоритетными процессами, первым условием приёмки и фиксированным диапазоном цены.",
+
+    manifesto: {
+      label: "Как принимаем работу",
+      state: "Условия зафиксированы до разработки",
+      heading: "Не просим верить обещаниям. Показываем, как будет принята работа.",
+      body: "Тест фиксируем до разработки. Счёт ждёт результата.",
+      decision: "Каждое записанное условие выполнено?",
+      passLabel: "Прошёл",
+      passBody: "Запускаем процесс. Выставляем счёт.",
+      failLabel: "Не прошёл",
+      failBody: "Исправляем и повторяем. К оплате 0.",
+      checksLabel: "Что измеряем",
+      checksNote: "Точные значения согласуем с вами",
+      columns: {
+        criterion: "Критерий",
+        condition: "Условие",
+        evidence: "Подтверждение",
+      },
+      checks: [
+        {
+          criterion: "Качество результата",
+          condition: "Цель фиксируется до разработки",
+          evidence: "Контрольные лиды",
+        },
+        {
+          criterion: "Скорость и стоимость",
+          condition: "Предельные значения входят в условия",
+          evidence: "Журнал прогонов",
+        },
+        {
+          criterion: "Чувствительные действия",
+          condition: "Обязательно подтверждает человек",
+          evidence: "Трассировка действий",
+        },
+        {
+          criterion: "Оплата",
+          condition: "Пройдены все записанные критерии",
+          evidence: "Отчёт о приёмке",
+        },
+      ],
+      statusLabel: "Правило оплаты",
+      status: "Сначала приёмка. Потом счёт.",
+      statusValue: "Фиксируем письменно",
+      invoiceLabel: "Счёт",
+      dueLabel: "К оплате",
+      dueOpen: "Открыт",
+      dueClosed: "0",
+    },
+
+    deliveryPath: {
+      label: "Как проходит проверка",
+      steps: [
+        {
+          day: "Реальные лиды",
+          body: "Репрезентативная выборка, зафиксированная до кода.",
+          stamp: "Замороженная выборка",
+          lines: [
+            { item: "#14 входящий", state: "зафиксирован" },
+            { item: "#27 пропущенный звонок", state: "зафиксирован" },
+            { item: "#31 продление", state: "зафиксирован" },
+          ],
+        },
+        {
+          day: "Контрольный прогон",
+          body: "Агент работает. Клиенты этого не видят.",
+          stamp: "Теневой журнал",
+          lines: [
+            { item: "Черновик ответа", state: "не отправлен" },
+            { item: "Заметка в CRM", state: "не отправлена" },
+            { item: "Запрос на возврат", state: "удержан" },
+          ],
+        },
+        {
+          day: "Проверка человеком",
+          body: "Вы сверяете журнал с записанными условиями.",
+          stamp: "Ваша проверка",
+          lines: [
+            { item: "Качество против цели", state: "вы подтверждаете" },
+            { item: "Скорость и стоимость", state: "вы подтверждаете" },
+            { item: "Чувствительное действие", state: "вы решаете" },
+          ],
+        },
+      ],
+    },
+
+    alternatives: {
+      heading: "Три способа запустить ИИ-агента в реальной работе.",
+      options: [
+        {
+          title: "Собрать самому в конструкторе без кода",
+          body: "Быстрый прототип. Затем скрытые сбои ночью, без системных проверок и ответственного за работу. Бесплатно, пока это не стоит вам клиента.",
+        },
+        {
+          title: "Нанять ML-инженера",
+          body: "$8-15k/мес, несколько месяцев до первого автоматизированного процесса, и всё равно нужен тот, кто отвечает за ежедневную работу системы.",
+        },
+        {
+          title: "Dali",
+          body: "Один процесс запускается по письменному приёмочному тесту. От $1,900 фикс. Чувствительные действия с первого дня проверяет человек. Код остаётся вам.",
+          ours: true,
+        },
+      ],
+    },
+
+    pricing: {
+      label: "Цены",
+      parts: [
+        { text: "Старт", href: "/starter" },
+        { text: " за $199/мес. " },
+        { text: "Подписка", href: "/hire" },
+        { text: " от $300/мес - строим и ведём за вас. " },
+        { text: "Сборка", href: "/solutions" },
+        { text: " одного процесса от $1,900 фикс. " },
+        { text: "Спасение", href: "/solutions/rescue-and-migration" },
+        { text: " падающей системы от $1,900. " },
+        { text: "Поддержка", href: "/care" },
+        {
+          text: " от $390/мес. Каждый фикс-пакет сдаётся по письменному тесту - нет прохождения, нет оплаты.",
+        },
+      ],
+    },
     projects: {
       heading: "Избранные системы и продукты",
       previous: "Предыдущие проекты",
@@ -221,32 +549,45 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       coFounder: "Сооснователь",
     },
     services: {
-      heading: "От изучения процессов до рабочих агентских систем",
-      body: "Изучаем процессы, выбираем ценные пути для агентов и заранее задаём инструменты и точки человеческого контроля.",
-      contact: "Начать бесплатный аудит",
+      label: "Услуги",
+      heading: "Выберите, как начать работу с Dali",
+      body: "Начните с готового агента, закажите систему под один процесс, спасите существующую или передайте рабочую систему под постоянный контроль. У каждого формата есть понятные границы, цена и следующий шаг.",
+      contact: "Подобрать процесс бесплатно",
       cards: [
         {
-          title: "Управление перепиской",
+          title: "Быстрый старт",
+          price: "$199/мес.",
           description:
-            "Входящие лиды или client support в одной supervised inbox-оболочке.",
+            "Один готовый агент для узкой повторяющейся задачи. Настройка включена.",
+          cta: "Открыть быстрый старт",
         },
         {
-          title: "Ops и знания",
+          title: "Подписка",
+          price: "От $300/мес.",
           description:
-            "Documents-to-actions или internal Q&A с audit и human gates.",
+            "ИИ-агент, которого мы собираем, запускаем и постоянно улучшаем за вас.",
+          cta: "Смотреть подписку",
         },
         {
-          title: "Agent-first продукты",
-          description: "Агенты делают core-работу продукта, а не просто чат.",
-        },
-        {
-          title: "Системы AI-видимости",
-          description: "GEO, SEO и контент для поиска и AI-ответов.",
-        },
-        {
-          title: "Vibe-code rescue",
+          title: "Фиксированная разработка",
+          price: "От $1,900 фикс.",
           description:
-            "Триаж секретов, платежей и admin-путей в AI-MVP, затем hardening с gates и handoff.",
+            "Один процесс, один приёмочный тест и внедрение в ваши текущие инструменты.",
+          cta: "Выбрать решение",
+        },
+        {
+          title: "Спасение и миграция",
+          price: "От $1,900 фикс.",
+          description:
+            "Стабилизируем падающего агента, мигрируем устаревающий API или укрепляем AI-MVP.",
+          cta: "Открыть спасение",
+        },
+        {
+          title: "Поддержка агента",
+          price: "От $390/мес.",
+          description:
+            "Мониторинг, проверки качества, ограничения и постоянная ответственность за рабочую систему.",
+          cta: "Открыть поддержку",
         },
       ],
     },
@@ -317,6 +658,130 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       secondaryCta: "იხილეთ ნამუშევრები",
       scroll: "გადაახვიეთ",
     },
+
+    ctaGift:
+      "30 წუთი მასთან, ვინც სისტემას აშენებს. მიდიხართ სამი პრიორიტეტული workflow-ით, პირველი pass condition-ით და ფიქსირებული ფასის დიაპაზონით.",
+
+    manifesto: {
+      label: "Acceptance protocol",
+      state: "პირობები build-მდე ფიქსირდება",
+      heading: "დაპირების ნდობას არ გთხოვთ. გაჩვენებთ, როგორ მიიღება სამუშაო.",
+      body: "ტესტი build-მდე იწერება. Invoice ტესტს ელოდება.",
+      decision: "ყველა წერილობითი პირობა შესრულდა?",
+      passLabel: "Pass",
+      passBody: "Workflow ეშვება. Invoice იხსნება.",
+      failLabel: "Fail",
+      failBody: "ვასწორებთ და ვიმეორებთ. გადასახდელი 0.",
+      checksLabel: "რას ვზომავთ",
+      checksNote: "ზუსტ მნიშვნელობებს თქვენთან ვათანხმებთ",
+      columns: {
+        criterion: "კრიტერიუმი",
+        condition: "პირობა",
+        evidence: "მტკიცებულება",
+      },
+      checks: [
+        {
+          criterion: "შედეგის ხარისხი",
+          condition: "მიზანი build-მდე ფიქსირდება",
+          evidence: "Control leads",
+        },
+        {
+          criterion: "სიჩქარე და ფასი",
+          condition: "ზღვრები scope-ში იწერება",
+          evidence: "Run log",
+        },
+        {
+          criterion: "მგრძნობიარე მოქმედებები",
+          condition: "ადამიანის approval სავალდებულოა",
+          evidence: "Tool-call trace",
+        },
+        {
+          criterion: "გადახდა",
+          condition: "ყველა წერილობითი gate უნდა გავიდეს",
+          evidence: "Acceptance report",
+        },
+      ],
+      statusLabel: "გადახდის წესი",
+      status: "ჯერ acceptance. შემდეგ invoice.",
+      statusValue: "წერილობით ფიქსირდება",
+      invoiceLabel: "Invoice",
+      dueLabel: "გადასახდელი",
+      dueOpen: "ღიაა",
+      dueClosed: "0",
+    },
+
+    deliveryPath: {
+      label: "როგორ მიმდინარეობს ტესტი",
+      steps: [
+        {
+          day: "რეალური ლიდები",
+          body: "Representative sample, დაფიქსირებული კოდამდე.",
+          stamp: "გაყინული sample",
+          lines: [
+            { item: "#14 inbound", state: "locked" },
+            { item: "#27 missed call", state: "locked" },
+            { item: "#31 renewal", state: "locked" },
+          ],
+        },
+        {
+          day: "Control run",
+          body: "აგენტი მუშაობს. კლიენტი ამას არ ხედავს.",
+          stamp: "Shadow log",
+          lines: [
+            { item: "Draft reply", state: "not sent" },
+            { item: "CRM note", state: "not sent" },
+            { item: "Refund ask", state: "held" },
+          ],
+        },
+        {
+          day: "ადამიანის შემოწმება",
+          body: "თქვენ ადარებთ log-ს წერილობით პირობებს.",
+          stamp: "თქვენი review",
+          lines: [
+            { item: "Quality vs target", state: "you confirm" },
+            { item: "Speed and cost", state: "you confirm" },
+            { item: "Sensitive action", state: "you decide" },
+          ],
+        },
+      ],
+    },
+
+    alternatives: {
+      heading: "სამი გზა, რომ აგენტი production-ში მოხვდეს.",
+      options: [
+        {
+          title: "DIY no-code კონსტრუქტორით",
+          body: "სწრაფი პროტოტიპი. მერე ჩუმი ჩავარდნები ღამის 2 საათზე, evals-ის გარეშე, ზედამხედველის გარეშე. უფასოა, სანამ კლიენტი არ დაგიჯდებათ.",
+        },
+        {
+          title: "ML ინჟინრის დაქირავება",
+          body: "$8-15k/თვე, თვეები პირველ workflow-მდე, და მაინც გჭირდებათ ვინმე, ვინც ოპერაციებს ითავებს.",
+        },
+        {
+          title: "Dali",
+          body: "ერთი workflow პროდაქშენში წერილობითი მიღების ტესტით. $1,900-დან ფიქსით. Human gates პირველი დღიდან. კოდი თქვენია.",
+          ours: true,
+        },
+      ],
+    },
+
+    pricing: {
+      label: "ფასები",
+      parts: [
+        { text: "დაიწყეთ", href: "/starter" },
+        { text: " $199/თვე-დან. " },
+        { text: "გამოიწერეთ", href: "/hire" },
+        { text: " $300/თვე-დან - ვაშენებთ და ვმართავთ თქვენთვის. " },
+        { text: "ააწყვეთ", href: "/solutions" },
+        { text: " ერთი workflow $1,900 ფიქსით. " },
+        { text: "გადაარჩინეთ", href: "/solutions/rescue-and-migration" },
+        { text: " ჩავარდნილი სისტემა $1,900-დან. " },
+        { text: "შეინარჩუნეთ ჯანსაღად", href: "/care" },
+        {
+          text: " $390/თვე-დან. ყველა ფიქს-პაკეტი ბარდება წერილობითი ტესტით - ვერ ჩააბარა, არ იხდით.",
+        },
+      ],
+    },
     projects: {
       heading: "შერჩეული სისტემები და პროდუქტები",
       previous: "წინა პროექტები",
@@ -332,30 +797,45 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       coFounder: "თანადამფუძნებელი",
     },
     services: {
-      heading: "პროცესების კვლევიდან production აგენტურ სისტემებამდე",
-      body: "ვიკვლევთ, როგორ მუშაობს თქვენი კომპანია, ვირჩევთ მაღალი ღირებულების აგენტურ გზებს და წინასწარ ვადგენთ ხელსაწყოებსა და ადამიანის კონტროლის წერტილებს.",
-      contact: "დაიწყეთ უფასო აუდიტი",
+      label: "სერვისები",
+      heading: "აირჩიეთ, როგორ დაიწყოთ Dali-სთან მუშაობა",
+      body: "დაიწყეთ მზა აგენტით, შეუკვეთეთ ერთი workflow-ის ფიქსირებული build, გადაარჩინეთ არსებული სისტემა ან მოგვანდეთ production-ის უწყვეტი კონტროლი. თითოეულ ფორმატს აქვს მკაფიო scope, ფასი და შემდეგი ნაბიჯი.",
+      contact: "workflow-ების რუკა - უფასოდ",
       cards: [
         {
-          title: "მორგებული აგენტური სისტემები",
-          description: "პროცესები, ხელსაწყოები, წესები და approve-ის საზღვრები.",
-        },
-        {
-          title: "Agent-first პროდუქტები",
-          description: "აგენტები აკეთებენ პროდუქტის core-სამუშაოს, არა მხოლოდ ჩატს.",
-        },
-        {
-          title: "AI კონსალტინგი და ტრენინგი",
-          description: "Discovery, roadmap, არქიტექტურა და ვორქშოპები.",
-        },
-        {
-          title: "AI ხილვადობის სისტემები",
-          description: "GEO, SEO და კონტენტი ძიებისა და AI-პასუხებისთვის.",
-        },
-        {
-          title: "Vibe-code rescue",
+          title: "Starter",
+          price: "$199/თვე",
           description:
-            "AI-ით აწყობილი MVP-ის secrets, payments და admin ბილიკების ტრიაჟი, შემდეგ hardening gates-ით და handoff-ით.",
+            "ერთი მზა აგენტი ვიწრო, განმეორებადი ამოცანისთვის. Setup შედის.",
+          cta: "Starter-ის ნახვა",
+        },
+        {
+          title: "Subscription",
+          price: "$300/თვე-დან",
+          description:
+            "აგენტი, რომელსაც თქვენთვის ვაწყობთ, ვუშვებთ და მუდმივად ვაუმჯობესებთ.",
+          cta: "გამოწერის ნახვა",
+        },
+        {
+          title: "ფიქსირებული build",
+          price: "$1,900-დან ფიქსად",
+          description:
+            "ერთი workflow, ერთი acceptance test და დანერგვა თქვენს არსებულ ინსტრუმენტებში.",
+          cta: "გადაწყვეტის არჩევა",
+        },
+        {
+          title: "Rescue & Migration",
+          price: "$1,900-დან ფიქსად",
+          description:
+            "ვასტაბილურებთ ჩავარდნილ აგენტს, ვამიგრირებთ მოძველებულ API-ს ან ვამაგრებთ AI-MVP-ს.",
+          cta: "Rescue-ის ნახვა",
+        },
+        {
+          title: "Agent Care",
+          price: "$390/თვე-დან",
+          description:
+            "მონიტორინგი, evals, guardrails და მუდმივი პასუხისმგებლობა production-ზე.",
+          cta: "Care-ის ნახვა",
         },
       ],
     },
@@ -426,6 +906,130 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       secondaryCta: "Տեսնել աշխատանքները",
       scroll: "Ոլորեք",
     },
+
+    ctaGift:
+      "30 րոպե նրա հետ, ով կառուցում է համակարգը։ Դուրս եք գալիս երեք առաջնահերթ workflow-ով, առաջին pass condition-ով և ֆիքսված գնի միջակայքով։",
+
+    manifesto: {
+      label: "Acceptance protocol",
+      state: "Պայմանները ամրագրվում են build-ից առաջ",
+      heading: "Խոստմանը հավատալ չենք խնդրում։ Ցույց ենք տալիս՝ ինչպես է ընդունվելու աշխատանքը։",
+      body: "Թեստը գրվում է build-ից առաջ։ Invoice-ը սպասում է արդյունքին։",
+      decision: "Բոլոր գրավոր պայմաններն անցա՞ն։",
+      passLabel: "Pass",
+      passBody: "Workflow-ը գործարկվում է։ Invoice-ը բացվում է։",
+      failLabel: "Fail",
+      failBody: "Ուղղում և կրկնում ենք։ Վճարումը 0 է։",
+      checksLabel: "Ինչ ենք չափում",
+      checksNote: "Ճշգրիտ արժեքները համաձայնեցնում ենք ձեզ հետ",
+      columns: {
+        criterion: "Չափանիշ",
+        condition: "Պայման",
+        evidence: "Ապացույց",
+      },
+      checks: [
+        {
+          criterion: "Արդյունքի որակ",
+          condition: "Նպատակը ֆիքսվում է build-ից առաջ",
+          evidence: "Control leads",
+        },
+        {
+          criterion: "Արագություն և արժեք",
+          condition: "Սահմանները գրվում են scope-ում",
+          evidence: "Run log",
+        },
+        {
+          criterion: "Զգայուն գործողություններ",
+          condition: "Մարդու հաստատումը պարտադիր է",
+          evidence: "Tool-call trace",
+        },
+        {
+          criterion: "Վճարում",
+          condition: "Բոլոր գրավոր gate-երը պետք է անցնեն",
+          evidence: "Acceptance report",
+        },
+      ],
+      statusLabel: "Վճարման կանոն",
+      status: "Սկզբում acceptance։ Հետո invoice։",
+      statusValue: "Ամրագրվում է գրավոր",
+      invoiceLabel: "Invoice",
+      dueLabel: "Վճարում",
+      dueOpen: "Բաց է",
+      dueClosed: "0",
+    },
+
+    deliveryPath: {
+      label: "Ինչպես է անցնում թեստը",
+      steps: [
+        {
+          day: "Իրական լիդեր",
+          body: "Representative sample, ֆիքսված կոդից առաջ։",
+          stamp: "Սառեցված sample",
+          lines: [
+            { item: "#14 inbound", state: "locked" },
+            { item: "#27 missed call", state: "locked" },
+            { item: "#31 renewal", state: "locked" },
+          ],
+        },
+        {
+          day: "Control run",
+          body: "Agent-ը աշխատում է։ Հաճախորդը չի տեսնում։",
+          stamp: "Shadow log",
+          lines: [
+            { item: "Draft reply", state: "not sent" },
+            { item: "CRM note", state: "not sent" },
+            { item: "Refund ask", state: "held" },
+          ],
+        },
+        {
+          day: "Մարդու ստուգում",
+          body: "Դուք համեմատում եք log-ը գրավոր պայմանների հետ։",
+          stamp: "Ձեր review",
+          lines: [
+            { item: "Quality vs target", state: "you confirm" },
+            { item: "Speed and cost", state: "you confirm" },
+            { item: "Sensitive action", state: "you decide" },
+          ],
+        },
+      ],
+    },
+
+    alternatives: {
+      heading: "Երեք ճանապարհ՝ գործակալը production հասցնելու համար։",
+      options: [
+        {
+          title: "DIY no-code կոնստրուկտորով",
+          body: "Արագ նախատիպ։ Հետո լուռ խափանումներ գիշերվա ժամը 2-ին, առանց eval-ների, առանց հսկողի։ Անվճար է, մինչև հաճախորդ արժենա։",
+        },
+        {
+          title: "Վարձել ML ինժեներ",
+          body: "$8-15k/ամիս, ամիսներ մինչև առաջին workflow-ը, և միևնույն է պետք է մեկը, ով կվարի օպերացիաները։",
+        },
+        {
+          title: "Dali",
+          body: "Մեկ workflow production-ում՝ գրավոր ընդունման թեստով։ $1,900-ից ֆիքս։ Human gates առաջին օրվանից։ Կոդը ձերն է։",
+          ours: true,
+        },
+      ],
+    },
+
+    pricing: {
+      label: "Գներ",
+      parts: [
+        { text: "Սկսեք", href: "/starter" },
+        { text: " $199/ամսից։ " },
+        { text: "Բաժանորդագրվեք", href: "/hire" },
+        { text: " $300/ամսից - կառուցում և վարում ենք ձեզ համար։ " },
+        { text: "Կառուցեք", href: "/solutions" },
+        { text: " մեկ workflow $1,900 ֆիքսով։ " },
+        { text: "Փրկեք", href: "/solutions/rescue-and-migration" },
+        { text: " ձախողվող համակարգը $1,900-ից։ " },
+        { text: "Պահեք առողջ", href: "/care" },
+        {
+          text: " $390/ամսից։ Յուրաքանչյուր ֆիքս փաթեթ հանձնվում է գրավոր թեստով - թեստը չանցավ, չեք վճարում։",
+        },
+      ],
+    },
     projects: {
       heading: "Ընտրված համակարգեր և արտադրանք",
       previous: "Նախորդ նախագծերը",
@@ -441,30 +1045,45 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       coFounder: "Համահիմնադիր",
     },
     services: {
-      heading: "Գործընթացների ուսումնասիրությունից մինչև production գործակալային համակարգեր",
-      body: "Քարտեզագրում ենք, թե ինչպես է աշխատում ձեր ընկերությունը, ընտրում բարձրարժեք գործակալային ուղիներ և նախապես սահմանում գործիքներն ու մարդու վերահսկման կետերը։",
-      contact: "Սկսել անվճար աուդիտ",
+      label: "Ծառայություններ",
+      heading: "Ընտրեք՝ ինչպես սկսել աշխատանքը Dali-ի հետ",
+      body: "Սկսեք պատրաստի գործակալից, պատվիրեք մեկ workflow-ի fixed build, փրկեք գործող համակարգը կամ production-ի մշտական վերահսկումը վստահեք մեզ։ Յուրաքանչյուր ձևաչափ ունի հստակ scope, գին և հաջորդ քայլ։",
+      contact: "Ստանալ workflow քարտեզը անվճար",
       cards: [
         {
-          title: "Անհատական գործակալային համակարգեր",
-          description: "Գործընթացներ, գործիքներ, կանոններ և approve սահմաններ։",
-        },
-        {
-          title: "Agent-first արտադրանք",
-          description: "Գործակալները կատարում են արտադրանքի core աշխատանքը, ոչ միայն չատը։",
-        },
-        {
-          title: "AI խորհրդատվություն և ուսուցում",
-          description: "Discovery, roadmap, ճարտարապետություն և վորկշոփներ։",
-        },
-        {
-          title: "AI տեսանելիության համակարգեր",
-          description: "GEO, SEO և բովանդակություն որոնման և AI պատասխանների համար։",
-        },
-        {
-          title: "Vibe-code rescue",
+          title: "Starter",
+          price: "$199/ամիս",
           description:
-            "AI-ով կառուցված MVP-ի secrets, payments և admin ուղիների տրիաժ, ապա hardening՝ gates-ով և handoff-ով։",
+            "Մեկ պատրաստի գործակալ նեղ, կրկնվող առաջադրանքի համար։ Setup-ը ներառված է։",
+          cta: "Դիտել Starter-ը",
+        },
+        {
+          title: "Subscription",
+          price: "$300/ամսից",
+          description:
+            "Գործակալ, որը կառուցում, գործարկում և շարունակաբար բարելավում ենք ձեզ համար։",
+          cta: "Դիտել բաժանորդագրությունը",
+        },
+        {
+          title: "Ֆիքսված build",
+          price: "$1,900-ից ֆիքս",
+          description:
+            "Մեկ workflow, մեկ acceptance test և ներդրում ձեր գործող գործիքներում։",
+          cta: "Ընտրել լուծումը",
+        },
+        {
+          title: "Rescue & Migration",
+          price: "$1,900-ից ֆիքս",
+          description:
+            "Կայունացնում ենք խափանվող agent-ը, միգրացնում հնացող API-ն կամ ամրացնում AI-MVP-ն։",
+          cta: "Դիտել Rescue-ը",
+        },
+        {
+          title: "Agent Care",
+          price: "$390/ամսից",
+          description:
+            "Մոնիթորինգ, evals, guardrails և շարունակական պատասխանատվություն production-ի համար։",
+          cta: "Դիտել Care-ը",
         },
       ],
     },

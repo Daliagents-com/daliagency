@@ -1,0 +1,475 @@
+/* Home argument strips: acceptance protocol, alternatives, and pricing.
+   Acceptance shows the file: frozen sample, shadow log, review, invoices.
+   No status dots, grid paper, or tinted traffic-light chrome. */
+
+/* --- Acceptance protocol -------------------------------------------- */
+
+.manifesto {
+  position: relative;
+  z-index: 3;
+  background: var(--background, #fcfcfa);
+  padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3.25rem, 6vw, 5.5rem);
+}
+
+.inner {
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-inline: clamp(6px, 1vw, 16px);
+}
+
+.intro {
+  max-width: 40rem;
+}
+
+.kicker {
+  margin-bottom: 1rem;
+}
+
+.heading {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: clamp(1.65rem, 2.9vw, 2.45rem);
+  font-weight: 600;
+  letter-spacing: -0.038em;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.lede {
+  margin: 0;
+  color: color-mix(in srgb, var(--text) 78%, transparent);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.5;
+}
+
+.stepsBlock,
+.measures {
+  margin-top: clamp(1.85rem, 3.4vw, 2.75rem);
+  padding-top: clamp(1.4rem, 2.6vw, 2rem);
+  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.decision {
+  margin-top: clamp(1.75rem, 3vw, 2.35rem);
+}
+
+.blockLabel {
+  margin: 0 0 1rem;
+}
+
+.steps {
+  display: grid;
+  gap: 1.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 860px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.step {
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 860px) {
+  .step:not(:last-child)::after {
+    position: absolute;
+    top: 3.1rem;
+    right: -0.85rem;
+    width: 0.7rem;
+    height: 1px;
+    background: color-mix(in srgb, var(--text) 22%, transparent);
+    content: "";
+  }
+}
+
+.exhibit {
+  min-height: 11.25rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  background: color-mix(in srgb, var(--text) 2%, var(--background, #fcfcfa));
+  padding: 0.85rem 0.95rem 0.95rem;
+}
+
+.stamp {
+  margin: 0 0 0.7rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  color: var(--text);
+  font-family: var(--font-technical);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lines {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lines li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.lines b {
+  flex: none;
+  color: color-mix(in srgb, var(--text) 58%, transparent);
+  font-family: var(--font-technical);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.stepCopy strong {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.stepCopy p {
+  margin: 0;
+  color: color-mix(in srgb, var(--text) 68%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.decisionPrompt {
+  margin: 0 0 1rem;
+  max-width: 28rem;
+  color: var(--text);
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.fork {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .fork {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.invoicePass,
+.invoiceFail {
+  display: flex;
+  min-height: 11rem;
+  flex-direction: column;
+  padding: 1rem 1.1rem 1.05rem;
+  background: var(--background, #fcfcfa);
+}
+
+.invoicePass {
+  border: 1.5px solid var(--accent, #1e3a8a);
+}
+
+.invoiceFail {
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+}
+
+.invoiceKind {
+  margin: 0 0 0.85rem;
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+  font-family: var(--font-technical);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.invoiceVerdict {
+  margin: 0 0 0.35rem;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.invoiceBody {
+  margin: 0 0 auto;
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.invoiceDue {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px dashed color-mix(in srgb, var(--text) 16%, transparent);
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.invoiceDue span {
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+  font-size: 0.8rem;
+}
+
+.invoiceDue strong {
+  font-weight: 650;
+}
+
+.sheet {
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  padding: 1rem 1.1rem 0.35rem;
+}
+
+.measuresHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.measuresHeader .blockLabel {
+  margin: 0;
+}
+
+.measuresNote {
+  margin: 0;
+  color: color-mix(in srgb, var(--text) 62%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.8rem 1.1rem 0.8rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table thead th {
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  color: color-mix(in srgb, var(--text) 58%, transparent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.table tbody th,
+.table tbody td {
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  font-size: 0.98rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tbody th {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.table tbody td {
+  color: color-mix(in srgb, var(--text) 70%, transparent);
+}
+
+.evidence {
+  display: inline-block;
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  padding: 0.12rem 0.4rem;
+  font-family: var(--font-technical);
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
+
+.rule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.85rem;
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.45;
+}
+
+.rule span {
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.rule strong {
+  font-weight: 600;
+}
+
+@media (max-width: 699px) {
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    padding: 0.95rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+
+  .table tbody tr:first-child {
+    border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  }
+
+  .table th,
+  .table td {
+    padding: 0;
+    border: 0;
+  }
+
+  .table tbody td {
+    margin-top: 0.5rem;
+  }
+
+  .table tbody td::before {
+    display: block;
+    margin-bottom: 0.15rem;
+    color: color-mix(in srgb, var(--text) 55%, transparent);
+    content: attr(data-label);
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+}
+
+/* --- Alternatives ----------------------------------------------------- */
+
+.alternatives {
+  position: relative;
+  z-index: 3;
+  background: var(--background, #fcfcfa);
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.alternativesTitle {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 34rem;
+  color: var(--text);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.alternativesGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .alternativesGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.alternativeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 0.5rem;
+  background: transparent;
+  padding: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+.alternativeOurs {
+  border: 1.5px solid var(--accent, #1e3a8a);
+}
+
+.alternativeName {
+  margin: 0;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.alternativeBody {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* --- Pricing ladder --------------------------------------------------- */
+
+.pricing {
+  position: relative;
+  z-index: 3;
+  background: var(--background, #fcfcfa);
+  padding: 0 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+.pricingLine {
+  margin: 0;
+  max-width: 48rem;
+  padding-top: clamp(1.2rem, 2vw, 1.6rem);
+  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.pricingLink {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--text) 35%, transparent);
+  text-underline-offset: 0.22em;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.pricingLink:hover {
+  color: var(--accent, #1e3a8a);
+  text-decoration-color: var(--accent, #1e3a8a);
+}
+
+.pricingLink:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--text) 35%, transparent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
