@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import Hero from "@/Components/Home/Hero";
 import About from "@/Components/Home/About";
 import AgentSolutions from "@/Components/Home/AgentSolutions";
+import {
+  AcceptanceProtocol,
+  Alternatives,
+} from "@/Components/Home/Argument";
 import HomeDeferredSections from "@/Components/Home/HomeDeferredSections";
 import { solutionsBundles } from "@/Components/Solutions/locales";
 import {
@@ -117,6 +121,8 @@ export default async function LocalizedHome({ params }: LocalizedHomeProps) {
       />
       <Projects locale={locale} />
       <HomeDeferredSections locale={locale} />
+      <AcceptanceProtocol locale={locale} />
+      <Alternatives locale={locale} />
       <About locale={locale} />
     </main>
   );

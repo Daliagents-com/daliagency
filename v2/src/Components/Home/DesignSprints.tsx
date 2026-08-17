@@ -1,4 +1,4 @@
-// Purpose: Services bento - product-scene mocks (no icon-slop).
+// Purpose: Ways to work with Dali - five commercial routes with price anchors.
 // Scope: Section shell only. Mocks live in services/mocks/*.
 // Theme: section-local dark curtain (scroll clip reveal) - no html[data-page-theme].
 "use client";
@@ -16,7 +16,7 @@ import Container from "@/Components/Container/Container";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import { onestText, syneText } from "@/assets/fonts";
 import { homeCopy } from "@/i18n/home";
-import type { Locale } from "@/i18n/config";
+import { localizePath, type Locale } from "@/i18n/config";
 import { sectionTitle } from "@/lib/sectionTitle";
 import styles from "./DesignSprints.module.css";
 import { Card } from "./services/Card";
@@ -89,17 +89,17 @@ function useServicesCurtain(sectionRef: React.RefObject<HTMLElement | null>) {
     offset: ["start end", "end start"],
   });
 
-  // Longer enter/exit so the curtain reads as a deliberate theme wipe.
-  // Enter 0→0.32 (top→bottom open), solid mid, exit 0.68→1 (close top→bottom).
+  // Fast commit to solid dark while the cards are in view, then a short
+  // close as the section leaves. Enter top→bottom, exit close top→bottom.
   const topInset = useTransform(
     scrollYProgress,
-    [0, 0.32, 0.68, 1],
-    reduce ? [0, 0, 0, 0] : [0, 0, 0, 100],
+    [0, 0.16, 0.24, 0.8, 0.88, 1],
+    reduce ? [0, 0, 0, 0, 0, 0] : [0, 0, 0, 0, 50, 100],
   );
   const bottomInset = useTransform(
     scrollYProgress,
-    [0, 0.32, 0.68, 1],
-    reduce ? [0, 0, 0, 0] : [100, 0, 0, 0],
+    [0, 0.16, 0.24, 0.8, 0.88, 1],
+    reduce ? [0, 0, 0, 0, 0, 0] : [100, 42, 0, 0, 0, 0],
   );
 
   const clipPath = useMotionTemplate`inset(${topInset}% 0 ${bottomInset}% 0)`;
@@ -113,7 +113,7 @@ export default function DesignSprint({
   locale?: Locale;
 }) {
   const copy = homeCopy[locale].services;
-  const servicesLabel = homeCopy[locale].navigation.home[2];
+  const ctaGift = homeCopy[locale].ctaGift;
   const shellRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   useSectionMotion(shellRef);
@@ -139,7 +139,7 @@ export default function DesignSprint({
             <div className={styles.intro}>
               <div className={styles.introTitle}>
                 <h2 className="section-label" data-on="dark">
-                  {sectionTitle(3, servicesLabel)}
+                  {sectionTitle(3, copy.label)}
                 </h2>
                 <p className={`${syneText.className} ${styles.heading} font-medium`}>
                   {copy.heading}
@@ -148,19 +148,57 @@ export default function DesignSprint({
             </div>
 
             <div className={styles.bento}>
-              <Card slot="a" title={c0.title} description={c0.description}>
-                <MockPipeline delay={0.1} />
+              <Card
+                slot="a"
+                title={c0.title}
+                price={c0.price}
+                description={c0.description}
+                href={localizePath("/starter", locale)}
+                cta={c0.cta}
+              >
+                <MockComposer delay={0.1} />
               </Card>
-              <Card slot="b" title={c1.title} description={c1.description}>
-                <MockComposer delay={0.22} />
+              <Card
+                slot="b"
+                title={c1.title}
+                price={c1.price}
+                description={c1.description}
+                href={localizePath("/hire", locale)}
+                cta={c1.cta}
+              >
+                <MockPipeline delay={0.22} />
               </Card>
-              <Card slot="c" title={c3.title} description={c3.description}>
-                <MockScores delay={0.34} />
+              <Card
+                slot="c"
+                title={c2.title}
+                price={c2.price}
+                description={c2.description}
+                href={localizePath("/solutions", locale)}
+                cta={c2.cta}
+              >
+                <MockRoadmap delay={0.34} />
               </Card>
-              <Card slot="d" title={c2.title} description={c2.description}>
-                <MockRoadmap delay={0.46} />
+              <Card
+                slot="d"
+                title={c4.title}
+                price={c4.price}
+                description={c4.description}
+                href={localizePath("/care", locale)}
+                cta={c4.cta}
+              >
+                <MockScores delay={0.46} />
               </Card>
-              <Card slot="e" title={c4.title} description={c4.description}>
+              <Card
+                slot="e"
+                title={c3.title}
+                price={c3.price}
+                description={c3.description}
+                href={localizePath(
+                  "/solutions/rescue-and-migration",
+                  locale,
+                )}
+                cta={c3.cta}
+              >
                 <MockGate delay={0.58} />
               </Card>
             </div>
@@ -176,6 +214,7 @@ export default function DesignSprint({
                 <FileText className="h-[1em] w-[1em]" aria-hidden /> {copy.contact}{" "}
                 <ChevronRight className="h-[1em] w-[1em]" aria-hidden />
               </ConsultationTrigger>
+              <p className={styles.giftNote}>{ctaGift}</p>
             </div>
           </div>
         </Container>

@@ -3,6 +3,10 @@ import nextDynamic from "next/dynamic";
 import Hero from "../../Components/Home/Hero";
 import About from "../../Components/Home/About";
 import AgentSolutions from "../../Components/Home/AgentSolutions";
+import {
+  AcceptanceProtocol,
+  Alternatives,
+} from "../../Components/Home/Argument";
 import HomeDeferredSections from "../../Components/Home/HomeDeferredSections";
 import { solutionsBundles } from "@/Components/Solutions/locales";
 import { absoluteUrl } from "@/lib/seo/site";
@@ -70,6 +74,8 @@ export default function Home() {
       <AgentSolutions locale="en" overview={solutionsBundles.en.overview} />
       <Projects locale="en" />
       <HomeDeferredSections locale="en" />
+      <AcceptanceProtocol locale="en" />
+      <Alternatives locale="en" />
       <About locale="en" />
     </main>
   );
