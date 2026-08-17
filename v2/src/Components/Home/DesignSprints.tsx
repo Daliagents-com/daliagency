@@ -139,7 +139,7 @@ export default function DesignSprint({
             <div className={styles.intro}>
               <div className={styles.introTitle}>
                 <h2 className="section-label" data-on="dark">
-                  {sectionTitle(3, copy.label)}
+                  {sectionTitle(1, copy.label)}
                 </h2>
                 <p className={`${syneText.className} ${styles.heading} font-medium`}>
                   {copy.heading}

@@ -2,20 +2,17 @@ import type { Metadata } from "next";
 import nextDynamic from "next/dynamic";
 import Hero from "../../Components/Home/Hero";
 import About from "../../Components/Home/About";
-import AgentSolutions from "../../Components/Home/AgentSolutions";
 import {
   AcceptanceProtocol,
   Alternatives,
 } from "../../Components/Home/Argument";
-import HomeDeferredSections from "../../Components/Home/HomeDeferredSections";
-import { solutionsBundles } from "@/Components/Solutions/locales";
+import DesignSprints from "../../Components/Home/DesignSprints";
 import { absoluteUrl } from "@/lib/seo/site";
 
 // Prerender + CDN-friendly HTML (no headers()/cookies in this tree).
 export const dynamic = "force-static";
 
-// Projects still SSR for crawlable case grid; services load after idle/IO.
-// AgentSolutions is eager + SSR: it is the selling section, position 01.
+// Projects stays SSR for a crawlable case grid.
 const Projects = nextDynamic(() => import("../../Components/Home/Projects"), {
   ssr: true,
 });
@@ -71,11 +68,10 @@ export default function Home() {
   return (
     <main>
       <Hero locale="en" />
-      <AgentSolutions locale="en" overview={solutionsBundles.en.overview} />
-      <Projects locale="en" />
-      <HomeDeferredSections locale="en" />
+      <DesignSprints locale="en" />
       <AcceptanceProtocol locale="en" />
       <Alternatives locale="en" />
+      <Projects locale="en" />
       <About locale="en" />
     </main>
   );
