@@ -1,6 +1,5 @@
 // Purpose: Homepage hero - server shell for LCP title/CTAs + client motion island.
-// Scope: Localized copy in HTML; scroll/mock live in HeroMotion.
-// Brand logo: site header (Navbar + DaliAnimation), not this section.
+// Scope: 100× vision + one support line + dashboard. Brand logo flies to nav.
 
 import { homeCopy } from "@/i18n/home";
 import { localizePath, type Locale } from "@/i18n/config";
@@ -8,8 +7,6 @@ import { onestText } from "@/assets/fonts";
 import ConsultationTrigger from "@/Components/Consultation/ConsultationTrigger";
 import HeroMotion from "@/Components/Home/HeroMotion";
 
-// The reference uses one promise, one consequence, and one proof line.
-// Per-locale sizing keeps that composition intact at every breakpoint.
 const titleSize: Record<Locale, string> = {
   en: "clamp(36px, 6.1vw, 88px)",
   ru: "clamp(31px, 5.1vw, 74px)",
@@ -22,7 +19,10 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
   const homeHref = localizePath("/", locale);
 
   const title = (
-    <div className="flex flex-col items-center gap-[30px] px-12 md:gap-[24px] md:px-16">
+    <div
+      className="flex flex-col items-center gap-12 px-12 max-[360px]:gap-8 max-[360px]:px-8 md:gap-16 md:px-16"
+      data-hero-geometry="title-stack"
+    >
       <h1
         id="home-hero-title"
         className={`${onestText.className} flex max-w-[72rem] flex-col items-center font-normal leading-[0.98] tracking-[-0.055em]`}
@@ -45,26 +45,14 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
 
       <p
         id="home-hero-lead"
-        className="mx-auto max-w-[44rem] text-body4 leading-[1.5] text-[var(--muted)] [text-wrap:balance] md:text-lead"
+        className="mx-auto max-w-[36rem] text-body4 leading-[1.4] text-[var(--muted)] [text-wrap:balance]"
       >
-        {copy.lead}
+        {copy.visualLine}
       </p>
 
-      <div className="mb-4 flex w-full max-w-[22rem] flex-col items-stretch justify-center gap-3 sm:w-auto sm:max-w-none sm:flex-row md:mb-8">
-        <ConsultationTrigger
-          source="hero-consultation"
-          className="inline-flex min-h-[44px] items-center justify-center rounded-8 border border-black/10 bg-primary px-20 py-12 text-center font-ui text-body5 uppercase text-white transition-colors hover:bg-primary-700"
-        >
-          {copy.primaryCta}
-        </ConsultationTrigger>
-        <a
-          href="#projects"
-          data-cta="hero-see-work"
-          className="hidden min-h-[44px] items-center justify-center rounded-8 border border-black/15 bg-[var(--page-bg-color)] px-20 py-12 text-center font-ui text-body5 uppercase text-[var(--text)] transition-colors hover:bg-black hover:text-white sm:inline-flex"
-        >
-          {copy.secondaryCta}
-        </a>
-      </div>
+      <ConsultationTrigger source="hero-consultation" className="sr-only">
+        {copy.secondaryCta}
+      </ConsultationTrigger>
     </div>
   );
 
@@ -74,7 +62,7 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
       aria-labelledby="home-hero-title"
       className="relative z-10"
     >
-      <HeroMotion homeHref={homeHref} title={title} />
+      <HeroMotion homeHref={homeHref} title={title} locale={locale} />
     </section>
   );
 }

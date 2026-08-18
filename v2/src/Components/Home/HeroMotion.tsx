@@ -1,42 +1,23 @@
-// Purpose: Client island for hero scroll pin + ContainerScroll + product mock.
-// Scope: Title/CTAs are server children (LCP). Mock + framer load after idle.
+// Purpose: Client island for hero scroll pin + ContainerScroll + dashboard.
+// Scope: Title is a server child; the card is the agent visualization only.
 "use client";
 
-import { useEffect, useLayoutEffect, useState, type ReactNode } from "react";
-import dynamic from "next/dynamic";
+import { useLayoutEffect, type ReactNode } from "react";
 import { ContainerScroll } from "@/Components/ui/container-scroll-animation";
-
-const HeroProductMock = dynamic(
-  () => import("@/Components/Home/HeroProductMock"),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="h-full w-full bg-[var(--page-bg-color,#f5f5f5)]"
-        aria-hidden="true"
-      />
-    ),
-  },
-);
+import HeroDashboardSequence from "@/Components/Home/HeroDashboardSequence";
+import type { Locale } from "@/i18n/config";
 
 type HeroMotionProps = {
   homeHref: string;
   title: ReactNode;
+  locale: Locale;
 };
 
-function MockPlaceholder() {
-  return (
-    <div
-      className="h-full w-full bg-[var(--page-bg-color,#f5f5f5)]"
-      aria-hidden="true"
-    />
-  );
-}
-
-export default function HeroMotion({ homeHref, title }: HeroMotionProps) {
-  // Defer product mock (framer tour) until after LCP window.
-  const [loadMock, setLoadMock] = useState(false);
-
+export default function HeroMotion({
+  homeHref,
+  title,
+  locale,
+}: HeroMotionProps) {
   // Logo draw plays at the top of the hero. Browser scroll restoration often
   // reopens mid-page (logo already in nav, draw never visible) - pin top on load.
   useLayoutEffect(() => {
@@ -54,28 +35,9 @@ export default function HeroMotion({ homeHref, title }: HeroMotionProps) {
     };
   }, []);
 
-  useEffect(() => {
-    let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    const enable = () => setLoadMock(true);
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(enable, { timeout: 1600 });
-    } else {
-      timeoutId = setTimeout(enable, 400);
-    }
-
-    return () => {
-      if (idleId != null && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId != null) clearTimeout(timeoutId);
-    };
-  }, []);
-
   return (
     <ContainerScroll homeHref={homeHref} titleComponent={title}>
-      {loadMock ? <HeroProductMock /> : <MockPlaceholder />}
+      <HeroDashboardSequence locale={locale} />
     </ContainerScroll>
   );
 }

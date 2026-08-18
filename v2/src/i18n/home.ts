@@ -65,6 +65,9 @@ export type HomeCopy = {
     lead: string;
     primaryCta: string;
     secondaryCta: string;
+    dashboardOffer: string;
+    dashboardOfferCta: string;
+    visualLine: string;
     scroll: string;
   };
   ctaGift: string;
@@ -160,6 +163,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       lead: "Production AI agents for service businesses, built inside your tools. One written acceptance test - no pass, no pay.",
       primaryCta: "Book a free audit",
       secondaryCta: "See the work",
+      dashboardOffer: "Ready core · $199/mo",
+      dashboardOfferCta: "Start",
+      visualLine: "Automation built on a multi-agent system.",
       scroll: "Scroll",
     },
 
@@ -408,6 +414,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       lead: "AI-агенты для сервисного бизнеса в ваших инструментах. Один процесс, один письменный тест - не прошёл, не платите.",
       primaryCta: "Получить бесплатный аудит",
       secondaryCta: "Смотреть работы",
+      dashboardOffer: "Готовое ядро · $199/мес",
+      dashboardOfferCta: "Начать",
+      visualLine: "Автоматизация на мультиагентной системе.",
       scroll: "Листайте",
     },
 
@@ -656,6 +665,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       lead: "Production AI აგენტები სერვისული ბიზნესებისთვის. ერთი workflow, ერთი წერილობითი acceptance test - თუ ვერ გაიარა, არ იხდით.",
       primaryCta: "უფასო აუდიტის დაჯავშნა",
       secondaryCta: "იხილეთ ნამუშევრები",
+      dashboardOffer: "მზა ბირთვი · $199/თვე",
+      dashboardOfferCta: "დაწყება",
+      visualLine: "ავტომატიზაცია მრავალაგენტიან სისტემაზე.",
       scroll: "გადაახვიეთ",
     },
 
@@ -904,6 +916,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       lead: "Production AI գործակալներ ծառայությունների բիզնեսների համար։ Մեկ workflow, մեկ գրավոր acceptance test - չի անցել, չեք վճարում։",
       primaryCta: "Ամրագրել անվճար աուդիտ",
       secondaryCta: "Տեսնել աշխատանքները",
+      dashboardOffer: "Պատրաստի միջուկ · $199/ամիս",
+      dashboardOfferCta: "Սկսել",
+      visualLine: "Ավտոմատացում բազմագործակալ համակարգով։",
       scroll: "Ոլորեք",
     },
 
